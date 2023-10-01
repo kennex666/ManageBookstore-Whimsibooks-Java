@@ -1,4 +1,4 @@
-# The Motorcycle Store
+# The Bookstore Whimsibooks
 ## About this project
 This project for education.
 ## General information
