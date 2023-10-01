@@ -21,7 +21,6 @@ This project for education.
 8. Google Meet
 9. Git
 ## The rules apply for student team
-
 - Vietnamese name for variables.
 - `camelCaseForProject` for project.
 
