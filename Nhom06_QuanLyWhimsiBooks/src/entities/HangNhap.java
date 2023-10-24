@@ -2,6 +2,8 @@ package entities;
 
 import java.sql.Date;
 
+import utilities.RegexPattern;
+
 public class HangNhap {
 	private String hangNhapID;
 	private int soLuong;
@@ -38,7 +40,7 @@ public class HangNhap {
 
 	public void setHangNhapID(String hangNhapID) {
 		// Kiểm tra chuỗi nhập có chứa ký tự không hợp lệ
-		if (!hangNhapID.matches("[A-Za-z0-9_]+")) {
+		if (!hangNhapID.matches(RegexPattern.MAHANGNHAP)) {
 			throw new IllegalArgumentException("Mã hàng nhập cần thoả mãn với yêu cầu trên");
 		}
 		this.hangNhapID = hangNhapID;
