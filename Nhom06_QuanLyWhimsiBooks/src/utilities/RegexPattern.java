@@ -6,6 +6,8 @@ import java.time.LocalDate;
  * 
  * @author: Dương Thái Bảo
  * @lastUpdate: 24/10/2023
+ * @description: 
+ * 				1. Các pattern để ràng buộc dữ liệu
  *
  */
 
