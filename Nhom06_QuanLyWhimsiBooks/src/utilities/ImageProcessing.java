@@ -43,7 +43,11 @@ public class ImageProcessing {
 		} catch (IOException e) {
 			return null;
 		}
-
-
 	}
+        
+        public static ImageIcon resizeIcon(ImageIcon imageIcon, int width, int height){
+            Image image = imageIcon.getImage(); // transform it 
+            Image newimg = image.getScaledInstance(width, height,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            return new ImageIcon(newimg);  // transform it back
+        }
 }
