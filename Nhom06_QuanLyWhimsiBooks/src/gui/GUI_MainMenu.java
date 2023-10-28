@@ -1,9 +1,19 @@
 package gui;
 
+import enums.Enum_TabMainMenu;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+
+import javax.naming.CompoundName;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.border.Border;
 import utilities.ColorProcessing;
 
@@ -12,11 +22,15 @@ import utilities.ColorProcessing;
  * @author duong
  */
 public class GUI_MainMenu extends javax.swing.JFrame {
-
     private int sizeIconBar = 30;
-    /**
-     * Creates new form MainMenu
-     */
+    
+    /*
+        Phần khai báo các biến
+    */
+    private TAB_BanHang tabBanHang;
+    private Enum_TabMainMenu currentSelectedTab;
+    private JButton isFocusTab;
+    
     public GUI_MainMenu() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -25,8 +39,15 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         cboUser.enableInputMethods(false);
         cboUser.setPopupVisible(false);
         jPannelSplit.setBorder(null);
+        
+        // Khởi tạo line chia cắt menu màu xanh.
         //Border pannelBorder =  BorderFactory.createMatteBorder(0, 0, 0, 1, ColorProcessing.rgbColor(15, 102, 165));
         //pannelLeft.setBorder(pannelBorder);
+        
+        // Khởi tạo các tab
+        tabBanHang = new TAB_BanHang();
+        // Phần xử lý chuyển đổi tab
+        currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
     }
 
     /**
@@ -51,14 +72,14 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         jPannelSplit = new javax.swing.JSplitPane();
         panelRight = new javax.swing.JPanel();
         pannelLeft = new javax.swing.JPanel();
-        tabBanHang = new javax.swing.JButton();
-        tabSanPham = new javax.swing.JButton();
-        tabKhuyenMai = new javax.swing.JButton();
-        tabThongKe = new javax.swing.JButton();
-        tabNhanVien = new javax.swing.JButton();
-        tabKhachHang = new javax.swing.JButton();
-        btnDangXuat = new javax.swing.JButton();
-        tabNhaCungCap1 = new javax.swing.JButton();
+        btnTabBanHang = new javax.swing.JButton();
+        btnTabSanPham = new javax.swing.JButton();
+        btnTabKhuyenMai = new javax.swing.JButton();
+        btnTabThongKe = new javax.swing.JButton();
+        btnTabNhanVien = new javax.swing.JButton();
+        btnTabKhachHang = new javax.swing.JButton();
+        btnTabNhaCungCap = new javax.swing.JButton();
+        btnTabDangXuat = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -102,11 +123,6 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         cboUser.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         cboUser.setMaximumRowCount(2);
         cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào, Dương Thái Bảo", "Đăng xuất" }));
-        cboUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cboUserActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -127,9 +143,8 @@ public class GUI_MainMenu extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblLogo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cboUser, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cboUser, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
@@ -150,21 +165,21 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         jPanel5Layout.rowHeights = new int[] {0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0};
         pannelLeft.setLayout(jPanel5Layout);
 
-        tabBanHang.setBackground(new java.awt.Color(15, 145, 239));
-        tabBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tabBanHang.setForeground(new java.awt.Color(255, 255, 255));
-        tabBanHang.setIcon(
+        btnTabBanHang.setBackground(Color.white);
+        btnTabBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTabBanHang.setForeground(new java.awt.Color(15, 102, 165));
+        btnTabBanHang.setIcon(
             utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-banhang.png"))
                 , sizeIconBar, sizeIconBar)
         );
-        tabBanHang.setText("Bán hàng");
-        tabBanHang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        tabBanHang.setFocusable(false);
-        tabBanHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        tabBanHang.setIconTextGap(25);
-        tabBanHang.addActionListener(new java.awt.event.ActionListener() {
+        btnTabBanHang.setText("Bán hàng");
+        btnTabBanHang.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnTabBanHang.setFocusable(false);
+        btnTabBanHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnTabBanHang.setIconTextGap(25);
+        btnTabBanHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tabBanHangActionPerformed(evt);
+                btnTabActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -175,20 +190,25 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         gridBagConstraints.ipady = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.weightx = 0.1;
-        pannelLeft.add(tabBanHang, gridBagConstraints);
+        pannelLeft.add(btnTabBanHang, gridBagConstraints);
 
-        tabSanPham.setBackground(Color.white);
-        tabSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tabSanPham.setForeground(new java.awt.Color(15, 102, 165));
-        tabSanPham.setIcon(
+        btnTabSanPham.setBackground(Color.white);
+        btnTabSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTabSanPham.setForeground(new java.awt.Color(15, 102, 165));
+        btnTabSanPham.setIcon(
             utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-sanpham.png"))
                 , sizeIconBar, sizeIconBar)
         );
-        tabSanPham.setText("Sản phẩm");
-        tabSanPham.setToolTipText("");
-        tabSanPham.setFocusable(false);
-        tabSanPham.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        tabSanPham.setIconTextGap(25);
+        btnTabSanPham.setText("Sản phẩm");
+        btnTabSanPham.setToolTipText("");
+        btnTabSanPham.setFocusable(false);
+        btnTabSanPham.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnTabSanPham.setIconTextGap(25);
+        btnTabSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTabActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
@@ -197,20 +217,25 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         gridBagConstraints.ipady = 7;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
         gridBagConstraints.weightx = 0.1;
-        pannelLeft.add(tabSanPham, gridBagConstraints);
+        pannelLeft.add(btnTabSanPham, gridBagConstraints);
 
-        tabKhuyenMai.setBackground(Color.white);
-        tabKhuyenMai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tabKhuyenMai.setForeground(new java.awt.Color(15, 102, 165));
-        tabKhuyenMai.setIcon(
+        btnTabKhuyenMai.setBackground(Color.white);
+        btnTabKhuyenMai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnTabKhuyenMai.setForeground(new java.awt.Color(15, 102, 165));
+        btnTabKhuyenMai.setIcon(
             utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
                 getClass().getResource("/img/icon/ico-khuyenmai.png"))
             , sizeIconBar, sizeIconBar)
     );
-    tabKhuyenMai.setText("Khuyến mãi");
-    tabKhuyenMai.setFocusable(false);
-    tabKhuyenMai.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    tabKhuyenMai.setIconTextGap(25);
+    btnTabKhuyenMai.setText("Khuyến mãi");
+    btnTabKhuyenMai.setFocusable(false);
+    btnTabKhuyenMai.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabKhuyenMai.setIconTextGap(25);
+    btnTabKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 4;
@@ -219,19 +244,24 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     gridBagConstraints.weightx = 0.1;
-    pannelLeft.add(tabKhuyenMai, gridBagConstraints);
+    pannelLeft.add(btnTabKhuyenMai, gridBagConstraints);
 
-    tabThongKe.setBackground(Color.white);
-    tabThongKe.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    tabThongKe.setForeground(new java.awt.Color(15, 102, 165));
-    tabThongKe.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabThongKe.setBackground(Color.white);
+    btnTabThongKe.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabThongKe.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabThongKe.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-thongke.png"))
     , sizeIconBar, sizeIconBar)
     );
-    tabThongKe.setText("Thống kê");
-    tabThongKe.setFocusable(false);
-    tabThongKe.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    tabThongKe.setIconTextGap(25);
+    btnTabThongKe.setText("Thống kê");
+    btnTabThongKe.setFocusable(false);
+    btnTabThongKe.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabThongKe.setIconTextGap(25);
+    btnTabThongKe.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 6;
@@ -240,18 +270,23 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     gridBagConstraints.weightx = 0.1;
-    pannelLeft.add(tabThongKe, gridBagConstraints);
+    pannelLeft.add(btnTabThongKe, gridBagConstraints);
 
-    tabNhanVien.setBackground(Color.white);
-    tabNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    tabNhanVien.setForeground(new java.awt.Color(15, 102, 165));
-    tabNhanVien.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabNhanVien.setBackground(Color.white);
+    btnTabNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabNhanVien.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabNhanVien.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-nhanvien.png"))  
     , sizeIconBar, sizeIconBar));
-    tabNhanVien.setText("Nhân viên");
-    tabNhanVien.setFocusable(false);
-    tabNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    tabNhanVien.setIconTextGap(25);
+    btnTabNhanVien.setText("Nhân viên");
+    btnTabNhanVien.setFocusable(false);
+    btnTabNhanVien.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabNhanVien.setIconTextGap(25);
+    btnTabNhanVien.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 8;
@@ -260,18 +295,23 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     gridBagConstraints.weightx = 0.1;
-    pannelLeft.add(tabNhanVien, gridBagConstraints);
+    pannelLeft.add(btnTabNhanVien, gridBagConstraints);
 
-    tabKhachHang.setBackground(Color.white);
-    tabKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    tabKhachHang.setForeground(new java.awt.Color(15, 102, 165));
-    tabKhachHang.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabKhachHang.setBackground(Color.white);
+    btnTabKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabKhachHang.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabKhachHang.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-khachhang.png"))  
     , sizeIconBar, sizeIconBar));
-    tabKhachHang.setText("Khách hàng");
-    tabKhachHang.setFocusable(false);
-    tabKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    tabKhachHang.setIconTextGap(25);
+    btnTabKhachHang.setText("Khách hàng");
+    btnTabKhachHang.setFocusable(false);
+    btnTabKhachHang.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabKhachHang.setIconTextGap(25);
+    btnTabKhachHang.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 10;
@@ -280,38 +320,23 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     gridBagConstraints.weightx = 0.1;
-    pannelLeft.add(tabKhachHang, gridBagConstraints);
+    pannelLeft.add(btnTabKhachHang, gridBagConstraints);
 
-    btnDangXuat.setBackground(Color.white);
-    btnDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    btnDangXuat.setForeground(new java.awt.Color(15, 102, 165));
-    btnDangXuat.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
-        getClass().getResource("/img/icon/btn-logout.png"))
-    , sizeIconBar, sizeIconBar));
-    btnDangXuat.setText("Đăng xuất");
-    btnDangXuat.setFocusable(false);
-    btnDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    btnDangXuat.setIconTextGap(25);
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 18;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 39;
-    gridBagConstraints.ipady = 7;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-    gridBagConstraints.weightx = 0.4;
-    pannelLeft.add(btnDangXuat, gridBagConstraints);
-
-    tabNhaCungCap1.setBackground(Color.white);
-    tabNhaCungCap1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-    tabNhaCungCap1.setForeground(new java.awt.Color(15, 102, 165));
-    tabNhaCungCap1.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabNhaCungCap.setBackground(Color.white);
+    btnTabNhaCungCap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabNhaCungCap.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabNhaCungCap.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-nhacungcap.png"))  
     , sizeIconBar, sizeIconBar));
-    tabNhaCungCap1.setText("Nhà cung cấp");
-    tabNhaCungCap1.setFocusable(false);
-    tabNhaCungCap1.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    tabNhaCungCap1.setIconTextGap(25);
+    btnTabNhaCungCap.setText("Nhà cung cấp");
+    btnTabNhaCungCap.setFocusable(false);
+    btnTabNhaCungCap.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabNhaCungCap.setIconTextGap(25);
+    btnTabNhaCungCap.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 12;
@@ -320,7 +345,32 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     gridBagConstraints.weightx = 0.1;
-    pannelLeft.add(tabNhaCungCap1, gridBagConstraints);
+    pannelLeft.add(btnTabNhaCungCap, gridBagConstraints);
+
+    btnTabDangXuat.setBackground(Color.white);
+    btnTabDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabDangXuat.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabDangXuat.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+        getClass().getResource("/img/icon/btn-logout.png"))
+    , sizeIconBar, sizeIconBar));
+    btnTabDangXuat.setText("Đăng xuất");
+    btnTabDangXuat.setFocusable(false);
+    btnTabDangXuat.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabDangXuat.setIconTextGap(25);
+    btnTabDangXuat.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 18;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 39;
+    gridBagConstraints.ipady = 7;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+    gridBagConstraints.weightx = 0.4;
+    pannelLeft.add(btnTabDangXuat, gridBagConstraints);
 
     jPannelSplit.setLeftComponent(pannelLeft);
 
@@ -331,17 +381,57 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboUserActionPerformed
+    private void btnTabActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnTabActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cboUserActionPerformed
+    	// Tab bán hàng
+       if (evt.getSource().equals(btnTabBanHang)){
+    	   tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
+    	   return;
+       } 
+       // Tab sản phẩm 
+       JPanel jp = new JPanel();
+       jp.add(new JLabel("Good!"));
+       if (evt.getSource().equals(btnTabSanPham)){
+    	   tabSwitcher(jp, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
+    	   return;
+       }
+       
+    }//GEN-LAST:event_btnTabActionPerformed
 
-    private void tabBanHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabBanHangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabBanHangActionPerformed
-
+    public void tabSwitcher(JPanel panelChuyen, Enum_TabMainMenu tabMoi, JButton btnTab) {
+    	Component oldCom;
+		if (currentSelectedTab == tabMoi)
+			return;
+		
+		
+		if (panelRight.getComponentCount() > 0) {
+			isFocusTab.setBackground(Color.white);
+	        btnTabSanPham.setForeground(new java.awt.Color(15, 102, 165));
+			isFocusTab.setForeground(new java.awt.Color(15, 102, 165));
+			oldCom = panelRight.getComponent(0);
+			oldCom.setVisible(false);
+			panelRight.remove(oldCom);
+		}
+		
+		isFocusTab = btnTab;
+		isFocusTab.setBackground(new java.awt.Color(15, 145, 239));
+		isFocusTab.setForeground(new java.awt.Color(255, 255, 255));
+		currentSelectedTab = tabMoi;
+		panelChuyen.setVisible(true);
+		panelRight.add(panelChuyen);
+		panelRight.revalidate();
+	}
+	
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnTabBanHang;
+    private javax.swing.JButton btnTabDangXuat;
+    private javax.swing.JButton btnTabKhachHang;
+    private javax.swing.JButton btnTabKhuyenMai;
+    private javax.swing.JButton btnTabNhaCungCap;
+    private javax.swing.JButton btnTabNhanVien;
+    private javax.swing.JButton btnTabSanPham;
+    private javax.swing.JButton btnTabThongKe;
     private javax.swing.JComboBox<String> cboUser;
     private javax.swing.JFrame jFrame1;
     private javax.swing.JFrame jFrame2;
@@ -354,12 +444,5 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel lblLogo;
     private javax.swing.JPanel panelRight;
     private javax.swing.JPanel pannelLeft;
-    private javax.swing.JButton tabBanHang;
-    private javax.swing.JButton tabKhachHang;
-    private javax.swing.JButton tabKhuyenMai;
-    private javax.swing.JButton tabNhaCungCap1;
-    private javax.swing.JButton tabNhanVien;
-    private javax.swing.JButton tabSanPham;
-    private javax.swing.JButton tabThongKe;
     // End of variables declaration//GEN-END:variables
 }

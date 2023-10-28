@@ -102,10 +102,8 @@
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="lblLogo" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" max="32767" attributes="0"/>
-                          <Component id="cboUser" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
-                      </Group>
+                      <Component id="cboUser" alignment="0" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="48" max="32767" attributes="0"/>
               </Group>
@@ -135,9 +133,6 @@
               </StringArray>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboUserActionPerformed"/>
-          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -189,7 +184,7 @@
                 </Constraint>
               </Constraints>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="tabBanHang">
+                <Component class="javax.swing.JButton" name="btnTabBanHang">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ef" green="91" red="f" type="rgb"/>
@@ -212,7 +207,7 @@
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tabBanHangActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
@@ -220,7 +215,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="tabSanPham">
+                <Component class="javax.swing.JButton" name="btnTabSanPham">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -240,13 +235,16 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="tabKhuyenMai">
+                <Component class="javax.swing.JButton" name="btnTabKhuyenMai">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -265,13 +263,16 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="4" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="tabThongKe">
+                <Component class="javax.swing.JButton" name="btnTabThongKe">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -290,13 +291,16 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="6" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="tabNhanVien">
+                <Component class="javax.swing.JButton" name="btnTabNhanVien">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -315,13 +319,16 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="8" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="tabKhachHang">
+                <Component class="javax.swing.JButton" name="btnTabKhachHang">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -340,38 +347,16 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="10" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JButton" name="btnDangXuat">
-                  <Properties>
-                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="Color.white" type="code"/>
-                    </Property>
-                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                      <Font name="Segoe UI" size="12" style="1"/>
-                    </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="a5" green="66" red="f" type="rgb"/>
-                    </Property>
-                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(&#xa;    getClass().getResource(&quot;/img/icon/btn-logout.png&quot;))  &#xa;, sizeIconBar, sizeIconBar)" type="code"/>
-                    </Property>
-                    <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
-                    <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="horizontalAlignment" type="int" value="10"/>
-                    <Property name="iconTextGap" type="int" value="25"/>
-                  </Properties>
-                  <Constraints>
-                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                      <GridBagConstraints gridX="2" gridY="18" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="20" weightX="0.4" weightY="0.0"/>
-                    </Constraint>
-                  </Constraints>
-                </Component>
-                <Component class="javax.swing.JButton" name="tabNhaCungCap1">
+                <Component class="javax.swing.JButton" name="btnTabNhaCungCap">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="Color.white" type="code"/>
@@ -390,9 +375,40 @@
                     <Property name="horizontalAlignment" type="int" value="10"/>
                     <Property name="iconTextGap" type="int" value="25"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                       <GridBagConstraints gridX="2" gridY="12" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="256" weightX="0.1" weightY="0.0"/>
+                    </Constraint>
+                  </Constraints>
+                </Component>
+                <Component class="javax.swing.JButton" name="btnTabDangXuat">
+                  <Properties>
+                    <Property name="background" type="java.awt.Color" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="Color.white" type="code"/>
+                    </Property>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="12" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="a5" green="66" red="f" type="rgb"/>
+                    </Property>
+                    <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(&#xa;    getClass().getResource(&quot;/img/icon/btn-logout.png&quot;))  &#xa;, sizeIconBar, sizeIconBar)" type="code"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="horizontalAlignment" type="int" value="10"/>
+                    <Property name="iconTextGap" type="int" value="25"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTabActionPerformed"/>
+                  </Events>
+                  <Constraints>
+                    <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
+                      <GridBagConstraints gridX="2" gridY="18" gridWidth="1" gridHeight="1" fill="2" ipadX="39" ipadY="7" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="20" weightX="0.4" weightY="0.0"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -567,11 +583,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="13_tabBanHang">
-                      <CodeVariable name="tabBanHang" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="13_btnTabBanHang">
+                      <CodeVariable name="btnTabBanHang" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabBanHang"/>
+                          <ComponentRef name="btnTabBanHang"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -688,11 +704,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="22_tabSanPham">
-                      <CodeVariable name="tabSanPham" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="22_btnTabSanPham">
+                      <CodeVariable name="btnTabSanPham" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabSanPham"/>
+                          <ComponentRef name="btnTabSanPham"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -809,11 +825,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="31_tabKhuyenMai">
-                      <CodeVariable name="tabKhuyenMai" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="31_btnTabKhuyenMai">
+                      <CodeVariable name="btnTabKhuyenMai" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabKhuyenMai"/>
+                          <ComponentRef name="btnTabKhuyenMai"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -930,11 +946,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="40_tabThongKe">
-                      <CodeVariable name="tabThongKe" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="40_btnTabThongKe">
+                      <CodeVariable name="btnTabThongKe" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabThongKe"/>
+                          <ComponentRef name="btnTabThongKe"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -1051,11 +1067,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="49_tabNhanVien">
-                      <CodeVariable name="tabNhanVien" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="49_btnTabNhanVien">
+                      <CodeVariable name="btnTabNhanVien" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabNhanVien"/>
+                          <ComponentRef name="btnTabNhanVien"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -1172,11 +1188,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="58_tabKhachHang">
-                      <CodeVariable name="tabKhachHang" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="58_btnTabKhachHang">
+                      <CodeVariable name="btnTabKhachHang" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabKhachHang"/>
+                          <ComponentRef name="btnTabKhachHang"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -1217,7 +1233,7 @@
                   <Parameters>
                     <CodeExpression id="61">
                       <ExpressionOrigin>
-                        <Value type="int" value="18"/>
+                        <Value type="int" value="12"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1269,7 +1285,7 @@
                   <Parameters>
                     <CodeExpression id="65">
                       <ExpressionOrigin>
-                        <Value type="int" value="20"/>
+                        <Value type="int" value="256"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1282,7 +1298,7 @@
                   <Parameters>
                     <CodeExpression id="66">
                       <ExpressionOrigin>
-                        <Value type="double" value="0.4"/>
+                        <Value type="double" value="0.1"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1293,11 +1309,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="67_btnDangXuat">
-                      <CodeVariable name="btnDangXuat" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="67_btnTabNhaCungCap">
+                      <CodeVariable name="btnTabNhaCungCap" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="btnDangXuat"/>
+                          <ComponentRef name="btnTabNhaCungCap"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
@@ -1338,7 +1354,7 @@
                   <Parameters>
                     <CodeExpression id="70">
                       <ExpressionOrigin>
-                        <Value type="int" value="12"/>
+                        <Value type="int" value="18"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1390,7 +1406,7 @@
                   <Parameters>
                     <CodeExpression id="74">
                       <ExpressionOrigin>
-                        <Value type="int" value="256"/>
+                        <Value type="int" value="20"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1403,7 +1419,7 @@
                   <Parameters>
                     <CodeExpression id="75">
                       <ExpressionOrigin>
-                        <Value type="double" value="0.1"/>
+                        <Value type="double" value="0.4"/>
                       </ExpressionOrigin>
                     </CodeExpression>
                   </Parameters>
@@ -1414,11 +1430,11 @@
                     <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                   </StatementProvider>
                   <Parameters>
-                    <CodeExpression id="76_tabNhaCungCap1">
-                      <CodeVariable name="tabNhaCungCap1" type="8194" declaredType="javax.swing.JButton"/>
+                    <CodeExpression id="76_btnTabDangXuat">
+                      <CodeVariable name="btnTabDangXuat" type="8194" declaredType="javax.swing.JButton"/>
                       <ExpressionOrigin>
                         <ExpressionProvider type="ComponentRef">
-                          <ComponentRef name="tabNhaCungCap1"/>
+                          <ComponentRef name="btnTabDangXuat"/>
                         </ExpressionProvider>
                       </ExpressionOrigin>
                     </CodeExpression>
