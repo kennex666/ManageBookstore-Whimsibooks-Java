@@ -2,6 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class NhanVien {
 	private String nhanVienID;
@@ -17,31 +18,19 @@ public class NhanVien {
 	private String diaChi;
 	private String quyenTruyCap;
 	
-	public NhanVien(String nhanVienID, String userName, String password, LocalDate ngayTaoTK, String hoTen, String gioiTinh,
-			String soDienThoai, String chucVu, String email, LocalDate ngaySinh, String diaChi, String quyenTruyCap) {
-		this.nhanVienID = nhanVienID;
-		this.userName = userName;
-		this.password = password;
-		this.ngayTaoTK = ngayTaoTK;
-		this.hoTen = hoTen;
-		this.gioiTinh = gioiTinh;
-		this.soDienThoai = soDienThoai;
-		this.chucVu = chucVu;
-		this.email = email;
-		this.ngaySinh = ngaySinh;
-		this.diaChi = diaChi;
-		this.quyenTruyCap = quyenTruyCap;
-	}
-
-	public NhanVien() {
-		
+	
+	public NhanVien( String nhanVienID ) {
+		this.nhanVienID=nhanVienID;
 	}
 
 	public String getNhanVienID() {
 		return nhanVienID;
 	}
 
-	public void setNhanVienID(String nhanVienID) {
+	public void setNhanVienID(String nhanVienID) throws Exception {
+//		 kiểm tra chuỗi rỗng hoặc chỉ chứa khoảng trắng.
+		if(nhanVienID==null || nhanVienID.trim().isEmpty())
+			throw new Exception("Mã khách hàng rỗng! Đã có lỗi trong quá trình phát sinh");
 		this.nhanVienID = nhanVienID;
 	}
 
@@ -73,7 +62,9 @@ public class NhanVien {
 		return hoTen;
 	}
 
-	public void setHoTen(String hoTen) {
+	public void setHoTen(String hoTen) throws Exception {
+		if (hoTen.trim() == "" || hoTen.isBlank() || hoTen.isEmpty())
+			throw new Exception("Tên khách hàng là trường bắt buộc!");
 		this.hoTen = hoTen;
 	}
 
@@ -89,7 +80,9 @@ public class NhanVien {
 		return soDienThoai;
 	}
 
-	public void setSoDienThoai(String soDienThoai) {
+	public void setSoDienThoai(String soDienThoai) throws Exception {
+		if (soDienThoai.trim()== "" || soDienThoai.isBlank() || soDienThoai.isEmpty())
+			throw new Exception("Số điện thoại là một trường bắt buộc!");
 		this.soDienThoai = soDienThoai;
 	}
 
@@ -106,6 +99,7 @@ public class NhanVien {
 	}
 
 	public void setEmail(String email) {
+		
 		this.email = email;
 	}
 
@@ -121,7 +115,11 @@ public class NhanVien {
 		return diaChi;
 	}
 
-	public void setDiaChi(String diaChi) {
+	public void setDiaChi(String diaChi) throws Exception {
+		
+		if (diaChi.trim() == "" || diaChi.isBlank() || diaChi.isEmpty())
+			throw new Exception("Địa chỉ là một trường bắt buộc!");
+		
 		this.diaChi = diaChi;
 	}
 
@@ -131,6 +129,38 @@ public class NhanVien {
 
 	public void setQuyenTruyCap(String quyenTruyCap) {
 		this.quyenTruyCap = quyenTruyCap;
+	}
+	public NhanVien(String nhanVienID, String userName, String password, LocalDate ngayTaoTK, String hoTen, String gioiTinh,
+			String soDienThoai, String chucVu, String email, LocalDate ngaySinh, String diaChi, String quyenTruyCap) throws Exception {
+		setNhanVienID(nhanVienID);
+		setUserName(userName);
+		setPassword(password);
+		setNgayTaoTK(ngayTaoTK);
+		setHoTen(hoTen);
+		setGioiTinh(gioiTinh);
+		setSoDienThoai(soDienThoai);
+		setChucVu(chucVu);
+		setEmail(email);
+		setNgaySinh(ngaySinh);
+		setDiaChi(diaChi);
+		setQuyenTruyCap(quyenTruyCap);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(nhanVienID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NhanVien other = (NhanVien) obj;
+		return Objects.equals(nhanVienID, other.nhanVienID);
 	}
 	
 	

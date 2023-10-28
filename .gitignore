@@ -68,3 +68,5 @@ local.properties
 .sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
+/Nhom06_QuanLyWhimsiBooks/nbproject/private/
+/Nhom06_QuanLyWhimsiBooks/build/
