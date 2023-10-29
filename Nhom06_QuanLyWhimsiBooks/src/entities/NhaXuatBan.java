@@ -4,14 +4,15 @@ import java.util.Date;
 import java.util.Objects;
 
 public class NhaXuatBan {
-	private String nhaXuatBan, tenNhaXuatBan, diaChi, soDienThoai, email, website;
+	private int nhaXuatBanID;
+	private String tenNhaXuatBan, diaChi, soDienThoai, email, website;
 	private Date namThanhLap;
 	private String linhVucXuatBan;
 	private String quocGia;
 
-	public NhaXuatBan(String nhaXuatBan, String tenNhaXuatBan, String diaChi, String soDienThoai, String email,
+	public NhaXuatBan(int nhaXuatBanID, String tenNhaXuatBan, String diaChi, String soDienThoai, String email,
 			String website, Date namThanhLap, String linhVucXuatBan, String quocGia) {
-		this.setNhaXuatBan(tenNhaXuatBan);
+		this.setNhaXuatBanID(nhaXuatBanID);
 		this.setTenNhaXuatBan(tenNhaXuatBan);
 		this.setDiaChi(diaChi);
 		this.setSoDienThoai(soDienThoai);
@@ -21,21 +22,25 @@ public class NhaXuatBan {
 		this.setLinhVucXuatBan(linhVucXuatBan);
 		this.setQuocGia(quocGia);
 	}
-	public String getNhaXuatBan() {
-		return nhaXuatBan;
+	public NhaXuatBan() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
-	public void setNhaXuatBan(String nhaXuatBan) {
+	public int getNhaXuatBanID() {
+		return nhaXuatBanID;
+	}
+	public void setNhaXuatBanID(int nhaXuatBan) {
 	    // Kiểm tra nhaXuatBan không rỗng
-	    if (nhaXuatBan.isEmpty()) {
-	        throw new IllegalArgumentException("nhaXuatBan không được rỗng");
-	    }
+//	    if (nhaXuatBanID.isEmpty()) {
+//	        throw new IllegalArgumentException("nhaXuatBan không được rỗng");
+//	    }
+//
+//	    // Kiểm tra định dạng
+//	    if (!nhaXuatBanID.matches("^NXB\\d{6}$")) {
+//	        throw new IllegalArgumentException("nhaXuatBan không hợp lệ");
+//	    }
 
-	    // Kiểm tra định dạng
-	    if (!nhaXuatBan.matches("^NXB\\d{6}$")) {
-	        throw new IllegalArgumentException("nhaXuatBan không hợp lệ");
-	    }
-
-	    this.nhaXuatBan = nhaXuatBan;
+	    this.nhaXuatBanID = nhaXuatBanID;
 	}
 	
 	public String getTenNhaXuatBan() {
@@ -126,7 +131,7 @@ public class NhaXuatBan {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(diaChi, email, linhVucXuatBan, namThanhLap, nhaXuatBan, quocGia, soDienThoai, tenNhaXuatBan,
+		return Objects.hash(diaChi, email, linhVucXuatBan, namThanhLap, nhaXuatBanID, quocGia, soDienThoai, tenNhaXuatBan,
 				website);
 	}
 	@Override
@@ -140,13 +145,13 @@ public class NhaXuatBan {
 		NhaXuatBan other = (NhaXuatBan) obj;
 		return Objects.equals(diaChi, other.diaChi) && Objects.equals(email, other.email)
 				&& Objects.equals(linhVucXuatBan, other.linhVucXuatBan)
-				&& Objects.equals(namThanhLap, other.namThanhLap) && Objects.equals(nhaXuatBan, other.nhaXuatBan)
+				&& Objects.equals(namThanhLap, other.namThanhLap) && Objects.equals(nhaXuatBanID, other.nhaXuatBanID)
 				&& Objects.equals(quocGia, other.quocGia) && Objects.equals(soDienThoai, other.soDienThoai)
 				&& Objects.equals(tenNhaXuatBan, other.tenNhaXuatBan) && Objects.equals(website, other.website);
 	}
 	@Override
 	public String toString() {
-		return "NhaXuatBan [nhaXuatBan=" + nhaXuatBan + ", tenNhaXuatBan=" + tenNhaXuatBan + ", diaChi=" + diaChi
+		return "NhaXuatBan [nhaXuatBan=" + nhaXuatBanID + ", tenNhaXuatBan=" + tenNhaXuatBan + ", diaChi=" + diaChi
 				+ ", soDienThoai=" + soDienThoai + ", email=" + email + ", website=" + website + ", namThanhLap="
 				+ namThanhLap + ", linhVucXuatBan=" + linhVucXuatBan + ", quocGia=" + quocGia + "]";
 	}
