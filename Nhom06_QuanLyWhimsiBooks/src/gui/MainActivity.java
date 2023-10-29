@@ -18,6 +18,5 @@ public class MainActivity {
 		 */
 		GUI_Login frame = new GUI_Login();
 		frame.setVisible(true);
-		
 	}
 }

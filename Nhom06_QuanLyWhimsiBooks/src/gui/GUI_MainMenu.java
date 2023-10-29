@@ -28,6 +28,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         Phần khai báo các biến
     */
     private TAB_BanHang tabBanHang;
+    private TAB_SanPham tabSanPham;
     private Enum_TabMainMenu currentSelectedTab;
     private JButton isFocusTab;
     
@@ -46,6 +47,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         
         // Khởi tạo các tab
         tabBanHang = new TAB_BanHang();
+        tabSanPham = new TAB_SanPham();
         // Phần xử lý chuyển đổi tab
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
     }
@@ -388,13 +390,14 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     	   tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
     	   return;
        } 
+       
        // Tab sản phẩm 
-       JPanel jp = new JPanel();
-       jp.add(new JLabel("Good!"));
        if (evt.getSource().equals(btnTabSanPham)){
-    	   tabSwitcher(jp, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
+    	   tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
     	   return;
        }
+       
+       
        
     }//GEN-LAST:event_btnTabActionPerformed
 
