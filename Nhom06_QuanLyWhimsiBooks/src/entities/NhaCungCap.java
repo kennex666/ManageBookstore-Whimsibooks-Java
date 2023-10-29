@@ -30,6 +30,10 @@ public class NhaCungCap {
 		this.nhaCungCapID = nhaCungCapID;
 	}
 
+	public NhaCungCap() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getNhaCungCapID() {
 		return nhaCungCapID;
 	}
