@@ -5,14 +5,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import bus.DanhMuc_BUS;
+import bus.SanPham_BUS;
 import connectDB.ConnectDB;
+import dao.SanPham_DAO;
 import entities.DanhMuc;
-import utilities.Test;
+import entities.SanPham;
 
 public class MainMenuTest {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
+		ConnectDB.getInstance().connect();
 		
-		System.out.println("DH12345".matches("^(DH)[0-9]{5}$")); // DH12345
+		SanPham_BUS sp_bus = new SanPham_BUS();
+		System.out.println(sp_bus.getDanhSachSanPhamSapHet());
 		
 		
 	}

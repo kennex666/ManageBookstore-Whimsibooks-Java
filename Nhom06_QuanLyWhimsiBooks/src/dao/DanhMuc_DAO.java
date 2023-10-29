@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,6 +18,19 @@ public class DanhMuc_DAO implements IDanhMuc{
 	@Override
 	public boolean addDanhMuc(DanhMuc x) {
 		// TODO Auto-generated method stub
+		try {
+			String query = "INSERT INTO DanhMuc(tenDanhMuc) VALUES(?)";
+			
+			PreparedStatement pstm = conn.prepareStatement(query);
+			
+			pstm.setString(1, x.getTenDanhMuc());
+			
+			int rs = pstm.executeUpdate();
+			return (rs > 0) ? true : false;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
 	@Override

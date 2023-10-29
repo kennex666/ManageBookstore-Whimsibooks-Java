@@ -7,14 +7,20 @@ import java.util.Objects;
 public class SanPham {
 	private int sanPhamID, soLuongTon, namSanXuat, daBan, soTrang;
 	private Date ngayNhap;
-	private double donGia, thue;
-	private String tenSanPham, barcode, imgPath, 
+	private double giaBan, thue, giaGoc;
+	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
 					tinhTrang, loaiSanPham, donViDoLuong, 
 					kichThuoc, xuatXu, ngonNgu, loaiBia;
-	
-	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
 	private TacGia tacGia;
 	private TheLoai theLoai;
+	private NhaXuatBan nhaXuatBan;
+	private ThuongHieu thuongHieu;
+	private DanhMuc danhMuc;
+	private NhaCungCap nhaCungCap;
+	
+	
+	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
+
 	
 	public int getSanPhamID() {
 		return sanPhamID;
@@ -52,13 +58,18 @@ public class SanPham {
 	public void setNgayNhap(Date ngayNhap) {
 		this.ngayNhap = ngayNhap;
 	}
-	public double getDonGia() {
-		return donGia;
+	
+	public double getGiaBan() {
+		return giaBan;
 	}
-	public void setDonGia(double donGia) throws Exception{
-		if (donGia < 0)
-			throw new Exception("Đơn giá không được âm");
-		this.donGia = donGia;
+	public void setGiaBan(double giaBan) {
+		this.giaBan = giaBan;
+	}
+	public double getGiaGoc() {
+		return giaGoc;
+	}
+	public void setGiaGoc(double giaGoc) {
+		this.giaGoc = giaGoc;
 	}
 	public double getThue() {
 		return thue;
@@ -154,18 +165,52 @@ public class SanPham {
 		this.theLoai = theLoai;
 	}
 	
-	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int soTrang, Date ngayNhap, double donGia,
-			double thue, String tenSanPham, String barcode, String imgPath, String tinhTrang, String loaiSanPham,
+	public NhaXuatBan getNhaXuatBan() {
+		return nhaXuatBan;
+	}
+	public void setNhaXuatBan(NhaXuatBan nhaXuatBan) {
+		this.nhaXuatBan = nhaXuatBan;
+	}
+	public ThuongHieu getThuongHieu() {
+		return thuongHieu;
+	}
+	public void setThuongHieu(ThuongHieu thuongHieu) {
+		this.thuongHieu = thuongHieu;
+	}
+	public DanhMuc getDanhMuc() {
+		return danhMuc;
+	}
+	public void setDanhMuc(DanhMuc danhMuc) {
+		this.danhMuc = danhMuc;
+	}
+	public NhaCungCap getNhaCungCap() {
+		return nhaCungCap;
+	}
+	public void setNhaCungCap(NhaCungCap nhaCungCap) {
+		this.nhaCungCap = nhaCungCap;
+	}
+	
+	
+	public String getLoaiDoiTra() {
+		return loaiDoiTra;
+	}
+	public void setLoaiDoiTra(String loaiDoiTra) {
+		this.loaiDoiTra = loaiDoiTra;
+	}
+	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int daBan,int soTrang, Date ngayNhap, double giaBan,
+			double thue, String tenSanPham, String loaiDoiTra, String barcode, String imgPath, String tinhTrang, String loaiSanPham,
 			String donViDoLuong, String kichThuoc, String xuatXu, String ngonNgu, String loaiBia) throws Exception{
 		super();
 		setSanPhamID(sanPhamID);
 		setSoLuongTon(soLuongTon);
 		setNamSanXuat(namSanXuat);
+		setDaBan(daBan);
 		setSoTrang(soTrang);
 		setNgayNhap(ngayNhap);
-		setDonGia(donGia);
+		setGiaBan(giaBan);
 		setThue(thue);
 		setTenSanPham(tenSanPham);
+		setLoaiDoiTra(loaiDoiTra);
 		setBarcode(barcode);
 		setImgPath(imgPath);
 		setTinhTrang(tinhTrang);
@@ -175,11 +220,63 @@ public class SanPham {
 		setXuatXu(xuatXu);
 		setNgonNgu(ngonNgu);
 		setLoaiBia(loaiBia);
+		
 	}
 	
 	
+	
+	
+
+	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int daBan, int soTrang, Date ngayNhap, double giaBan,
+			double thue, String tenSanPham, String loaiDoiTra,String barcode, String imgPath, String tinhTrang, String loaiSanPham,
+			String donViDoLuong, String kichThuoc, String xuatXu, String ngonNgu, String loaiBia, TacGia tacGia,
+			TheLoai theLoai, NhaXuatBan nhaXuatBan, ThuongHieu thuongHieu, DanhMuc danhMuc, NhaCungCap nhaCungCap) throws Exception {
+		super();
+		setSanPhamID(sanPhamID);
+		setSoLuongTon(soLuongTon);
+		setNamSanXuat(namSanXuat);
+		setSoTrang(soTrang);
+		setNgayNhap(ngayNhap);
+		setGiaBan(giaBan);
+		setThue(thue);
+		setTenSanPham(tenSanPham);
+		setLoaiDoiTra(loaiDoiTra);
+		setBarcode(barcode);
+		setImgPath(imgPath);
+		setTinhTrang(tinhTrang);
+		setLoaiSanPham(loaiSanPham);
+		setDonViDoLuong(donViDoLuong);
+		setKichThuoc(kichThuoc);
+		setXuatXu(xuatXu);
+		setNgonNgu(ngonNgu);
+		setLoaiBia(loaiBia);
+		
+		setTacGia(tacGia);
+		setTheLoai(theLoai);
+		setNhaXuatBan(nhaXuatBan);
+		setThuongHieu(thuongHieu);
+		setDanhMuc(danhMuc);
+		setNhaCungCap(nhaCungCap);
+	}
 	public SanPham() {
 		super();
+		long millis = System.currentTimeMillis();
+		this.ngayNhap = new java.sql.Date(millis);
+		this.loaiDoiTra = "";
+		this.barcode = "";
+		this.imgPath = "";
+		this.tinhTrang = "";
+		this.donViDoLuong = "";
+		this.loaiSanPham = "";
+		this.donViDoLuong = "";
+		this.kichThuoc = "";
+		this.xuatXu = "";
+		this.ngonNgu = "";
+		this.loaiBia = "";
+		this.soLuongTon = 0;
+		this.namSanXuat = 0;
+		this.daBan = 0;
+		this.soTrang = 0;
 	}
 	
 	
