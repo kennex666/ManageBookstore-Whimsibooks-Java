@@ -70,6 +70,7 @@ local.properties
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 /Nhom06_QuanLyWhimsiBooks/nbproject/private/
+/Nhom06_QuanLyWhimsiBooks/build/
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans
 # Edit at https://www.toptal.com/developers/gitignore?templates=netbeans
 
