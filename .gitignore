@@ -2,6 +2,7 @@
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
 ### Eclipse ###
+.idea
 .metadata
 bin/
 tmp/
@@ -70,3 +71,20 @@ local.properties
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
 /Nhom06_QuanLyWhimsiBooks/nbproject/private/
 /Nhom06_QuanLyWhimsiBooks/build/
+# Created by https://www.toptal.com/developers/gitignore/api/netbeans
+# Edit at https://www.toptal.com/developers/gitignore?templates=netbeans
+
+### NetBeans ###
+**/nbproject/private/
+**/nbproject/Makefile-*.mk
+**/nbproject/Package-*.bash
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+manifest.mf
+nbproject/
+build.xml
+
+# End of https://www.toptal.com/developers/gitignore/api/netbeans
