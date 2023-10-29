@@ -1,4 +1,4 @@
-package bus;
+package dao;
 
 import java.util.ArrayList;
 
@@ -6,8 +6,7 @@ import entities.KhachHang;
 import entities.NhanVien;
 import interfaces.IKhachHang;
 
-public class KhachHang_BUS implements IKhachHang {
-
+public class KhachHang_DAO implements IKhachHang {
 	@Override
 	public ArrayList<NhanVien> findKhachHang(String x) {
 		// TODO Auto-generated method stub
@@ -43,5 +42,5 @@ public class KhachHang_BUS implements IKhachHang {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	
 }

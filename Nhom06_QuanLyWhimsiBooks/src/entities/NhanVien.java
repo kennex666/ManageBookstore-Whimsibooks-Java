@@ -16,7 +16,6 @@ public class NhanVien {
 	private String email;
 	private LocalDate ngaySinh;
 	private String diaChi;
-	private String quyenTruyCap;
 	
 	
 	public NhanVien( String nhanVienID ) {
@@ -123,15 +122,9 @@ public class NhanVien {
 		this.diaChi = diaChi;
 	}
 
-	public String getQuyenTruyCap() {
-		return quyenTruyCap;
-	}
 
-	public void setQuyenTruyCap(String quyenTruyCap) {
-		this.quyenTruyCap = quyenTruyCap;
-	}
 	public NhanVien(String nhanVienID, String userName, String password, LocalDate ngayTaoTK, String hoTen, String gioiTinh,
-			String soDienThoai, String chucVu, String email, LocalDate ngaySinh, String diaChi, String quyenTruyCap) throws Exception {
+			String soDienThoai, String chucVu, String email, LocalDate ngaySinh, String diaChi) throws Exception {
 		setNhanVienID(nhanVienID);
 		setUserName(userName);
 		setPassword(password);
@@ -143,7 +136,7 @@ public class NhanVien {
 		setEmail(email);
 		setNgaySinh(ngaySinh);
 		setDiaChi(diaChi);
-		setQuyenTruyCap(quyenTruyCap);
+		
 	}
 
 	@Override
