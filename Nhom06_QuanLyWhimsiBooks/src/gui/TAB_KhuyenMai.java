@@ -76,6 +76,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
         jPanel2 = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable3 = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -98,8 +101,10 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jPanel3.setPreferredSize(new java.awt.Dimension(441, 300));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
+        NhapMa.setPreferredSize(new java.awt.Dimension(204, 100));
         NhapMa.setLayout(new java.awt.GridLayout(3, 1, 0, 8));
 
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
@@ -143,7 +148,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel3.add(NhapMa);
 
-        hinhThuc.setPreferredSize(new java.awt.Dimension(425, 80));
+        hinhThuc.setPreferredSize(new java.awt.Dimension(425, 100));
         hinhThuc.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         jPanel15.setLayout(new java.awt.GridLayout(4, 1));
@@ -175,7 +180,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel3.add(hinhThuc);
 
         btnKhuyenMaiTao.setBorder(javax.swing.BorderFactory.createEmptyBorder(20, 1, 10, 1));
-        btnKhuyenMaiTao.setPreferredSize(new java.awt.Dimension(0, 30));
+        btnKhuyenMaiTao.setPreferredSize(new java.awt.Dimension(0, 80));
         btnKhuyenMaiTao.setLayout(new java.awt.GridLayout(1, 0, 18, 0));
 
         jPanel5.setLayout(new java.awt.GridLayout(1, 0));
@@ -183,6 +188,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jButton1.setBackground(new java.awt.Color(15, 145, 239));
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-luuKM.png"))); // NOI18N
         jButton1.setText("Thêm");
         jPanel5.add(jButton1);
 
@@ -193,6 +199,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jButton2.setBackground(new java.awt.Color(239, 162, 162));
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-huyKM.png"))); // NOI18N
         jButton2.setText("Hủy bỏ");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,8 +215,10 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel1.add(jPanel3);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 1, 1, 1));
+        jPanel4.setPreferredSize(new java.awt.Dimension(602, 310));
         jPanel4.setLayout(new java.awt.BorderLayout());
 
+        titleSelectKhuyenMai.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 8));
         titleSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(602, 72));
         titleSelectKhuyenMai.setLayout(new java.awt.GridLayout(2, 2, 0, 8));
 
@@ -228,11 +237,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 435, Short.MAX_VALUE)
+            .addGap(0, 427, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 32, Short.MAX_VALUE)
+            .addGap(0, 31, Short.MAX_VALUE)
         );
 
         titleSelectKhuyenMai.add(jPanel16);
@@ -249,7 +258,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jTextField1.setText("Mã sản phẩm, tên sản phẩm,...");
         jPanel12.add(jTextField1, java.awt.BorderLayout.CENTER);
 
-        jButton3.setText("jButton3");
+        jButton3.setBackground(new java.awt.Color(15, 145, 239));
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-addKM.png"))); // NOI18N
+        jButton3.setPreferredSize(new java.awt.Dimension(80, 23));
         jPanel12.add(jButton3, java.awt.BorderLayout.EAST);
 
         titleSelectKhuyenMai.add(jPanel12);
@@ -280,17 +291,25 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         center.add(filler2);
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Danh sách khuyến mãi"));
+        jPanel2.setPreferredSize(new java.awt.Dimension(1764, 170));
+        jPanel2.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1754, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 207, Short.MAX_VALUE)
-        );
+        jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
+
+        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị giảm", "Áp dụng từ đơn", "Ngày bắt đầu", "Ngày kết thúc", "Xem sản phẩm"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable3);
+
+        jPanel11.add(jScrollPane3);
+
+        jPanel2.add(jPanel11, java.awt.BorderLayout.CENTER);
 
         center.add(jPanel2);
 
@@ -339,6 +358,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
@@ -353,7 +373,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField5;
