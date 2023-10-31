@@ -4,6 +4,10 @@
  */
 package gui;
 
+import java.awt.Color;
+
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author NguyenThanhLuan
@@ -271,15 +275,20 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Thông tin nhà cung cấp"));
         jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
-
+        
+        String[] cols = {
+                "STT", "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ"
+            };
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
-            new String [] {
-                "STT", "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ"
-            }
+            cols
         ));
+        JTableHeader header =  jTable1.getTableHeader();
+        header.setBackground(Color.decode("#2FA1D2"));
+        header.setForeground(Color.white);
+        
         jScrollPane1.setViewportView(jTable1);
 
         jPanel12.add(jScrollPane1);
@@ -364,7 +373,12 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         add(pnl_ALL, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTimKiemIDNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemIDNCCActionPerformed
+    private Color Color(int i, int j, int k) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private void txtTimKiemIDNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemIDNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemIDNCCActionPerformed
 

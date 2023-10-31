@@ -4,6 +4,10 @@
  */
 package gui;
 
+import java.awt.Color;
+
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author NguyenThanhLuan
@@ -277,14 +281,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         tableSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(870, 200));
         tableSelectKhuyenMai.setLayout(new java.awt.BorderLayout());
 
+        String[] cols = {
+                "Chọn", "Mã sản phẩm", "Tên sản phẩm"
+            };
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
-            new String [] {
-                "Chọn", "Mã sản phẩm", "Tên sản phẩm"
-            }
+            cols
         ));
+        JTableHeader header =  jTable1.getTableHeader();
+        header.setBackground(Color.decode("#2FA1D2"));
+        header.setForeground(Color.white);
+        
         jScrollPane1.setViewportView(jTable1);
 
         tableSelectKhuyenMai.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -303,14 +312,20 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
         jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
 
+        String[] cols1 = {
+                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị giảm", "Áp dụng từ đơn", "Ngày bắt đầu", "Ngày kết thúc", "Xem sản phẩm"
+            };
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
-            new String [] {
-                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị giảm", "Áp dụng từ đơn", "Ngày bắt đầu", "Ngày kết thúc", "Xem sản phẩm"
-            }
+            cols1
         ));
+        
+        JTableHeader header1 =  jTable3.getTableHeader();
+        header1.setBackground(Color.decode("#2FA1D2"));
+        header1.setForeground(Color.white);
+        
         jScrollPane3.setViewportView(jTable3);
 
         jPanel11.add(jScrollPane3);
