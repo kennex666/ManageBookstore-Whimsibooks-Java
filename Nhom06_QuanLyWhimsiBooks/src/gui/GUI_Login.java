@@ -34,9 +34,10 @@ import javax.swing.SwingConstants;
  * 				1. Giao diện đăng nhập
  *
  */
-public class GUI_Login extends JFrame {
+public class GUI_Login extends JFrame implements ActionListener{
 	private JTextField txtUsername;
 	private JPasswordField pwdUserType;
+	private JButton btnLogin, btnResetPassword;
 	/**
 	 * Create the frame.
 	 */
@@ -101,12 +102,8 @@ public class GUI_Login extends JFrame {
 				pwdUserType.setBounds(542, 319, 369, 35);
 				getContentPane().add(pwdUserType);
 				
-				JButton btnLogin = new JButton("Đăng nhập");
+				btnLogin = new JButton("Đăng nhập");
 				btnLogin.setForeground(Color.WHITE);
-				btnLogin.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-					}
-				});
 				btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				btnLogin.setBounds(556, 419, 156, 45);
 				
@@ -114,7 +111,7 @@ public class GUI_Login extends JFrame {
 				
 				getContentPane().add(btnLogin);
 				
-				JButton btnResetPassword = new JButton("Quên mật khẩu");
+				btnResetPassword = new JButton("Quên mật khẩu");
 				btnResetPassword.setForeground(Color.WHITE);
 				btnResetPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				btnResetPassword.setBounds(740, 419, 157, 45);		
@@ -128,5 +125,29 @@ public class GUI_Login extends JFrame {
 				getContentPane().add(lblDesignedBy);
 		this.setSize(1000, 620);
 		this.setLocationRelativeTo(null);
+		
+		btnLogin.addActionListener(this);
+		btnResetPassword.addActionListener(this);
+		
 	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if (e.getSource().equals(btnLogin)) {
+			if (txtUsername.getText().equals("test") && new String(pwdUserType.getPassword()).equals("test")) {
+				GUI_MainMenu gui = new GUI_MainMenu();
+				gui.setVisible(true);
+				this.setVisible(false);
+				dispose();
+			}
+			return;
+		}
+		
+		if (e.getSource().equals(btnResetPassword)) {
+			return;
+		}
+		
+	}
+	
 }

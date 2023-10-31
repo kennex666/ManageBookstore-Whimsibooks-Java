@@ -14,7 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
+
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
 import utilities.ColorProcessing;
 import utilities.WindowTitle;
 
@@ -179,9 +184,9 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         jPanel5Layout.rowHeights = new int[] {0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0};
         pannelLeft.setLayout(jPanel5Layout);
 
-        btnTabBanHang.setBackground(new java.awt.Color(15, 145, 239));
+        btnTabBanHang.setBackground(Color.white);
         btnTabBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTabBanHang.setForeground(new java.awt.Color(255, 255, 255));
+        btnTabBanHang.setForeground(new java.awt.Color(15, 102, 165));
         btnTabBanHang.setIcon(
             utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-banhang.png"))
                 , sizeIconBar, sizeIconBar)
