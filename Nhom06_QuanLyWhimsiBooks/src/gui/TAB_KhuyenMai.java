@@ -98,13 +98,14 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         center.setLayout(new javax.swing.BoxLayout(center, javax.swing.BoxLayout.PAGE_AXIS));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Tạo khuyến mãi", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jPanel1.setPreferredSize(new java.awt.Dimension(1224, 350));
         jPanel1.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         jPanel3.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
         jPanel3.setPreferredSize(new java.awt.Dimension(441, 300));
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.PAGE_AXIS));
 
-        NhapMa.setPreferredSize(new java.awt.Dimension(204, 100));
+        NhapMa.setPreferredSize(new java.awt.Dimension(204, 120));
         NhapMa.setLayout(new java.awt.GridLayout(3, 1, 0, 8));
 
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
@@ -148,7 +149,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel3.add(NhapMa);
 
-        hinhThuc.setPreferredSize(new java.awt.Dimension(425, 100));
+        hinhThuc.setPreferredSize(new java.awt.Dimension(425, 120));
         hinhThuc.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
         jPanel15.setLayout(new java.awt.GridLayout(4, 1));
@@ -261,6 +262,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jButton3.setBackground(new java.awt.Color(15, 145, 239));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-addKM.png"))); // NOI18N
         jButton3.setPreferredSize(new java.awt.Dimension(80, 23));
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel12.add(jButton3, java.awt.BorderLayout.EAST);
 
         titleSelectKhuyenMai.add(jPanel12);
@@ -329,6 +335,10 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
