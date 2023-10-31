@@ -34,6 +34,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel4 = new javax.swing.JPanel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel5 = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         txtMaNhaCungCap = new javax.swing.JTextField();
@@ -51,13 +52,19 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         txtDiaChi = new javax.swing.JTextField();
         jPanel9 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
+        jPanel20 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         txtTimKiemIDNCC = new javax.swing.JTextField();
+        jPanel17 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtTimKiemSdtNCC = new javax.swing.JTextField();
+        jPanel18 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtTimKiemEmailNCC = new javax.swing.JTextField();
+        jPanel19 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel21 = new javax.swing.JPanel();
         btnTimKiemNCC = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel3 = new javax.swing.JPanel();
@@ -98,25 +105,36 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Nhập thông tin nhà cung cấp"));
         jPanel5.setPreferredSize(new java.awt.Dimension(617, 180));
-        jPanel5.setLayout(new java.awt.GridLayout(4, 2, 20, 20));
+        jPanel5.setLayout(new java.awt.BorderLayout());
+
+        jPanel15.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 1, 1));
+        jPanel15.setLayout(new java.awt.GridLayout(4, 2, 18, 18));
 
         jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel6.setText(" Mã nhà cung cấp:");
         jLabel6.setPreferredSize(new java.awt.Dimension(120, 16));
         jPanel11.add(jLabel6);
+
+        txtMaNhaCungCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaNhaCungCapActionPerformed(evt);
+            }
+        });
         jPanel11.add(txtMaNhaCungCap);
 
-        jPanel5.add(jPanel11);
+        jPanel15.add(jPanel11);
 
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel9.setText("Tên:");
         jLabel9.setPreferredSize(new java.awt.Dimension(80, 16));
         jPanel10.add(jLabel9);
+
+        txtTenNCC.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         jPanel10.add(txtTenNCC);
 
-        jPanel5.add(jPanel10);
+        jPanel15.add(jPanel10);
 
         jPanel7.setLayout(new javax.swing.BoxLayout(jPanel7, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -131,7 +149,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         });
         jPanel7.add(txtSdtNCC);
 
-        jPanel5.add(jPanel7);
+        jPanel15.add(jPanel7);
 
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -140,7 +158,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel2.add(jLabel10);
         jPanel2.add(txtEmailNCC);
 
-        jPanel5.add(jPanel2);
+        jPanel15.add(jPanel2);
 
         jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.LINE_AXIS));
 
@@ -149,29 +167,37 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel8.add(jLabel8);
         jPanel8.add(txtDiaChi);
 
-        jPanel5.add(jPanel8);
+        jPanel15.add(jPanel8);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGap(0, 374, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 29, Short.MAX_VALUE)
+            .addGap(0, 28, Short.MAX_VALUE)
         );
 
-        jPanel5.add(jPanel9);
+        jPanel15.add(jPanel9);
+
+        jPanel5.add(jPanel15, java.awt.BorderLayout.CENTER);
 
         jPanel4.add(jPanel5);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Tìm kiếm"));
-        jPanel6.setPreferredSize(new java.awt.Dimension(200, 100));
-        jPanel6.setLayout(new java.awt.GridLayout(4, 2, 20, 20));
+        jPanel6.setPreferredSize(new java.awt.Dimension(250, 100));
+        jPanel6.setLayout(new java.awt.BorderLayout());
+
+        jPanel20.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        jPanel20.setLayout(new java.awt.GridLayout(4, 0, 0, 10));
+
+        jPanel16.setLayout(new javax.swing.BoxLayout(jPanel16, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel2.setText(" Mã nhà cung cấp:");
-        jPanel6.add(jLabel2);
+        jLabel2.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel16.add(jLabel2);
 
         txtTimKiemIDNCC.setPreferredSize(new java.awt.Dimension(80, 22));
         txtTimKiemIDNCC.addActionListener(new java.awt.event.ActionListener() {
@@ -179,27 +205,58 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
                 txtTimKiemIDNCCActionPerformed(evt);
             }
         });
-        jPanel6.add(txtTimKiemIDNCC);
+        jPanel16.add(txtTimKiemIDNCC);
+
+        jPanel20.add(jPanel16);
+
+        jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel3.setText(" Số điện thoại:");
-        jPanel6.add(jLabel3);
-        jPanel6.add(txtTimKiemSdtNCC);
+        jLabel3.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel17.add(jLabel3);
+        jPanel17.add(txtTimKiemSdtNCC);
+
+        jPanel20.add(jPanel17);
+
+        jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
         jLabel4.setText(" Email:");
-        jPanel6.add(jLabel4);
+        jLabel4.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel18.add(jLabel4);
 
         txtTimKiemEmailNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtTimKiemEmailNCCActionPerformed(evt);
             }
         });
-        jPanel6.add(txtTimKiemEmailNCC);
-        jPanel6.add(jLabel5);
+        jPanel18.add(txtTimKiemEmailNCC);
+
+        jPanel20.add(jPanel18);
+
+        jPanel19.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
+        jPanel19.add(jLabel5);
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 108, Short.MAX_VALUE)
+        );
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 32, Short.MAX_VALUE)
+        );
+
+        jPanel19.add(jPanel21);
 
         btnTimKiemNCC.setBackground(new java.awt.Color(15, 145, 239));
         btnTimKiemNCC.setForeground(new java.awt.Color(15, 145, 239));
         btnTimKiemNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-search.png"))); // NOI18N
-        jPanel6.add(btnTimKiemNCC);
+        jPanel19.add(btnTimKiemNCC);
+
+        jPanel20.add(jPanel19);
+
+        jPanel6.add(jPanel20, java.awt.BorderLayout.CENTER);
 
         jPanel4.add(jPanel6);
         jPanel4.add(filler2);
@@ -287,6 +344,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         btnBanPhim.setBackground(new java.awt.Color(15, 145, 239));
         btnBanPhim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBanPhim.setForeground(new java.awt.Color(255, 255, 255));
+        btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-banphimNCC.png"))); // NOI18N
         btnBanPhim.setText("123");
         jPanel14.add(btnBanPhim);
 
@@ -334,6 +392,10 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnThemNhaCungCapActionPerformed
 
+    private void txtMaNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhaCungCapActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaNhaCungCapActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBanPhim;
@@ -365,7 +427,14 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
