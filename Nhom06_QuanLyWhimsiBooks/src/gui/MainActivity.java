@@ -19,7 +19,7 @@ public class MainActivity {
 		
 		ConnectDB.getInstance().connect();
 		try {
-			UIManager.setLookAndFeel(new FlatIntelliJLaf());
+			UIManager.setLookAndFeel(new FlatMacLightLaf());
 		} catch (UnsupportedLookAndFeelException e) {
 		}
 		
