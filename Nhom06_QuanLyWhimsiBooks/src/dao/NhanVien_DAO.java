@@ -52,34 +52,42 @@ public class NhanVien_DAO implements INhanVien {
 
 	@Override
 	public ArrayList<NhanVien> getAllEmployees() {
-		 ArrayList<NhanVien> listNhanVien = new ArrayList<>();
-		    String query = "SELECT * FROM NhanVien";
-		    Connection conn = ConnectDB.getConnection();
-		    try (
-		         PreparedStatement pstmt = conn.prepareStatement(query);
-		         ResultSet rs = pstmt.executeQuery()) {
-		        while (rs.next()) {
-		            NhanVien nhanVien = new NhanVien(
-		                rs.getString("nhanVienID"),
-		                rs.getString("userName"),
-		                rs.getString("password"),
-		                rs.getDate("ngayTaoTK").toLocalDate(),
-		                rs.getString("hoTen"),
-		                rs.getString("gioiTinh"),
-		                rs.getString("soDienThoai"),
-		                rs.getString("chucVu"),
-		                rs.getString("email"),
-		                rs.getDate("ngaySinh").toLocalDate(),
-		                rs.getString("diaChi")
-		             
-		            );
-		            listNhanVien.add(nhanVien);
-		        }
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    }
-		    
-		    return listNhanVien;
+	    ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+	    String query = "SELECT * FROM NhanVien";
+	    Connection conn = ConnectDB.getConnection();
+	    try (
+	         PreparedStatement pstmt = conn.prepareStatement(query);
+	         ResultSet rs = pstmt.executeQuery()) {
+	        while (rs.next()) {
+	            NhanVien nhanVien = new NhanVien();
+	            nhanVien.setNhanVienID(rs.getString("nhanVienID"));
+	            nhanVien.setUserName(rs.getString("userName"));
+	            nhanVien.setPassword(rs.getString("password"));
+
+	            java.sql.Date ngayTaoTKSQL = rs.getDate("ngayTaoTK");
+	            if (ngayTaoTKSQL != null) {
+	                nhanVien.setNgayTaoTK(ngayTaoTKSQL.toLocalDate());
+	            }
+
+	            nhanVien.setHoTen(rs.getString("hoTen"));
+	            nhanVien.setGioiTinh(rs.getString("gioiTinh"));
+	            nhanVien.setSoDienThoai(rs.getString("soDienThoai"));
+	            nhanVien.setChucVu(rs.getString("chucVu"));
+	            nhanVien.setEmail(rs.getString("email"));
+
+	            java.sql.Date ngaySinhSQL = rs.getDate("ngaySinh");
+	            if (ngaySinhSQL != null) {
+	                nhanVien.setNgaySinh(ngaySinhSQL.toLocalDate());
+	            }
+
+	            nhanVien.setDiaChi(rs.getString("diaChi"));
+	            listNhanVien.add(nhanVien);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return listNhanVien;
 	}
 
 	@Override

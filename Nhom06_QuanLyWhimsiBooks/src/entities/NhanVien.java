@@ -18,6 +18,10 @@ public class NhanVien {
 	private String diaChi;
 	
 	
+	public NhanVien() {
+
+	}
+
 	public NhanVien( String nhanVienID ) {
 		this.nhanVienID=nhanVienID;
 	}
@@ -62,8 +66,8 @@ public class NhanVien {
 	}
 
 	public void setHoTen(String hoTen) throws Exception {
-		if (hoTen.trim() == "" || hoTen.isBlank() || hoTen.isEmpty())
-			throw new Exception("Tên khách hàng là trường bắt buộc!");
+//		if (hoTen.trim() == "" || hoTen.isBlank() || hoTen.isEmpty())
+//			throw new Exception("Tên khách hàng là trường bắt buộc!");
 		this.hoTen = hoTen;
 	}
 
@@ -80,8 +84,8 @@ public class NhanVien {
 	}
 
 	public void setSoDienThoai(String soDienThoai) throws Exception {
-		if (soDienThoai.trim()== "" || soDienThoai.isBlank() || soDienThoai.isEmpty())
-			throw new Exception("Số điện thoại là một trường bắt buộc!");
+//		if (soDienThoai.trim()== "" || soDienThoai.isBlank() || soDienThoai.isEmpty())
+//			throw new Exception("Số điện thoại là một trường bắt buộc!");
 		this.soDienThoai = soDienThoai;
 	}
 
@@ -116,8 +120,8 @@ public class NhanVien {
 
 	public void setDiaChi(String diaChi) throws Exception {
 		
-		if (diaChi.trim() == "" || diaChi.isBlank() || diaChi.isEmpty())
-			throw new Exception("Địa chỉ là một trường bắt buộc!");
+//		if (diaChi.trim() == "" || diaChi.isBlank() || diaChi.isEmpty())
+//			throw new Exception("Địa chỉ là một trường bắt buộc!");
 		
 		this.diaChi = diaChi;
 	}
