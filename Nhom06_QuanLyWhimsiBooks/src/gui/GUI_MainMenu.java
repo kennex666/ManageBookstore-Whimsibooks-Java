@@ -50,6 +50,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         tabSanPham = new TAB_SanPham();
         // Phần xử lý chuyển đổi tab
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
+        tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabBanHang);
     }
 
     /**

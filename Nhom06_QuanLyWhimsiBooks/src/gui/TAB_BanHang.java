@@ -24,23 +24,10 @@ public class TAB_BanHang extends javax.swing.JPanel {
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        TAB_BanHang_HoaDon = new javax.swing.JPanel();
         TAB_BanHang_DanhSachHoaDon = new javax.swing.JPanel();
+        TAB_BanHang_HoaDon = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
-        TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
-        TAB_BanHang_HoaDonLayout.setHorizontalGroup(
-            TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
-        );
-        TAB_BanHang_HoaDonLayout.setVerticalGroup(
-            TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Hoá đơn", TAB_BanHang_HoaDon);
 
         javax.swing.GroupLayout TAB_BanHang_DanhSachHoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_DanhSachHoaDon);
         TAB_BanHang_DanhSachHoaDon.setLayout(TAB_BanHang_DanhSachHoaDonLayout);
@@ -54,6 +41,19 @@ public class TAB_BanHang extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Danh sách hoá đơn", TAB_BanHang_DanhSachHoaDon);
+
+        javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
+        TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
+        TAB_BanHang_HoaDonLayout.setHorizontalGroup(
+            TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 726, Short.MAX_VALUE)
+        );
+        TAB_BanHang_HoaDonLayout.setVerticalGroup(
+            TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 432, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Hoá đơn", TAB_BanHang_HoaDon);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
