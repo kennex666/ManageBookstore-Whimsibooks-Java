@@ -8,7 +8,7 @@ import dao.NhanVien_DAO;
 import entities.NhanVien;
 import interfaces.INhanVien;
 
-public class NhanVien_BUS  implements INhanVien{
+public class NhanVien_BUS implements INhanVien {
 	NhanVien_DAO nv_dao = new NhanVien_DAO();
 
 	@Override
@@ -19,7 +19,7 @@ public class NhanVien_BUS  implements INhanVien{
 
 	@Override
 	public ArrayList<NhanVien> getAllEmployees() {
-			
+
 		return nv_dao.getAllEmployees();
 	}
 
@@ -27,7 +27,7 @@ public class NhanVien_BUS  implements INhanVien{
 	public int totalNhanVien() {
 		// TODO Auto-generated method stub
 		return nv_dao.totalNhanVien();
-		
+
 	}
 
 	@Override
@@ -51,9 +51,15 @@ public class NhanVien_BUS  implements INhanVien{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public NhanVien getNhanVienByNhanVienID(String x) {
+		return nv_dao.getNhanVienByNhanVienID(x);
+	}
 @Override
-public NhanVien getNhanVienByNhanVienID(String x) {
-	 return nv_dao.getNhanVienByNhanVienID(x);
-}
+	public boolean isMaNhanVienExists(String x) {
+		return nv_dao.isMaNhanVienExists(x);
+		
+	}
 
 }
