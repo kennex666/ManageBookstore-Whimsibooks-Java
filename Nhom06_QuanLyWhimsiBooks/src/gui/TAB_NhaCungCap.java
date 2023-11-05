@@ -4,21 +4,35 @@
  */
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
+import java.awt.GridLayout;
 
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import javax.swing.table.TableModel;
+
+import bus.NhaCungCap_BUS;
+import class_DAO.NhaCungCap_DAO;
 
 /**
  *
  * @author NguyenThanhLuan
  */
 public class TAB_NhaCungCap extends javax.swing.JPanel {
-
+	TAB_BanPhim banPhim;
+	Component oldCom;
+    private DefaultTableModel tableModel;
     /**
      * Creates new form TAB_NhaCungCap
      */
     public TAB_NhaCungCap() {
         initComponents();
+        banPhim = new TAB_BanPhim();
     }
 
     /**
@@ -75,16 +89,20 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel12 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableNCC = new javax.swing.JTable();
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
-        jPanel13 = new javax.swing.JPanel();
+        pnlBtn = new javax.swing.JPanel();
+        pnlBtnChucNang = new javax.swing.JPanel();
         btnThemNhaCungCap = new javax.swing.JButton();
         btnCapNhatNCC = new javax.swing.JButton();
         btnNhapNhieuNCC = new javax.swing.JButton();
         btnXuatFileNCC = new javax.swing.JButton();
         jPanel14 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         btnBanPhim = new javax.swing.JButton();
         btnHuyNCC = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
 
         setLayout(new java.awt.BorderLayout());
@@ -120,11 +138,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jLabel6.setPreferredSize(new java.awt.Dimension(120, 16));
         jPanel11.add(jLabel6);
 
-        txtMaNhaCungCap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaNhaCungCapActionPerformed(evt);
-            }
-        });
+        txtMaNhaCungCap.setEditable(false);
         jPanel11.add(txtMaNhaCungCap);
 
         jPanel15.add(jPanel11);
@@ -177,7 +191,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 374, Short.MAX_VALUE)
+            .addGap(0, 387, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +205,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel4.add(jPanel5);
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Tìm kiếm"));
-        jPanel6.setPreferredSize(new java.awt.Dimension(250, 100));
+        jPanel6.setPreferredSize(new java.awt.Dimension(200, 100));
         jPanel6.setLayout(new java.awt.BorderLayout());
 
         jPanel20.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
@@ -244,7 +258,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 108, Short.MAX_VALUE)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -256,6 +270,11 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         btnTimKiemNCC.setBackground(new java.awt.Color(15, 145, 239));
         btnTimKiemNCC.setForeground(new java.awt.Color(15, 145, 239));
         btnTimKiemNCC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-search.png"))); // NOI18N
+        btnTimKiemNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiemNCCActionPerformed(evt);
+            }
+        });
         jPanel19.add(btnTimKiemNCC);
 
         jPanel20.add(jPanel19);
@@ -275,30 +294,33 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Thông tin nhà cung cấp"));
         jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
-        
-        String[] cols = {
-                "STT", "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ"
-            };
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+
+        tableNCC.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
-            cols
+            new String [] {
+                "STT", "Mã nhà cung cấp", "Tên nhà cung cấp", "Số điện thoại", "Email", "Địa chỉ"
+            }
         ));
-        JTableHeader header =  jTable1.getTableHeader();
-        header.setBackground(Color.decode("#2FA1D2"));
-        header.setForeground(Color.white);
-        
-        jScrollPane1.setViewportView(jTable1);
+        tableNCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableNCCMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tableNCC);
 
         jPanel12.add(jScrollPane1);
         jPanel12.add(filler6);
 
         jPanel3.add(jPanel12);
 
-        jPanel13.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 4, 1, 4));
-        jPanel13.setPreferredSize(new java.awt.Dimension(50, 137));
-        jPanel13.setLayout(new java.awt.GridLayout(6, 1, 10, 10));
+        pnlBtn.setBorder(javax.swing.BorderFactory.createEmptyBorder(7, 4, 1, 4));
+        pnlBtn.setPreferredSize(new java.awt.Dimension(50, 137));
+        pnlBtn.setLayout(new javax.swing.BoxLayout(pnlBtn, javax.swing.BoxLayout.PAGE_AXIS));
+
+        pnlBtnChucNang.setPreferredSize(new java.awt.Dimension(169, 185));
+        pnlBtnChucNang.setLayout(new java.awt.GridLayout(4, 1, 0, 16));
 
         btnThemNhaCungCap.setBackground(new java.awt.Color(85, 182, 83));
         btnThemNhaCungCap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -310,7 +332,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
                 btnThemNhaCungCapActionPerformed(evt);
             }
         });
-        jPanel13.add(btnThemNhaCungCap);
+        pnlBtnChucNang.add(btnThemNhaCungCap);
 
         btnCapNhatNCC.setBackground(new java.awt.Color(85, 182, 83));
         btnCapNhatNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -322,7 +344,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
                 btnCapNhatNCCActionPerformed(evt);
             }
         });
-        jPanel13.add(btnCapNhatNCC);
+        pnlBtnChucNang.add(btnCapNhatNCC);
 
         btnNhapNhieuNCC.setBackground(new java.awt.Color(85, 182, 83));
         btnNhapNhieuNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -334,7 +356,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
                 btnNhapNhieuNCCActionPerformed(evt);
             }
         });
-        jPanel13.add(btnNhapNhieuNCC);
+        pnlBtnChucNang.add(btnNhapNhieuNCC);
 
         btnXuatFileNCC.setBackground(new java.awt.Color(85, 182, 83));
         btnXuatFileNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -346,37 +368,49 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
                 btnXuatFileNCCActionPerformed(evt);
             }
         });
-        jPanel13.add(btnXuatFileNCC);
+        pnlBtnChucNang.add(btnXuatFileNCC);
 
-        jPanel14.setLayout(new java.awt.GridLayout(1, 0, 5, 5));
+        pnlBtn.add(pnlBtnChucNang);
+
+        jPanel14.setMinimumSize(new java.awt.Dimension(178, 120));
+        jPanel14.setPreferredSize(new java.awt.Dimension(179, 50));
+        jPanel14.setLayout(new java.awt.GridLayout(3, 2, 4, 0));
+        jPanel14.add(jLabel12);
+        jPanel14.add(jLabel13);
 
         btnBanPhim.setBackground(new java.awt.Color(15, 145, 239));
         btnBanPhim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnBanPhim.setForeground(new java.awt.Color(255, 255, 255));
         btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-banphimNCC.png"))); // NOI18N
         btnBanPhim.setText("123");
+        btnBanPhim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBanPhimActionPerformed(evt);
+            }
+        });
         jPanel14.add(btnBanPhim);
 
         btnHuyNCC.setBackground(new java.awt.Color(230, 159, 160));
         btnHuyNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnHuyNCC.setForeground(new java.awt.Color(255, 255, 255));
         btnHuyNCC.setText("Hủy");
+        btnHuyNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHuyNCCActionPerformed(evt);
+            }
+        });
         jPanel14.add(btnHuyNCC);
+        jPanel14.add(jLabel11);
 
-        jPanel13.add(jPanel14);
+        pnlBtn.add(jPanel14);
 
-        jPanel3.add(jPanel13);
+        jPanel3.add(pnlBtn);
         jPanel3.add(filler5);
 
         pnl_ALL.add(jPanel3, java.awt.BorderLayout.CENTER);
 
         add(pnl_ALL, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
-
-    private Color Color(int i, int j, int k) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	private void txtTimKiemIDNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemIDNCCActionPerformed
         // TODO add your handling code here:
@@ -388,28 +422,106 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
     private void txtSdtNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtNCCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSdtNCCActionPerformed
+    }//GEN-LAST:event_txtSdtNCCActionPerformed                                          
+
+    private void btnTimKiemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNCCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnTimKiemNCCActionPerformed
+    
+
+
+    private void tableNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNCCMouseClicked
+        int row = tableNCC.getSelectedRow();
+        if(row != -1) {
+        	txtMaNhaCungCap.setText(tableModel.getValueAt(row, 1).toString());
+        	txtTenNCC.setText(tableModel.getValueAt(row, 2).toString());
+        	txtSdtNCC.setText(tableModel.getValueAt(row, 3).toString());
+        	txtEmailNCC.setText(tableModel.getValueAt(row, 4).toString());
+        	txtDiaChi.setText(tableModel.getValueAt(row, 5).toString());
+        }
+    }//GEN-LAST:event_tableNCCMouseClicked
+
+    private void btnHuyNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNCCActionPerformed
+        txtMaNhaCungCap.setText("");
+        txtTenNCC.setText("");
+        txtSdtNCC.setText("");
+        txtEmailNCC.setText("");
+        txtDiaChi.setText("");
+        txtTimKiemIDNCC.setText("");
+        txtTimKiemSdtNCC.setText("");
+        txtTimKiemEmailNCC.setText("");
+    }//GEN-LAST:event_btnHuyNCCActionPerformed
+
+    private void ChuyenTabBanPhim(JPanel pnlChuyen, JButton btnTab){
+    	this.oldCom = this.pnlBtnChucNang;
+    	if(btnTab.getText().equals("123")) {
+    		  this.pnlBtnChucNang.removeAll();
+    	      this.pnlBtnChucNang.repaint();
+    	      this.pnlBtnChucNang.revalidate();
+    	        
+    	      this.pnlBtnChucNang.add(pnlChuyen);
+    	      this.pnlBtnChucNang.setLayout(new GridLayout(1,1));
+    	      this.pnlBtnChucNang.repaint();
+    	      this.pnlBtnChucNang.revalidate();
+    	      btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-back.png")));
+    	      btnTab.setText("Trở về");
+    	      return;
+    	}
+    	if(btnTab.getText().equals("Trở về")) {
+  		  this.pnlBtnChucNang.removeAll();
+	      this.pnlBtnChucNang.repaint();
+	      this.pnlBtnChucNang.revalidate();
+	      
+	      pnlBtnChucNang.setLayout(new java.awt.GridLayout(4, 1, 0, 16));
+	      this.pnlBtnChucNang.add(btnThemNhaCungCap);
+	      this.pnlBtnChucNang.add(btnCapNhatNCC);
+	      this.pnlBtnChucNang.add(btnNhapNhieuNCC);
+	      this.pnlBtnChucNang.add(btnXuatFileNCC);
+	      btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-banphimNCC.png")));
+	      this.pnlBtnChucNang.repaint();
+	      this.pnlBtnChucNang.revalidate();
+	      btnTab.setText("123");
+    	}
+    }
+    
+    private void btnBanPhimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanPhimActionPerformed
+        	ChuyenTabBanPhim(banPhim, btnBanPhim);
+    }//GEN-LAST:event_btnBanPhimActionPerformed
 
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
 
-    private void btnCapNhatNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnCapNhatNCCActionPerformed
-
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
 
+    private void btnCapNhatNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNCCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCapNhatNCCActionPerformed
+
+    // Them nha cung cap
+    	// Phat sinh ma tu dong
+    private String phatSinhMaNhaCungCap() {
+		try {
+			NhaCungCap_BUS nhacungcap_dao = new NhaCungCap_BUS();
+			String maNhaCungCap_lastest = nhacungcap_dao.layMaNCCCuoiCung();
+			String maNhaCungCap = "NCC";
+			String stt_string_lastest = maNhaCungCap_lastest.substring(3, maNhaCungCap_lastest.length());
+			int stt_int_lastest = Integer.parseInt(stt_string_lastest);
+			String stt_current = String.valueOf(stt_int_lastest + 1);
+			for (int i = 0; i < (5 - stt_current.length()); i++) {
+				maNhaCungCap += "0";
+			}
+			return maNhaCungCap += stt_current;
+		} catch (NullPointerException e) {
+			return "NCC" + "00001";
+		}
+	}
+    
     private void btnThemNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhaCungCapActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_btnThemNhaCungCapActionPerformed
-
-    private void txtMaNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaNhaCungCapActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaNhaCungCapActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBanPhim;
@@ -427,6 +539,9 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -439,7 +554,6 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -457,8 +571,10 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JPanel pnlBtn;
+    private javax.swing.JPanel pnlBtnChucNang;
     private javax.swing.JPanel pnl_ALL;
+    private javax.swing.JTable tableNCC;
     private javax.swing.JPanel title;
     private javax.swing.JTextField txtDiaChi;
     private javax.swing.JTextField txtEmailNCC;

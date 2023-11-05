@@ -124,4 +124,19 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		this.hangNhap_DAO = new HangNhap_DAO();
 	}
 	
+	public String layMaNCCCuoiCung() {
+		try {
+			PreparedStatement ps = ConnectDB.getConnection()
+					.prepareStatement("SELECT TOP 1 MaNCC FROM NhaCungCap ORDER BY MaNCC DESC");
+			ResultSet rs = ps.executeQuery();
+			String s = null;
+			while (rs.next()) {
+				s = rs.getString(1);
+			}
+			return s;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
 }
