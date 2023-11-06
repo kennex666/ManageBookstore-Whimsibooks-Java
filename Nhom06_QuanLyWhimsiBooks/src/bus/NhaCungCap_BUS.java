@@ -42,9 +42,10 @@ public class NhaCungCap_BUS implements INhaCungCap{
 	}
 
 	public String layMaNCCCuoiCung() {
-		// TODO Auto-generated method stub
 		return	ncc_DAO.layMaNCCCuoiCung();
 	}
-	
-	
+
+	public NhaCungCap_BUS() {
+		this.ncc_DAO = new NhaCungCap_DAO();
+	}	
 }

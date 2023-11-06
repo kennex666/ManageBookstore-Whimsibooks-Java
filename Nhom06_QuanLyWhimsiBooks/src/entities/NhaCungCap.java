@@ -6,7 +6,6 @@ public class NhaCungCap {
 	private String soDienThoai;
 	private String diaChi;
 	private String email;
-	private HangNhap hangNhap;
 	
 	public NhaCungCap(String nhaCungCapID, String tenNhaCungCap, String soDienThoai, String diaChi, String email) {
 		this.nhaCungCapID = nhaCungCapID;
@@ -14,16 +13,6 @@ public class NhaCungCap {
 		this.soDienThoai = soDienThoai;
 		this.diaChi = diaChi;
 		this.email = email;
-	}
-
-	public NhaCungCap(String nhaCungCapID,HangNhap hangNhap, String tenNhaCungCap, String soDienThoai, String diaChi, String email) {
-		super();
-		this.nhaCungCapID = nhaCungCapID;
-		this.tenNhaCungCap = tenNhaCungCap;
-		this.soDienThoai = soDienThoai;
-		this.diaChi = diaChi;
-		this.email = email;
-		this.hangNhap = hangNhap;
 	}
 
 	public NhaCungCap(String nhaCungCapID) {
@@ -73,15 +62,4 @@ public class NhaCungCap {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public HangNhap getHangNhap() {
-		return hangNhap;
-	}
-
-	public void setHangNhap(HangNhap hangNhap) {
-		this.hangNhap = hangNhap;
-	}
-	
-	
-	
 }

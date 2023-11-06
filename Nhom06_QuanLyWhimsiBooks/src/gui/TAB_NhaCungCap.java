@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -17,7 +18,8 @@ import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 
 import bus.NhaCungCap_BUS;
-import class_DAO.NhaCungCap_DAO;
+import entities.NhaCungCap;
+
 
 /**
  *
@@ -27,12 +29,16 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 	TAB_BanPhim banPhim;
 	Component oldCom;
     private DefaultTableModel tableModel;
+    private ArrayList<NhaCungCap> danhSachNCC;
+    private NhaCungCap_BUS nhaCungCap_BUS;
     /**
      * Creates new form TAB_NhaCungCap
      */
     public TAB_NhaCungCap() {
         initComponents();
         banPhim = new TAB_BanPhim();
+        nhaCungCap_BUS = new NhaCungCap_BUS();
+        loadData();
     }
 
     /**
@@ -295,7 +301,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(15, 145, 239)), "Thông tin nhà cung cấp"));
         jPanel12.setLayout(new javax.swing.BoxLayout(jPanel12, javax.swing.BoxLayout.LINE_AXIS));
 
-        tableNCC.setModel(new javax.swing.table.DefaultTableModel(
+        tableNCC.setModel(tableModel = new DefaultTableModel(
             new Object [][] {
 
             },
@@ -504,14 +510,14 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	// Phat sinh ma tu dong
     private String phatSinhMaNhaCungCap() {
 		try {
-			NhaCungCap_BUS nhacungcap_dao = new NhaCungCap_BUS();
-			String maNhaCungCap_lastest = nhacungcap_dao.layMaNCCCuoiCung();
+			NhaCungCap_BUS nccBUS = new NhaCungCap_BUS();
+			String maNhaCungCap_lastest = nccBUS.layMaNCCCuoiCung();
 			String maNhaCungCap = "NCC";
 			String stt_string_lastest = maNhaCungCap_lastest.substring(3, maNhaCungCap_lastest.length());
 			int stt_int_lastest = Integer.parseInt(stt_string_lastest);
 			String stt_current = String.valueOf(stt_int_lastest + 1);
 			for (int i = 0; i < (5 - stt_current.length()); i++) {
-				maNhaCungCap += "0";
+				maNhaCungCap += "0";																					
 			}
 			return maNhaCungCap += stt_current;
 		} catch (NullPointerException e) {
@@ -520,8 +526,63 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 	}
     
     private void btnThemNhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhaCungCapActionPerformed
-        
+        try {
+			if(kiemTraDuLieu()) {
+				String hoTenNCC = txtTenNCC.getText();
+		    	String soDienThoai = txtSdtNCC.getText();
+		    	String email = txtEmailNCC.getText();
+		    	String diaChi = txtDiaChi.getText();
+		    	
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this,"Lỗi nhập dữ liệu");
+			return;
+		}
     }//GEN-LAST:event_btnThemNhaCungCapActionPerformed
+    private boolean kiemTraDuLieu() {
+    	String hoTenNCC = txtTenNCC.getText();
+    	String soDienThoai = txtSdtNCC.getText();
+    	String email = txtEmailNCC.getText();
+    	String diaChi = txtDiaChi.getText();
+    	if(!(hoTenNCC.length() > 0 && hoTenNCC.matches(utilities.RegexPattern.HOTEN))) {
+    		JOptionPane.showMessageDialog(this, "Họ tên không được để trống", "Thông báo",
+					JOptionPane.INFORMATION_MESSAGE);
+			txtTenNCC.requestFocus();
+			return false;
+    	}
+    	if(!(soDienThoai.length() > 0 && soDienThoai.matches(utilities.RegexPattern.SDTVN))) {
+    		JOptionPane.showMessageDialog(this, "Số điện thoại chưa đúng", "Thông báo",
+					JOptionPane.INFORMATION_MESSAGE);
+			txtSdtNCC.requestFocus();
+			return false;
+    	}
+    	if(!(email.length() > 0 && email.matches(utilities.RegexPattern.EMAIL))) {
+    		JOptionPane.showMessageDialog(this, "Email chưa đúng", "Thông báo",
+					JOptionPane.INFORMATION_MESSAGE);
+			txtEmailNCC.requestFocus();
+			return false;
+    	}
+    	if(!(diaChi.length() > 0 && diaChi.matches("^[a-zA-z0-9' ]+&"))) {
+    		JOptionPane.showMessageDialog(this, "Đia chỉ chưa đúng", "Thông báo",
+					JOptionPane.INFORMATION_MESSAGE);
+			txtDiaChi.requestFocus();
+			return false;
+    	}
+    	return true;
+    }
+    
+    private void loadData() {
+    	tableNCC.removeAll();
+    	tableNCC.setRowSelectionAllowed(false);
+    	tableModel.setRowCount(0);
+    	danhSachNCC = new ArrayList<>();
+    	danhSachNCC = nhaCungCap_BUS.getAllNhaCungCap();
+    	
+    	int stt = 1;
+    	for(NhaCungCap ncc : danhSachNCC) {
+    		tableModel.addRow(new Object[] {stt++, ncc.getNhaCungCapID(), ncc.getTenNhaCungCap(), ncc.getSoDienThoai(), ncc.getEmail(), ncc.getDiaChi()});
+    	}
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBanPhim;

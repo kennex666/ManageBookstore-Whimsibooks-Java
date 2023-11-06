@@ -19,13 +19,14 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	@Override
 	public ArrayList<NhaCungCap> getAllNhaCungCap() {
 		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+		
 		try {
 			Statement stm =  conn.createStatement();
 			String query = "SELECT * FROM NhaCungCap";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), hangNhap_DAO.findHangNhap(rs.getString("HangNhapID")) , rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
+					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
 					list.add(nhaCungCap);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -70,21 +71,19 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
 		String maNCC = ncc.getTenNhaCungCap();
-		HangNhap maHN = ncc.getHangNhap();
 		String tenNCC = ncc.getNhaCungCapID();
 		String SDT = ncc.getSoDienThoai();
 		String email = ncc.getEmail();
 		String diaChi = ncc.getDiaChi();
 		
-		String insert = "INSERT INTO NhaCungCap (maNCC, maHN,tenNCC, SDT, email, diaChi) VALUES (?,?,?,?,?,?)";
+		String insert = "INSERT INTO NhaCungCap (maNCC,tenNCC, SDT, email, diaChi) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(insert);
 			preparedStatement.setString(1, maNCC);
-			preparedStatement.setString(2, maHN.getHangNhapID());
-			preparedStatement.setString(3, tenNCC);
-			preparedStatement.setString(4, SDT);
-			preparedStatement.setString(5, email);
-			preparedStatement.setString(6, diaChi);
+			preparedStatement.setString(2, tenNCC);
+			preparedStatement.setString(3, SDT);
+			preparedStatement.setString(4, email);
+			preparedStatement.setString(5, diaChi);
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -96,21 +95,19 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	@Override
 	public boolean editNhaCungCap(NhaCungCap ncc) {
 		String maNCC = ncc.getTenNhaCungCap();
-		HangNhap maHN = ncc.getHangNhap();
 		String tenNCC = ncc.getNhaCungCapID();
 		String SDT = ncc.getSoDienThoai();
 		String email = ncc.getEmail();
 		String diaChi = ncc.getDiaChi();
 		
-		String update = "UPDATE NhaCungCap SET HangNhapID = ?, TenNhaCungCap = ?, SoDIenThoai = ?, Email = ?, DiaChi = ? Where NhaCungCapID =  ?";
+		String update = "UPDATE NhaCungCap SET TenNhaCungCap = ?, SoDIenThoai = ?, Email = ?, DiaChi = ? Where NhaCungCapID =  ?";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(update);
 			preparedStatement.setString(1, maNCC);
-			preparedStatement.setString(2, maHN.getHangNhapID());
-			preparedStatement.setString(3, tenNCC);
-			preparedStatement.setString(4, SDT);
-			preparedStatement.setString(5, email);
-			preparedStatement.setString(6, diaChi);
+			preparedStatement.setString(2, tenNCC);
+			preparedStatement.setString(3, SDT);
+			preparedStatement.setString(4, email);
+			preparedStatement.setString(5, diaChi);
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -118,16 +115,10 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		}
 		return false;
 	}
-
-	public NhaCungCap_DAO() {
-		this.conn = ConnectDB.getConnection();
-		this.hangNhap_DAO = new HangNhap_DAO();
-	}
 	
 	public String layMaNCCCuoiCung() {
 		try {
-			PreparedStatement ps = ConnectDB.getConnection()
-					.prepareStatement("SELECT TOP 1 MaNCC FROM NhaCungCap ORDER BY MaNCC DESC");
+			PreparedStatement ps = conn.prepareStatement("SELECT TOP 1 MaNCC FROM NhaCungCap ORDER BY MaNCC DESC");
 			ResultSet rs = ps.executeQuery();
 			String s = null;
 			while (rs.next()) {
@@ -138,5 +129,11 @@ public class NhaCungCap_DAO implements INhaCungCap{
 			return null;
 		}
 	}
+
+	public NhaCungCap_DAO() {
+		this.conn = ConnectDB.getConnection();
+		this.hangNhap_DAO = new HangNhap_DAO();
+	}
+	
 	
 }
