@@ -41,7 +41,7 @@ public class NhaCungCap_BUS implements INhaCungCap{
 		return ncc_DAO.editNhaCungCap(ncc);
 	}
 
-	public String layMaNCCCuoiCung() {
+	public int layMaNCCCuoiCung() {
 		return	ncc_DAO.layMaNCCCuoiCung();
 	}
 

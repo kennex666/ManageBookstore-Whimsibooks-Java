@@ -70,13 +70,13 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
-		String maNCC = ncc.getTenNhaCungCap();
-		String tenNCC = ncc.getNhaCungCapID();
+		String maNCC = ncc.getNhaCungCapID();
+		String tenNCC = ncc.getTenNhaCungCap();
 		String SDT = ncc.getSoDienThoai();
 		String email = ncc.getEmail();
 		String diaChi = ncc.getDiaChi();
 		
-		String insert = "INSERT INTO NhaCungCap (maNCC,tenNCC, SDT, email, diaChi) VALUES (?,?,?,?,?)";
+		String insert = "INSERT INTO NhaCungCap (NhaCungCapID ,TenNhaCungCap, SoDIenThoai, Email, DiaChi) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(insert);
 			preparedStatement.setString(1, maNCC);
@@ -94,20 +94,20 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	@Override
 	public boolean editNhaCungCap(NhaCungCap ncc) {
-		String maNCC = ncc.getTenNhaCungCap();
-		String tenNCC = ncc.getNhaCungCapID();
-		String SDT = ncc.getSoDienThoai();
-		String email = ncc.getEmail();
-		String diaChi = ncc.getDiaChi();
-		
+//		String maNCC = ncc.getNhaCungCapID();
+//		String tenNCC = ncc.getTenNhaCungCap();
+//		String SDT = ncc.getSoDienThoai();
+//		String email = ncc.getEmail();
+//		String diaChi = ncc.getDiaChi();
+//		
 		String update = "UPDATE NhaCungCap SET TenNhaCungCap = ?, SoDIenThoai = ?, Email = ?, DiaChi = ? Where NhaCungCapID =  ?";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(update);
-			preparedStatement.setString(1, maNCC);
-			preparedStatement.setString(2, tenNCC);
-			preparedStatement.setString(3, SDT);
-			preparedStatement.setString(4, email);
-			preparedStatement.setString(5, diaChi);
+			preparedStatement.setString(1, ncc.getTenNhaCungCap());
+			preparedStatement.setString(2, ncc.getSoDienThoai());
+			preparedStatement.setString(3, ncc.getEmail());
+			preparedStatement.setString(4, ncc.getDiaChi());
+			preparedStatement.setString(5, ncc.getNhaCungCapID());
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -116,17 +116,14 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		return false;
 	}
 	
-	public String layMaNCCCuoiCung() {
+	public int layMaNCCCuoiCung() {
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT TOP 1 MaNCC FROM NhaCungCap ORDER BY MaNCC DESC");
+			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM NhaCungCap");
 			ResultSet rs = ps.executeQuery();
-			String s = null;
-			while (rs.next()) {
-				s = rs.getString(1);
-			}
-			return s;
+			rs.next();
+			return rs.getInt(1);
 		} catch (Exception e) {
-			return null;
+			return 0;
 		}
 	}
 

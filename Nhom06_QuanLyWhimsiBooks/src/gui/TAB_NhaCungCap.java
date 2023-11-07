@@ -38,6 +38,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         initComponents();
         banPhim = new TAB_BanPhim();
         nhaCungCap_BUS = new NhaCungCap_BUS();
+        txtMaNhaCungCap.setText(phatSinhMaNhaCungCap());
         loadData();
     }
 
@@ -85,7 +86,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         txtTimKiemSdtNCC = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        txtTimKiemEmailNCC = new javax.swing.JTextField();
+        txtTimKiemTenNCC = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
@@ -244,16 +245,16 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel4.setText(" Email:");
+        jLabel4.setText(" Tên:");
         jLabel4.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel18.add(jLabel4);
 
-        txtTimKiemEmailNCC.addActionListener(new java.awt.event.ActionListener() {
+        txtTimKiemTenNCC.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemEmailNCCActionPerformed(evt);
+                txtTimKiemTenNCCActionPerformed(evt);
             }
         });
-        jPanel18.add(txtTimKiemEmailNCC);
+        jPanel18.add(txtTimKiemTenNCC);
 
         jPanel20.add(jPanel18);
 
@@ -422,13 +423,13 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemIDNCCActionPerformed
 
-    private void txtTimKiemEmailNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemEmailNCCActionPerformed
+    private void txtTimKiemTenNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTenNCCActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemEmailNCCActionPerformed
+    }//GEN-LAST:event_txtTimKiemTenNCCActionPerformed
 
-    private void txtSdtNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSdtNCCActionPerformed
+    private void txtSdtNCCActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSdtNCCActionPerformed                                          
+    }                                                                                   
 
     private void btnTimKiemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNCCActionPerformed
         // TODO add your handling code here:
@@ -446,16 +447,18 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         	txtDiaChi.setText(tableModel.getValueAt(row, 5).toString());
         }
     }//GEN-LAST:event_tableNCCMouseClicked
-
-    private void btnHuyNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNCCActionPerformed
-        txtMaNhaCungCap.setText("");
+    private void Huy() {
         txtTenNCC.setText("");
         txtSdtNCC.setText("");
         txtEmailNCC.setText("");
         txtDiaChi.setText("");
         txtTimKiemIDNCC.setText("");
         txtTimKiemSdtNCC.setText("");
-        txtTimKiemEmailNCC.setText("");
+        txtTimKiemTenNCC.setText("");
+    }
+    
+    private void btnHuyNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNCCActionPerformed
+    	Huy();
     }//GEN-LAST:event_btnHuyNCCActionPerformed
 
     private void ChuyenTabBanPhim(JPanel pnlChuyen, JButton btnTab){
@@ -501,25 +504,37 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
+    
 
     private void btnCapNhatNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNCCActionPerformed
-        // TODO add your handling code here:
+        try {
+        	if(kiemTraDuLieuEdit()) {
+        		String maNCC = txtMaNhaCungCap.getText();
+            	String hoTenNCC = txtTenNCC.getText();
+    	    	String soDienThoai = txtSdtNCC.getText();
+    	    	String email = txtEmailNCC.getText();
+    	    	String diaChi = txtDiaChi.getText();
+    	    	NhaCungCap nhaCungCap = new NhaCungCap(maNCC, hoTenNCC, soDienThoai, email, diaChi);
+    	    	if (nhaCungCap_BUS.editNhaCungCap(nhaCungCap)) {
+    				JOptionPane.showMessageDialog(this, "Cập nhật thành công");
+    				txtMaNhaCungCap.setText(phatSinhMaNhaCungCap());
+    				Huy();
+    				loadData();
+    			}
+        	}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Lỗi dữ liệu");
+			return;
+		}
     }//GEN-LAST:event_btnCapNhatNCCActionPerformed
 
+    
     // Them nha cung cap
     	// Phat sinh ma tu dong
     private String phatSinhMaNhaCungCap() {
 		try {
-			NhaCungCap_BUS nccBUS = new NhaCungCap_BUS();
-			String maNhaCungCap_lastest = nccBUS.layMaNCCCuoiCung();
-			String maNhaCungCap = "NCC";
-			String stt_string_lastest = maNhaCungCap_lastest.substring(3, maNhaCungCap_lastest.length());
-			int stt_int_lastest = Integer.parseInt(stt_string_lastest);
-			String stt_current = String.valueOf(stt_int_lastest + 1);
-			for (int i = 0; i < (5 - stt_current.length()); i++) {
-				maNhaCungCap += "0";																					
-			}
-			return maNhaCungCap += stt_current;
+			String maNhaCungCap = "NCC" + String.format("%05d", nhaCungCap_BUS.layMaNCCCuoiCung() + 1);
+			return maNhaCungCap;
 		} catch (NullPointerException e) {
 			return "NCC" + "00001";
 		}
@@ -532,41 +547,109 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 		    	String soDienThoai = txtSdtNCC.getText();
 		    	String email = txtEmailNCC.getText();
 		    	String diaChi = txtDiaChi.getText();
-		    	
+		    	NhaCungCap nhaCungCap = new NhaCungCap(phatSinhMaNhaCungCap(), hoTenNCC, soDienThoai, email, diaChi);
+		    	if (nhaCungCap_BUS.addNhaCungCap(nhaCungCap)) {
+					JOptionPane.showMessageDialog(this, "Thêm thành công");
+					txtMaNhaCungCap.setText(phatSinhMaNhaCungCap());
+					Huy();
+					loadData();
+				}
 			}
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(this,"Lỗi nhập dữ liệu");
 			return;
 		}
     }//GEN-LAST:event_btnThemNhaCungCapActionPerformed
+    private boolean kiemTraSDT(String sdt) {
+    	for(NhaCungCap nhaCungCap : danhSachNCC) {
+    		if(nhaCungCap.getSoDienThoai().equals(sdt))
+    			return true;
+    	}
+    	return false;
+    }
+    private boolean kiemTraEmail(String email) {
+    	for(NhaCungCap nhaCungCap : danhSachNCC) {
+    		if(nhaCungCap.getEmail().equals(email))
+    			return true;
+    	}
+    	return false;
+    }
     private boolean kiemTraDuLieu() {
     	String hoTenNCC = txtTenNCC.getText();
     	String soDienThoai = txtSdtNCC.getText();
     	String email = txtEmailNCC.getText();
     	String diaChi = txtDiaChi.getText();
     	if(!(hoTenNCC.length() > 0 && hoTenNCC.matches(utilities.RegexPattern.HOTEN))) {
-    		JOptionPane.showMessageDialog(this, "Họ tên không được để trống", "Thông báo",
-					JOptionPane.INFORMATION_MESSAGE);
-			txtTenNCC.requestFocus();
-			return false;
+    		new utilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
+    		return false;
     	}
     	if(!(soDienThoai.length() > 0 && soDienThoai.matches(utilities.RegexPattern.SDTVN))) {
-    		JOptionPane.showMessageDialog(this, "Số điện thoại chưa đúng", "Thông báo",
-					JOptionPane.INFORMATION_MESSAGE);
-			txtSdtNCC.requestFocus();
-			return false;
+    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
+    		return false;
     	}
     	if(!(email.length() > 0 && email.matches(utilities.RegexPattern.EMAIL))) {
-    		JOptionPane.showMessageDialog(this, "Email chưa đúng", "Thông báo",
-					JOptionPane.INFORMATION_MESSAGE);
-			txtEmailNCC.requestFocus();
-			return false;
+    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
+    		return false;
     	}
-    	if(!(diaChi.length() > 0 && diaChi.matches("^[a-zA-z0-9' ]+&"))) {
-    		JOptionPane.showMessageDialog(this, "Đia chỉ chưa đúng", "Thông báo",
-					JOptionPane.INFORMATION_MESSAGE);
-			txtDiaChi.requestFocus();
-			return false;
+    		
+    	if(!(diaChi.length() > 0 && diaChi.matches("[a-zA-z0-9' ]+"))) {
+    		new utilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
+    		return false;
+    	}
+    	if(kiemTraSDT(soDienThoai) == true) {
+    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại đã tồn tại", "Thông báo");
+    		return false;
+    	}
+    	if(kiemTraEmail(email) == true) {
+    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email đã tồn tại", "Thông báo");
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private boolean kiemTraSDTEdit(String sdt) {
+    	for(NhaCungCap nhaCungCap : danhSachNCC) {
+    		if(nhaCungCap.getSoDienThoai().equals(sdt))
+    			return true;
+    	}
+    	return false;
+    }
+    private boolean kiemTraEmailEdit(String email) {
+    	for(NhaCungCap nhaCungCap : danhSachNCC) {
+    		if(nhaCungCap.getEmail().equals(email))
+    			return true;
+    	}
+    	return false;
+    }
+    private boolean kiemTraDuLieuEdit() {
+    	String hoTenNCC = txtTenNCC.getText();
+    	String soDienThoai = txtSdtNCC.getText();
+    	String email = txtEmailNCC.getText();
+    	String diaChi = txtDiaChi.getText();
+    	int row = tableNCC.getSelectedRow();
+    	if(!(hoTenNCC.length() > 0 && hoTenNCC.matches(utilities.RegexPattern.HOTEN))) {
+    		new utilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
+    		return false;
+    	}
+    	if(!(soDienThoai.length() > 0 && soDienThoai.matches(utilities.RegexPattern.SDTVN))) {
+    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
+    		return false;
+    	}
+    	if(!(email.length() > 0 && email.matches(utilities.RegexPattern.EMAIL))) {
+    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
+    		return false;
+    	}
+    	if(!(diaChi.length() > 0 && diaChi.matches("[a-zA-z0-9' ]+"))) {
+    		new utilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
+    		return false;
+    	}
+    	if(kiemTraSDTEdit(soDienThoai) == true && (soDienThoai.equals(danhSachNCC.get(row).getSoDienThoai()) == false)) {
+    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại đã tồn tại", "Thông báo");
+    		return false;
+    	}
+    	if(kiemTraEmailEdit(email) == true  && (email.equals(danhSachNCC.get(row).getEmail()) == false)) {
+    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email đã tồn tại", "Thông báo");
+    		return false;
     	}
     	return true;
     }
@@ -642,8 +725,8 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JTextField txtMaNhaCungCap;
     private javax.swing.JTextField txtSdtNCC;
     private javax.swing.JTextField txtTenNCC;
-    private javax.swing.JTextField txtTimKiemEmailNCC;
     private javax.swing.JTextField txtTimKiemIDNCC;
     private javax.swing.JTextField txtTimKiemSdtNCC;
+    private javax.swing.JTextField txtTimKiemTenNCC;
     // End of variables declaration//GEN-END:variables
 }

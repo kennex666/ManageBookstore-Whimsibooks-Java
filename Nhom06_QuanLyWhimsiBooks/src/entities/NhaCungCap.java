@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class NhaCungCap {
 	private String nhaCungCapID;
 	private String tenNhaCungCap;
@@ -7,7 +9,7 @@ public class NhaCungCap {
 	private String diaChi;
 	private String email;
 	
-	public NhaCungCap(String nhaCungCapID, String tenNhaCungCap, String soDienThoai, String diaChi, String email) {
+	public NhaCungCap(String nhaCungCapID, String tenNhaCungCap, String soDienThoai, String email, String diaChi) {
 		this.nhaCungCapID = nhaCungCapID;
 		this.tenNhaCungCap = tenNhaCungCap;
 		this.soDienThoai = soDienThoai;
@@ -17,6 +19,11 @@ public class NhaCungCap {
 
 	public NhaCungCap(String nhaCungCapID) {
 		this.nhaCungCapID = nhaCungCapID;
+	}
+	
+	public NhaCungCap(String soDienThoai, String email) {
+		this.soDienThoai = soDienThoai;
+		this.email = email;
 	}
 
 	public NhaCungCap() {
@@ -62,4 +69,24 @@ public class NhaCungCap {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(diaChi, email, nhaCungCapID, soDienThoai, tenNhaCungCap);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NhaCungCap other = (NhaCungCap) obj;
+		return Objects.equals(diaChi, other.diaChi) && Objects.equals(email, other.email)
+				&& Objects.equals(nhaCungCapID, other.nhaCungCapID) && Objects.equals(soDienThoai, other.soDienThoai)
+				&& Objects.equals(tenNhaCungCap, other.tenNhaCungCap);
+	}
+	
 }
