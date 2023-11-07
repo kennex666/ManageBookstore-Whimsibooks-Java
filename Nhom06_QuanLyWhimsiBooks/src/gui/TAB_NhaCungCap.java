@@ -88,7 +88,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         txtTimKiemTenNCC = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        TBTimKiem = new javax.swing.JLabel();
         jPanel21 = new javax.swing.JPanel();
         btnTimKiemNCC = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -107,7 +107,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel14 = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        btnBanPhim = new javax.swing.JButton();
+        btnHuyNhap = new javax.swing.JButton();
         btnHuyNCC = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -166,12 +166,6 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jLabel7.setText(" Số điện thoại:");
         jLabel7.setPreferredSize(new java.awt.Dimension(120, 16));
         jPanel7.add(jLabel7);
-
-        txtSdtNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSdtNCCActionPerformed(evt);
-            }
-        });
         jPanel7.add(txtSdtNCC);
 
         jPanel15.add(jPanel7);
@@ -225,11 +219,6 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jPanel16.add(jLabel2);
 
         txtTimKiemIDNCC.setPreferredSize(new java.awt.Dimension(80, 22));
-        txtTimKiemIDNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemIDNCCActionPerformed(evt);
-            }
-        });
         jPanel16.add(txtTimKiemIDNCC);
 
         jPanel20.add(jPanel16);
@@ -248,24 +237,21 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         jLabel4.setText(" Tên:");
         jLabel4.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel18.add(jLabel4);
-
-        txtTimKiemTenNCC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTimKiemTenNCCActionPerformed(evt);
-            }
-        });
         jPanel18.add(txtTimKiemTenNCC);
 
         jPanel20.add(jPanel18);
 
-        jPanel19.setLayout(new java.awt.GridLayout(1, 0, 30, 0));
-        jPanel19.add(jLabel5);
+        jPanel19.setLayout(new java.awt.GridLayout(1, 0, 20, 0));
+
+        TBTimKiem.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        TBTimKiem.setForeground(new java.awt.Color(255, 102, 102));
+        jPanel19.add(TBTimKiem);
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 170, Short.MAX_VALUE)
         );
         jPanel21Layout.setVerticalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -379,23 +365,24 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 
         pnlBtn.add(pnlBtnChucNang);
 
-        jPanel14.setMinimumSize(new java.awt.Dimension(178, 120));
-        jPanel14.setPreferredSize(new java.awt.Dimension(179, 50));
+        jPanel14.setMaximumSize(new java.awt.Dimension(32767, 160));
+        jPanel14.setMinimumSize(new java.awt.Dimension(178, 160));
+        jPanel14.setPreferredSize(new java.awt.Dimension(179, 160));
         jPanel14.setLayout(new java.awt.GridLayout(3, 2, 4, 0));
         jPanel14.add(jLabel12);
         jPanel14.add(jLabel13);
 
-        btnBanPhim.setBackground(new java.awt.Color(15, 145, 239));
-        btnBanPhim.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnBanPhim.setForeground(new java.awt.Color(255, 255, 255));
-        btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-banphimNCC.png"))); // NOI18N
-        btnBanPhim.setText("123");
-        btnBanPhim.addActionListener(new java.awt.event.ActionListener() {
+        btnHuyNhap.setBackground(new java.awt.Color(15, 145, 239));
+        btnHuyNhap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHuyNhap.setForeground(new java.awt.Color(255, 255, 255));
+        btnHuyNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-removeInput.png"))); // NOI18N
+        btnHuyNhap.setText("Hủy nhập");
+        btnHuyNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBanPhimActionPerformed(evt);
+                btnHuyNhapActionPerformed(evt);
             }
         });
-        jPanel14.add(btnBanPhim);
+        jPanel14.add(btnHuyNhap);
 
         btnHuyNCC.setBackground(new java.awt.Color(230, 159, 160));
         btnHuyNCC.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -419,23 +406,61 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         add(pnl_ALL, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-	private void txtTimKiemIDNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemIDNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemIDNCCActionPerformed
-
-    private void txtTimKiemTenNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKiemTenNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTimKiemTenNCCActionPerformed
-
     private void txtSdtNCCActionPerformed(java.awt.event.ActionEvent evt) {                                          
         // TODO add your handling code here:
-    }                                                                                   
-
-    private void btnTimKiemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnTimKiemNCCActionPerformed
+    }            
     
-
+    private boolean kiemTraDuLieuKhiTimKiem() {
+    	String timKiemTheoMa = txtTimKiemIDNCC.getText().trim();
+    	String timKiemTheoSDT = txtTimKiemSdtNCC.getText().trim();
+    	String timKiemTheoTen = txtTimKiemTenNCC.getText().trim();
+    	if(timKiemTheoMa.length() <= 0 && timKiemTheoSDT.length() <= 0 && timKiemTheoTen.length() <= 0) {
+    		TBTimKiem.setText("* Chưa có dữ liệu");
+    		return false;
+    	}
+    	return true;
+    }
+    
+    private void timKiem() {
+    	String timKiemTheoMa = txtTimKiemIDNCC.getText().trim();
+    	String timKiemTheoSDT = txtTimKiemSdtNCC.getText().trim();
+    	String timKiemTheoTen = txtTimKiemTenNCC.getText().trim();
+    	ArrayList<NhaCungCap> danhSachNCCTimKiem = new ArrayList<NhaCungCap>();
+    	tableNCC.removeAll();
+    	tableModel.setRowCount(0);
+    	TBTimKiem.setText("");
+    	
+    	if(timKiemTheoMa.length() > 0) {
+    		for(NhaCungCap nhaCungCap : danhSachNCC) {
+    			if(nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
+    				danhSachNCCTimKiem.add(nhaCungCap);
+    		}
+    	}
+    	if(timKiemTheoSDT.length() > 0) {
+    		for(NhaCungCap nhaCungCap : danhSachNCC) {
+    			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT))
+    				danhSachNCCTimKiem.add(nhaCungCap);
+    		}
+    		if(timKiemTheoMa.length() > 0) {
+    			danhSachNCCTimKiem.clear();
+        		for(NhaCungCap nhaCungCap : danhSachNCC) {
+        			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT) && nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
+        				danhSachNCCTimKiem.add(nhaCungCap);
+        		}
+    		}
+    	}
+    	int stt = 1;
+    	for(NhaCungCap nhaCungCap : danhSachNCCTimKiem) {
+    		tableModel.addRow(new Object[] {stt++, nhaCungCap.getNhaCungCapID(), nhaCungCap.getTenNhaCungCap(), nhaCungCap.getSoDienThoai(), nhaCungCap.getEmail(), nhaCungCap.getDiaChi()});
+    	}
+    }
+    
+    // Sự kiện nhấn btn
+    private void btnTimKiemNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNCCActionPerformed
+       if(kiemTraDuLieuKhiTimKiem()) {
+    	   timKiem();
+       }
+    }//GEN-LAST:event_btnTimKiemNCCActionPerformed
 
     private void tableNCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableNCCMouseClicked
         int row = tableNCC.getSelectedRow();
@@ -455,48 +480,13 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
         txtTimKiemIDNCC.setText("");
         txtTimKiemSdtNCC.setText("");
         txtTimKiemTenNCC.setText("");
+        loadData();
     }
     
     private void btnHuyNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNCCActionPerformed
     	Huy();
     }//GEN-LAST:event_btnHuyNCCActionPerformed
-
-    private void ChuyenTabBanPhim(JPanel pnlChuyen, JButton btnTab){
-    	this.oldCom = this.pnlBtnChucNang;
-    	if(btnTab.getText().equals("123")) {
-    		  this.pnlBtnChucNang.removeAll();
-    	      this.pnlBtnChucNang.repaint();
-    	      this.pnlBtnChucNang.revalidate();
-    	        
-    	      this.pnlBtnChucNang.add(pnlChuyen);
-    	      this.pnlBtnChucNang.setLayout(new GridLayout(1,1));
-    	      this.pnlBtnChucNang.repaint();
-    	      this.pnlBtnChucNang.revalidate();
-    	      btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-back.png")));
-    	      btnTab.setText("Trở về");
-    	      return;
-    	}
-    	if(btnTab.getText().equals("Trở về")) {
-  		  this.pnlBtnChucNang.removeAll();
-	      this.pnlBtnChucNang.repaint();
-	      this.pnlBtnChucNang.revalidate();
-	      
-	      pnlBtnChucNang.setLayout(new java.awt.GridLayout(4, 1, 0, 16));
-	      this.pnlBtnChucNang.add(btnThemNhaCungCap);
-	      this.pnlBtnChucNang.add(btnCapNhatNCC);
-	      this.pnlBtnChucNang.add(btnNhapNhieuNCC);
-	      this.pnlBtnChucNang.add(btnXuatFileNCC);
-	      btnBanPhim.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-banphimNCC.png")));
-	      this.pnlBtnChucNang.repaint();
-	      this.pnlBtnChucNang.revalidate();
-	      btnTab.setText("123");
-    	}
-    }
     
-    private void btnBanPhimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBanPhimActionPerformed
-        	ChuyenTabBanPhim(banPhim, btnBanPhim);
-    }//GEN-LAST:event_btnBanPhimActionPerformed
-
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
@@ -560,6 +550,15 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
 			return;
 		}
     }//GEN-LAST:event_btnThemNhaCungCapActionPerformed
+
+    private void btnHuyNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyNhapActionPerformed
+        txtTenNCC.setText("");
+        txtSdtNCC.setText("");
+        txtEmailNCC.setText("");
+        txtDiaChi.setText("");
+    }//GEN-LAST:event_btnHuyNhapActionPerformed
+    
+    // Kiểm tra dữ liệu khi thêm
     private boolean kiemTraSDT(String sdt) {
     	for(NhaCungCap nhaCungCap : danhSachNCC) {
     		if(nhaCungCap.getSoDienThoai().equals(sdt))
@@ -607,6 +606,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	return true;
     }
     
+    // Kiểm tra dữ liệu khi cập nhật
     private boolean kiemTraSDTEdit(String sdt) {
     	for(NhaCungCap nhaCungCap : danhSachNCC) {
     		if(nhaCungCap.getSoDienThoai().equals(sdt))
@@ -668,9 +668,10 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBanPhim;
+    private javax.swing.JLabel TBTimKiem;
     private javax.swing.JButton btnCapNhatNCC;
     private javax.swing.JButton btnHuyNCC;
+    private javax.swing.JButton btnHuyNhap;
     private javax.swing.JButton btnNhapNhieuNCC;
     private javax.swing.JButton btnThemNhaCungCap;
     private javax.swing.JButton btnTimKiemNCC;
@@ -689,7 +690,6 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
