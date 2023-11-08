@@ -14,4 +14,6 @@ public interface INhanVien  {
 	public NhanVien getNhanVienByNhanVienID(String x);
 	public String getTenTuMa(String x);
 	public boolean isMaNhanVienExists(String x);
+	public int phatSinhMaNhanVien();
+	
 }

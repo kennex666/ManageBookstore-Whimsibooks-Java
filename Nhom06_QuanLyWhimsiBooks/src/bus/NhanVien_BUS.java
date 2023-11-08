@@ -56,10 +56,18 @@ public class NhanVien_BUS implements INhanVien {
 	public NhanVien getNhanVienByNhanVienID(String x) {
 		return nv_dao.getNhanVienByNhanVienID(x);
 	}
-@Override
+
+	@Override
 	public boolean isMaNhanVienExists(String x) {
 		return nv_dao.isMaNhanVienExists(x);
-		
+
 	}
+
+	@Override
+	public int phatSinhMaNhanVien() {
+		// TODO Auto-generated method stub
+		return nv_dao.phatSinhMaNhanVien();
+	}
+	
 
 }

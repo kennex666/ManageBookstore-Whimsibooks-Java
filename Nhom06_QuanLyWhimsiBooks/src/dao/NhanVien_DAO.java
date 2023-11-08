@@ -12,7 +12,7 @@ import entities.NhanVien;
 import interfaces.INhanVien;
 
 public class NhanVien_DAO implements INhanVien {
-
+	Connection conn = ConnectDB.getConnection();
 	@Override
 	public ArrayList<NhanVien> findEmployee(String x) {
 
@@ -44,7 +44,6 @@ public class NhanVien_DAO implements INhanVien {
 	public ArrayList<NhanVien> getAllEmployees() {
 		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
 		String query = "SELECT * FROM NhanVien";
-		Connection conn = ConnectDB.getConnection();
 		try (PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
 			while (rs.next()) {
 				NhanVien nhanVien = new NhanVien();
@@ -217,4 +216,24 @@ public class NhanVien_DAO implements INhanVien {
 		return false; // Trả về false nếu có lỗi hoặc mã nhân viên không tồn tại
 	}
 
+	
+	
+	@Override
+	public int phatSinhMaNhanVien() {
+		Connection conn = ConnectDB.getConnection();
+		try {
+			PreparedStatement ps =conn.prepareStatement("SELECT COUNT(*) FROM NhanVien");
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			int count= rs.getInt(1);
+			return count;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return -1;
+		}
+		
+	}
+
+	
+	
 }
