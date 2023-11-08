@@ -33,11 +33,11 @@ public class TAB_BanHang extends javax.swing.JPanel {
         TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
         TAB_BanHang_HoaDonLayout.setHorizontalGroup(
             TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGap(0, 903, Short.MAX_VALUE)
         );
         TAB_BanHang_HoaDonLayout.setVerticalGroup(
             TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Hoá đơn", TAB_BanHang_HoaDon);
@@ -46,11 +46,11 @@ public class TAB_BanHang extends javax.swing.JPanel {
         TAB_BanHang_DanhSachHoaDon.setLayout(TAB_BanHang_DanhSachHoaDonLayout);
         TAB_BanHang_DanhSachHoaDonLayout.setHorizontalGroup(
             TAB_BanHang_DanhSachHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 726, Short.MAX_VALUE)
+            .addGap(0, 903, Short.MAX_VALUE)
         );
         TAB_BanHang_DanhSachHoaDonLayout.setVerticalGroup(
             TAB_BanHang_DanhSachHoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGap(0, 514, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Danh sách hoá đơn", TAB_BanHang_DanhSachHoaDon);
