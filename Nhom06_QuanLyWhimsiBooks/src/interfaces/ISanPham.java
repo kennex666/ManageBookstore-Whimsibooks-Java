@@ -9,6 +9,7 @@ import entities.SanPham;
 
 public interface ISanPham {
 	public ArrayList<SanPham> getDanhSachSanPham(String query);
+	public ArrayList<SanPham> getDanhSachSanPham();
 	public ArrayList<SanPham> searchSanPham(String id);
 	public boolean addSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);

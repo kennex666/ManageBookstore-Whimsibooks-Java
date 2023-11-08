@@ -39,4 +39,10 @@ public class SanPham_BUS implements ISanPham{
 		return sanPham_DAO.getDanhSachSanPhamSapHet();
 	}
 
+	@Override
+	public ArrayList<SanPham> getDanhSachSanPham() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getDanhSachSanPham();
+	}
+
 }

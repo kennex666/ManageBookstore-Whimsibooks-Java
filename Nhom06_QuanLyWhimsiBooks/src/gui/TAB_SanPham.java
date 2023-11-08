@@ -375,7 +375,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         SanPham x = null;
         try {
             // TODO add your handling code here:
-            x = new SanPham(0, 999, 2003, 9, 9, new Date(), 9999, 10, "STCL" + 0, "LOAILO", "1234" , "/", "NGUNGBAN", "NO", "15cm", "L", "XuatXu", "VNESD", "Meemf");
+ //           x = new SanPham(0, 999, 2003, 9, 9, new Date(), 9999, 10, "STCL" + 0, "LOAILO", "1234" , "/", "NGUNGBAN", "NO", "15cm", "L", "XuatXu", "VNESD", "Meemf");
         } catch (Exception ex) {
             Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
         }
