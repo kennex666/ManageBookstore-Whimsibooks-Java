@@ -383,6 +383,9 @@
                 <Container class="javax.swing.JPanel" name="jPanel164">
                   <Properties>
                     <Property name="alignmentX" type="float" value="0.0"/>
+                    <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[300, 30]"/>
+                    </Property>
                   </Properties>
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>

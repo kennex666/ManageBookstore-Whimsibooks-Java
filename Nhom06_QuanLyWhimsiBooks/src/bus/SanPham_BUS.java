@@ -16,9 +16,9 @@ public class SanPham_BUS implements ISanPham{
 	}
 
 	@Override
-	public void searchSanPham(String s, ArrayList<SanPham> list) {
+	public ArrayList<SanPham> searchSanPham(String s) {
 		// TODO Auto-generated method stub
-		
+		return sanPham_DAO.searchSanPham(s);
 	}
 
 	@Override

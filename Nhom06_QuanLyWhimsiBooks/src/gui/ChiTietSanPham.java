@@ -186,6 +186,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jPanel159.add(filler7);
 
         jPanel164.setAlignmentX(0.0F);
+        jPanel164.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel164.setLayout(new javax.swing.BoxLayout(jPanel164, javax.swing.BoxLayout.LINE_AXIS));
 
         jButton28.setBackground(new java.awt.Color(85, 182, 83));

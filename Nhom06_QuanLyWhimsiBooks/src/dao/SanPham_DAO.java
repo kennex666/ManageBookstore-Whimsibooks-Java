@@ -232,15 +232,15 @@ public class SanPham_DAO implements ISanPham{
 
 
 	@Override
-	public void searchSanPham(String sanPhamID, ArrayList<SanPham> list) {
-		
+	public ArrayList<SanPham> searchSanPham(String sanPhamID) {
+		ArrayList<SanPham> list;
 		list = new ArrayList<SanPham>();
 		
 		//Statement stm = conn.createStatement();
 		String query = "SELECT * FROM SanPham WHERE SanPhamID = " + sanPhamID;
 		
 		list = getDanhSachSanPham(query);
-		
+		return list;
 	}
 	
 }
