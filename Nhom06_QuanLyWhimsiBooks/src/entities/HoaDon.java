@@ -2,20 +2,42 @@ package entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 public class HoaDon {
 	private String hoaDonID;
 	private Date ngayLapHoaDon;
 	private String trangThai;
 	private ArrayList<ChiTietHoaDon> listChiTietHoaDon;
+	private double tongTien, thue, giaKhuyenMai;
 	
-	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> list) {
+	
+	
+	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
+			double tongTien, double thue, double giaKhuyenMai) {
+		super();
 		this.hoaDonID = hoaDonID;
 		this.ngayLapHoaDon = ngayLapHoaDon;
 		this.trangThai = trangThai;
-		this.listChiTietHoaDon = list;
+		this.listChiTietHoaDon = listChiTietHoaDon;
+		this.tongTien = tongTien;
+		this.thue = thue;
+		this.giaKhuyenMai = giaKhuyenMai;
 	}
 	
+	
+
+	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
+			double thue, double giaKhuyenMai) {
+		super();
+		this.hoaDonID = hoaDonID;
+		this.ngayLapHoaDon = ngayLapHoaDon;
+		this.trangThai = trangThai;
+		this.listChiTietHoaDon = listChiTietHoaDon;
+		this.thue = thue;
+		this.giaKhuyenMai = giaKhuyenMai;
+	}
+
 	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai) {
 		this.hoaDonID = hoaDonID;
 		this.ngayLapHoaDon = ngayLapHoaDon;
@@ -24,54 +46,30 @@ public class HoaDon {
 
 	public HoaDon() {
 		super();
+		listChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
 	}
 	
-	public void addChiTietHoaDon(ChiTietHoaDon x) {
-		listChiTietHoaDon.add(x);
-	}
-        
-    public void editSoLuong(ChiTietHoaDon x){
-    	if (listChiTietHoaDon.contains(x)){
-        	 listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x)).setSoLuong(x.getSoLuong());;
-    	}else {
-    		addChiTietHoaDon(x);
-    	}
-    }
 	
-	public void removeChiTietHoaDon(ChiTietHoaDon x) {
-		listChiTietHoaDon.remove(x);
+	public double getThue() {
+		return thue;
 	}
 
-	public ArrayList<ChiTietHoaDon> getListChiTietHoaDon() {
-		return listChiTietHoaDon;
-	}
-
-	public void setListChiTietHoaDon(ArrayList<ChiTietHoaDon> listChiTietHoaDon) {
-		this.listChiTietHoaDon = listChiTietHoaDon;
-	}
-
-	public ArrayList<Object> tableChiTietHoaDon() {
-		ArrayList<Object> lines = new ArrayList<Object>();
-		
-		for (int i = 0 ; i < listChiTietHoaDon.size(); i++) {
-			Object[] tempObj = new Object[10];
-			ChiTietHoaDon tempCTHD = listChiTietHoaDon.get(i);
-			tempObj[0] = i+1;
-			tempObj[1] = tempCTHD.getSanPham().getSanPhamID();
-			tempObj[2] = tempCTHD.getSanPham().getTenSanPham();
-			tempObj[3] = tempCTHD.getSanPham().getGiaBan();
-			tempObj[4] = "-";
-			tempObj[5] = tempCTHD.getSoLuong();
-			tempObj[6] = "+";
-			tempObj[7] = tempCTHD.getSanPham().getThue();
-			tempObj[8] = tempCTHD.tinhTongTien();
-			tempObj[9] = "Delete";
-			lines.add(tempCTHD);
-			
-		}
-		return lines;
+	public void setThue(double thue) {
+		this.thue = thue;
 	}
 	
+	public double getGiaKhuyenMai() {
+		return giaKhuyenMai;
+	}
+	
+	public void setGiaKhuyenMai(double giaKhuyenMai) {
+		this.giaKhuyenMai = giaKhuyenMai;
+	}
+
+	public void setTongTien(double tongTien) {
+		this.tongTien = tongTien;
+	}
+
 	public String getHoaDonID() {
 		return hoaDonID;
 	}
@@ -95,6 +93,101 @@ public class HoaDon {
 	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
+        
+	public double getTongTien() {
+		return tongTien;
+	}
+	
+	public double tinhTongTien() {
+		tongTien = 0;
+		for (ChiTietHoaDon x : listChiTietHoaDon)
+			tongTien += x.tinhTongTien();
+		return tongTien;
+	}
+	
+	public double tinhTongThue () {
+		thue = 0;
+		for (ChiTietHoaDon x : listChiTietHoaDon)
+			thue += (x.getSanPham().getGiaBan() * x.getSoLuong()) * x.getSanPham().getThue();
+		return thue;
+	}
+	
+	public double tinhThanhTien() {
+		return tinhTongTien() - getGiaKhuyenMai();
+	}
+        
+	public int addChiTietHoaDon(ChiTietHoaDon x) {
+		if (listChiTietHoaDon.contains(x)){
+			int temp = listChiTietHoaDon.indexOf(x);
+       	 	listChiTietHoaDon.get(temp)
+       	 	.setSoLuong(
+       	 		listChiTietHoaDon.get(temp).getSoLuong() + 1
+       	 	);
+       	 	return temp;
+	   	}
+		
+		listChiTietHoaDon.add(x);
+		return -1;
+	   	
+	}
+        
+    public void editSoLuong(ChiTietHoaDon x){
+    	if (listChiTietHoaDon.contains(x)){
+        	 listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x)).setSoLuong(x.getSoLuong());;
+    	}else {
+    		addChiTietHoaDon(x);
+    	}
+    }
+	
+	public void removeChiTietHoaDon(ChiTietHoaDon x) {
+		listChiTietHoaDon.remove(x);
+	}
+        
+        public void removeAllChiTietHoaDon() {
+            while (listChiTietHoaDon.size() > 0){
+                listChiTietHoaDon.remove(0);
+            }
+	}
+
+	public ArrayList<ChiTietHoaDon> getListChiTietHoaDon() {
+		return listChiTietHoaDon;
+	}
+
+	public void setListChiTietHoaDon(ArrayList<ChiTietHoaDon> listChiTietHoaDon) {
+		this.listChiTietHoaDon = listChiTietHoaDon;
+	}
+
+	public ArrayList<Object> tableChiTietHoaDon() {
+		ArrayList<Object> lines = new ArrayList<Object>();
+		
+		for (int i = 0 ; i < listChiTietHoaDon.size(); i++) {
+			ChiTietHoaDon tempCTHD = listChiTietHoaDon.get(i);
+			lines.add(tableRowChiTietHoaDon(tempCTHD));
+			
+		}
+		return lines;
+	}
+	
+	public Object[] tableRowChiTietHoaDon(ChiTietHoaDon x) {
+			Object[] tempObj = new Object[10];
+			ChiTietHoaDon tempCTHD = listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x));
+			tempObj[0] = listChiTietHoaDon.indexOf(x) + 1; 
+			tempObj[1] = tempCTHD.getSanPham().getSanPhamID();
+			tempObj[2] = tempCTHD.getSanPham().getTenSanPham();
+			tempObj[3] = tempCTHD.getSanPham().getGiaBan();
+			tempObj[4] = "";
+			tempObj[5] = tempCTHD.getSoLuong();
+			tempObj[6] = "";
+			tempObj[7] = tempCTHD.getSanPham().getThue();
+			tempObj[8] = tempCTHD.tinhTongTien();
+			tempObj[9] = "";
+		return tempObj;
+	}
+	
+    @Override
+    public String toString() {
+        return hoaDonID; // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
 	
 	
 	

@@ -53,7 +53,7 @@ public class ChiTietHoaDon {
 	
 	public double tinhTongTien() {
 		// Nếu là đơn giá từ database lưu trữ thì tính theo db, ngược lại là hoá đơn
-		// đang lập
+		// đang lập. Giá bán đã kèm VAT
 		return donGia > 0 ? donGia * soLuong : (soLuong * sanPham.getGiaBan());
 	}
 

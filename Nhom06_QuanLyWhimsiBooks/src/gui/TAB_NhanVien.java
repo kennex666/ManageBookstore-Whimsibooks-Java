@@ -51,11 +51,6 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		initComponents();
 		loadNhanVienTable();
 		txtMa.setEditable(false);
-//		test
-		for (int i=0;i<5;i++) {
-			System.out.println("phát sinh mã ngẫu nhiên:"+phatSinhMaNhanVien());
-		
-		}
 		
 	}
 
