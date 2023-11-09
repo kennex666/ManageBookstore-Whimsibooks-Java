@@ -17,9 +17,7 @@ public class MainMenuTest {
 		ConnectDB.getInstance().connect();
 		
 		SanPham_BUS sp_bus = new SanPham_BUS();
-//		SanPham sanPham = new SanPham();
-//		sanPham.setTenSanPham("abc");
-		System.out.println(sp_bus.getDanhSachSanPham());
+		System.out.println(sp_bus.getDanhSachSanPhamSapHet());
 		
 		
 	}

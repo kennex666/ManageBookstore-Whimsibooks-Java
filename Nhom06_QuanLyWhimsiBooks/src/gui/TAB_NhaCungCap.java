@@ -26,6 +26,7 @@ import entities.NhaCungCap;
  * @author NguyenThanhLuan
  */
 public class TAB_NhaCungCap extends javax.swing.JPanel {
+	TAB_BanPhim banPhim;
 	Component oldCom;
     private DefaultTableModel tableModel;
     private ArrayList<NhaCungCap> danhSachNCC;
@@ -35,6 +36,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
      */
     public TAB_NhaCungCap() {
         initComponents();
+        banPhim = new TAB_BanPhim();
         nhaCungCap_BUS = new NhaCungCap_BUS();
         txtMaNhaCungCap.setText(phatSinhMaNhaCungCap());
         loadData();
