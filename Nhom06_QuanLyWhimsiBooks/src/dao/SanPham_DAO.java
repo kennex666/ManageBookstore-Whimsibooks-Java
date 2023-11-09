@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,6 +17,7 @@ import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
+import utilities.Numberic;
 
 public class SanPham_DAO implements ISanPham{
 
@@ -241,6 +243,81 @@ public class SanPham_DAO implements ISanPham{
 		
 		list = getDanhSachSanPham(query);
 		
+	}
+	
+	@Override
+	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x) {
+		SanPham sanPham = null;
+		try {
+			PreparedStatement pstm = conn.prepareStatement(
+				"SELECT * FROM SanPham WHERE SanPhamID = ? OR barcode = ?"
+			);
+			
+			TacGia tg = new TacGia();
+			NhaCungCap ncc = new NhaCungCap();
+			TheLoai tl = new TheLoai();
+			NhaXuatBan nxb = new NhaXuatBan();
+			DanhMuc dm = new DanhMuc();
+			ThuongHieu th = new ThuongHieu();
+			
+			
+			pstm.setInt(1, Numberic.parseInteger(x));
+			pstm.setString(2, x);
+			
+			ResultSet rs = pstm.executeQuery();
+			
+			rs.next();
+			try {
+				int sanphamid = rs.getInt("sanphamid");
+				int soLuongTon = rs.getInt("soluongton");
+				int namsx = rs.getInt("namsanxuat"); 
+				int daban = rs.getInt("daban"); 
+				int sotrang = rs.getInt("sotrang"); 
+				Date ngaynhap =  rs.getDate("ngaynhap"); 
+				double dongia = rs.getDouble("dongia"); 
+				double thue = rs.getDouble("thue"); 
+				String tensanpham = rs.getString("tensanpham"); 
+				String loaidoitra = rs.getString("loaidoitra");
+				String barcode = rs.getString("barcode"); 
+				String img = rs.getString("imgpath"); 
+				String tinhtrang = rs.getString("tinhtrang"); 
+				String loaisanpham = rs.getString("loaisanpham"); 
+				String donvidoluong = rs.getString("donvidoluong"); 
+				String kichthuoc = rs.getString("kichthuoc"); 
+				String xuatxu = rs.getString("xuatxu"); 
+				String ngongu = rs.getString("ngonngu"); 
+				String loaibia = rs.getString("loaibia"); 
+				
+				int tacgiaid = rs.getInt("tacgiaid"); 
+				int theloaiid = rs.getInt("theloaiid"); 
+				int nhaxuatbanid = rs.getInt("nhaxuatbanid"); 
+				int thuonghieuid = rs.getInt("thuonghieuid"); 
+				int danhmucid = rs.getInt("danhmucid"); 
+				String nhacungcapid = rs.getString("nhacungcapid");
+				
+				tg.setTacGiaID(tacgiaid);
+				tl.setTheLoaiID(theloaiid);
+				nxb.setNhaXuatBanID(nhaxuatbanid);
+				th.setThuongHieuID(thuonghieuid);
+				dm.setDanhMucID(danhmucid);
+				ncc.setNhaCungCapID(nhacungcapid);
+				
+					
+				sanPham = new SanPham(sanphamid, soLuongTon, namsx, 
+						daban, sotrang, ngaynhap, dongia, thue, tensanpham, 
+						loaidoitra, barcode, img, tinhtrang, loaisanpham, donvidoluong, 
+						kichthuoc, xuatxu, ngongu, loaibia,
+						tg, tl, nxb, th, dm, ncc);
+				return sanPham;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 }

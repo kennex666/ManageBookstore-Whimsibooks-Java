@@ -8,7 +8,12 @@ import interfaces.ISanPham;
 
 public class SanPham_BUS implements ISanPham{
 
-	SanPham_DAO sanPham_DAO = new SanPham_DAO();
+	private SanPham_DAO sanPham_DAO;
+	
+	public SanPham_BUS() {
+		// TODO Auto-generated constructor stub
+		sanPham_DAO = new SanPham_DAO();
+	}
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		// TODO Auto-generated method stub
@@ -37,6 +42,12 @@ public class SanPham_BUS implements ISanPham{
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPhamSapHet();
+	}
+	
+	@Override
+	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x) {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getChiMotSanPhamTheoMaHoacBarcode(x);
 	}
 
 }

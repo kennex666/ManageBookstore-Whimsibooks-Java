@@ -14,8 +14,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.border.Border;
+
+import com.formdev.flatlaf.FlatIntelliJLaf;
+
+import connectDB.ConnectDB;
 import utilities.ColorProcessing;
+import utilities.WindowTitle;
 
 /**
  *
@@ -35,6 +42,8 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private JButton isFocusTab;
     
     public GUI_MainMenu() {
+
+    	ConnectDB.getInstance().connect();
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         utilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));
@@ -47,6 +56,9 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         //Border pannelBorder =  BorderFactory.createMatteBorder(0, 0, 0, 1, ColorProcessing.rgbColor(15, 102, 165));
         //pannelLeft.setBorder(pannelBorder);
         
+        // Khởi instance title
+        WindowTitle.getInstance().setJf(this);
+        
         // Khởi tạo các tab
         tabBanHang = new TAB_BanHang();
         tabSanPham = new TAB_SanPham();
@@ -56,6 +68,14 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
     }
 
+    /*
+        Default test start
+    */
+    
+    public void activateGUITest(){
+        tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -126,7 +146,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
 
-        cboUser.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
+        cboUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboUser.setMaximumRowCount(2);
         cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào, Dương Thái Bảo", "Đăng xuất" }));
 
@@ -137,7 +157,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 653, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 654, Short.MAX_VALUE)
                 .addComponent(cboUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -171,9 +191,9 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         jPanel5Layout.rowHeights = new int[] {0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0};
         pannelLeft.setLayout(jPanel5Layout);
 
-        btnTabBanHang.setBackground(Color.white);
+        btnTabBanHang.setBackground(new java.awt.Color(15, 145, 239));
         btnTabBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnTabBanHang.setForeground(new java.awt.Color(15, 102, 165));
+        btnTabBanHang.setForeground(new java.awt.Color(255, 255, 255));
         btnTabBanHang.setIcon(
             utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-banhang.png"))
                 , sizeIconBar, sizeIconBar)
