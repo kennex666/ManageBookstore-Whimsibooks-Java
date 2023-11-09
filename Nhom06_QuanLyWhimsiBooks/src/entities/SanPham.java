@@ -268,7 +268,11 @@ public class SanPham {
 		this.soTrang = 0;
 	}
 	
-	
+	/* Tính giá bán */
+	public double getGiaBan() {
+		// TODO Auto-generated method stub
+		return giaNhap  + giaNhap * 0.2;
+	}
 	
 	@Override
 	public int hashCode() {
