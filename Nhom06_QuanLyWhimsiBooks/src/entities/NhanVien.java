@@ -18,6 +18,10 @@ public class NhanVien {
 	private String diaChi;
 	
 	
+	public NhanVien() {
+
+	}
+
 	public NhanVien( String nhanVienID ) {
 		this.nhanVienID=nhanVienID;
 	}

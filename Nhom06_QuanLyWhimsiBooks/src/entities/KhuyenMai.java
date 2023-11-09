@@ -12,6 +12,7 @@ public class KhuyenMai {
 	private Date ngayKhuyenMai;
 	private Date ngayHetHanKM;
 	private double donHangTu;
+	private int soLuongKhuyenMai, soLuotDaApDung;
 
 	/**
 	 * @param codeKhuyenMai
@@ -32,6 +33,24 @@ public class KhuyenMai {
 		this.setNgayHetHanKM(ngayHetHanKM);
 		this.setDonHangTu(donHangTu);
 	}
+	
+	
+	
+	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
+			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {
+		super();
+		this.codeKhuyenMai = codeKhuyenMai;
+		this.tenKhuyenMai = tenKhuyenMai;
+		this.loaiKhuyenMai = loaiKhuyenMai;
+		this.giaTri = giaTri;
+		this.ngayKhuyenMai = ngayKhuyenMai;
+		this.ngayHetHanKM = ngayHetHanKM;
+		this.donHangTu = donHangTu;
+		this.soLuongKhuyenMai = soLuongKhuyenMai;
+		this.soLuotDaApDung = soLuotDaApDung;
+	}
+
+
 
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;

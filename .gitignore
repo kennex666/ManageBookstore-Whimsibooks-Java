@@ -88,3 +88,7 @@ nbproject/
 build.xml
 
 # End of https://www.toptal.com/developers/gitignore/api/netbeans
+
+
+# Our enviroment
+Nhom06_QuanLyWhimsiBooks/src/gui/*Test.java
