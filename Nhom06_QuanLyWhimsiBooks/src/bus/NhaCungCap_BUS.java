@@ -2,6 +2,8 @@ package bus;
 
 import java.util.ArrayList;
 
+import javax.swing.JTable;
+
 import dao.NhaCungCap_DAO;
 import entities.NhaCungCap;
 import interfaces.INhaCungCap;
@@ -39,4 +41,11 @@ public class NhaCungCap_BUS implements INhaCungCap{
 		return ncc_DAO.editNhaCungCap(ncc);
 	}
 
+	public int layMaNCCCuoiCung() {
+		return	ncc_DAO.layMaNCCCuoiCung();
+	}
+
+	public NhaCungCap_BUS() {
+		this.ncc_DAO = new NhaCungCap_DAO();
+	}	
 }
