@@ -9,9 +9,11 @@ import entities.SanPham;
 
 public interface ISanPham {
 	public ArrayList<SanPham> getDanhSachSanPham(String query);
-	public void searchSanPham(String s, ArrayList<SanPham> list);
+	public ArrayList<SanPham> getDanhSachSanPham();
+	public ArrayList<SanPham> searchSanPham(String id);
 	public boolean addSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
+	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);
 	
 }

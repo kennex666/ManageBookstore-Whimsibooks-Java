@@ -13,20 +13,25 @@ import javax.swing.JFrame;
  */
 
 public class WindowTitle {
-	private JFrame jf;
+	private static JFrame jf;
 	public static final String VERSION = "1.0.0 (Test)";
+        public static WindowTitle instance = new WindowTitle();
 	
 	public static String getTitleContent(String x) {
 		return x + " - Nhà sách WhimsiBooks | " + VERSION;
 	}
 	
-	public void setTitle() {
-		
+	public static void setTitle(String x) {
+		jf.setTitle(getTitleContent(x));
 	}
 
 	public WindowTitle(JFrame jf) {
 		super();
 		this.jf = jf;
+	}
+        
+        public WindowTitle() {
+		super();
 	}
 
 	public JFrame getJf() {
@@ -36,6 +41,10 @@ public class WindowTitle {
 	public void setJf(JFrame jf) {
 		this.jf = jf;
 	}
+        
+        public static WindowTitle getInstance(){
+            return instance;
+        }
 
 	@Override
 	public String toString() {
