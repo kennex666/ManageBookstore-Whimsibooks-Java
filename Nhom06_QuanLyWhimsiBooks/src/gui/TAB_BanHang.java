@@ -1,8 +1,14 @@
 
 package gui;
 
+import bus.ChiTietHoaDon_BUS;
+import bus.HoaDon_BUS;
+import bus.SanPham_BUS;
+import connectDB.ConnectDB;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
 
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -10,6 +16,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
+import entities.HoaDon;
+import entities.SanPham;
 import utilities.*;
 
 /**
@@ -17,19 +25,30 @@ import utilities.*;
  * @author duong
  */
 public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
-
+    private SanPham_BUS sanPham_BUS;
+    private HoaDon_BUS hoaDon_BUS;
+    private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
     /**
      * Creates new form TAB_BanHang
      */
     public TAB_BanHang() {
+    	// Hoá đơn mặc định.
+    	HoaDon hoaDon = new HoaDon();
+        sanPham_BUS = new SanPham_BUS();
+    	
         initComponents();
         
-        jTable1.getColumn("Sửa").setCellRenderer(new ButtonRender(
+        jTable1.getColumn("-").setCellRenderer(new ButtonRender(
                 ImageProcessing.resizeIcon(
-                    new ImageIcon(getClass().getResource("/img/icon/btn-edit.png"))
+                    new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png"))
                 , 15, 15)
         ));
 
+        jTable1.getColumn("+").setCellRenderer(new ButtonRender(
+                ImageProcessing.resizeIcon(
+                    new ImageIcon(getClass().getResource("/img/icon/btn-increase.png"))
+                , 15, 15)
+        ));
         jTable1.getColumn("Xoá").setCellRenderer(new ButtonRender(
                 ImageProcessing.resizeIcon(
                     new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png"))
@@ -38,7 +57,9 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         
         jTable1.addMouseListener(this);
         
-        ((utilities.JTextFieldPlaceHolder)txtMaKhachHang).setPlaceholder("Tesst");
+        // Placeholder text
+        ((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
+        ((utilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
         WindowTitle.setTitle("Quản lý bán hàng");
     }
     
@@ -51,19 +72,24 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             int column = tbl.columnAtPoint( e.getPoint() );
             
             switch (column) {
-				case 7 -> {
-					if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn sửa số lượng của sản phẩm " + tbl.getValueAt(row, 1) + " không??", "Xác nhận thao tác", JOptionPane.CANCEL_OPTION)){
+		case 4 -> {
+                    if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Giảm số lượng" + tbl.getValueAt(row, 1) + " khỏi hoá đơn không??", "Xác nhận thao tác", JOptionPane.CANCEL_OPTION)){
 						
-					}
-				}
-				case 8 -> {
-					if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xoá sản phẩm " + tbl.getValueAt(row, 1) + " khỏi hoá đơn không??", "Xác nhận thao tác", JOptionPane.CANCEL_OPTION)){
+                    }
+		}
+                case 6 -> {
+                    if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Tăng số lượng" + tbl.getValueAt(row, 1) + " khỏi hoá đơn không??", "Xác nhận thao tác", JOptionPane.CANCEL_OPTION)){
 						
-					}
-				}
-				default ->{
-				}
-			}
+                    }
+		}
+		case 9 -> {
+                    if (JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(null, "Bạn có chắc chắn muốn xoá sản phẩm " + tbl.getValueAt(row, 1) + " khỏi hoá đơn không??", "Xác nhận thao tác", JOptionPane.CANCEL_OPTION)){
+						
+                    }
+		}
+		default ->{
+		}
+            }
             
     	}
     	
@@ -108,18 +134,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel3 = new javax.swing.JPanel();
         tabBanHang_HoaDon_Center = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        txtMaSanPham = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -130,6 +144,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jTextField5 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextField6 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtMaSanPham = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        btnThemSanPham = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         tabBanHang_HoaDon_Right = new javax.swing.JPanel();
         tabBanHang_HoaDon_Right_KhachHang = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
@@ -143,7 +165,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_Right_GiamGia = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
-        jTextField13 = new javax.swing.JTextField();
+        txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
         jButton6 = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
@@ -173,13 +195,166 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
         java.awt.GridBagLayout tabBanHang_HoaDon_CenterLayout = new java.awt.GridBagLayout();
         tabBanHang_HoaDon_CenterLayout.columnWidths = new int[] {0};
-        tabBanHang_HoaDon_CenterLayout.rowHeights = new int[] {0, 10, 0, 10, 0};
+        tabBanHang_HoaDon_CenterLayout.rowHeights = new int[] {0, 0, 0};
         tabBanHang_HoaDon_Center.setLayout(tabBanHang_HoaDon_CenterLayout);
 
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Sản phẩm"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Giỏ hàng"));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "-", "Số lượng", "+", "Thuế", "Thành tiền", "Xoá"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setResizable(false);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(5).setResizable(false);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(6).setResizable(false);
+            jTable1.getColumnModel().getColumn(6).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(7).setResizable(false);
+            jTable1.getColumnModel().getColumn(7).setPreferredWidth(30);
+            jTable1.getColumnModel().getColumn(8).setResizable(false);
+            jTable1.getColumnModel().getColumn(9).setResizable(false);
+            jTable1.getColumnModel().getColumn(9).setPreferredWidth(25);
+        }
+
+        jPanel7.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        jPanel1.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, ColorProcessing.rgbColor(15, 102, 165)));
+        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+        jPanel1Layout.columnWidths = new int[] {0, 33, 0, 33, 0, 33, 0, 33, 0, 33, 0, 33, 0};
+        jPanel1Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
+        jPanel1.setLayout(jPanel1Layout);
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setText("Tổng tiền:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 9);
+        jPanel1.add(jLabel5, gridBagConstraints);
+
+        jTextField2.setEditable(false);
+        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField2.setFocusable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(jTextField2, gridBagConstraints);
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setText("Chiết khấu:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 9, 0, 0);
+        jPanel1.add(jLabel6, gridBagConstraints);
+
+        jTextField5.setEditable(false);
+        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField5.setFocusable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(jTextField5, gridBagConstraints);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("Thành tiền:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
+        jPanel1.add(jLabel7, gridBagConstraints);
+
+        jTextField6.setEditable(false);
+        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField6.setFocusable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(jTextField6, gridBagConstraints);
+
+        jTextField9.setEditable(false);
+        jTextField9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jTextField9.setFocusable(false);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 7;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 10);
+        jPanel1.add(jTextField9, gridBagConstraints);
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Thuế:");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 6;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(0, 11, 0, 11);
+        jPanel1.add(jLabel10, gridBagConstraints);
+
+        jPanel7.add(jPanel1, java.awt.BorderLayout.PAGE_END);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        tabBanHang_HoaDon_Center.add(jPanel7, gridBagConstraints);
+
         java.awt.GridBagLayout jPanel6Layout = new java.awt.GridBagLayout();
-        jPanel6Layout.columnWidths = new int[] {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0};
-        jPanel6Layout.rowHeights = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel6Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+        jPanel6Layout.rowHeights = new int[] {0, 10, 0, 10, 0};
         jPanel6.setLayout(jPanel6Layout);
 
         jLabel3.setText("Mã sản phẩm:");
@@ -200,115 +375,40 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.weighty = 0.09;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
         jPanel6.add(txtMaSanPham, gridBagConstraints);
 
-        jLabel1.setText("Giá:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weighty = 0.09;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        jPanel6.add(jLabel1, gridBagConstraints);
+        java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
+        jPanel5Layout.columnWidths = new int[] {0, 22, 0, 22, 0, 22, 0};
+        jPanel5Layout.rowHeights = new int[] {0};
+        jPanel5.setLayout(jPanel5Layout);
 
-        jTextField1.setEditable(false);
-        jTextField1.setFocusable(false);
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        btnThemSanPham.setBackground(new java.awt.Color(15, 102, 165));
+        btnThemSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnThemSanPham.setForeground(new java.awt.Color(255, 255, 255));
+        btnThemSanPham.setIcon(
+            ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20,20)
+        );
+        btnThemSanPham.setIconTextGap(10);
+        btnThemSanPham.setPreferredSize(new java.awt.Dimension(50, 20));
+        btnThemSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                btnAddSanPhamActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weightx = 0.2;
-        gridBagConstraints.weighty = 0.09;
-        jPanel6.add(jTextField1, gridBagConstraints);
-
-        jLabel2.setText("Số lượng:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weighty = 0.09;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        jPanel6.add(jLabel2, gridBagConstraints);
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weighty = 0.09;
-        jPanel6.add(jTextField3, gridBagConstraints);
-
-        jLabel4.setText("Tên sản phẩm:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weighty = 0.09;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-        jPanel6.add(jLabel4, gridBagConstraints);
-
-        jTextField4.setEditable(false);
-        jTextField4.setFocusable(false);
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 12;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 5;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.09;
-        jPanel6.add(jTextField4, gridBagConstraints);
-
-        java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
-        jPanel5Layout.columnWidths = new int[] {0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0, 22, 0};
-        jPanel5Layout.rowHeights = new int[] {0};
-        jPanel5.setLayout(jPanel5Layout);
-
-        jButton1.setBackground(new java.awt.Color(15, 102, 165));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(
-            ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20,20)
-        );
-        jButton1.setText("Thêm sản phẩm");
-        jButton1.setIconTextGap(10);
-        jButton1.setPreferredSize(new java.awt.Dimension(117, 30));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 17;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 10;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.5;
-        jPanel5.add(jButton1, gridBagConstraints);
+        jPanel5.add(btnThemSanPham, gridBagConstraints);
 
         jButton5.setBackground(new java.awt.Color(239, 162, 162));
         jButton5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -316,18 +416,17 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jButton5.setIcon(
             ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-delete.png")), 15,20)
         );
-        jButton5.setText("Xoá rỗng");
         jButton5.setIconTextGap(10);
-        jButton5.setPreferredSize(new java.awt.Dimension(72, 30));
+        jButton5.setPreferredSize(new java.awt.Dimension(50, 20));
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 18;
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 13;
+        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 15;
         gridBagConstraints.weightx = 0.1;
@@ -335,149 +434,20 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel5.add(jButton5, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 6;
+        gridBagConstraints.gridx = 12;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = 7;
-        gridBagConstraints.gridheight = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-        gridBagConstraints.weighty = 0.1;
+        gridBagConstraints.weighty = 0.2;
         jPanel6.add(jPanel5, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
         gridBagConstraints.weightx = 0.1;
         tabBanHang_HoaDon_Center.add(jPanel6, gridBagConstraints);
-
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Giỏ hàng"));
-        jPanel7.setLayout(new java.awt.BorderLayout());
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "STT", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "Số lượng", "Thuế", "Thành tiền", "Sửa", "Xoá"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setPreferredWidth(25);
-        }
-
-        jPanel7.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
-        jPanel1Layout.columnWidths = new int[] {0, 30, 0, 30, 0, 30, 0, 30, 0, 30, 0, 30, 0, 30, 0};
-        jPanel1Layout.rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0, 0};
-        jPanel1.setLayout(jPanel1Layout);
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Tổng tiền:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(11, 16, 0, 16);
-        jPanel1.add(jLabel5, gridBagConstraints);
-
-        jTextField2.setEditable(false);
-        jTextField2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField2.setFocusable(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(11, 0, 0, 0);
-        jPanel1.add(jTextField2, gridBagConstraints);
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Chiết khấu:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(1, 16, 13, 5);
-        jPanel1.add(jLabel6, gridBagConstraints);
-
-        jTextField5.setEditable(false);
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField5.setFocusable(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 12, 0);
-        jPanel1.add(jTextField5, gridBagConstraints);
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel7.setText("Thành tiền:");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 8;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.insets = new java.awt.Insets(0, 19, 0, 12);
-        jPanel1.add(jLabel7, gridBagConstraints);
-
-        jTextField6.setEditable(false);
-        jTextField6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jTextField6.setFocusable(false);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 10;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.1;
-        jPanel1.add(jTextField6, gridBagConstraints);
-
-        jPanel7.add(jPanel1, java.awt.BorderLayout.PAGE_END);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-        gridBagConstraints.weighty = 0.1;
-        tabBanHang_HoaDon_Center.add(jPanel7, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -490,7 +460,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
         java.awt.GridBagLayout tabBanHang_HoaDon_RightLayout = new java.awt.GridBagLayout();
         tabBanHang_HoaDon_RightLayout.columnWidths = new int[] {0};
-        tabBanHang_HoaDon_RightLayout.rowHeights = new int[] {0, 9, 0, 9, 0, 9, 0};
+        tabBanHang_HoaDon_RightLayout.rowHeights = new int[] {0, 14, 0, 14, 0, 14, 0};
         tabBanHang_HoaDon_Right.setLayout(tabBanHang_HoaDon_RightLayout);
 
         tabBanHang_HoaDon_Right_KhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng"));
@@ -591,15 +561,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel15Layout.rowHeights = new int[] {0, 9, 0, 9, 0, 9, 0};
         jPanel15.setLayout(jPanel15Layout);
 
-        jTextField13.setMinimumSize(new java.awt.Dimension(16, 22));
-        jTextField13.setPreferredSize(new java.awt.Dimension(150, 30));
-        jTextField13.setRequestFocusEnabled(false);
-        jTextField13.addActionListener(new java.awt.event.ActionListener() {
+        txtKhuyenMai.setMinimumSize(new java.awt.Dimension(16, 22));
+        txtKhuyenMai.setPreferredSize(new java.awt.Dimension(150, 30));
+        txtKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField13ActionPerformed(evt);
+                txtKhuyenMaiActionPerformed(evt);
             }
         });
-        jPanel16.add(jTextField13);
+        jPanel16.add(txtKhuyenMai);
 
         jButton6.setBackground(new java.awt.Color(15, 102, 165));
         jButton6.setIcon(
@@ -679,14 +648,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_Right_GiamGia1.setLayout(tabBanHang_HoaDon_Right_GiamGia1Layout);
 
         jButton2.setBackground(new java.awt.Color(15, 145, 239));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(ImageProcessing.resizeIcon(
             new ImageIcon(getClass().getResource("/img/icon/btn-waitlist.png"))
             , 45, 45));
     jButton2.setText("Hàng chờ (F5)");
     jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-    jButton2.setIconTextGap(40);
+    jButton2.setIconTextGap(50);
     jButton2.setMargin(new java.awt.Insets(2, 35, 3, 14));
     jButton2.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -704,14 +673,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     tabBanHang_HoaDon_Right_GiamGia1.add(jButton2, gridBagConstraints);
 
     jButton4.setBackground(new java.awt.Color(15, 145, 239));
-    jButton4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    jButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
     jButton4.setForeground(new java.awt.Color(255, 255, 255));
     jButton4.setIcon(ImageProcessing.resizeIcon(
         new ImageIcon(getClass().getResource("/img/icon/btn-purchase.png"))
         , 45, 45));
 jButton4.setText("Thanh toán (F12)");
 jButton4.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-jButton4.setIconTextGap(40);
+jButton4.setIconTextGap(50);
 jButton4.setMargin(new java.awt.Insets(2, 35, 3, 14));
 jButton4.addActionListener(new java.awt.event.ActionListener() {
     public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -728,50 +697,59 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.weighty = 0.1;
     tabBanHang_HoaDon_Right_GiamGia1.add(jButton4, gridBagConstraints);
 
-    jButton7.setText("jButton7");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 12;
-    gridBagConstraints.gridheight = 3;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.weightx = 0.1;
-    gridBagConstraints.weighty = 0.1;
-    tabBanHang_HoaDon_Right_GiamGia1.add(jButton7, gridBagConstraints);
+    jButton7.setBackground(new java.awt.Color(15, 145, 239));
+    jButton7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+    jButton7.setForeground(new java.awt.Color(255, 255, 255));
+    jButton7.setIcon(ImageProcessing.resizeIcon(
+        new ImageIcon(getClass().getResource("/img/icon/btn-keypad.png"))
+        , 25, 25));
+jButton7.setText("123");
+gridBagConstraints = new java.awt.GridBagConstraints();
+gridBagConstraints.gridx = 0;
+gridBagConstraints.gridy = 12;
+gridBagConstraints.gridheight = 3;
+gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+gridBagConstraints.weightx = 0.1;
+gridBagConstraints.weighty = 0.1;
+tabBanHang_HoaDon_Right_GiamGia1.add(jButton7, gridBagConstraints);
 
-    jButton8.setText("jButton8");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 4;
-    gridBagConstraints.gridy = 12;
-    gridBagConstraints.gridwidth = 3;
-    gridBagConstraints.gridheight = 3;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.weightx = 0.3;
-    gridBagConstraints.weighty = 0.1;
-    tabBanHang_HoaDon_Right_GiamGia1.add(jButton8, gridBagConstraints);
+jButton8.setBackground(new java.awt.Color(239, 162, 162));
+jButton8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+jButton8.setForeground(new java.awt.Color(255, 255, 255));
+jButton8.setText("Huỷ");
+gridBagConstraints = new java.awt.GridBagConstraints();
+gridBagConstraints.gridx = 4;
+gridBagConstraints.gridy = 12;
+gridBagConstraints.gridwidth = 3;
+gridBagConstraints.gridheight = 3;
+gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+gridBagConstraints.weightx = 0.3;
+gridBagConstraints.weighty = 0.1;
+tabBanHang_HoaDon_Right_GiamGia1.add(jButton8, gridBagConstraints);
 
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 6;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.weighty = 0.9;
-    tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_GiamGia1, gridBagConstraints);
+gridBagConstraints = new java.awt.GridBagConstraints();
+gridBagConstraints.gridx = 0;
+gridBagConstraints.gridy = 6;
+gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+gridBagConstraints.weighty = 0.9;
+tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_GiamGia1, gridBagConstraints);
 
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 0;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-    gridBagConstraints.weightx = 0.1;
-    gridBagConstraints.weighty = 0.1;
-    gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-    jPanel3.add(tabBanHang_HoaDon_Right, gridBagConstraints);
+gridBagConstraints = new java.awt.GridBagConstraints();
+gridBagConstraints.gridx = 2;
+gridBagConstraints.gridy = 0;
+gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+gridBagConstraints.weightx = 0.1;
+gridBagConstraints.weighty = 0.1;
+gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
+jPanel3.add(tabBanHang_HoaDon_Right, gridBagConstraints);
 
-    jTabbedPane1.addTab("Hoá đơn", jPanel3);
+jTabbedPane1.addTab("Hoá đơn", jPanel3);
 
-    javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-    jPanel4.setLayout(jPanel4Layout);
-    jPanel4Layout.setHorizontalGroup(
-        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 863, Short.MAX_VALUE)
+javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+jPanel4.setLayout(jPanel4Layout);
+jPanel4Layout.setHorizontalGroup(
+    jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+    .addGap(0, 946, Short.MAX_VALUE)
     );
     jPanel4Layout.setVerticalGroup(
         jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -783,21 +761,9 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
     add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
-
     private void txtMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaSanPhamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaSanPhamActionPerformed
-
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
-
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKhachHangActionPerformed
         // TODO add your handling code here:
@@ -811,9 +777,9 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
 
-    private void jTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField13ActionPerformed
+    private void txtKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhuyenMaiActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField13ActionPerformed
+    }//GEN-LAST:event_txtKhuyenMaiActionPerformed
 
     private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField14ActionPerformed
         // TODO add your handling code here:
@@ -823,14 +789,6 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField15ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -839,9 +797,39 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSanPhamActionPerformed
+        // TODO add your handling code here:
+        
+        String maSanPham = txtMaSanPham.getText().trim();
+        if (maSanPham.isEmpty() || maSanPham.isBlank()){
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Để thêm sản phẩm vào hoá đơn, hãy thêm mã sản phẩm trước", txtMaSanPham);
+            return;
+        }
+        
+        if (maSanPham.matches("\\D")){
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Barcode/Mã sản phẩm nội bộ không hợp lệ!", txtMaSanPham);
+            return;
+        }
+        
+
+        SanPham x = sanPham_BUS.getChiMotSanPhamTheoMaHoacBarcode(maSanPham);
+        
+        if (x == null){
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
+            return;
+        }
+            
+        
+        
+    }//GEN-LAST:event_btnAddSanPhamActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -849,12 +837,10 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -874,22 +860,20 @@ jButton4.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField13;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel tabBanHang_HoaDon_Center;
     private javax.swing.JPanel tabBanHang_HoaDon_Right;
     private javax.swing.JPanel tabBanHang_HoaDon_Right_GiamGia;
     private javax.swing.JPanel tabBanHang_HoaDon_Right_GiamGia1;
     private javax.swing.JPanel tabBanHang_HoaDon_Right_KhachHang;
+    private javax.swing.JTextField txtKhuyenMai;
     private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtMaSanPham;
     // End of variables declaration//GEN-END:variables

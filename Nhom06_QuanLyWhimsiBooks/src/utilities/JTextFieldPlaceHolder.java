@@ -25,7 +25,7 @@ public class JTextFieldPlaceHolder extends JTextField{
 		// TODO Auto-generated method stub
 		super.paint(g);
 		if (getText().isBlank() && !hasFocus()) {
-			g.setColor(new Color(0, 0, 0, 0.5f));
+			g.setColor(new Color(0, 0, 0, 0.6f));
 			g.drawString(placeholder, getWidth()/2/2/2/2, getHeight() * 2 / 3);
 		}
 	}

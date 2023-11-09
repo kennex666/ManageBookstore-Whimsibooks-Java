@@ -13,5 +13,6 @@ public interface ISanPham {
 	public boolean addSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
+	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);
 	
 }
