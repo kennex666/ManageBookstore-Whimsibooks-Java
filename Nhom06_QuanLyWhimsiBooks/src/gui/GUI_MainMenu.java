@@ -36,6 +36,8 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     */
     private TAB_BanHang tabBanHang;
     private TAB_SanPham tabSanPham;
+    private TAB_NhanVien tabNhanVien;
+    private TAB_KhachHang tabKhachHang;
     private TAB_NhaCungCap tabNhaCungCap;
     private TAB_KhuyenMai tabKhuyenMai;
     private Enum_TabMainMenu currentSelectedTab;
@@ -62,9 +64,10 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         // Khởi tạo các tab
         tabBanHang = new TAB_BanHang();
         tabSanPham = new TAB_SanPham();
+        tabNhanVien = new TAB_NhanVien();
+        tabKhachHang = new TAB_KhachHang();
         tabNhaCungCap = new TAB_NhaCungCap();
         tabKhuyenMai = new TAB_KhuyenMai();
-        // Phần xử lý chuyển đổi tab
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
         tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabBanHang);
     }
@@ -421,6 +424,14 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     	   tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
     	   return;
        }
+       if (evt.getSource().equals(btnTabNhanVien)){
+    	   tabSwitcher(tabNhanVien, Enum_TabMainMenu.NHAN_VIEN, btnTabNhanVien);
+    	   return;
+       }
+       if (evt.getSource().equals(btnTabKhachHang)){
+    	   tabSwitcher(tabKhachHang, Enum_TabMainMenu.KHACH_HANG, btnTabKhachHang);
+    	   return;
+       }
        // Tab nhà cung cấp
        if (evt.getSource().equals(btnTabNhaCungCap)){
     	   tabSwitcher(tabNhaCungCap, Enum_TabMainMenu.NHA_CUNG_CAP, btnTabNhaCungCap);
@@ -431,7 +442,6 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     	   tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
     	   return;
        }
-
     }//GEN-LAST:event_btnTabActionPerformed
 
     public void tabSwitcher(JPanel panelChuyen, Enum_TabMainMenu tabMoi, JButton btnTab) {
