@@ -21,9 +21,9 @@ public class SanPham_BUS implements ISanPham{
 	}
 
 	@Override
-	public void searchSanPham(String s, ArrayList<SanPham> list) {
+	public ArrayList<SanPham> searchSanPham(String s) {
 		// TODO Auto-generated method stub
-		
+		return sanPham_DAO.searchSanPham(s);
 	}
 
 	@Override
@@ -48,6 +48,12 @@ public class SanPham_BUS implements ISanPham{
 	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x) {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getChiMotSanPhamTheoMaHoacBarcode(x);
+	}
+
+	@Override
+	public ArrayList<SanPham> getDanhSachSanPham() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getDanhSachSanPham();
 	}
 
 }

@@ -5,9 +5,9 @@ import java.util.Date;
 import java.util.Objects;
 
 public class SanPham {
-	private int sanPhamID, soLuongTon, namSanXuat, daBan, soTrang;
+	private int sanPhamID, soLuongTon, namSanXuat, soTrang;
 	private Date ngayNhap;
-	private double giaBan, thue, giaGoc;
+	private double giaNhap, thue;
 	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
 					tinhTrang, loaiSanPham, donViDoLuong, 
 					kichThuoc, xuatXu, ngonNgu, loaiBia;
@@ -59,18 +59,6 @@ public class SanPham {
 		this.ngayNhap = ngayNhap;
 	}
 	
-	public double getGiaBan() {
-		return giaBan;
-	}
-	public void setGiaBan(double giaBan) {
-		this.giaBan = giaBan;
-	}
-	public double getGiaGoc() {
-		return giaGoc;
-	}
-	public void setGiaGoc(double giaGoc) {
-		this.giaGoc = giaGoc;
-	}
 	public double getThue() {
 		return thue;
 	}
@@ -146,11 +134,13 @@ public class SanPham {
 		this.loaiBia = loaiBia;
 	}
 	
-	public int getDaBan() {
-		return daBan;
+	
+
+	public double getGiaNhap() {
+		return giaNhap;
 	}
-	public void setDaBan(int daBan) {
-		this.daBan = daBan;
+	public void setGiaNhap(double giaNhap) {
+		this.giaNhap = giaNhap;
 	}
 	public TacGia getTacGia() {
 		return tacGia;
@@ -197,17 +187,16 @@ public class SanPham {
 	public void setLoaiDoiTra(String loaiDoiTra) {
 		this.loaiDoiTra = loaiDoiTra;
 	}
-	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int daBan,int soTrang, Date ngayNhap, double giaBan,
+	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat,int soTrang, Date ngayNhap, double giaNhap,
 			double thue, String tenSanPham, String loaiDoiTra, String barcode, String imgPath, String tinhTrang, String loaiSanPham,
 			String donViDoLuong, String kichThuoc, String xuatXu, String ngonNgu, String loaiBia) throws Exception{
 		super();
 		setSanPhamID(sanPhamID);
 		setSoLuongTon(soLuongTon);
 		setNamSanXuat(namSanXuat);
-		setDaBan(daBan);
 		setSoTrang(soTrang);
 		setNgayNhap(ngayNhap);
-		setGiaBan(giaBan);
+		setGiaNhap(giaNhap);
 		setThue(thue);
 		setTenSanPham(tenSanPham);
 		setLoaiDoiTra(loaiDoiTra);
@@ -227,7 +216,7 @@ public class SanPham {
 	
 	
 
-	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int daBan, int soTrang, Date ngayNhap, double giaBan,
+	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int soTrang, Date ngayNhap, double giaNhap,
 			double thue, String tenSanPham, String loaiDoiTra,String barcode, String imgPath, String tinhTrang, String loaiSanPham,
 			String donViDoLuong, String kichThuoc, String xuatXu, String ngonNgu, String loaiBia, TacGia tacGia,
 			TheLoai theLoai, NhaXuatBan nhaXuatBan, ThuongHieu thuongHieu, DanhMuc danhMuc, NhaCungCap nhaCungCap) throws Exception {
@@ -237,7 +226,7 @@ public class SanPham {
 		setNamSanXuat(namSanXuat);
 		setSoTrang(soTrang);
 		setNgayNhap(ngayNhap);
-		setGiaBan(giaBan);
+		setGiaNhap(giaNhap);
 		setThue(thue);
 		setTenSanPham(tenSanPham);
 		setLoaiDoiTra(loaiDoiTra);
@@ -275,7 +264,7 @@ public class SanPham {
 		this.loaiBia = "";
 		this.soLuongTon = 0;
 		this.namSanXuat = 0;
-		this.daBan = 0;
+		this.giaNhap = 0;
 		this.soTrang = 0;
 	}
 	

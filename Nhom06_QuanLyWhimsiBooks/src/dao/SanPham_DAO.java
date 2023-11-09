@@ -1,5 +1,6 @@
 package dao;
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -45,10 +46,9 @@ public class SanPham_DAO implements ISanPham{
 					int sanphamid = rs.getInt("sanphamid");
 					int soLuongTon = rs.getInt("soluongton");
 					int namsx = rs.getInt("namsanxuat"); 
-					int daban = rs.getInt("daban"); 
 					int sotrang = rs.getInt("sotrang"); 
 					Date ngaynhap =  rs.getDate("ngaynhap"); 
-					double dongia = rs.getDouble("dongia"); 
+					double gianhap = rs.getDouble("gianhap"); 
 					double thue = rs.getDouble("thue"); 
 					String tensanpham = rs.getString("tensanpham"); 
 					String loaidoitra = rs.getString("loaidoitra");
@@ -85,7 +85,7 @@ public class SanPham_DAO implements ISanPham{
 //					ncc.setNhaCungCapID("1");
 					
 					SanPham sanPham = new SanPham(sanphamid, soLuongTon, namsx, 
-							daban, sotrang, ngaynhap, dongia, thue, tensanpham, 
+							 sotrang, ngaynhap, gianhap, thue, tensanpham, 
 							loaidoitra, barcode, img, tinhtrang, loaisanpham, donvidoluong, 
 							kichthuoc, xuatxu, ngongu, loaibia,
 							tg, tl, nxb, th, dm, ncc);
@@ -117,93 +117,77 @@ public class SanPham_DAO implements ISanPham{
 	@Override
 	public boolean addSanPham(SanPham sp) {
 		try {
-			Statement stm = conn.createStatement();
-			String sql = "INSERT INTO SanPham(TenSanPham, NgayNhap, DonGia, Thue, "
+			String sql = "INSERT INTO SanPham(TenSanPham, NgayNhap, GiaNhap, Thue, "
 					+ "LoaiDoiTra, Barcode, ImgPath, TinhTrang, SoLuongTon, NamSanXuat, "
-					+ "LoaiSanPham, DaBan, DonViDoLuong, KichThuoc, XuatXu, NgonNgu, "
+					+ "LoaiSanPham, DonViDoLuong, KichThuoc, XuatXu, NgonNgu, "
 					+ "SoTrang, LoaiBia)"
-					+ "VALUES"
-					+ "("
-					 	+  "\'" + sp.getTenSanPham() +  "\'" + "," 
-					 	+  "\'" + sp.getNgayNhap() +  "\'" + ","
-					 	+  		  sp.getGiaBan()  + ","
-					 	+         sp.getThue()  + ","
-					 	+  "\'" + sp.getLoaiDoiTra() +  "\'" + ","
-					 	+  "\'" + sp.getBarcode() +  "\'" + ","
-					 	+  "\'" + sp.getImgPath() +  "\'" + ","
-					 	+  "\'" + sp.getTinhTrang() +  "\'" + ","
-					 	+         sp.getSoLuongTon()  + ","
-					 	+         sp.getNamSanXuat() + ","
-					 	+  "\'" + sp.getLoaiSanPham() +  "\'" + ","
-					 	+         sp.getDaBan()  + ","
-					 	+  "\'" + sp.getDonViDoLuong() +  "\'" + ","
-					 	+  "\'" + sp.getKichThuoc() +  "\'" + ","
-					 	+  "\'" + sp.getXuatXu() +  "\'" + ","
-					 	+  "\'" + sp.getNgonNgu() +  "\'" + ","
-					 	+         sp.getSoTrang()  + ","
-					 	+  "\'" + sp.getLoaiBia() +  "\'" 
-					+ ")";
-			System.out.println(sql);
-			int check = stm.executeUpdate(sql);
-			System.out.println("Số dòng thay đổi: " + check);
-			
-			if(check > 0)
-			{
-				System.out.println("Thêm dữ liệu thành công");
-				return true;
-			}
-			else
-			{
-				System.out.println("Thêm dữ liệu thất bại");
-				return false;
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm.setString(1, sp.getTenSanPham());
+				pstm.setDate(2, (Date) sp.getNgayNhap());
+				pstm.setDouble(3, sp.getGiaNhap());
+				pstm.setDouble(4, sp.getThue());
+				pstm.setString(5, sp.getLoaiDoiTra());
+				pstm.setString(6, sp.getBarcode());
+				pstm.setString(7, sp.getImgPath());
+				pstm.setString(8, sp.getTinhTrang());
+				pstm.setInt(9, sp.getSoLuongTon());
+				pstm.setInt(10, sp.getNamSanXuat());
+				pstm.setString(11,  sp.getLoaiSanPham());
+				pstm.setString(12, sp.getDonViDoLuong());
+				pstm.setString(13, sp.getKichThuoc());
+				pstm.setString(14, sp.getXuatXu());
+				pstm.setString(15, sp.getNgonNgu());
+				pstm.setInt(16, sp.getSoTrang());
+				pstm.setString(17, sp.getLoaiBia());
+				return(pstm.executeUpdate()>0)?true:false;
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+//				return false;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("Lỗi");
 		}
-		return true;
+		return false;
 	}
 
 	@Override
 	public boolean editSanPham(SanPham sp) {
 		int id = sp.getSanPhamID();
-		try {
-			Statement stm = conn.createStatement();					
-					
+		try {			
+				
 			String sql = "UPDATE SanPham "
-					+ "SET  "
-					+ "TenSanPham = " +  "\'" + sp.getTenSanPham() +  "\'" + ","
-					+ "NgayNhap = " +  "\'" + sp.getNgayNhap() +  "\'" + ","
-					+ "DonGia = " + sp.getGiaBan() + ","
-					+ "Thue = " + sp.getThue() + ","
-					+ "LoaiDoiTra = " +  "\'" + sp.getLoaiDoiTra() +  "\'" + ","
-					+ "Barcode = " +  "\'" + sp.getBarcode() +  "\'" + ","
-					+ "ImgPath = "  +  "\'" + sp.getImgPath() +  "\'" + ","
-					+ "TinhTrang = " +  "\'" + sp.getTinhTrang() +  "\'" + ","
-					+ "SoLuongTon = " + sp.getSoLuongTon() + ","
-					+ "NamSanXuat = " + sp.getNamSanXuat() + ","
-					+ "LoaiSanPham = " +  "\'" + sp.getLoaiSanPham() +  "\'" + ","
-					+ "DaBan = " + sp.getDaBan() + ","
-					+ "DonViDoLuong = " +  "\'" + sp.getDonViDoLuong() +  "\'" + ","
-					+ "KichThuoc = " +  "\'" + sp.getKichThuoc() +  "\'" + ","
-					+ "XuatXu = " +  "\'" + sp.getXuatXu() +  "\'" + ","
-					+ "NgonNgu = " +  "\'" + sp.getNgonNgu() +  "\'" + "," 
-					+ "SoTrang = " + sp.getSoTrang() + ","
-					+ "LoaiBia = " +  "\'" + sp.getLoaiBia() +  "\'"  
-					+ " WHERE SanPhamID = " + id;
-			
-			int check = stm.executeUpdate(sql);
-			System.out.println("Số dòng thay đổi: " + check);
-			
-			if(check > 0)
-			{
-				System.out.println("Thay đổi dữ liệu thành công");
-				return true;
-			}
-			else
-			{
-				System.out.println("Thay đổi dữ liệu thất bại");
-				return false;
+					+ "SET  TenSanPham = ?, NgayNhap  = ?, GiaNhap = ?, Thue = ?, LoaiDoiTra = ?,"
+					+ "Barcode = ?, ImgPath = ?, TinhTrang = ?, SoLuongTon = ?, NamSanXuat = ?, LoaiSanPham = ?,"
+					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, SoTrang = ?, LoaiBia = ? WHERE NhanVienID = ?";
+
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);
+				pstm.setString(1, sp.getTenSanPham());
+				pstm.setDate(2, (Date) sp.getNgayNhap());
+				pstm.setDouble(3, sp.getGiaNhap());
+				pstm.setDouble(4, sp.getThue());
+				pstm.setString(5, sp.getLoaiDoiTra());
+				pstm.setString(6, sp.getBarcode());
+				pstm.setString(7, sp.getImgPath());
+				pstm.setString(8, sp.getTinhTrang());
+				pstm.setInt(9, sp.getSoLuongTon());
+				pstm.setInt(10, sp.getNamSanXuat());
+				pstm.setString(11,  sp.getLoaiSanPham());
+				pstm.setString(12, sp.getDonViDoLuong());
+				pstm.setString(13, sp.getKichThuoc());
+				pstm.setString(14, sp.getXuatXu());
+				pstm.setString(15, sp.getNgonNgu());
+				pstm.setInt(16, sp.getSoTrang());
+				pstm.setString(17, sp.getLoaiBia());
+				pstm.setInt(18, id);
+				return(pstm.executeUpdate()>0)?true:false;
+			} catch (Exception e) {
+				e.printStackTrace();
+//				return false;
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -234,15 +218,24 @@ public class SanPham_DAO implements ISanPham{
 
 
 	@Override
-	public void searchSanPham(String sanPhamID, ArrayList<SanPham> list) {
-		
+	public ArrayList<SanPham> searchSanPham(String sanPhamID) {
+		ArrayList<SanPham> list;
 		list = new ArrayList<SanPham>();
 		
 		//Statement stm = conn.createStatement();
 		String query = "SELECT * FROM SanPham WHERE SanPhamID = " + sanPhamID;
 		
 		list = getDanhSachSanPham(query);
-		
+		return list;
+	}
+
+
+	@Override
+	public ArrayList<SanPham> getDanhSachSanPham() {
+		ArrayList<SanPham> list = new ArrayList<>();
+		String query = "SELECT * FROM SANPHAM";
+		list = getDanhSachSanPham(query);
+		return list;
 	}
 	
 	@Override
