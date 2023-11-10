@@ -1,5 +1,9 @@
 package entities;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -27,6 +31,10 @@ public class HoaDon {
 		this.giaKhuyenMai = giaKhuyenMai;
 	}
 	
+	public HoaDon(String hoaDonID) {
+		super();
+		this.hoaDonID = hoaDonID;
+	}
 	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
 			double tongTien, double thue, double giaKhuyenMai, NhanVien nhanVien, KhachHang khachHang,
 			KhuyenMai khuyenMai) {
@@ -135,7 +143,7 @@ public class HoaDon {
 	}
         
 	public double getTongTien() {
-		return tongTien;
+		return tongTien > 0 ? tongTien : tinhThanhTien();
 	}
 	
 	public double tinhTongTien() {
@@ -197,8 +205,8 @@ public class HoaDon {
 		this.listChiTietHoaDon = listChiTietHoaDon;
 	}
 
-	public ArrayList<Object> tableChiTietHoaDon() {
-		ArrayList<Object> lines = new ArrayList<Object>();
+	public ArrayList<Object[]> tableChiTietHoaDon() {
+		ArrayList<Object[]> lines = new ArrayList<Object[]>();
 		
 		for (int i = 0 ; i < listChiTietHoaDon.size(); i++) {
 			ChiTietHoaDon tempCTHD = listChiTietHoaDon.get(i);
@@ -222,6 +230,34 @@ public class HoaDon {
 			tempObj[8] = tempCTHD.tinhTongTien();
 			tempObj[9] = "";
 		return tempObj;
+	}
+	
+	public String getTrangThaiHoaDonString() {
+		if (trangThai.equalsIgnoreCase("DA_XU_LY"))
+			return "Đã xử lý";
+		if (trangThai.equalsIgnoreCase("CHO_XU_LY"))
+			return "Chờ xử lý";
+		return "Huỷ bỏ";
+	}
+	
+	public String parseTrangThaiHoaDon() {
+		if (trangThai.equalsIgnoreCase("Đã xử lý"))
+			return "DA_XU_LY";
+		if (trangThai.equalsIgnoreCase("Chờ xử lý"))
+			return "CHO_XU_LY";
+		return "HUY_BO";
+	}
+	
+	public Object[] getRowTableHoaDon() {
+		SimpleDateFormat dtf = new SimpleDateFormat("hh:mm:ss dd/MM/YYYY");
+		
+		Object[] obj = {0, getHoaDonID(), 
+				khachHang.getHoTen(), nhanVien.getHoTen(), 
+				dtf.format(ngayLapHoaDon),
+				getTrangThaiHoaDonString(),
+				getTongTien()
+		};
+		return obj;
 	}
 	
     @Override

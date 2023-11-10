@@ -22,6 +22,7 @@ import entities.HoaDon;
 import entities.SanPham;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
@@ -39,13 +40,16 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private HoaDon_BUS hoaDon_BUS;
     private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
     private HoaDon hoaDon;
-    private DefaultTableModel tblModelCTHD;
+    private DefaultTableModel tblModelCTHD, tblHoaDon;
+    private ArrayList<HoaDon> listHoaDon;
     /**
      * Creates new form TAB_BanHang
      */
     public TAB_BanHang() {
     	// Hoá đơn mặc định.
         sanPham_BUS = new SanPham_BUS();
+        hoaDon_BUS = new HoaDon_BUS();
+        chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
     	hoaDon = new HoaDon();
     	
         initComponents();
@@ -103,6 +107,37 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
                 }
             }
         });
+        
+        
+        
+        // Tab Danh sach hoa don
+        loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
+    }
+    
+    public void loadHoaDon(String x){
+        hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
+        hoaDon.setListChiTietHoaDon(chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID()));
+        loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
+    }
+    
+    public void loadTableHoaDon(ArrayList<HoaDon> x){
+        while (tblHoaDon.getRowCount() > 0)
+            tblHoaDon.removeRow(0);
+        listHoaDon = x;
+        for (int i = 0; i < listHoaDon.size(); i++){
+            Object[] obj = listHoaDon.get(i).getRowTableHoaDon();
+            obj[0] = i + 1;
+            tblHoaDon.addRow(obj);
+        }
+    }
+    
+    public void loadTableChiTietHoaDon(ArrayList<Object[]> x){
+        while (tblModelCTHD.getRowCount() > 0)
+            tblModelCTHD.removeRow(0);
+        for (Object[] y : x){
+            tblModelCTHD.addRow(y);
+        }
+        jTabbed.setSelectedIndex(0); // Focus vào tab được chọn
     }
     
     public void reIndexTable() {
@@ -199,8 +234,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel3 = new javax.swing.JPanel();
+        jTabbed = new javax.swing.JTabbedPane();
+        tabbedHoaDon = new javax.swing.JPanel();
         tabBanHang_HoaDon_Center = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -244,12 +279,49 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jLabel10 = new javax.swing.JLabel();
         btnThanhToan = new javax.swing.JButton();
         btnKeyPad = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
+        tabbedDanhSachHoaDon = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jTextField2 = new javax.swing.JTextField();
+        jTextField3 = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jTextField6 = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jTextField9 = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        btn_DSHD_ThanhToan = new javax.swing.JButton();
+        btn_DSHD_InHD = new javax.swing.JButton();
+        btn_DSHD_XemChiTiet = new javax.swing.JButton();
+        btn_DSHD_DoiTraHoaDon = new javax.swing.JButton();
+        btn_DSHD_HuyHoaDon = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         TAB_BanHang_HoaDon = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
-        jPanel3.setLayout(new java.awt.GridBagLayout());
+        jTabbed.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabSwitchBanHang(evt);
+            }
+        });
+
+        tabbedHoaDon.setLayout(new java.awt.GridBagLayout());
 
         java.awt.GridBagLayout tabBanHang_HoaDon_CenterLayout = new java.awt.GridBagLayout();
         tabBanHang_HoaDon_CenterLayout.columnWidths = new int[] {0};
@@ -472,7 +544,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.weightx = 0.3;
     gridBagConstraints.weighty = 0.2;
     gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
-    jPanel3.add(tabBanHang_HoaDon_Center, gridBagConstraints);
+    tabbedHoaDon.add(tabBanHang_HoaDon_Center, gridBagConstraints);
 
     java.awt.GridBagLayout tabBanHang_HoaDon_RightLayout = new java.awt.GridBagLayout();
     tabBanHang_HoaDon_RightLayout.columnWidths = new int[] {0};
@@ -805,22 +877,324 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.weightx = 0.1;
     gridBagConstraints.weighty = 0.1;
     gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-    jPanel3.add(tabBanHang_HoaDon_Right, gridBagConstraints);
+    tabbedHoaDon.add(tabBanHang_HoaDon_Right, gridBagConstraints);
 
-    jTabbedPane1.addTab("Hoá đơn", jPanel3);
+    jTabbed.addTab("Hoá đơn", tabbedHoaDon);
 
-    javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-    jPanel4.setLayout(jPanel4Layout);
-    jPanel4Layout.setHorizontalGroup(
-        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 965, Short.MAX_VALUE)
-    );
-    jPanel4Layout.setVerticalGroup(
-        jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGap(0, 581, Short.MAX_VALUE)
-    );
+    tabbedDanhSachHoaDon.setLayout(new java.awt.BorderLayout());
 
-    jTabbedPane1.addTab("Danh sách hoá đơn", jPanel4);
+    jPanel1.setLayout(new java.awt.BorderLayout());
+
+    jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+    jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
+    jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel2Layout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
+    jPanel2.setLayout(jPanel2Layout);
+
+    jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel1.setText("Tìm kiếm hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel1, gridBagConstraints);
+
+    jLabel2.setText("Trạng thái");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 8;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel2, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    gridBagConstraints.weightx = 0.1;
+    jPanel2.add(jTextField2, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    gridBagConstraints.weightx = 0.1;
+    jPanel2.add(jTextField3, gridBagConstraints);
+
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel4.setText("-");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+    jPanel2.add(jLabel4, gridBagConstraints);
+
+    jLabel11.setText("Ngày lập hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel11, gridBagConstraints);
+
+    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 10;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jComboBox1, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jTextField4, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jTextField5, gridBagConstraints);
+
+    jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel14.setText("-");
+    jLabel14.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+    jPanel2.add(jLabel14, gridBagConstraints);
+
+    jLabel15.setText("Giá trị hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 12;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel15, gridBagConstraints);
+
+    jLabel16.setText("Mã hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 16;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel16, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 18;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jTextField1, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 22;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jTextField6, gridBagConstraints);
+
+    jLabel17.setText("Mã/Số điện thoại khách hàng");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 20;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel17, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 26;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jTextField9, gridBagConstraints);
+
+    jLabel18.setText("Mã sản phẩm/Barcode");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 24;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel18, gridBagConstraints);
+
+    jButton1.setText("Tìm kiếm");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 30;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 19;
+    gridBagConstraints.ipady = 8;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
+    jPanel2.add(jButton1, gridBagConstraints);
+
+    jButton2.setText("Tải lại");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 5;
+    gridBagConstraints.gridy = 30;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 19;
+    gridBagConstraints.ipady = 8;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
+    jPanel2.add(jButton2, gridBagConstraints);
+
+    jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
+
+    jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    jPanel8.setLayout(new java.awt.BorderLayout());
+
+    java.awt.GridBagLayout jPanel9Layout = new java.awt.GridBagLayout();
+    jPanel9Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel9Layout.rowHeights = new int[] {0, 7, 0, 7, 0};
+    jPanel9.setLayout(jPanel9Layout);
+
+    btn_DSHD_ThanhToan.setText("Thanh toán");
+    btn_DSHD_ThanhToan.setEnabled(false);
+    btn_DSHD_ThanhToan.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_ThanhToanActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 19;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_ThanhToan, gridBagConstraints);
+
+    btn_DSHD_InHD.setText("In hoá đơn");
+    btn_DSHD_InHD.setEnabled(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 19;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_InHD, gridBagConstraints);
+
+    btn_DSHD_XemChiTiet.setText("Xem chi tiết");
+    btn_DSHD_XemChiTiet.setEnabled(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 19;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_XemChiTiet, gridBagConstraints);
+
+    btn_DSHD_DoiTraHoaDon.setText("Đổi trả hoá đơn");
+    btn_DSHD_DoiTraHoaDon.setEnabled(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 8;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 19;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_DoiTraHoaDon, gridBagConstraints);
+
+    btn_DSHD_HuyHoaDon.setText("Huỷ hoá đơn");
+    btn_DSHD_HuyHoaDon.setEnabled(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 10;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 19;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_HuyHoaDon, gridBagConstraints);
+
+    jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
+
+    java.awt.GridBagLayout jPanel10Layout = new java.awt.GridBagLayout();
+    jPanel10Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
+    jPanel10Layout.rowHeights = new int[] {0, 7, 0, 7, 0};
+    jPanel10.setLayout(jPanel10Layout);
+
+    jTable2.setModel(tblHoaDon = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "STT", "Mã hoá đơn", "Tên khách hàng", "Nhân viên xử lý", "Thời gian lập HĐ", "Trạng thái", "Thành tiền"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, false, false, false, false, false
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tblHoaDonMouseClicked(evt);
+        }
+    });
+    jScrollPane2.setViewportView(jTable2);
+    if (jTable2.getColumnModel().getColumnCount() > 0) {
+        jTable2.getColumnModel().getColumn(0).setResizable(false);
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+        jTable2.getColumnModel().getColumn(6).setResizable(false);
+    }
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    jPanel10.add(jScrollPane2, gridBagConstraints);
+
+    jPanel8.add(jPanel10, java.awt.BorderLayout.CENTER);
+
+    jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+    tabbedDanhSachHoaDon.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+    jTabbed.addTab("Danh sách hoá đơn", tabbedDanhSachHoaDon);
 
     javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
     TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
@@ -833,9 +1207,9 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         .addGap(0, 581, Short.MAX_VALUE)
     );
 
-    jTabbedPane1.addTab("Hoá đơn", TAB_BanHang_HoaDon);
+    jTabbed.addTab("Hoá đơn", TAB_BanHang_HoaDon);
 
-    add(jTabbedPane1, java.awt.BorderLayout.CENTER);
+    add(jTabbed, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKhachHangActionPerformed
@@ -922,11 +1296,57 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     private void btnCancelHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelHDActionPerformed
         // TODO add your handling code here:
-        hoaDon.removeAllChiTietHoaDon();
+        hoaDon.setTrangThai("HUY_BO");
+        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+        
+        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+        hoaDon = new HoaDon();
         while (tblModelCTHD.getRowCount() > 0)
             tblModelCTHD.removeRow(0);
         updateThongTinBill();
     }//GEN-LAST:event_btnCancelHDActionPerformed
+
+    private void btn_DSHD_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_ThanhToanActionPerformed
+        // TODO add your handling code here:
+        loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+    }//GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
+
+    private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabSwitchBanHang
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabSwitchBanHang
+
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        // TODO add your handling code here:
+        int row = jTable2.getSelectedRow();
+        int col = jTable2.getSelectedColumn();
+        
+        if (tblHoaDon.getValueAt(row, 5).equals("Huỷ bỏ")){
+            btn_DSHD_DoiTraHoaDon.setEnabled(false);
+            btn_DSHD_InHD.setEnabled(false);
+            btn_DSHD_HuyHoaDon.setEnabled(false);
+            btn_DSHD_ThanhToan.setEnabled(false);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+        
+        if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")){
+            btn_DSHD_DoiTraHoaDon.setEnabled(true);
+            btn_DSHD_InHD.setEnabled(true);
+            btn_DSHD_HuyHoaDon.setEnabled(false);
+            btn_DSHD_ThanhToan.setEnabled(true);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+        
+        if (tblHoaDon.getValueAt(row, 5).equals("Chờ xử lý")){
+            btn_DSHD_DoiTraHoaDon.setEnabled(false);
+            btn_DSHD_InHD.setEnabled(false);
+            btn_DSHD_HuyHoaDon.setEnabled(true);
+            btn_DSHD_ThanhToan.setEnabled(true);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+    }//GEN-LAST:event_tblHoaDonMouseClicked
     
     public void thanhToanHoanTat() {
     	hoaDon = new HoaDon();
@@ -948,39 +1368,70 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnXoaRongMaSP;
+    private javax.swing.JButton btn_DSHD_DoiTraHoaDon;
+    private javax.swing.JButton btn_DSHD_HuyHoaDon;
+    private javax.swing.JButton btn_DSHD_InHD;
+    private javax.swing.JButton btn_DSHD_ThanhToan;
+    private javax.swing.JButton btn_DSHD_XemChiTiet;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbed;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel panel_TongTien;
     private javax.swing.JPanel tabBanHang_HoaDon_Button;
     private javax.swing.JPanel tabBanHang_HoaDon_Center;
     private javax.swing.JPanel tabBanHang_HoaDon_Right;
     private javax.swing.JPanel tabBanHang_HoaDon_Right_GiamGia;
     private javax.swing.JPanel tabBanHang_HoaDon_Right_KhachHang;
+    private javax.swing.JPanel tabbedDanhSachHoaDon;
+    private javax.swing.JPanel tabbedHoaDon;
     private javax.swing.JTextField txtKhuyenMai;
     private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtMaSanPham;

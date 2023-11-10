@@ -49,7 +49,7 @@ public class ChiTietHoaDon {
 	
 
 	public double getDonGia() {
-		return donGia;
+		return donGia > 0 ? donGia : sanPham.getGiaBan();
 	}
 
 

@@ -55,9 +55,9 @@ public class HoaDon_DAO implements IHoaDon{
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(9, x.getHoaDonID());
-			pstm.setString(1, (x.getKhuyenMai() == null ) ? "NO_APPLY" : x.getKhuyenMai().getCodeKhuyenMai());
-			pstm.setString(2, (x.getKhachHang() == null ) ? "KH0001" : x.getKhachHang().getKhachHangID());
-			pstm.setString(3, (x.getNhanVien() == null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
+			pstm.setString(1, (x.getKhuyenMai() == null || x.getKhuyenMai().getCodeKhuyenMai() == null) ? "NO_APPLY" : x.getKhuyenMai().getCodeKhuyenMai());
+			pstm.setString(2, (x.getKhachHang() == null ||  x.getKhachHang().getKhachHangID() == null) ? "KH0001" : x.getKhachHang().getKhachHangID());
+			pstm.setString(3, (x.getNhanVien() == null ||  x.getNhanVien().getNhanVienID() ==null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
             java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
 			pstm.setTimestamp(4, now);
 			pstm.setDouble(5, x.tinhThanhTien());
@@ -76,8 +76,73 @@ public class HoaDon_DAO implements IHoaDon{
         
 	@Override
 	public ArrayList<HoaDon> getDanhSachHoaDon() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+		String query = "SELECT TOP 100 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai  WHERE YEAR(NgayLapHoaDon) = YEAR(GETDATE()) AND MONTH(NgayLapHoaDon) = MONTH(GETDATE()) AND DAY(NgayLapHoaDon) = DAY(GETDATE()) ORDER BY NgayLapHoaDon DESC";
+		try {
+			Statement stm = conn.createStatement();
+			ResultSet rs = stm.executeQuery(query);
+			
+			while (rs.next()) {
+				HoaDon hd = new HoaDon();
+			
+				String hoaDonID = rs.getString("HoaDonID");
+				String codeKM = rs.getString("CodeKhuyenMai");
+				String khachHangID = rs.getString("KhachHangID");
+				String nhanVienID = rs.getString("NhanVienID");
+				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
+				double tongTien = rs.getDouble("tongTien");
+				String trangThai = rs.getString("TrangThai");
+				double thue = rs.getDouble("thue");
+				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
+				
+				hd.setHoaDonID(hoaDonID);
+				hd.setNgayLapHoaDon(ngayLapHoaDon);
+				hd.setTongTien(tongTien);
+				hd.setTrangThai(trangThai);
+				hd.setThue(thue);
+				hd.setGiaKhuyenMai(giaKhuyenMai);
+				
+				
+				String hoTenNhanVien = rs.getString("HoTen");
+				String chucVu = rs.getString("chucvu");
+				
+				NhanVien nv = new NhanVien(nhanVienID);
+				nv.setHoTen(hoTenNhanVien);
+				nv.setChucVu(chucVu);
+				hd.setNhanVien(nv);
+				
+	
+				String hoTenKH = rs.getString("HoTen");
+				String maSoThue = rs.getString("MaSoThue");
+				String diaChi = rs.getString("diaChi");
+				String loaiKH = rs.getString("LoaiKhachHang");
+				String sdtKH = rs.getString("SoDienThoai");
+				String emailKH = rs.getString("Email");
+				
+				KhachHang kh = new KhachHang(khachHangID);
+				kh.setHoTen(hoTenKH);
+				kh.setMaSoThue(maSoThue);
+				kh.setDiaChi(diaChi);
+				kh.setLoaiKhachHang(loaiKH);
+				kh.setSoDienThoai(sdtKH);
+				kh.setEmail(emailKH);
+				hd.setKhachHang(kh);
+				
+				String tenKhuyenMai = rs.getString("TenKhuyenMai");
+				
+				KhuyenMai km = new KhuyenMai(codeKM);
+				km.setTenKhuyenMai(tenKhuyenMai);
+				hd.setKhuyenMai(km);
+				
+				listHoaDon.add(hd);
+
+			}
+			return listHoaDon;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return listHoaDon;
+		}
 	}
 	@Override
 	public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
@@ -96,54 +161,54 @@ public class HoaDon_DAO implements IHoaDon{
 			if (!rs.next())
 				return null;
 			
-			String hoaDonID = rs.getString("hd.HoaDonID");
-			String codeKM = rs.getString("hd.CodeKhuyenMai");
-			String khachHangID = rs.getString("hd.CodeKhuyenMai");
-			String nhanVienID = rs.getString("hd.NhanVienID");
-			Date ngayLapHoaDon = rs.getDate("hd.NgayLapHoaDon");
-			double tongTien = rs.getDouble("hd.tongTien");
-			String trangThai = rs.getString("hd.TrangThai");
-			double thue = rs.getDouble("hd.thue");
-			double giaKhuyenMai = rs.getDouble("hd.giaKhuyenMai");
-			
-			hd.setHoaDonID(hoaDonID);
-			hd.setNgayLapHoaDon(ngayLapHoaDon);
-			hd.setTongTien(tongTien);
-			hd.setTrangThai(trangThai);
-			hd.setThue(thue);
-			hd.setGiaKhuyenMai(giaKhuyenMai);
-			
-			
-			String hoTenNhanVien = rs.getString("nv.HoTen");
-			String chucVu = rs.getString("nv.chucvu");
-			
-			NhanVien nv = new NhanVien(nhanVienID);
-			nv.setHoTen(hoTenNhanVien);
-			nv.setChucVu(chucVu);
-			hd.setNhanVien(nv);
-			
-
-			String hoTenKH = rs.getString("kh.HoTen");
-			String maSoThue = rs.getString("kh.MaSoThue");
-			String diaChi = rs.getString("kh.diaChi");
-			String loaiKH = rs.getString("kh.LoaiKhachHang");
-			String sdtKH = rs.getString("kh.SoDienThoai");
-			String emailKH = rs.getString("kh.Email");
-			
-			KhachHang kh = new KhachHang(khachHangID);
-			kh.setHoTen(hoTenKH);
-			kh.setMaSoThue(maSoThue);
-			kh.setDiaChi(diaChi);
-			kh.setLoaiKhachHang(loaiKH);
-			kh.setSoDienThoai(sdtKH);
-			kh.setEmail(emailKH);
-			hd.setKhachHang(kh);
-			
-			String tenKhuyenMai = rs.getString("km.TenKhuyenMai");
-			
-			KhuyenMai km = new KhuyenMai();
-			km.setTenKhuyenMai(tenKhuyenMai);
-			hd.setKhuyenMai(km);
+			String hoaDonID = rs.getString("HoaDonID");
+				String codeKM = rs.getString("CodeKhuyenMai");
+				String khachHangID = rs.getString("KhachHangID");
+				String nhanVienID = rs.getString("NhanVienID");
+				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
+				double tongTien = rs.getDouble("tongTien");
+				String trangThai = rs.getString("TrangThai");
+				double thue = rs.getDouble("thue");
+				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
+				
+				hd.setHoaDonID(hoaDonID);
+				hd.setNgayLapHoaDon(ngayLapHoaDon);
+				hd.setTongTien(tongTien);
+				hd.setTrangThai(trangThai);
+				hd.setThue(thue);
+				hd.setGiaKhuyenMai(giaKhuyenMai);
+				
+				
+				String hoTenNhanVien = rs.getString("HoTen");
+				String chucVu = rs.getString("chucvu");
+				
+				NhanVien nv = new NhanVien(nhanVienID);
+				nv.setHoTen(hoTenNhanVien);
+				nv.setChucVu(chucVu);
+				hd.setNhanVien(nv);
+				
+	
+				String hoTenKH = rs.getString("HoTen");
+				String maSoThue = rs.getString("MaSoThue");
+				String diaChi = rs.getString("diaChi");
+				String loaiKH = rs.getString("LoaiKhachHang");
+				String sdtKH = rs.getString("SoDienThoai");
+				String emailKH = rs.getString("Email");
+				
+				KhachHang kh = new KhachHang(khachHangID);
+				kh.setHoTen(hoTenKH);
+				kh.setMaSoThue(maSoThue);
+				kh.setDiaChi(diaChi);
+				kh.setLoaiKhachHang(loaiKH);
+				kh.setSoDienThoai(sdtKH);
+				kh.setEmail(emailKH);
+				hd.setKhachHang(kh);
+				
+				String tenKhuyenMai = rs.getString("TenKhuyenMai");
+				
+				KhuyenMai km = new KhuyenMai(codeKM);
+				km.setTenKhuyenMai(tenKhuyenMai);
+				hd.setKhuyenMai(km);
 			
 			
 			return hd;
