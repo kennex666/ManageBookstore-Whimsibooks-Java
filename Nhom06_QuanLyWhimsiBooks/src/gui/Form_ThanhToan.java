@@ -31,12 +31,10 @@ public class Form_ThanhToan extends javax.swing.JFrame {
      * Creates new form Form_ThanhToan
      */
     public Form_ThanhToan() {
-        setUndecorated(true);
-        setResizable(false);
-        initComponents();
     }
     
     public Form_ThanhToan(HoaDon x, JFrame y, TAB_BanHang tab) {  
+        
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
         
@@ -50,8 +48,8 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         this.hoaDon = x;
         this.tabBanHang = tab;
         y.setEnabled(false);
-        setUndecorated(true);  
-       
+        //setUndecorated(true); 
+
        // getRootPane().setWindowDecorationStyle(JRootPane.);
         setResizable(false);
         initComponents();
@@ -116,9 +114,14 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("Thanh toán");
         setBackground(new java.awt.Color(255, 255, 255));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(15, 102, 165));
@@ -677,6 +680,13 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         calcTrangThai(temp);
         
     }//GEN-LAST:event_updateStateTienKhachDuaKeyPressed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        if (ErrorMessage.showConfirmDialogYesNo("Xác nhận thoát", "Hoá đơn này chưa được thanh toán, bạn đã chắc chắn muốn thoát?")){
+        	closeFormThanhToan();
+        }
+    }//GEN-LAST:event_formWindowClosing
 
     private void calcTrangThai(String temp){
         double tempDoubleTKD = 0;

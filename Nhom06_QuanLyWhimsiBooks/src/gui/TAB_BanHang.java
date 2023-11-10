@@ -83,14 +83,26 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         };
         btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), WHEN_IN_FOCUSED_WINDOW);
         
-//        tblModelCTHD.addTableModelListener(new TableModelListener() {
-//            @Override
-//            public void tableChanged(TableModelEvent event) {
-//                System.out.println("Dữ liệu của bảng đã thay đổi");
-//            }
-//        });
-        
-        
+        tblModelCTHD.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent event) {
+                int row = event.getFirstRow(), col = event.getColumn();
+                int newValue = 0;
+                if (col == 5){
+                    newValue = (int) tblModelCTHD.getValueAt(row, col);
+                    
+                    if (newValue <= 0){
+                        hoaDon.getListChiTietHoaDon().remove(row);
+			tblModelCTHD.removeRow(row);
+			reIndexTable();
+                    }else{
+                        hoaDon.getListChiTietHoaDon().get(row).setSoLuong(newValue);
+                    }
+                    updateThongTinBill();
+                    
+                }
+            }
+        });
     }
     
     public void reIndexTable() {
