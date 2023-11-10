@@ -26,6 +26,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import utilities.*;
 
 /**
@@ -81,6 +83,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         };
         btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), WHEN_IN_FOCUSED_WINDOW);
         
+//        tblModelCTHD.addTableModelListener(new TableModelListener() {
+//            @Override
+//            public void tableChanged(TableModelEvent event) {
+//                System.out.println("Dữ liệu của bảng đã thay đổi");
+//            }
+//        });
+        
+        
     }
     
     public void reIndexTable() {
@@ -118,11 +128,14 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 					}else {
 						cthd.setSoLuong(cthd.getSoLuong() - 1);
 						tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                                                tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
 					}
 				}
 				case 6 -> {
 					cthd.setSoLuong(cthd.getSoLuong() + 1);
 					tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                                        tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+
 				}
 				case 9 -> {
 					if (!ErrorMessage.showConfirmDialogYesNo("Chú ý", "Bạn có chắc chắn muốn xoá sản phẩm " + tbl.getValueAt(row, 2) + " khỏi hoá đơn không??"))
@@ -847,7 +860,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Chưa có sản phẩm trong giỏ hàng, không thể tạo hoá đơn!", txtMaSanPham);
             return;
         }
-        new Form_ThanhToan(hoaDon, ((JFrame)this.getTopLevelAncestor())).setVisible(true);
+        new Form_ThanhToan(hoaDon, ((JFrame)this.getTopLevelAncestor()), this).setVisible(true);
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnXoaRongMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaRongMaSPActionPerformed
@@ -902,6 +915,13 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             tblModelCTHD.removeRow(0);
         updateThongTinBill();
     }//GEN-LAST:event_btnCancelHDActionPerformed
+    
+    public void thanhToanHoanTat() {
+    	hoaDon = new HoaDon();
+        while (tblModelCTHD.getRowCount() > 0)
+            tblModelCTHD.removeRow(0);
+        updateThongTinBill();
+    }
     
     public void addRowIntoChiTietHoaDon(ChiTietHoaDon x) {
     	tblModelCTHD.addRow(hoaDon.tableRowChiTietHoaDon(x));

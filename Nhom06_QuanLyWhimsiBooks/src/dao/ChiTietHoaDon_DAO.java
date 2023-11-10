@@ -18,20 +18,27 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 			PreparedStatement pstm = conn.prepareStatement(
 				"INSERT INTO ChiTietHoaDon(hoaDonID,sanPhamID,soLuong,donGia)VALUES(?,?,?,?)"
 			);
-			
-			pstm.setString(1, null);
-			
+
+			pstm.setString(1, x.getHoaDon().getHoaDonID());
+			pstm.setInt(2, x.getSanPham().getSanPhamID());
+			pstm.setInt(3, x.getSoLuong());
+			pstm.setDouble(4, x.getSanPham().getGiaBan());
+			pstm.executeUpdate();
+			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return false;
 		}
-				
-		return false;
 	}
 	@Override
 	public boolean addNhieuChiTietCuaMotHoaDon(ArrayList<ChiTietHoaDon> x) {
 		// TODO Auto-generated method stub
-		return false;
+		for (ChiTietHoaDon y : x) {
+			if (!addMotChiTietCuaHoaDon(y))
+				return false;
+		}
+		return true;
 	}
 	@Override
 	public ArrayList<ChiTietHoaDon> getAllChiTietCuaMotHoaDon(String maHoaDon) {
@@ -43,6 +50,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
 	public ChiTietHoaDon_DAO() {
 		// TODO Auto-generated constructor stub
 		conn = ConnectDB.getConnection();

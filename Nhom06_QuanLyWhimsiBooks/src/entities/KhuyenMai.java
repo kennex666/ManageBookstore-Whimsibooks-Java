@@ -52,6 +52,37 @@ public class KhuyenMai {
 
 
 
+	public KhuyenMai() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public int getSoLuongKhuyenMai() {
+		return soLuongKhuyenMai;
+	}
+
+
+
+	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
+		this.soLuongKhuyenMai = soLuongKhuyenMai;
+	}
+
+
+
+	public int getSoLuotDaApDung() {
+		return soLuotDaApDung;
+	}
+
+
+
+	public void setSoLuotDaApDung(int soLuotDaApDung) {
+		this.soLuotDaApDung = soLuotDaApDung;
+	}
+
+
+
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;
 	}

@@ -7,10 +7,12 @@ import java.util.Iterator;
 public class HoaDon {
 	private String hoaDonID;
 	private Date ngayLapHoaDon;
-	private String trangThai;
+	private String trangThai; // 3 state: CHO_XU_LY, DA_XU_LY, HUY_BO
 	private ArrayList<ChiTietHoaDon> listChiTietHoaDon;
 	private double tongTien, thue, giaKhuyenMai;
-	
+	private NhanVien nhanVien;
+	private KhachHang khachHang;
+	private KhuyenMai khuyenMai;
 	
 	
 	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
@@ -25,8 +27,22 @@ public class HoaDon {
 		this.giaKhuyenMai = giaKhuyenMai;
 	}
 	
+	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
+			double tongTien, double thue, double giaKhuyenMai, NhanVien nhanVien, KhachHang khachHang,
+			KhuyenMai khuyenMai) {
+		super();
+		this.hoaDonID = hoaDonID;
+		this.ngayLapHoaDon = ngayLapHoaDon;
+		this.trangThai = trangThai;
+		this.listChiTietHoaDon = listChiTietHoaDon;
+		this.tongTien = tongTien;
+		this.thue = thue;
+		this.giaKhuyenMai = giaKhuyenMai;
+		this.nhanVien = nhanVien;
+		this.khachHang = khachHang;
+		this.khuyenMai = khuyenMai;
+	}
 	
-
 	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, ArrayList<ChiTietHoaDon> listChiTietHoaDon,
 			double thue, double giaKhuyenMai) {
 		super();
@@ -50,6 +66,30 @@ public class HoaDon {
 	}
 	
 	
+	public NhanVien getNhanVien() {
+		return nhanVien;
+	}
+
+	public void setNhanVien(NhanVien nhanVien) {
+		this.nhanVien = nhanVien;
+	}
+
+	public KhachHang getKhachHang() {
+		return khachHang;
+	}
+
+	public void setKhachHang(KhachHang khachHang) {
+		this.khachHang = khachHang;
+	}
+
+	public KhuyenMai getKhuyenMai() {
+		return khuyenMai;
+	}
+
+	public void setKhuyenMai(KhuyenMai khuyenMai) {
+		this.khuyenMai = khuyenMai;
+	}
+
 	public double getThue() {
 		return thue;
 	}
@@ -133,7 +173,7 @@ public class HoaDon {
         
     public void editSoLuong(ChiTietHoaDon x){
     	if (listChiTietHoaDon.contains(x)){
-        	 listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x)).setSoLuong(x.getSoLuong());;
+        	 listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x)).setSoLuong(x.getSoLuong() + 1);
     	}else {
     		addChiTietHoaDon(x);
     	}

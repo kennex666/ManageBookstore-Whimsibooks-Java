@@ -6,6 +6,7 @@ public class ChiTietHoaDon {
 	private int soLuong;
     private double donGia; // Dẫn xuất
     private SanPham sanPham;
+	private HoaDon hoaDon;
 
 	public ChiTietHoaDon(SanPham sanPham, int soLuong) {
 		super();
@@ -13,10 +14,25 @@ public class ChiTietHoaDon {
 		this.sanPham = sanPham;
 	}
 
+	public ChiTietHoaDon(SanPham sanPham, int soLuong, HoaDon hoaDon) {
+		super();
+		this.soLuong = soLuong;
+		this.sanPham = sanPham;
+		this.hoaDon = hoaDon;
+	}
+	
 	public ChiTietHoaDon() {
 		super();
 	}
 
+
+	public HoaDon getHoaDon() {
+		return hoaDon;
+	}
+
+	public void setHoaDon(HoaDon hoaDon) {
+		this.hoaDon = hoaDon;
+	}
 
 	public int getSoLuong() {
 		return soLuong;
@@ -24,7 +40,7 @@ public class ChiTietHoaDon {
 
 	public void setSoLuong(int soLuong) {
 	    // Kiểm tra soLuong > 0
-	    if (soLuong <= 0) {
+	    if (soLuong < 0) {
 	        throw new IllegalArgumentException("Số lượng phải là số nguyên dương");
 	    }
 

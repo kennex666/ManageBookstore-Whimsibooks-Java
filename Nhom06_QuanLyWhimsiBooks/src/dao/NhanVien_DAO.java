@@ -35,7 +35,7 @@ public class NhanVien_DAO implements INhanVien {
 				listNhanVien.add(nhanVien);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+                    return listNhanVien;
 		}
 		return listNhanVien;
 	}
@@ -71,7 +71,7 @@ public class NhanVien_DAO implements INhanVien {
 				listNhanVien.add(nhanVien);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+                    return listNhanVien;
 		}
 
 		return listNhanVien;

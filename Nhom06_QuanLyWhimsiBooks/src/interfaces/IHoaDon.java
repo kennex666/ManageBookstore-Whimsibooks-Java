@@ -9,5 +9,7 @@ public interface IHoaDon {
 	public ArrayList<HoaDon> getDanhSachHoaDon();
 	public boolean createHoaDon(HoaDon x);
 	public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc);
-	
+	public HoaDon getHoaDonByID(HoaDon x);
+	public int getSoHoaDonTrongNgay();
+        public boolean updateHoaDon(HoaDon x);
 }

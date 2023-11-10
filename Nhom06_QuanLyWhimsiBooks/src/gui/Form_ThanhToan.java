@@ -4,10 +4,13 @@
  */
 package gui;
 
+import bus.ChiTietHoaDon_BUS;
+import bus.HoaDon_BUS;
 import entities.HoaDon;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.border.Border;
 import utilities.ColorProcessing;
@@ -20,7 +23,10 @@ import utilities.Numberic;
  */
 public class Form_ThanhToan extends javax.swing.JFrame {
     private JFrame frameOriginal;
+    private TAB_BanHang tabBanHang;
     private HoaDon hoaDon; 
+    private HoaDon_BUS hoaDon_BUS;
+    private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
     /**
      * Creates new form Form_ThanhToan
      */
@@ -30,9 +36,19 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         initComponents();
     }
     
-    public Form_ThanhToan(HoaDon x, JFrame y) {  
+    public Form_ThanhToan(HoaDon x, JFrame y, TAB_BanHang tab) {  
+        hoaDon_BUS = new HoaDon_BUS();
+        chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
+        
+        x.setTrangThai("CHO_XU_LY");
+        
+        if (!hoaDon_BUS.createHoaDon(x)){
+            JOptionPane.showMessageDialog(null, "Thông tin: Khởi tạo hoá đơn thất bại.");
+        }
+        
         this.frameOriginal = y;
         this.hoaDon = x;
+        this.tabBanHang = tab;
         y.setEnabled(false);
         setUndecorated(true);  
        
@@ -45,12 +61,12 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         lblChietKhau.setText(Numberic.formatVND(x.getGiaKhuyenMai()));
         lblTongThue.setText(Numberic.formatVND(x.tinhTongThue()));
         lblTongTien.setText(Numberic.formatVND(x.tinhTongTien()));
-        lblMaHoaDon.setText("HD191220030001");
+        lblMaHoaDon.setText(x.getHoaDonID());
         
         lblTraKhach.setText("Còn thiếu " + Numberic.formatVND(x.tinhThanhTien()));
 
         txtTienKhachDua.setText("");
-        
+        txtTienKhachDua.requestFocus();
     }
     
     
@@ -74,9 +90,10 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         lblTraKhach = new javax.swing.JLabel();
         jLabel26 = new javax.swing.JLabel();
         txtTienKhachDua = new javax.swing.JTextField();
-        jButton13 = new javax.swing.JButton();
+        btnClearTienKhachDua = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         btn1K = new javax.swing.JButton();
+        btn2K = new javax.swing.JButton();
         btn5K = new javax.swing.JButton();
         btn10K = new javax.swing.JButton();
         btn20K = new javax.swing.JButton();
@@ -134,10 +151,10 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
 
-        jButton13.setText("X");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
+        btnClearTienKhachDua.setText("X");
+        btnClearTienKhachDua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
+                btnKeyPadActionPerformed(evt);
             }
         });
 
@@ -165,6 +182,25 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.1;
         jPanel6.add(btn1K, gridBagConstraints);
 
+        btn2K.setBackground(new java.awt.Color(15, 102, 165));
+        btn2K.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btn2K.setForeground(new java.awt.Color(255, 255, 255));
+        btn2K.setText("2,000");
+        btn2K.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnKeyPadActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 18;
+        gridBagConstraints.ipady = 18;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        jPanel6.add(btn2K, gridBagConstraints);
+
         btn5K.setBackground(new java.awt.Color(15, 102, 165));
         btn5K.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btn5K.setForeground(new java.awt.Color(255, 255, 255));
@@ -175,7 +211,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
@@ -194,8 +230,8 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
         gridBagConstraints.ipady = 18;
@@ -213,7 +249,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
@@ -232,7 +268,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
@@ -251,8 +287,8 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
         gridBagConstraints.ipady = 18;
@@ -270,7 +306,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
@@ -289,7 +325,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
@@ -308,8 +344,8 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 4;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
         gridBagConstraints.ipady = 18;
@@ -317,7 +353,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.1;
         jPanel6.add(btnVuaDu, gridBagConstraints);
 
-        btnBackThanhToan.setBackground(new java.awt.Color(15, 102, 165));
+        btnBackThanhToan.setBackground(new java.awt.Color(239, 162, 162));
         btnBackThanhToan.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBackThanhToan.setForeground(new java.awt.Color(255, 255, 255));
         btnBackThanhToan.setText("Quay lại");
@@ -327,9 +363,8 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
         gridBagConstraints.ipady = 18;
@@ -337,25 +372,24 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         gridBagConstraints.weighty = 0.1;
         jPanel6.add(btnBackThanhToan, gridBagConstraints);
 
-        btnThanhToanHoanTat.setBackground(new java.awt.Color(15, 102, 165));
+        btnThanhToanHoanTat.setBackground(new java.awt.Color(83, 182, 118));
         btnThanhToanHoanTat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnThanhToanHoanTat.setForeground(new java.awt.Color(255, 255, 255));
         btnThanhToanHoanTat.setText("Hoàn tất");
+        btnThanhToanHoanTat.setEnabled(false);
         btnThanhToanHoanTat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanHoanTatActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridx = 4;
         gridBagConstraints.gridy = 8;
-        gridBagConstraints.gridwidth = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 18;
         gridBagConstraints.ipady = 18;
         gridBagConstraints.weightx = 0.2;
         gridBagConstraints.weighty = 0.1;
-        gridBagConstraints.insets = new java.awt.Insets(0, 30, 0, 0);
         jPanel6.add(btnThanhToanHoanTat, gridBagConstraints);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -369,7 +403,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
-                        .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnClearTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel22, javax.swing.GroupLayout.Alignment.LEADING)
@@ -395,7 +429,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
                 .addComponent(jLabel26)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnClearTienKhachDua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -531,19 +565,54 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton13ActionPerformed
-
     private void btnBackThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackThanhToanActionPerformed
         // TODO add your handling code here:
         if (ErrorMessage.showConfirmDialogYesNo("Xác nhận thoát", "Hoá đơn này chưa được thanh toán, bạn đã chắc chắn muốn thoát?")){
-            closeFormThanhToan();
+        	closeFormThanhToan();
         }
     }//GEN-LAST:event_btnBackThanhToanActionPerformed
 
     private void btnThanhToanHoanTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanHoanTatActionPerformed
         // TODO add your handling code here:
+        double tienNhan = 0;
+        double tongThanhToan = hoaDon.tinhThanhTien();
+        double tienTraLai = 0;
+        if (!Numberic.isDouble(txtTienKhachDua.getText())){
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Tiền khách đưa chỉ có thể là số!", txtTienKhachDua);
+            return;
+        }
+        tienNhan = Numberic.parseDouble(txtTienKhachDua.getText());
+        tienTraLai = tienNhan - tongThanhToan;
+        if (tienTraLai < 0){
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa nhận đủ tiền!", txtTienKhachDua);
+            return;
+        }
+        
+        hoaDon.setTrangThai("DA_XU_LY");
+        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+        
+        if (!result){
+            JOptionPane.showMessageDialog(null, "Thanh toán thất bại, đã xảy ra lỗi khi khởi tạo hoá đơn.");
+            return;
+        }
+        
+        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+        if (!result) {
+            JOptionPane.showMessageDialog(null, "Thanh toán thất bại, đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
+            return;
+        }
+        
+        if (ErrorMessage.showConfirmDialogYesNo(
+                "Thanh toán hoàn tất", 
+                (tienTraLai > 0 ? "Đừng quên trả khách " + Numberic.formatVND(tienTraLai) + " nhé!" : "Đã nhận đủ tiền!") + "\nBạn có muốn in hoá đơn?"
+        )){
+            
+        	
+        }else {
+        	tabBanHang.thanhToanHoanTat();
+        	closeFormThanhToan();
+        }
+        
     }//GEN-LAST:event_btnThanhToanHoanTatActionPerformed
 
     private void btnKeyPadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeyPadActionPerformed
@@ -554,13 +623,24 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         String tempStr = txtTienKhachDua.getText();
         if (tempStr.isBlank() || tempStr.isEmpty())
             tempStr = "0";
+        
+        /* Vừa đủ */
         if (obj.equals(btnVuaDu)){
             txtTienKhachDua.setText(String.format("%.0f", hoaDon.tinhThanhTien()));
             calcTrangThai(String.format("%.0f", hoaDon.tinhThanhTien()));
             return;
         }
+        
+        if (obj.equals(btnClearTienKhachDua)){
+            txtTienKhachDua.setText("");
+            calcTrangThai("0");
+            return;
+        }
+        
         if (obj.equals(btn1K)){
             temp = 1000;
+        }else if (obj.equals(btn2K)){
+            temp = 2000;
         }else if (obj.equals(btn5K)){
             temp = 5000;
         }else if (obj.equals(btn10K)){
@@ -601,8 +681,9 @@ public class Form_ThanhToan extends javax.swing.JFrame {
     private void calcTrangThai(String temp){
         double tempDoubleTKD = 0;
         double tempTraLai = 0;
+        lblTraKhach.setForeground(ColorProcessing.rgbColor(255, 0, 0));
+        btnThanhToanHoanTat.setEnabled(false);
         if (Numberic.isDouble(temp)){
-            lblTraKhach.setForeground(ColorProcessing.rgbColor(255, 0, 0));
             tempDoubleTKD = Numberic.parseDouble(temp);
             if (tempDoubleTKD == 0)
                 txtTienKhachDua.setText("");
@@ -614,7 +695,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
                 return;
             }
             lblTraKhach.setForeground(ColorProcessing.rgbColor(15, 102, 165));
-            
+            btnThanhToanHoanTat.setEnabled(true);
             if (tempTraLai == 0){
                 lblTraKhach.setText("Nhận vừa đủ");
                 return;
@@ -625,43 +706,13 @@ public class Form_ThanhToan extends javax.swing.JFrame {
     }
     
     private void closeFormThanhToan() {
-        frameOriginal.setEnabled(true);
+    	if (frameOriginal != null)
+    		frameOriginal.setEnabled(true);
         this.dispose();
     }
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Form_ThanhToan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Form_ThanhToan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Form_ThanhToan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Form_ThanhToan.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Form_ThanhToan().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn100K;
@@ -669,13 +720,14 @@ public class Form_ThanhToan extends javax.swing.JFrame {
     private javax.swing.JButton btn1K;
     private javax.swing.JButton btn200K;
     private javax.swing.JButton btn20K;
+    private javax.swing.JButton btn2K;
     private javax.swing.JButton btn500K;
     private javax.swing.JButton btn50K;
     private javax.swing.JButton btn5K;
     private javax.swing.JButton btnBackThanhToan;
+    private javax.swing.JButton btnClearTienKhachDua;
     private javax.swing.JButton btnThanhToanHoanTat;
     private javax.swing.JButton btnVuaDu;
-    private javax.swing.JButton jButton13;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel13;
