@@ -40,6 +40,11 @@ public class HoaDon_BUS implements IHoaDon{
         public boolean updateHoaDon(HoaDon x) {
             return hoaDon_DAO.updateHoaDon(x);
         }
+
+        @Override
+        public boolean cancelHoaDon(HoaDon x) {
+            return hoaDon_DAO.cancelHoaDon(x);
+        }
 	
         
         

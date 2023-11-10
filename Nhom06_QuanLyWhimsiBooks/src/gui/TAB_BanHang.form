@@ -49,8 +49,10 @@
                 <Container class="javax.swing.JPanel" name="jPanel7">
                   <Properties>
                     <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                      <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                        <TitledBorder title="Gi&#x1ecf; h&#xe0;ng"/>
+                      <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                        <LineBorder>
+                          <Color PropertyName="color" blue="cc" green="cc" red="cc" type="rgb"/>
+                        </LineBorder>
                       </Border>
                     </Property>
                   </Properties>
@@ -168,6 +170,9 @@
                             <Property name="text" type="java.lang.String" value="H&#xe0;ng ch&#x1edd; (F5)"/>
                             <Property name="iconTextGap" type="int" value="30"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHangChoActionPerformed"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="0" gridY="0" gridWidth="1" gridHeight="3" fill="1" ipadX="0" ipadY="14" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.1" weightY="0.0"/>
@@ -185,7 +190,7 @@
                             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                               <Color blue="ff" green="ff" red="ff" type="rgb"/>
                             </Property>
-                            <Property name="text" type="java.lang.String" value="Hu&#x1ef7;"/>
+                            <Property name="text" type="java.lang.String" value="Hu&#x1ef7; ho&#xe1; &#x111;&#x1a1;n (F9)"/>
                             <Property name="iconTextGap" type="int" value="30"/>
                           </Properties>
                           <Events>
@@ -1559,7 +1564,7 @@
                                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="TAB_BanHang_txtMaKhachHang"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton3">
+                            <Component class="javax.swing.JButton" name="btnKhachHangEnter">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="a5" green="66" red="f" type="rgb"/>
@@ -2201,7 +2206,7 @@
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new utilities.JTextFieldPlaceHolder()"/>
                               </AuxValues>
                             </Component>
-                            <Component class="javax.swing.JButton" name="jButton6">
+                            <Component class="javax.swing.JButton" name="btnKhuyenMaiEnter">
                               <Properties>
                                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                                   <Color blue="a5" green="66" red="f" type="rgb"/>
@@ -2935,7 +2940,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="0" gridY="16" gridWidth="3" gridHeight="1" fill="2" ipadX="0" ipadY="12" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
+                          <GridBagConstraints gridX="0" gridY="20" gridWidth="3" gridHeight="1" fill="2" ipadX="0" ipadY="12" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -2964,7 +2969,7 @@
                       </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
-                          <GridBagConstraints gridX="0" gridY="20" gridWidth="3" gridHeight="1" fill="2" ipadX="0" ipadY="12" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
+                          <GridBagConstraints gridX="0" gridY="16" gridWidth="3" gridHeight="1" fill="2" ipadX="0" ipadY="12" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
                         </Constraint>
                       </Constraints>
                     </Component>
@@ -3831,7 +3836,7 @@
                       <Parameters>
                         <CodeExpression id="225">
                           <ExpressionOrigin>
-                            <Value type="int" value="16"/>
+                            <Value type="int" value="20"/>
                           </ExpressionOrigin>
                         </CodeExpression>
                       </Parameters>
@@ -3926,7 +3931,7 @@
                       <Parameters>
                         <CodeExpression id="232">
                           <ExpressionOrigin>
-                            <Value type="int" value="20"/>
+                            <Value type="int" value="16"/>
                           </ExpressionOrigin>
                         </CodeExpression>
                       </Parameters>
@@ -4552,10 +4557,13 @@
                         </Constraint>
                       </Constraints>
                     </Component>
-                    <Component class="javax.swing.JButton" name="jButton2">
+                    <Component class="javax.swing.JButton" name="btn_DSHD_taiLai">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="T&#x1ea3;i l&#x1ea1;i"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DSHD_taiLaiActionPerformed"/>
+                      </Events>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                           <GridBagConstraints gridX="5" gridY="30" gridWidth="2" gridHeight="1" fill="1" ipadX="19" ipadY="8" insetsTop="0" insetsLeft="0" insetsBottom="54" insetsRight="0" anchor="10" weightX="0.0" weightY="0.0"/>
@@ -6525,11 +6533,11 @@
                         <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                       </StatementProvider>
                       <Parameters>
-                        <CodeExpression id="405_jButton2">
-                          <CodeVariable name="jButton2" type="8194" declaredType="javax.swing.JButton"/>
+                        <CodeExpression id="405_btn_DSHD_taiLai">
+                          <CodeVariable name="btn_DSHD_taiLai" type="8194" declaredType="javax.swing.JButton"/>
                           <ExpressionOrigin>
                             <ExpressionProvider type="ComponentRef">
-                              <ComponentRef name="jButton2"/>
+                              <ComponentRef name="btn_DSHD_taiLai"/>
                             </ExpressionProvider>
                           </ExpressionOrigin>
                         </CodeExpression>
@@ -6565,7 +6573,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JButton" name="btn_DSHD_ThanhToan">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Thanh to&#xe1;n"/>
+                            <Property name="text" type="java.lang.String" value="X&#x1eed; l&#xfd; ho&#xe1; &#x111;&#x1a1;n"/>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
                           <Events>
@@ -6593,6 +6601,9 @@
                             <Property name="text" type="java.lang.String" value="Xem chi ti&#x1ebf;t"/>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DSHD_XemChiTietActionPerformed"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="6" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="19" insetsTop="9" insetsLeft="0" insetsBottom="7" insetsRight="0" anchor="10" weightX="0.1" weightY="0.0"/>
@@ -6615,6 +6626,9 @@
                             <Property name="text" type="java.lang.String" value="Hu&#x1ef7; ho&#xe1; &#x111;&#x1a1;n"/>
                             <Property name="enabled" type="boolean" value="false"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_DSHD_HuyHoaDonActionPerformed"/>
+                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="10" gridY="2" gridWidth="1" gridHeight="1" fill="2" ipadX="0" ipadY="19" insetsTop="9" insetsLeft="0" insetsBottom="7" insetsRight="0" anchor="10" weightX="0.1" weightY="0.0"/>

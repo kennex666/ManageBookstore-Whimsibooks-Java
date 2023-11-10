@@ -12,4 +12,5 @@ public interface IHoaDon {
 	public HoaDon getHoaDonByID(HoaDon x);
 	public int getSoHoaDonTrongNgay();
         public boolean updateHoaDon(HoaDon x);
+        public boolean cancelHoaDon(HoaDon x);
 }

@@ -24,6 +24,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.AbstractAction;
+import javax.swing.CellEditor;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
@@ -42,6 +43,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private HoaDon hoaDon;
     private DefaultTableModel tblModelCTHD, tblHoaDon;
     private ArrayList<HoaDon> listHoaDon;
+    private String trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
+    // Thanh toán là giao diện bán hàng, xem chi tiết là trạng thái chỉ xem
     /**
      * Creates new form TAB_BanHang
      */
@@ -51,6 +54,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
     	hoaDon = new HoaDon();
+        trangThaiEditor = "THANH_TOAN";
     	
         initComponents();
         
@@ -79,14 +83,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         
         WindowTitle.setTitle("Quản lý bán hàng");
         
-        AbstractAction thanhToanAction = new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                btnThanhToanActionPerformed(e);
-            }
-        };
-        btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), WHEN_IN_FOCUSED_WINDOW);
-        
+      
         tblModelCTHD.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent event) {
@@ -112,12 +109,88 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         
         // Tab Danh sach hoa don
         loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
+        
+        
+        // Shortcut Key
+        createShortcutKey();
+    }
+    
+    public void createShortcutKey(){
+        AbstractAction thanhToanAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnThanhToanActionPerformed(e);
+            }
+        };
+        btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0), WHEN_IN_FOCUSED_WINDOW);
+        
+        
+        AbstractAction hangChoAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnHangChoActionPerformed(e);
+            }
+        };
+        btnHangCho.registerKeyboardAction(hangChoAction, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0), WHEN_IN_FOCUSED_WINDOW);
+        
+        AbstractAction huyHoaDonAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCancelHDActionPerformed(e);
+            }
+        };
+        btnCancelHD.registerKeyboardAction(huyHoaDonAction, KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0), WHEN_IN_FOCUSED_WINDOW);
+        
+    }
+    
+    public void setTrangThaiEditor(String tt){
+        trangThaiEditor = tt;
+        if (tt == "XEM_CHI_TIET"){
+            txtKhuyenMai.setEditable(false);
+            txtMaKhachHang.setEditable(false);
+            txtMaSanPham.setEditable(false);
+            txtMaSanPham.setText("Chế độ chỉ xem, không thể chỉnh sửa!");
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Trở về bán hàng (F9)");
+            
+            btnHangCho.setEnabled(false);
+            btnKeyPad.setEnabled(false);
+            btnThanhToan.setEnabled(false);
+            btnThemSanPham.setEnabled(false);
+            btnXoaRongMaSP.setEnabled(false);
+            
+            btnKhachHangEnter.setEnabled(false);
+            btnKhuyenMaiEnter.setEnabled(false);
+            
+            jTable1.setEnabled(false);
+        }else{
+            txtKhuyenMai.setEditable(true);
+            txtMaKhachHang.setEditable(true);
+            txtMaSanPham.setEditable(true);
+            txtMaSanPham.setText("");
+
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Huỷ hoá đơn (F9)");
+            
+            btnHangCho.setEnabled(true);
+            btnKeyPad.setEnabled(true);
+            btnThanhToan.setEnabled(true);
+            btnThemSanPham.setEnabled(true);
+            btnXoaRongMaSP.setEnabled(true);
+            
+            btnKhachHangEnter.setEnabled(true);
+            btnKhuyenMaiEnter.setEnabled(true);
+            jTable1.setEnabled(true);
+        }
     }
     
     public void loadHoaDon(String x){
         hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
         hoaDon.setListChiTietHoaDon(chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID()));
         loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
+        updateThongTinBill();
     }
     
     public void loadTableHoaDon(ArrayList<HoaDon> x){
@@ -157,6 +230,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
     	ChiTietHoaDon cthd = null;
     	// TODO Auto-generated method stub
+        if (trangThaiEditor == "XEM_CHI_TIET")
+            return;
     	if (e.getSource().equals(jTable1)) {
     		JTable tbl = (JTable)e.getSource();
             int row = tbl.rowAtPoint( e.getPoint() );
@@ -254,7 +329,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
         txtMaKhachHang = new utilities.JTextFieldPlaceHolder();
-        jButton3 = new javax.swing.JButton();
+        btnKhachHangEnter = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jTextField7 = new javax.swing.JTextField();
         jTextField8 = new javax.swing.JTextField();
@@ -263,7 +338,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
-        jButton6 = new javax.swing.JButton();
+        btnKhuyenMaiEnter = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jTextField14 = new javax.swing.JTextField();
         jTextField15 = new javax.swing.JTextField();
@@ -300,7 +375,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jTextField9 = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btn_DSHD_taiLai = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         btn_DSHD_ThanhToan = new javax.swing.JButton();
@@ -328,7 +403,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_CenterLayout.rowHeights = new int[] {0, 0, 0};
         tabBanHang_HoaDon_Center.setLayout(tabBanHang_HoaDon_CenterLayout);
 
-        jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Giỏ hàng"));
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
         jTable1.setModel(tblModelCTHD = new javax.swing.table.DefaultTableModel(
@@ -402,6 +477,11 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             , 25, 25));
     btnHangCho.setText("Hàng chờ (F5)");
     btnHangCho.setIconTextGap(30);
+    btnHangCho.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnHangChoActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
     gridBagConstraints.gridy = 0;
@@ -414,7 +494,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     btnCancelHD.setBackground(new java.awt.Color(239, 162, 162));
     btnCancelHD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     btnCancelHD.setForeground(new java.awt.Color(255, 255, 255));
-    btnCancelHD.setText("Huỷ");
+    btnCancelHD.setText("Huỷ hoá đơn (F9)");
     btnCancelHD.setIconTextGap(30);
     btnCancelHD.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -568,12 +648,12 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     });
     jPanel12.add(txtMaKhachHang);
 
-    jButton3.setBackground(new java.awt.Color(15, 102, 165));
-    jButton3.setIcon(
+    btnKhachHangEnter.setBackground(new java.awt.Color(15, 102, 165));
+    btnKhachHangEnter.setIcon(
         ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20,20)
     );
-    jButton3.setPreferredSize(new java.awt.Dimension(50, 30));
-    jPanel12.add(jButton3);
+    btnKhachHangEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    jPanel12.add(btnKhachHangEnter);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -658,12 +738,12 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     });
     jPanel16.add(txtKhuyenMai);
 
-    jButton6.setBackground(new java.awt.Color(15, 102, 165));
-    jButton6.setIcon(
+    btnKhuyenMaiEnter.setBackground(new java.awt.Color(15, 102, 165));
+    btnKhuyenMaiEnter.setIcon(
         ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-tap.png")), 20,20)
     );
-    jButton6.setPreferredSize(new java.awt.Dimension(50, 30));
-    jPanel16.add(jButton6);
+    btnKhuyenMaiEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    jPanel16.add(btnKhuyenMaiEnter);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
@@ -835,7 +915,7 @@ btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 16;
+    gridBagConstraints.gridy = 20;
     gridBagConstraints.gridwidth = 3;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 12;
@@ -857,7 +937,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 0;
-    gridBagConstraints.gridy = 20;
+    gridBagConstraints.gridy = 16;
     gridBagConstraints.gridwidth = 3;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipady = 12;
@@ -1052,7 +1132,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
     jPanel2.add(jButton1, gridBagConstraints);
 
-    jButton2.setText("Tải lại");
+    btn_DSHD_taiLai.setText("Tải lại");
+    btn_DSHD_taiLai.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_taiLaiActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 5;
     gridBagConstraints.gridy = 30;
@@ -1061,7 +1146,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.ipadx = 19;
     gridBagConstraints.ipady = 8;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
-    jPanel2.add(jButton2, gridBagConstraints);
+    jPanel2.add(btn_DSHD_taiLai, gridBagConstraints);
 
     jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
@@ -1073,7 +1158,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     jPanel9Layout.rowHeights = new int[] {0, 7, 0, 7, 0};
     jPanel9.setLayout(jPanel9Layout);
 
-    btn_DSHD_ThanhToan.setText("Thanh toán");
+    btn_DSHD_ThanhToan.setText("Xử lý hoá đơn");
     btn_DSHD_ThanhToan.setEnabled(false);
     btn_DSHD_ThanhToan.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1102,6 +1187,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     btn_DSHD_XemChiTiet.setText("Xem chi tiết");
     btn_DSHD_XemChiTiet.setEnabled(false);
+    btn_DSHD_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_XemChiTietActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 2;
@@ -1124,6 +1214,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     btn_DSHD_HuyHoaDon.setText("Huỷ hoá đơn");
     btn_DSHD_HuyHoaDon.setEnabled(false);
+    btn_DSHD_HuyHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_HuyHoaDonActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 10;
     gridBagConstraints.gridy = 2;
@@ -1296,19 +1391,45 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     private void btnCancelHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelHDActionPerformed
         // TODO add your handling code here:
-        hoaDon.setTrangThai("HUY_BO");
+        switch (trangThaiEditor) {
+            case "XEM_CHI_TIET":
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn trở về chế độ bán hàng chứ?")){
+                    clearHoaDonDangTao();
+                    setTrangThaiEditor("THANH_TOAN");
+                }
+                break;
+            default:
+                if (hoaDon.getListChiTietHoaDon().size() < 1){
+                    ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hiện chưa khởi tạo đơn hàng!", txtMaSanPham);
+                    return;
+                }
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Hoá đơn sẽ bị huỷ sau khi xác nhận, bạn đã chắc chắn chứ?"))
+                    updateHoaDon("HUY_BO");
+        }
+        
+        
+    }//GEN-LAST:event_btnCancelHDActionPerformed
+
+    public void updateHoaDon(String trangThai){
+        hoaDon.setTrangThai(trangThai);
         boolean result = hoaDon_BUS.createHoaDon(hoaDon);
         
         result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+        clearHoaDonDangTao();
+    }
+    
+    public void clearHoaDonDangTao(){
         hoaDon = new HoaDon();
         while (tblModelCTHD.getRowCount() > 0)
             tblModelCTHD.removeRow(0);
         updateThongTinBill();
-    }//GEN-LAST:event_btnCancelHDActionPerformed
-
+    }
+    
     private void btn_DSHD_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_ThanhToanActionPerformed
         // TODO add your handling code here:
-        loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn có chắc chắn muốn xử lý lại hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)
+         + " không?"))
+            loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
     }//GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
 
     private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabSwitchBanHang
@@ -1333,7 +1454,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             btn_DSHD_DoiTraHoaDon.setEnabled(true);
             btn_DSHD_InHD.setEnabled(true);
             btn_DSHD_HuyHoaDon.setEnabled(false);
-            btn_DSHD_ThanhToan.setEnabled(true);
+            btn_DSHD_ThanhToan.setEnabled(false);
             btn_DSHD_XemChiTiet.setEnabled(true);
             return;
         }
@@ -1347,6 +1468,40 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             return;
         }
     }//GEN-LAST:event_tblHoaDonMouseClicked
+
+    private void btnHangChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHangChoActionPerformed
+        // TODO add your handling code here:
+        if (hoaDon.getListChiTietHoaDon().size() < 1){
+            ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Chưa có sản phẩm trong giỏ hàng, không thể thêm vào hàng chờ!", txtMaSanPham);
+            return;
+        }
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn đưa hoá đơn vào hàng chờ chứ?"))
+            updateHoaDon("CHO_XU_LY");
+    }//GEN-LAST:event_btnHangChoActionPerformed
+
+    private void btn_DSHD_HuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_HuyHoaDonActionPerformed
+        // TODO add your handling code here:
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn có chắc chắn muốn huỷ hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)
+         + " không?\n\nCảnh báo: Hoá đơn sau khi huỷ sẽ không thể thanh toán trở lại!"))
+           if (hoaDon_BUS.cancelHoaDon(new HoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)))){
+               JOptionPane.showMessageDialog(null, "Hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " đã bị huỷ!");
+           }else{
+                JOptionPane.showMessageDialog(null, "Huỷ hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " thất bại! Lỗi CSDL.");
+           }
+    }//GEN-LAST:event_btn_DSHD_HuyHoaDonActionPerformed
+
+    private void btn_DSHD_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_XemChiTietActionPerformed
+        // TODO add your handling code here:
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ xem chi tiết hoá đơn.\n\nLưu ý: Chế độ này không thể chỉnh sửa hoá đơn.")){
+            loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+            setTrangThaiEditor("XEM_CHI_TIET");
+        }
+    }//GEN-LAST:event_btn_DSHD_XemChiTietActionPerformed
+
+    private void btn_DSHD_taiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_taiLaiActionPerformed
+        // TODO add your handling code here:
+        loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
+    }//GEN-LAST:event_btn_DSHD_taiLaiActionPerformed
     
     public void thanhToanHoanTat() {
     	hoaDon = new HoaDon();
@@ -1365,6 +1520,8 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton btnCancelHD;
     private javax.swing.JButton btnHangCho;
     private javax.swing.JButton btnKeyPad;
+    private javax.swing.JButton btnKhachHangEnter;
+    private javax.swing.JButton btnKhuyenMaiEnter;
     private javax.swing.JButton btnThanhToan;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton btnXoaRongMaSP;
@@ -1373,10 +1530,8 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton btn_DSHD_InHD;
     private javax.swing.JButton btn_DSHD_ThanhToan;
     private javax.swing.JButton btn_DSHD_XemChiTiet;
+    private javax.swing.JButton btn_DSHD_taiLai;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton6;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

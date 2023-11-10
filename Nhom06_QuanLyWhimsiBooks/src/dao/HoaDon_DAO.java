@@ -72,6 +72,23 @@ public class HoaDon_DAO implements IHoaDon{
 			return false;
 		}
         }
+
+        @Override
+        public boolean cancelHoaDon(HoaDon x) {
+            String query = "UPDATE HoaDon SET TrangThai = ? WHERE HoaDonID = ?";
+		try {
+			PreparedStatement pstm = conn.prepareStatement(query);
+			pstm.setString(1, "HUY_BO");
+			pstm.setString(2, x.getHoaDonID());
+                        pstm.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+                        e.printStackTrace();
+			return false;
+		}
+        }
+
         
         
 	@Override
