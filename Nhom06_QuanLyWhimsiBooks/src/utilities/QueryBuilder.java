@@ -132,6 +132,9 @@ public class QueryBuilder {
 			}
 			if (numParamsQuery > 0)
 				tempQuery = tempQuery.replace("?", paramsQuery);
+			else {
+				tempQuery = tempQuery.replace("?", "");
+			}
 			Object[] obj = {numParamsQuery, tempQuery};
 			return obj;
 		}
