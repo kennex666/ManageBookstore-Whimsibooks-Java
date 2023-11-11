@@ -128,7 +128,7 @@ public class HoaDon_DAO implements IHoaDon{
 				hd.setNhanVien(nv);
 				
 	
-				String hoTenKH = rs.getString("HoTen");
+				String hoTenKH = rs.getString(22);
 				String maSoThue = rs.getString("MaSoThue");
 				String diaChi = rs.getString("diaChi");
 				String loaiKH = rs.getString("LoaiKhachHang");
@@ -213,7 +213,7 @@ public class HoaDon_DAO implements IHoaDon{
 				hd.setNhanVien(nv);
 				
 	
-				String hoTenKH = rs.getString("HoTen");
+				String hoTenKH = rs.getString(22);
 				String maSoThue = rs.getString("MaSoThue");
 				String diaChi = rs.getString("diaChi");
 				String loaiKH = rs.getString("LoaiKhachHang");
@@ -342,7 +342,7 @@ public class HoaDon_DAO implements IHoaDon{
 				hd.setNhanVien(nv);
 				
 	
-				String hoTenKH = rs.getString("HoTen");
+				String hoTenKH = rs.getString(22);
 				String maSoThue = rs.getString("MaSoThue");
 				String diaChi = rs.getString("diaChi");
 				String loaiKH = rs.getString("LoaiKhachHang");
@@ -413,7 +413,7 @@ public class HoaDon_DAO implements IHoaDon{
 				hd.setNhanVien(nv);
 				
 	
-				String hoTenKH = rs.getString("HoTen");
+				String hoTenKH = rs.getString(22);
 				String maSoThue = rs.getString("MaSoThue");
 				String diaChi = rs.getString("diaChi");
 				String loaiKH = rs.getString("LoaiKhachHang");

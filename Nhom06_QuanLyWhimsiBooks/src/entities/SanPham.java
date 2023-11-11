@@ -18,7 +18,7 @@ public class SanPham {
 	private DanhMuc danhMuc;
 	private NhaCungCap nhaCungCap;
 	
-	
+	// loaiDoiTra: DUOC_DOI_TRA, KHONG_DOI_TRA
 	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
 
 	

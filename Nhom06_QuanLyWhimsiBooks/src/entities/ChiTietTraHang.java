@@ -3,19 +3,44 @@ package entities;
 public class ChiTietTraHang {
 	private int soLuong;
 	private String liDoTraHang;
-	private String hoaDonTraID;
+	private double donGia;
+	private HoaDonTra hoaDon;
+	private SanPham sanPham;
 
 	public ChiTietTraHang() {
 	}
 
-	public ChiTietTraHang(int soLuong, String liDoTraHang, String hoaDonTraID) {
-		setSoLuong(soLuong);
-		setLiDoTraHang(liDoTraHang);
-		this.hoaDonTraID = hoaDonTraID;
+	public ChiTietTraHang(int soLuong, String liDoTraHang, double donGia, HoaDonTra hoaDon, SanPham sanPham) {
+		super();
+		this.soLuong = soLuong;
+		this.liDoTraHang = liDoTraHang;
+		this.donGia = donGia;
+		this.hoaDon = hoaDon;
+		this.sanPham = sanPham;
 	}
 
-	public ChiTietTraHang(ChiTietTraHang khac) {
-		this(khac.soLuong, khac.liDoTraHang, khac.hoaDonTraID);
+	public double getDonGia() {
+		return donGia;
+	}
+
+	public void setDonGia(double donGia) {
+		this.donGia = donGia;
+	}
+
+	public HoaDonTra getHoaDon() {
+		return hoaDon;
+	}
+
+	public void setHoaDon(HoaDonTra hoaDon) {
+		this.hoaDon = hoaDon;
+	}
+
+	public SanPham getSanPham() {
+		return sanPham;
+	}
+
+	public void setSanPham(SanPham sanPham) {
+		this.sanPham = sanPham;
 	}
 
 	public int getSoLuong() {
@@ -40,14 +65,15 @@ public class ChiTietTraHang {
 		this.liDoTraHang = liDoTraHang;
 	}
 
-	public String getHoaDonTraID() {
-		return hoaDonTraID;
+	public double tinhTongTien() {
+		// Nếu là đơn giá từ database lưu trữ thì tính theo db, ngược lại là hoá đơn
+		// đang lập. Giá bán đã kèm VAT
+		return donGia > 0 ? donGia * soLuong : (soLuong * sanPham.getGiaBan());
 	}
-
+	
 	// Phương thức toString
 	@Override
 	public String toString() {
-		return "Chi tiết trả hàng [Số lượng: " + soLuong + ", Lý do trả hàng: " + liDoTraHang + ", ID hóa đơn trả: "
-				+ hoaDonTraID + "]";
+		return liDoTraHang ;
 	}
 }

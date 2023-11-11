@@ -6,6 +6,7 @@ package gui;
 
 import bus.ChiTietHoaDon_BUS;
 import bus.HoaDon_BUS;
+import entities.HoaDonTra;
 import entities.HoaDon;
 import java.awt.event.KeyEvent;
 import javax.swing.BorderFactory;
@@ -21,7 +22,7 @@ import utilities.Numberic;
  *
  * @author duong
  */
-public class Form_ThanhToan extends javax.swing.JFrame {
+public class Form_TraHang extends javax.swing.JFrame {
     private JFrame frameOriginal;
     private TAB_BanHang tabBanHang;
     private HoaDon hoaDon; 
@@ -30,10 +31,10 @@ public class Form_ThanhToan extends javax.swing.JFrame {
     /**
      * Creates new form Form_ThanhToan
      */
-    public Form_ThanhToan() {
+    public Form_TraHang() {
     }
     
-    public Form_ThanhToan(HoaDon x, JFrame y, TAB_BanHang tab) {  
+    public Form_TraHang(HoaDon x, JFrame y, TAB_BanHang tab, HoaDonTra z) {  
         this.frameOriginal = y;
         this.hoaDon = x;
         this.tabBanHang = tab;

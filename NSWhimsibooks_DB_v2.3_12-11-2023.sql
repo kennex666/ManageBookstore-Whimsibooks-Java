@@ -1,5 +1,9 @@
 ﻿/*
-ASUS - 07/11/2023 06:04:27 PM
+	Database Version 2.3 - Update 12/11/2023
+	Fix some issue. Fixed Boolean Entity
+	Fixed display Vietnamese
+	Fixed value some Table
+	Update HoaDonTra
 */
 CREATE DATABASE QuanLyNhaSachWhimsiBooks
 GO
@@ -45,6 +49,7 @@ CREATE TABLE ChiTietTraHang (
 CREATE TABLE HoaDonTra (
   HoaDonID      nvarchar(255) NOT NULL, 
   KhachHangID   nvarchar(255) NOT NULL, 
+  NhanVienID   nvarchar(255) NOT NULL, 
   NgayTraHoaDon datetime NULL, 
   TongHoan      float(10) NOT NULL, 
   TrangThai     nvarchar(255) NULL, 
@@ -82,7 +87,7 @@ CREATE TABLE SanPham (
   TenSanPham   nvarchar(255) NULL, 
   NgayNhap     datetime NULL, 
   Thue         float(10) NOT NULL, 
-  LoaiDoiTra   bit NOT NULL, 
+  LoaiDoiTra      nvarchar(255) NULL,
   Barcode      nvarchar(255) NULL, 
   ImgPath      nvarchar(255) NULL, 
   TinhTrang    nvarchar(255) NULL, 
@@ -138,6 +143,7 @@ ALTER TABLE SanPham ADD CONSTRAINT FKSanPham819527 FOREIGN KEY (NhaCungCapID) RE
 ALTER TABLE ChiTietHoaDon ADD CONSTRAINT FKChiTietHoa598636 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
 ALTER TABLE ChiTietTraHang ADD CONSTRAINT FKChiTietTra137106 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
 ALTER TABLE ChiTietTraHang ADD CONSTRAINT FKChiTietTra144876 FOREIGN KEY (HoaDonID) REFERENCES HoaDonTra (HoaDonID);
+ALTER TABLE HoaDonTra ADD CONSTRAINT FKHoaDonTra123873 FOREIGN KEY (NhanVienID) REFERENCES NhanVien (NhanVienID);
 ALTER TABLE HoaDonTra ADD CONSTRAINT FKHoaDonTra619314 FOREIGN KEY (KhachHangID) REFERENCES KhachHang (KhachHangID);
 ALTER TABLE ChiTietHoaDon ADD CONSTRAINT FKChiTietHoa204008 FOREIGN KEY (HoaDonID) REFERENCES HoaDon (HoaDonID);
 ALTER TABLE HoaDon ADD CONSTRAINT FKHoaDon185313 FOREIGN KEY (NhanVienID) REFERENCES NhanVien (NhanVienID);
@@ -162,8 +168,8 @@ VALUES
 -- Sample data for NhanVien table
 INSERT INTO NhanVien (NhanVienID, UserName, Password, NgayTaoTK, HoTen, GioiTinh, SoDIenThoai, ChucVu, Email, NgaySInh, DiaChi)
 VALUES
-    ('NV0001', 'user1', 'password1', '2023-11-01', 'John Doe', 'Male', '1234567890', 'Manager', 'john.doe@example.com', '1990-01-15', '123 Main St'),
-    ('NV0002', 'user2', 'password2', '2023-11-02', 'Jane Smith', 'Female', '9876543210', 'Sales Rep', 'jane.smith@example.com', '1985-05-20', '456 Elm St');
+    ('NV0001', 'nhanvien01', '123456', '2023-11-01', N'Dương Thái Bảo', 'Male', '1234567890', 'Manager', 'john.doe@example.com', '1990-01-15', '123 Main St'),
+    ('NV0002', 'user2', 'password2', '2023-11-02', N'Nguyễn Lê Nhật Huy', 'Female', '9876543210', 'Sales Rep', 'jane.smith@example.com', '1985-05-20', '456 Elm St');
 
 -- Sample data for NhaCungCap table
 INSERT INTO NhaCungCap (NhaCungCapID, TenNhaCungCap, SoDIenThoai, Email, DiaChi)
@@ -209,37 +215,39 @@ VALUES
 -- Sample data for KhachHang table
 INSERT INTO KhachHang (KhachHangID, HoTen, SoDienThoai, NgaySInh, GioiTinh, Email, MaSoThue, DiaChi, LoaiKhachHang)
 VALUES
-    ('KH0001', 'Customer 1', '111-111-1111', '1990-05-15', 'Male', 'customer1@example.com', '1234567890', '123 Customer St', 'Regular'),
-    ('KH0002', 'Customer 2', '222-222-2222', '1985-10-20', 'Female', 'customer2@example.com', '9876543210', '456 Shopper Ave', 'VIP');
+    ('KH0001', N'Nguyễn Thành Luân', '111-111-1111', '1990-05-15', 'Male', 'customer1@example.com', '1234567890', '123 Customer St', 'DOANH_NGHIEP'),
+    ('KH0002', N'Chu Công Quý', '222-222-2222', '1985-10-20', 'Female', 'customer2@example.com', '9876543210', '456 Shopper Ave', 'CA_NHAN');
 	
 
 -- Sample data for SanPham table
 INSERT INTO SanPham (TacGiaID, TheLoaiID, NhaXuatBanID, ThuongHieuID, DanhMucID, NhaCungCapID, TenSanPham, NgayNhap, Thue, LoaiDoiTra, Barcode, ImgPath, TinhTrang, SoLuongTon, NamSanXuat, LoaiSanPham, DonViDoLuong, KichThuoc, XuatXu, NgonNgu, SoTrang, LoaiBia, GiaNhap)
 VALUES
-    (1, 1, 1, 1, 1, 'NCC00001', 'Book 1', '2023-11-01', 5.0, 0, '1234567890123', 'img/book1.jpg', 'New', 100, 2023, 'Fiction', 'pcs', 'A5', 'USA', 'English', 250, 'Hardcover', 15.0),
-    (2, 2, 2, 2, 2, 'NCC00002', 'Book 2', '2023-11-02', 6.0, 1, '9876543210987', 'img/book2.jpg', 'Used', 50, 2022, 'Mystery', 'pcs', 'A4', 'UK', 'English', 300, 'Paperback', 10.0);
+    (1, 1, 1, 1, 1, 'NCC00001', N'Vì tôi yêu cậu', '2023-11-01', 8.0, 'KHONG_DOI_TRA', '123456789', 'img/book1.jpg', 'New', 100, 2023, 'Fiction', 'pcs', 'A5', 'USA', 'English', 250, 'Hardcover', 150000),
+    (2, 2, 2, 2, 2, 'NCC00002', N'Phải lòng với cô đơn', '2023-11-02', 10.0, 'DUOC_DOI_TRA', '9876543210987', 'img/book2.jpg', 'Used', 50, 2022, 'Mystery', 'pcs', 'A4', 'UK', 'English', 300, 'Paperback', 80000);
 -- Sample data for HoaDonTra table
-INSERT INTO HoaDonTra (HoaDonID, KhachHangID, NgayTraHoaDon, TongHoan, TrangThai)
+INSERT INTO HoaDonTra (HoaDonID, KhachHangID, NhanVienID, NgayTraHoaDon, TongHoan, TrangThai)
 VALUES
-    ('HDTRA001', 'KH0001', '2023-11-10', 50.0, 'Completed'),
-    ('HDTRA002', 'KH0002', '2023-11-12', 75.0, 'Completed');
+    ('HD04112301', 'KH0001', 'NV0002','2023-11-04', 100000, 'DA_XU_LY'),
+    ('HD04112302', 'KH0002', 'NV0001','2023-11-04', 80000, 'DA_XU_LY');
 
 
 -- Sample data for HoaDon table
 INSERT INTO HoaDon (HoaDonID, CodeKhuyenMai, KhachHangID, NhanVienID, NgayLapHoaDon, TongTien, TrangThai, Thue, GiaKhuyenMai)
 VALUES
-    ('HD07112301', 'KM001', 'KH0001', 'NV0001', '2023-11-05', 40.0, 'Paid', 5.0, 10.0),
-    ('HD07112302', 'KM002', 'KH0002', 'NV0002', '2023-11-07', 60.0, 'Paid', 7.5, 20.0);
+   ('HD04112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-04', 100000, 'Paid', 10000, 0),
+   ('HD04112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-04', 80000, 'Paid', 8000, 0),
+   ('HD07112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-07', 100000, 'Paid', 10000, 0),
+   ('HD07112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-07', 80000, 'Paid', 8000, 0);
 
 
--- Sample data for ChiTietHoaDon table
+ --Sample data for ChiTietHoaDon table
 INSERT INTO ChiTietHoaDon (SoLuong, HoaDonID, SanPhamID, DonGia)
 VALUES
-    (3, 'HD07112301', 1, 12.0),
-    (2, 'HD07112302', 2, 15.0);
+   (1, 'HD07112301', 1, 100000),
+   (1, 'HD07112302', 2, 80000);
 	
 -- Sample data for ChiTietTraHang table
 INSERT INTO ChiTietTraHang (SoLuong, HoaDonID, SanPhamID, DonGia, LiDoTrahang)
 VALUES
-    (2, 'HDTRA001', 1, 8.0, 'Defective product'),
-    (3, 'HDTRA002', 2, 10.0, 'Wrong item delivered');
+    (1, 'HD04112301', 1, 100000, 'Defective product'),
+    (1, 'HD04112302', 2, 80000, 'Wrong item delivered');

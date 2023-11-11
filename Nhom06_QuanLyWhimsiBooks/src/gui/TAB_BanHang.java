@@ -19,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
+import entities.HoaDonTra;
 import entities.SanPham;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -42,9 +43,10 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private HoaDon_BUS hoaDon_BUS;
     private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
     private HoaDon hoaDon;
+    private HoaDonTra hoaDonTra;
     private DefaultTableModel tblModelCTHD, tblHoaDon;
     private ArrayList<HoaDon> listHoaDon;
-    private String trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
+    private TAB_HoaDon_EditorMode trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
     // Thanh toán là giao diện bán hàng, xem chi tiết là trạng thái chỉ xem
     /**
      * Creates new form TAB_BanHang
@@ -55,28 +57,29 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
     	hoaDon = new HoaDon();
-        trangThaiEditor = "THANH_TOAN";
+        hoaDonTra = new HoaDonTra();
+        trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
     	
         initComponents();
         
-        jTable1.getColumn("-").setCellRenderer(new ButtonRender(
+        tblChiTietHoaDon.getColumn("-").setCellRenderer(new ButtonRender(
                 ImageProcessing.resizeIcon(
                     new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png"))
                 , 15, 15)
         ));
 
-        jTable1.getColumn("+").setCellRenderer(new ButtonRender(
+        tblChiTietHoaDon.getColumn("+").setCellRenderer(new ButtonRender(
                 ImageProcessing.resizeIcon(
                     new ImageIcon(getClass().getResource("/img/icon/btn-increase.png"))
                 , 15, 15)
         ));
-        jTable1.getColumn("Xoá").setCellRenderer(new ButtonRender(
+        tblChiTietHoaDon.getColumn("Xoá").setCellRenderer(new ButtonRender(
                 ImageProcessing.resizeIcon(
                     new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png"))
                 , 12, 15)
         ));
         
-        jTable1.addMouseListener(this);
+        tblChiTietHoaDon.addMouseListener(this);
         
         // Placeholder text
         ((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
@@ -93,6 +96,22 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
                 if (col == 5){
                     newValue = (int) tblModelCTHD.getValueAt(row, col);
                     
+                    // Chặn đổi trả
+                    if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && hoaDon.getListChiTietHoaDon().get(row).getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")){
+                       ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
+                       tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(row).getSoLuong()
+                            , row, col);
+                       return;
+                    }
+                    if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && 
+                            hoaDon.getListChiTietHoaDon().get(row).getSoLuong() < newValue){
+                            ErrorMessage.showMessageWithFocusTextField(
+                            "Lưu ý", 
+                            "Không được tăng số lượng hoá đơn trả.", 
+                            txtMaSanPham);
+                            tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(row).getSoLuong()
+                            , row, col);
+                    }else
                     if (newValue <= 0){
                         hoaDon.getListChiTietHoaDon().remove(row);
 			tblModelCTHD.removeRow(row);
@@ -144,9 +163,9 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         
     }
     
-    public void setTrangThaiEditor(String tt){
+    public void setTrangThaiEditor(TAB_HoaDon_EditorMode tt){
         trangThaiEditor = tt;
-        if (tt == "XEM_CHI_TIET"){
+        if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == tt){
             txtKhuyenMai.setEditable(false);
             txtMaKhachHang.setEditable(false);
             txtMaSanPham.setEditable(false);
@@ -158,14 +177,67 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             btnHangCho.setEnabled(false);
             btnKeyPad.setEnabled(false);
             btnThanhToan.setEnabled(false);
+            btnThanhToan.setText("Thanh toán (F12)");
             btnThemSanPham.setEnabled(false);
+            btnThemSanPham.setIcon(
+                ImageProcessing.resizeIcon(
+                        new javax.swing.ImageIcon(
+                                getClass().getResource("/img/icon/btn-add.png"))
+                , 20,20)
+            );
             btnXoaRongMaSP.setEnabled(false);
             
             btnKhachHangEnter.setEnabled(false);
             btnKhuyenMaiEnter.setEnabled(false);
             
-            jTable1.setEnabled(false);
+            tblChiTietHoaDon.setEnabled(false);
+        }else if (TAB_HoaDon_EditorMode.TRA_HANG == tt){
+        	if (hoaDon.getTrangThai() != null)
+        	if (!hoaDon.getHoaDonID().isBlank() && !hoaDon.getTrangThai().equalsIgnoreCase("DA_XU_LY")) {
+        		ErrorMessage.showMessageWithFocusTextField("Lỗi", 
+        				"Hoá đơn bạn vừa chọn đã bị huỷ hoặc đang được xử lý. Hãy tải lại hoá đơn!", 
+        				txtMaSanPham);
+        		clearHoaDonDangTao();
+        		btn_DSHD_taiLai.doClick();
+        		jTabbed.setSelectedIndex(1);
+        		return;
+        	}
+            txtKhuyenMai.setEditable(false);
+            txtMaKhachHang.setEditable(false);
+            txtMaSanPham.setEditable(true);
+            txtMaSanPham.setText("");
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Huỷ đổi trả hàng");
+            
+            btnHangCho.setEnabled(false);
+            btnKeyPad.setEnabled(true);
+            btnThanhToan.setEnabled(true);
+            btnThanhToan.setText("Trả hàng (F12)");
+            btnThemSanPham.setEnabled(true);
+            btnThemSanPham.setIcon(
+                ImageProcessing.resizeIcon(
+                        new javax.swing.ImageIcon(
+                                getClass().getResource("/img/icon/btn-remove.png"))
+                , 20,20)
+            );
+            btnXoaRongMaSP.setEnabled(true);
+            
+            btnKhachHangEnter.setEnabled(false);
+            btnKhuyenMaiEnter.setEnabled(false);
+            
+            tblChiTietHoaDon.setEnabled(true);
         }else{
+        	if (hoaDon.getHoaDonID() != null && hoaDon.getTrangThai() != null)
+        	if (!hoaDon.getHoaDonID().isBlank() && !hoaDon.getTrangThai().equalsIgnoreCase("CHO_XU_LY")) {
+        		ErrorMessage.showMessageWithFocusTextField("Lỗi", 
+        				"Hoá đơn bạn vừa chọn đã bị huỷ hoặc đã xử lý xong. Hãy tải lại hoá đơn!", 
+        				txtMaSanPham);
+        		clearHoaDonDangTao();
+        		btn_DSHD_taiLai.doClick();
+        		jTabbed.setSelectedIndex(1);
+        		return;
+        	}
             txtKhuyenMai.setEditable(true);
             txtMaKhachHang.setEditable(true);
             txtMaSanPham.setEditable(true);
@@ -178,18 +250,32 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             btnHangCho.setEnabled(true);
             btnKeyPad.setEnabled(true);
             btnThanhToan.setEnabled(true);
+            btnThanhToan.setText("Thanh toán (F12)");
             btnThemSanPham.setEnabled(true);
+            btnThemSanPham.setIcon(
+                ImageProcessing.resizeIcon(
+                        new javax.swing.ImageIcon(
+                                getClass().getResource("/img/icon/btn-add.png"))
+                , 20,20)
+            );
             btnXoaRongMaSP.setEnabled(true);
             
             btnKhachHangEnter.setEnabled(true);
             btnKhuyenMaiEnter.setEnabled(true);
-            jTable1.setEnabled(true);
+            tblChiTietHoaDon.setEnabled(true);
         }
     }
     
     public void loadHoaDon(String x){
         hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
-        hoaDon.setListChiTietHoaDon(chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID()));
+        if (hoaDon == null)
+        	hoaDon = new HoaDon();
+        ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
+        if (cthdTemp == null)
+        	cthdTemp = new ArrayList<ChiTietHoaDon>();
+        hoaDon.setListChiTietHoaDon(
+        	cthdTemp
+        );
         loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
         updateThongTinBill();
     }
@@ -231,9 +317,9 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     public void mouseClicked(MouseEvent e) {
     	ChiTietHoaDon cthd = null;
     	// TODO Auto-generated method stub
-        if (trangThaiEditor == "XEM_CHI_TIET")
+        if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == trangThaiEditor)
             return;
-    	if (e.getSource().equals(jTable1)) {
+    	if (e.getSource().equals(tblChiTietHoaDon)) {
     		JTable tbl = (JTable)e.getSource();
             int row = tbl.rowAtPoint( e.getPoint() );
             int column = tbl.columnAtPoint( e.getPoint() );
@@ -242,6 +328,48 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             if (hoaDon.getListChiTietHoaDon().size() < row)
             	return;
             
+            // Chế độ trả hàng
+            if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor){
+                if (cthd.getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")){
+                    ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
+                   return;
+                }
+                switch (column) {
+				case 4 -> {
+                                    
+					if (cthd.getSoLuong() - 1 <= 0) {
+						hoaDon.removeChiTietHoaDon(cthd);
+						tblModelCTHD.removeRow(row);
+						reIndexTable();
+					}else {
+						cthd.setSoLuong(cthd.getSoLuong() - 1);
+						tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                                                tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+					}
+				}
+				case 6 -> {
+                                    ErrorMessage.showMessageWithFocusTextField(
+                                            "Lưu ý", 
+                                            "Không được tăng số lượng hoá đơn trả.", 
+                                            txtMaSanPham);
+
+				}
+				case 9 -> {
+					if (!ErrorMessage.showConfirmDialogYesNo("Chú ý", "Bạn có chắc chắn muốn hoàn toàn bộ sản phẩm " + tbl.getValueAt(row, 2) + " không??"))
+						return;
+					hoaDon.removeChiTietHoaDon(cthd);
+					tblModelCTHD.removeRow(row);
+					reIndexTable();
+				}
+				default ->{
+					
+				}
+            }
+            updateThongTinBill();
+                return;
+            }
+            
+            // Chế độ bán hàng
             switch (column) {
 				case 4 -> {
 					if (cthd.getSoLuong() - 1 <= 0) {
@@ -315,7 +443,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_Center = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblChiTietHoaDon = new javax.swing.JTable();
         tabBanHang_HoaDon_Button = new javax.swing.JPanel();
         btnHangCho = new javax.swing.JButton();
         btnCancelHD = new javax.swing.JButton();
@@ -407,7 +535,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         jPanel7.setLayout(new java.awt.BorderLayout());
 
-        jTable1.setModel(tblModelCTHD = new javax.swing.table.DefaultTableModel(
+        tblChiTietHoaDon.setModel(tblModelCTHD = new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -430,38 +558,38 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setCellSelectionEnabled(true);
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(0).setPreferredWidth(20);
-            jTable1.getColumnModel().getColumn(0).setHeaderValue("STT");
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
-            jTable1.getColumnModel().getColumn(1).setHeaderValue("Mã sản phẩm");
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setHeaderValue("Tên sản phẩm");
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setHeaderValue("Đơn giá");
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(4).setHeaderValue("-");
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(5).setHeaderValue("Số lượng");
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setPreferredWidth(10);
-            jTable1.getColumnModel().getColumn(6).setHeaderValue("+");
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setPreferredWidth(30);
-            jTable1.getColumnModel().getColumn(7).setHeaderValue("Thuế");
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setHeaderValue("Thành tiền");
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setPreferredWidth(25);
-            jTable1.getColumnModel().getColumn(9).setHeaderValue("Xoá");
+        tblChiTietHoaDon.setCellSelectionEnabled(true);
+        jScrollPane1.setViewportView(tblChiTietHoaDon);
+        if (tblChiTietHoaDon.getColumnModel().getColumnCount() > 0) {
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setHeaderValue("STT");
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setHeaderValue("Mã sản phẩm");
+            tblChiTietHoaDon.getColumnModel().getColumn(2).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(2).setHeaderValue("Tên sản phẩm");
+            tblChiTietHoaDon.getColumnModel().getColumn(3).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(3).setHeaderValue("Đơn giá");
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setPreferredWidth(10);
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setHeaderValue("-");
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setPreferredWidth(30);
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setHeaderValue("Số lượng");
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setPreferredWidth(10);
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setHeaderValue("+");
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setPreferredWidth(30);
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setHeaderValue("Thuế");
+            tblChiTietHoaDon.getColumnModel().getColumn(8).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(8).setHeaderValue("Thành tiền");
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setPreferredWidth(25);
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setHeaderValue("Xoá");
         }
-        jTable1.getAccessibleContext().setAccessibleName("");
+        tblChiTietHoaDon.getAccessibleContext().setAccessibleName("");
 
         jPanel7.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
@@ -1229,6 +1357,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     btn_DSHD_DoiTraHoaDon.setText("Đổi trả hoá đơn");
     btn_DSHD_DoiTraHoaDon.setEnabled(false);
     btn_DSHD_DoiTraHoaDon.setIconTextGap(12);
+    btn_DSHD_DoiTraHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_DoiTraHoaDonActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 8;
     gridBagConstraints.gridy = 2;
@@ -1367,11 +1500,21 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
         // TODO add your handling code here:
-        if (hoaDon.getListChiTietHoaDon().size() < 1){
-            ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Chưa có sản phẩm trong giỏ hàng, không thể tạo hoá đơn!", txtMaSanPham);
-            return;
+        switch (trangThaiEditor) {
+            case BAN_HANG ->{
+                if (hoaDon.getListChiTietHoaDon().size() < 1){
+                    ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Chưa có sản phẩm trong giỏ hàng, không thể tạo hoá đơn!", txtMaSanPham);
+                    return;
+                }
+                new Form_ThanhToan(hoaDon, ((JFrame)this.getTopLevelAncestor()), this).setVisible(true);
+            }
+            case TRA_HANG -> {
+                new Form_TraHang(hoaDon, ((JFrame)this.getTopLevelAncestor()), this, hoaDonTra).setVisible(true);
+            }
+            default ->{
+                
+            }
         }
-        new Form_ThanhToan(hoaDon, ((JFrame)this.getTopLevelAncestor()), this).setVisible(true);
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnXoaRongMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaRongMaSPActionPerformed
@@ -1405,15 +1548,40 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
             return;
         }
-            
         ChiTietHoaDon ct = new ChiTietHoaDon(x, 1);
-        tempPos = hoaDon.addChiTietHoaDon(ct);
-        if (tempPos == -1)
-        	addRowIntoChiTietHoaDon(ct);
-        else {
-        	tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
-        }
+
         
+        // Đổi trả hàng
+        if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor){
+            tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
+            if (tempPos < 0){
+                ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này không nằm trong hoá đơn!", txtMaSanPham);
+                return;
+            }
+            ct = hoaDon.getListChiTietHoaDon().get(tempPos);
+            
+            // Chặn đổi trả
+            if (x.getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")){
+                ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
+                return;
+            }
+            if (ct.getSoLuong() - 1 <= 0) {
+		hoaDon.removeChiTietHoaDon(ct);
+                tblModelCTHD.removeRow(tempPos);
+		reIndexTable();
+            }else {
+		ct.setSoLuong(ct.getSoLuong() - 1);
+		tblModelCTHD.setValueAt(ct.getSoLuong(), tempPos, 5);
+                tblModelCTHD.setValueAt(ct.tinhTongTien(), tempPos, 8);
+            }
+        } else{
+            tempPos = hoaDon.addChiTietHoaDon(ct);
+            if (tempPos == -1)
+                    addRowIntoChiTietHoaDon(ct);
+            else {
+                    tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
+            }
+        }
         clearTextAndFocus(txtMaSanPham);
         updateThongTinBill();
         
@@ -1422,30 +1590,40 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private void btnCancelHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelHDActionPerformed
         // TODO add your handling code here:
         switch (trangThaiEditor) {
-            case "XEM_CHI_TIET":
+            case XEM_CHI_TIET_HOA_DON -> {
                 if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn trở về chế độ bán hàng chứ?")){
                     clearHoaDonDangTao();
-                    setTrangThaiEditor("THANH_TOAN");
+                    setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
                 }
-                break;
-            default:
+            }
+            case TRA_HANG -> {
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Việc đổi trả hoá đơn chưa hoàn tất, bạn đã chắc chắn muốn trở lại chế độ bán hàng?")){
+                    clearHoaDonDangTao();
+                    setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
+                }
+            }
+            default -> {
                 if (hoaDon.getListChiTietHoaDon().size() < 1){
                     ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hiện chưa khởi tạo đơn hàng!", txtMaSanPham);
                     return;
                 }
-                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Hoá đơn sẽ bị huỷ sau khi xác nhận, bạn đã chắc chắn chứ?"))
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Hoá đơn sẽ bị huỷ sau khi xác nhận, bạn đã chắc chắn chứ?")) {
                     updateHoaDon("HUY_BO");
+                    clearHoaDonDangTao();
+                }
+            }
         }
         
         
     }//GEN-LAST:event_btnCancelHDActionPerformed
 
-    public void updateHoaDon(String trangThai){
+    public boolean updateHoaDon(String trangThai){
         hoaDon.setTrangThai(trangThai);
         boolean result = hoaDon_BUS.createHoaDon(hoaDon);
-        
+        if (!result)
+        	return false;
         result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
-        clearHoaDonDangTao();
+        return result;
     }
     
     public void clearHoaDonDangTao(){
@@ -1458,8 +1636,10 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private void btn_DSHD_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_ThanhToanActionPerformed
         // TODO add your handling code here:
         if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn có chắc chắn muốn xử lý lại hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)
-         + " không?"))
+         + " không?")) {
             loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+            setTrangThaiEditor(trangThaiEditor);
+        }
     }//GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
 
     private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabSwitchBanHang
@@ -1505,8 +1685,10 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Chưa có sản phẩm trong giỏ hàng, không thể thêm vào hàng chờ!", txtMaSanPham);
             return;
         }
-        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn đưa hoá đơn vào hàng chờ chứ?"))
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn đưa hoá đơn vào hàng chờ chứ?")) {
             updateHoaDon("CHO_XU_LY");
+            clearHoaDonDangTao();
+        }
     }//GEN-LAST:event_btnHangChoActionPerformed
 
     private void btn_DSHD_HuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_HuyHoaDonActionPerformed
@@ -1515,6 +1697,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
          + " không?\n\nCảnh báo: Hoá đơn sau khi huỷ sẽ không thể thanh toán trở lại!"))
            if (hoaDon_BUS.cancelHoaDon(new HoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)))){
                JOptionPane.showMessageDialog(null, "Hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " đã bị huỷ!");
+               btn_DSHD_taiLai.doClick();
            }else{
                 JOptionPane.showMessageDialog(null, "Huỷ hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " thất bại! Lỗi CSDL.");
            }
@@ -1524,7 +1707,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
         if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ xem chi tiết hoá đơn.\n\nLưu ý: Chế độ này không thể chỉnh sửa hoá đơn.")){
             loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
-            setTrangThaiEditor("XEM_CHI_TIET");
+            setTrangThaiEditor(TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON);
         }
     }//GEN-LAST:event_btn_DSHD_XemChiTietActionPerformed
 
@@ -1601,6 +1784,14 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private void txt_DSHD_MaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DSHD_MaHoaDonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_DSHD_MaHoaDonActionPerformed
+
+    private void btn_DSHD_DoiTraHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_DoiTraHoaDonActionPerformed
+        // TODO add your handling code here:
+         if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1))){
+            loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+            setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
+        }
+    }//GEN-LAST:event_btn_DSHD_DoiTraHoaDonActionPerformed
     
     public void thanhToanHoanTat() {
     	hoaDon = new HoaDon();
@@ -1665,7 +1856,6 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbed;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
@@ -1679,6 +1869,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel tabBanHang_HoaDon_Right_KhachHang;
     private javax.swing.JPanel tabbedDanhSachHoaDon;
     private javax.swing.JPanel tabbedHoaDon;
+    private javax.swing.JTable tblChiTietHoaDon;
     private javax.swing.JTextField txtKhuyenMai;
     private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtMaSanPham;
