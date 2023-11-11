@@ -61,6 +61,12 @@ public class HoaDon_BUS implements IHoaDon{
 	}
 	
 	@Override
+	public ArrayList<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
+		// TODO Auto-generated method stub
+		return hoaDon_DAO.getDanhSachHoaDonNangCao(params);
+	}
+	
+	@Override
 	public int getSoHoaDonTrongNgay() {
 		// TODO Auto-generated method stub
 		return hoaDon_DAO.getSoHoaDonTrongNgay();

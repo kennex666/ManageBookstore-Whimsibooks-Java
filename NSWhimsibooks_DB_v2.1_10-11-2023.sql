@@ -156,8 +156,8 @@ ALTER TABLE SanPham ADD CONSTRAINT FKSanPham553584 FOREIGN KEY (TacGiaID) REFERE
 INSERT INTO KhuyenMai (CodeKhuyenMai, TenKhuyenMai, LoaiGiamGia, GiaTri, NgayKhuyenMai, NgayHetHanKM, DonHangTu, SoLuongKhuyenMai, SoLuotDaApDung)
 VALUES 
     ('NO_APPLY', 'Không áp dụng', 'PHAN_TRAM', 0, '2023-11-01', '2023-11-30', 1.0, 100, 0),
-    ('KM001', 'Discount 10%', 'Percentage', 10.0, '2023-11-01', '2023-11-30', 1.0, 100, 0),
-    ('KM002', 'Black Friday', 'Fixed', 50.0, '2023-11-25', '2023-11-27', 1.0, 200, 0);
+    ('KM0001', 'Discount 10%', 'Percentage', 10.0, '2023-11-01', '2023-11-30', 1.0, 100, 0),
+    ('KM0002', 'Black Friday', 'Fixed', 50.0, '2023-11-25', '2023-11-27', 1.0, 200, 0);
 
 -- Sample data for NhanVien table
 INSERT INTO NhanVien (NhanVienID, UserName, Password, NgayTaoTK, HoTen, GioiTinh, SoDIenThoai, ChucVu, Email, NgaySInh, DiaChi)

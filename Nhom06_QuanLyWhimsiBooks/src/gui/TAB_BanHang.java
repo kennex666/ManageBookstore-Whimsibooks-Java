@@ -23,6 +23,7 @@ import entities.SanPham;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.AbstractAction;
 import javax.swing.CellEditor;
 import javax.swing.JFrame;
@@ -359,22 +360,20 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txt_DSHD_TuNLHD = new com.toedter.calendar.JDateChooser();
+        txt_DSHD_DenNLHD = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        cbo_DSHD_TrangThai = new javax.swing.JComboBox<>();
+        txt_DSHD_GiaTriTu = new javax.swing.JTextField();
+        txt_DSHD_GiaTriDen = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        txt_DSHD_MaHoaDon = new javax.swing.JTextField();
+        txt_DSHD_MaKH = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_DSHD_Search = new javax.swing.JButton();
         btn_DSHD_taiLai = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
@@ -968,7 +967,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     jPanel2.setBackground(new java.awt.Color(255, 255, 255));
     jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
     java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
-    jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
     jPanel2Layout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
     jPanel2.setLayout(jPanel2Layout);
 
@@ -993,19 +992,13 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 6;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 9;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    gridBagConstraints.weightx = 0.1;
-    jPanel2.add(jTextField2, gridBagConstraints);
+    gridBagConstraints.ipadx = 17;
+    jPanel2.add(txt_DSHD_TuNLHD, gridBagConstraints);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 6;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 9;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    gridBagConstraints.weightx = 0.1;
-    jPanel2.add(jTextField3, gridBagConstraints);
+    gridBagConstraints.ipadx = 17;
+    jPanel2.add(txt_DSHD_DenNLHD, gridBagConstraints);
 
     jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1026,7 +1019,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
     jPanel2.add(jLabel11, gridBagConstraints);
 
-    jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
+    cbo_DSHD_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 10;
@@ -1034,21 +1027,21 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jComboBox1, gridBagConstraints);
+    jPanel2.add(cbo_DSHD_TrangThai, gridBagConstraints);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 14;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jTextField4, gridBagConstraints);
+    jPanel2.add(txt_DSHD_GiaTriTu, gridBagConstraints);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 14;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jTextField5, gridBagConstraints);
+    jPanel2.add(txt_DSHD_GiaTriDen, gridBagConstraints);
 
     jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
     jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -1078,6 +1071,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
     jPanel2.add(jLabel16, gridBagConstraints);
+
+    txt_DSHD_MaHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txt_DSHD_MaHoaDonActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 18;
@@ -1085,7 +1084,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jTextField1, gridBagConstraints);
+    jPanel2.add(txt_DSHD_MaHoaDon, gridBagConstraints);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 22;
@@ -1093,7 +1092,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jTextField6, gridBagConstraints);
+    jPanel2.add(txt_DSHD_MaKH, gridBagConstraints);
 
     jLabel17.setText("Mã/Số điện thoại khách hàng");
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1103,25 +1102,13 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.ipadx = 9;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
     jPanel2.add(jLabel17, gridBagConstraints);
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 26;
-    gridBagConstraints.gridwidth = 5;
-    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-    gridBagConstraints.ipadx = 9;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jTextField9, gridBagConstraints);
 
-    jLabel18.setText("Mã sản phẩm/Barcode");
-    gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 24;
-    gridBagConstraints.gridwidth = 5;
-    gridBagConstraints.ipadx = 9;
-    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-    jPanel2.add(jLabel18, gridBagConstraints);
-
-    jButton1.setText("Tìm kiếm");
+    btn_DSHD_Search.setText("Tìm kiếm");
+    btn_DSHD_Search.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_SearchActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 30;
@@ -1130,7 +1117,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.ipadx = 19;
     gridBagConstraints.ipady = 8;
     gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
-    jPanel2.add(jButton1, gridBagConstraints);
+    jPanel2.add(btn_DSHD_Search, gridBagConstraints);
 
     btn_DSHD_taiLai.setText("Tải lại");
     btn_DSHD_taiLai.addActionListener(new java.awt.event.ActionListener() {
@@ -1502,6 +1489,69 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
         loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
     }//GEN-LAST:event_btn_DSHD_taiLaiActionPerformed
+
+    private void btn_DSHD_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_SearchActionPerformed
+        Date start = txt_DSHD_TuNLHD.getDate(), end = txt_DSHD_DenNLHD.getDate();
+        
+        Object[] obj = new Object[8];
+        // TODO add your handling code here:
+        if (start != null){
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
+        }
+        
+        if (end != null){
+            end.setHours(23);
+            end.setMinutes(59);
+            end.setSeconds(59);
+        }
+        
+        if (start != null && end != null){
+            if (start.getTime() > end.getTime()){
+                ErrorMessage.showConfirmDialogYesNo("Chú ý", "Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
+                txt_DSHD_TuNLHD.requestFocus();
+                return;
+            }
+        }
+        
+        if (!txt_DSHD_GiaTriTu.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriTu.getText())){
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu có ký tự không hợp lệ!");
+            txt_DSHD_GiaTriTu.requestFocus();
+            return;
+        }
+        
+       
+        if (!txt_DSHD_GiaTriDen.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriDen.getText())){
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị kết thúc có ký tự không hợp lệ!");
+            txt_DSHD_GiaTriDen.requestFocus();
+            return;
+        }
+        
+        if ((!txt_DSHD_GiaTriDen.getText().isBlank() && !txt_DSHD_GiaTriTu.getText().isBlank()) &&
+                Numberic.parseDouble(txt_DSHD_GiaTriDen.getText()) - Numberic.parseDouble(txt_DSHD_GiaTriTu.getText()) < 0){
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu nhỏ hơn giá trị kết thúc!");
+            txt_DSHD_GiaTriTu.requestFocus();
+            return;
+        }
+        
+        
+        obj[0] = start;
+        obj[1] = end;
+        obj[2] = HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem()).equalsIgnoreCase("ALL") ? null : HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem());
+        obj[3] = txt_DSHD_GiaTriTu.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriTu.getText());
+        obj[4] = txt_DSHD_GiaTriDen.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriDen.getText());
+        obj[5] = txt_DSHD_MaHoaDon.getText().isBlank() ? null : txt_DSHD_MaHoaDon.getText();
+        obj[6] =  txt_DSHD_MaKH.getText().isBlank() ? null : txt_DSHD_MaKH.getText();
+        
+        loadTableHoaDon(
+                hoaDon_BUS.getDanhSachHoaDonNangCao(obj)
+        );
+    }//GEN-LAST:event_btn_DSHD_SearchActionPerformed
+
+    private void txt_DSHD_MaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DSHD_MaHoaDonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DSHD_MaHoaDonActionPerformed
     
     public void thanhToanHoanTat() {
     	hoaDon = new HoaDon();
@@ -1528,11 +1578,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton btn_DSHD_DoiTraHoaDon;
     private javax.swing.JButton btn_DSHD_HuyHoaDon;
     private javax.swing.JButton btn_DSHD_InHD;
+    private javax.swing.JButton btn_DSHD_Search;
     private javax.swing.JButton btn_DSHD_ThanhToan;
     private javax.swing.JButton btn_DSHD_XemChiTiet;
     private javax.swing.JButton btn_DSHD_taiLai;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbo_DSHD_TrangThai;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1542,7 +1592,6 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1568,17 +1617,10 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JTabbedPane jTabbed;
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField14;
     private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
     private javax.swing.JPanel panel_TongTien;
     private javax.swing.JPanel tabBanHang_HoaDon_Button;
     private javax.swing.JPanel tabBanHang_HoaDon_Center;
@@ -1594,5 +1636,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JTextField txtValueThanhTien;
     private javax.swing.JTextField txtValueTongThue;
     private javax.swing.JTextField txtValueTongTien;
+    private com.toedter.calendar.JDateChooser txt_DSHD_DenNLHD;
+    private javax.swing.JTextField txt_DSHD_GiaTriDen;
+    private javax.swing.JTextField txt_DSHD_GiaTriTu;
+    private javax.swing.JTextField txt_DSHD_MaHoaDon;
+    private javax.swing.JTextField txt_DSHD_MaKH;
+    private com.toedter.calendar.JDateChooser txt_DSHD_TuNLHD;
     // End of variables declaration//GEN-END:variables
 }

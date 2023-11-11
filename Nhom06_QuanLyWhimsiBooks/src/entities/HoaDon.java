@@ -1,12 +1,8 @@
 package entities;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 
 public class HoaDon {
 	private String hoaDonID;
@@ -237,7 +233,9 @@ public class HoaDon {
 			return "Đã xử lý";
 		if (trangThai.equalsIgnoreCase("CHO_XU_LY"))
 			return "Chờ xử lý";
-		return "Huỷ bỏ";
+		if (trangThai.equalsIgnoreCase("HUY_BO"))
+			return "Huỷ bỏ";
+		return "Tất cả";
 	}
 	
 	public String parseTrangThaiHoaDon() {
@@ -245,7 +243,29 @@ public class HoaDon {
 			return "DA_XU_LY";
 		if (trangThai.equalsIgnoreCase("Chờ xử lý"))
 			return "CHO_XU_LY";
-		return "HUY_BO";
+		if (trangThai.equalsIgnoreCase("Huỷ Bỏ"))
+                        return "HUY_BO";
+                return "ALL";
+	}
+        
+        public static String getTrangThaiHoaDonString(String x) {
+		if (x.equalsIgnoreCase("DA_XU_LY"))
+			return "Đã xử lý";
+		if (x.equalsIgnoreCase("CHO_XU_LY"))
+			return "Chờ xử lý";
+		if (x.equalsIgnoreCase("HUY_BO"))
+			return "Huỷ bỏ";
+		return "Tất cả";
+	}
+	
+	public static String parseTrangThaiHoaDon(String x) {
+		if (x.equalsIgnoreCase("Đã xử lý"))
+			return "DA_XU_LY";
+		if (x.equalsIgnoreCase("Chờ xử lý"))
+			return "CHO_XU_LY";
+		if (x.equalsIgnoreCase("Huỷ Bỏ"))
+                        return "HUY_BO";
+                return "ALL";
 	}
 	
 	public Object[] getRowTableHoaDon() {

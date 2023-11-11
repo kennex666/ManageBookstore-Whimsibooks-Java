@@ -14,8 +14,7 @@ import entities.KhachHang;
 import entities.KhuyenMai;
 import entities.NhanVien;
 import interfaces.IHoaDon;
-import java.time.LocalDateTime;
-import java.util.Calendar;
+import utilities.QueryBuilder;
 
 public class HoaDon_DAO implements IHoaDon{
 	private Connection conn;
@@ -164,7 +163,209 @@ public class HoaDon_DAO implements IHoaDon{
 	@Override
 	public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
 		// TODO Auto-generated method stub
-		return null;
+		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+                
+		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+                
+		try {
+                    QueryBuilder queryBuilder = new QueryBuilder(query);
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.TIMESTAMP, 
+                            "NgayLapHoaDon", 
+                            ">=", 
+                            batDau
+                    );
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.TIMESTAMP, 
+                            "NgayLapHoaDon", 
+                            "<=", 
+                            ketThuc
+                    );   
+			ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
+			
+			while (rs.next()) {
+				HoaDon hd = new HoaDon();
+			
+				String hoaDonID = rs.getString("HoaDonID");
+				String codeKM = rs.getString("CodeKhuyenMai");
+				String khachHangID = rs.getString("KhachHangID");
+				String nhanVienID = rs.getString("NhanVienID");
+				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
+				double tongTien = rs.getDouble("tongTien");
+				String trangThai = rs.getString("TrangThai");
+				double thue = rs.getDouble("thue");
+				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
+				
+				hd.setHoaDonID(hoaDonID);
+				hd.setNgayLapHoaDon(ngayLapHoaDon);
+				hd.setTongTien(tongTien);
+				hd.setTrangThai(trangThai);
+				hd.setThue(thue);
+				hd.setGiaKhuyenMai(giaKhuyenMai);
+				
+				
+				String hoTenNhanVien = rs.getString("HoTen");
+				String chucVu = rs.getString("chucvu");
+				
+				NhanVien nv = new NhanVien(nhanVienID);
+				nv.setHoTen(hoTenNhanVien);
+				nv.setChucVu(chucVu);
+				hd.setNhanVien(nv);
+				
+	
+				String hoTenKH = rs.getString("HoTen");
+				String maSoThue = rs.getString("MaSoThue");
+				String diaChi = rs.getString("diaChi");
+				String loaiKH = rs.getString("LoaiKhachHang");
+				String sdtKH = rs.getString("SoDienThoai");
+				String emailKH = rs.getString("Email");
+				
+				KhachHang kh = new KhachHang(khachHangID);
+				kh.setHoTen(hoTenKH);
+				kh.setMaSoThue(maSoThue);
+				kh.setDiaChi(diaChi);
+				kh.setLoaiKhachHang(loaiKH);
+				kh.setSoDienThoai(sdtKH);
+				kh.setEmail(emailKH);
+				hd.setKhachHang(kh);
+				
+				String tenKhuyenMai = rs.getString("TenKhuyenMai");
+				
+				KhuyenMai km = new KhuyenMai(codeKM);
+				km.setTenKhuyenMai(tenKhuyenMai);
+				hd.setKhuyenMai(km);
+				
+				listHoaDon.add(hd);
+
+			}
+			return listHoaDon;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return listHoaDon;
+		}
+	}
+	
+	@Override
+	public ArrayList<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
+		// TODO Auto-generated method stub
+		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+                
+		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+                
+		try {
+                    QueryBuilder queryBuilder = new QueryBuilder(query);
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.TIMESTAMP, 
+                            "NgayLapHoaDon", 
+                            ">=", 
+                            params[0]
+                    );
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.TIMESTAMP, 
+                            "NgayLapHoaDon", 
+                            "<=", 
+                            params[1]
+                    );
+                    
+                    queryBuilder.addParameter(
+                    QueryBuilder.Enum_DataType.STRING, 
+                    "TrangThai", 
+                    "=", 
+                        params[2]
+                    );
+                   
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.DOUBLE, 
+                            "TongTien", 
+                            ">=", 
+                            params[3]
+                    );
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.DOUBLE, 
+                            "TongTien", 
+                            "<=", 
+                            params[4]
+                    );
+                    
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.STRING, 
+                            "HoaDonID", 
+                            "%?%", 
+                            params[5]
+                    );
+                    
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.STRING, 
+                            "KhachHangID", 
+                            "%?%", 
+                            params[6]
+                    );
+                    
+                    	 System.out.println(queryBuilder.generateQuery("AND")[1]);
+
+			ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
+			while (rs.next()) {
+				HoaDon hd = new HoaDon();
+			
+				String hdID = rs.getString("HoaDonID");
+				String codeKM = rs.getString("CodeKhuyenMai");
+				String khachHangID = rs.getString("KhachHangID");
+				String nhanVienID = rs.getString("NhanVienID");
+				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
+				double tongTien = rs.getDouble("tongTien");
+				String trangThaiHD = rs.getString("TrangThai");
+				double thue = rs.getDouble("thue");
+				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
+				
+				hd.setHoaDonID(hdID);
+				hd.setNgayLapHoaDon(ngayLapHoaDon);
+				hd.setTongTien(tongTien);
+				hd.setTrangThai(trangThaiHD);
+				hd.setThue(thue);
+				hd.setGiaKhuyenMai(giaKhuyenMai);
+				
+				
+				String hoTenNhanVien = rs.getString("HoTen");
+				String chucVu = rs.getString("chucvu");
+				
+				NhanVien nv = new NhanVien(nhanVienID);
+				nv.setHoTen(hoTenNhanVien);
+				nv.setChucVu(chucVu);
+				hd.setNhanVien(nv);
+				
+	
+				String hoTenKH = rs.getString("HoTen");
+				String maSoThue = rs.getString("MaSoThue");
+				String diaChi = rs.getString("diaChi");
+				String loaiKH = rs.getString("LoaiKhachHang");
+				String sdtKH = rs.getString("SoDienThoai");
+				String emailKH = rs.getString("Email");
+				
+				KhachHang kh = new KhachHang(khachHangID);
+				kh.setHoTen(hoTenKH);
+				kh.setMaSoThue(maSoThue);
+				kh.setDiaChi(diaChi);
+				kh.setLoaiKhachHang(loaiKH);
+				kh.setSoDienThoai(sdtKH);
+				kh.setEmail(emailKH);
+				hd.setKhachHang(kh);
+				
+				String tenKhuyenMai = rs.getString("TenKhuyenMai");
+				
+				KhuyenMai km = new KhuyenMai(codeKM);
+				km.setTenKhuyenMai(tenKhuyenMai);
+				hd.setKhuyenMai(km);
+				
+				listHoaDon.add(hd);
+
+			}
+			return listHoaDon;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return listHoaDon;
+		}
 	}
 	
 	@Override
