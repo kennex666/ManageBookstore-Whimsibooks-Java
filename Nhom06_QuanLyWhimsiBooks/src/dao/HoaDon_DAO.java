@@ -258,7 +258,7 @@ public class HoaDon_DAO implements IHoaDon{
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
                             "NgayLapHoaDon", 
-                            ">=", 
+                            ">", 
                             params[0]
                     );
                     queryBuilder.addParameter(
@@ -297,9 +297,16 @@ public class HoaDon_DAO implements IHoaDon{
                     
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.STRING, 
-                            "KhachHangID", 
+                            "hd.KhachHangID", 
                             "%?%", 
                             params[6]
+                    );
+                    
+                    queryBuilder.addParameter(
+                            QueryBuilder.Enum_DataType.STRING, 
+                            "hd.NhanVienID", 
+                            "%?%", 
+                            params[7]
                     );
                     
                     	 System.out.println(queryBuilder.generateQuery("AND")[1]);
