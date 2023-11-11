@@ -427,26 +427,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	tableNCC.removeAll();
     	tableModel.setRowCount(0);
     	TBTimKiem.setText("");
-    	
-    	if(timKiemTheoMa.length() > 0) {
-    		for(NhaCungCap nhaCungCap : danhSachNCC) {
-    			if(nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
-    				danhSachNCCTimKiem.add(nhaCungCap);
-    		}
-    	}
-    	if(timKiemTheoSDT.length() > 0) {
-    		for(NhaCungCap nhaCungCap : danhSachNCC) {
-    			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT))
-    				danhSachNCCTimKiem.add(nhaCungCap);
-    		}
-    		if(timKiemTheoMa.length() > 0) {
-    			danhSachNCCTimKiem.clear();
-        		for(NhaCungCap nhaCungCap : danhSachNCC) {
-        			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT) && nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
-        				danhSachNCCTimKiem.add(nhaCungCap);
-        		}
-    		}
-    	}
+    	danhSachNCCTimKiem = nhaCungCap_BUS.getNhaCungCapTheoDieuKien(timKiemTheoMa, timKiemTheoSDT, timKiemTheoTen);
     	int stt = 1;
     	for(NhaCungCap nhaCungCap : danhSachNCCTimKiem) {
     		tableModel.addRow(new Object[] {stt++, nhaCungCap.getNhaCungCapID(), nhaCungCap.getTenNhaCungCap(), nhaCungCap.getSoDienThoai(), nhaCungCap.getEmail(), nhaCungCap.getDiaChi()});
@@ -488,9 +469,11 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
+    
+    
 
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
     
 

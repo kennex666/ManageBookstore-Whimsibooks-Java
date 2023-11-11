@@ -6,8 +6,10 @@ import entities.NhaCungCap;
 
 public interface INhaCungCap {
 	public ArrayList<NhaCungCap> getAllNhaCungCap();
-	public String getNameByID(String maNCC);
-	public String getNameByPhone(String sdt);
+	public ArrayList<NhaCungCap> getNCCByID(String maNCC);
+	public ArrayList<NhaCungCap> getNCCByPhone(String sdt);
+	public ArrayList<NhaCungCap> getNCCByName(String name);
 	public boolean addNhaCungCap(NhaCungCap ncc);
 	public boolean editNhaCungCap(NhaCungCap ncc);
+	
 }
