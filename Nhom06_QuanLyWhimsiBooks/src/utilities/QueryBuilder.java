@@ -118,9 +118,11 @@ public class QueryBuilder {
 					paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1]  + " = " )
 							: " " + conditionsAll + " " + ((String) x[1]  + " = " );
 				
-					paramsQuery += "CONCAT('" +  tempStr.charAt(0) + "'";
+					paramsQuery += (tempStr.charAt(0) == '?') ? "CONCAT(?"
+                                                :"CONCAT('" +  tempStr.charAt(0) + "'";
 					for (int j = 1; j < tempCondition.length(); j++) {
-						paramsQuery += ", '" +  tempStr.charAt(j) + "'";
+						paramsQuery += (tempStr.charAt(j) == '?') ? ",?"
+                                                :",'" +  tempStr.charAt(j) + "'";
 					}
 					paramsQuery += ")";
 				}else
