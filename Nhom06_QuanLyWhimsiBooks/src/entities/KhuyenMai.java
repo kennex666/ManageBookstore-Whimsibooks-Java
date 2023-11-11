@@ -56,6 +56,32 @@ public class KhuyenMai {
 		return codeKhuyenMai;
 	}
 	
+	
+	
+	public int getSoLuongKhuyenMai() {
+		return soLuongKhuyenMai;
+	}
+
+
+
+	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
+		this.soLuongKhuyenMai = soLuongKhuyenMai;
+	}
+
+
+
+	public int getSoLuotDaApDung() {
+		return soLuotDaApDung;
+	}
+
+
+
+	public void setSoLuotDaApDung(int soLuotDaApDung) {
+		this.soLuotDaApDung = soLuotDaApDung;
+	}
+
+
+
 	public void setCodeKhuyenMai(String codeKhuyenMai) throws IllegalArgumentException {
 	    // Kiểm tra xem codeKhuyenMai chỉ chứa ký tự hợp lệ và có ít nhất 6 ký tự
 	    if (codeKhuyenMai.matches("^[A-Za-z0-9_]+$") && codeKhuyenMai.length() >= 6) {

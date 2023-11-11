@@ -10,6 +10,11 @@ import interfaces.IKhuyenMai;
 public class KhuyenMai_BUS implements IKhuyenMai{
 	private KhuyenMai_DAO khuyenMai_DAO;
 
+	
+	public KhuyenMai_BUS() {
+		this.khuyenMai_DAO = new KhuyenMai_DAO();
+	}
+
 	@Override
 	public ArrayList<KhuyenMai> getAllKhuyenMai() {
 		// TODO Auto-generated method stub
