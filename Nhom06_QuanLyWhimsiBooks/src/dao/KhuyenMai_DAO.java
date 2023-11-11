@@ -135,6 +135,17 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return list;
 	}
+	
+	public int layMaNCCCuoiCung() {
+		try {
+			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhuyenMai");
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+			return rs.getInt(1);
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();

@@ -7,6 +7,7 @@ import entities.KhuyenMai;
 import entities.SanPham;
 
 public interface IKhuyenMai {
+	public int layMaNCCCuoiCung();
 	public ArrayList<KhuyenMai> getAllKhuyenMai();
 	public ArrayList<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai);
 	public boolean addKhuyenMai(KhuyenMai khuyenMai);

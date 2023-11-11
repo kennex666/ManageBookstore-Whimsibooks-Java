@@ -8,5 +8,6 @@ import entities.SanPham;
 
 public interface IChiTietKhuyenMai {
 	public ArrayList<ChiTietKhuyenMai> getAllChiTietKhuyenMai();
+	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM);
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham);
 }

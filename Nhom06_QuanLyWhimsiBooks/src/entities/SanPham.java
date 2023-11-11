@@ -27,10 +27,12 @@ public class SanPham {
 		this.imgPath = imgPath;
 	}
 	
+	public SanPham(int sanPhamID, String tenSanPham) {
+		this.sanPhamID = sanPhamID;
+		this.tenSanPham = tenSanPham;
+	}
 	
 	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
-
-	
 
 	public int getSanPhamID() {
 		return sanPhamID;

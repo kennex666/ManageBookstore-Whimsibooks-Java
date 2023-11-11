@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import connectDB.ConnectDB;
 import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
@@ -16,7 +17,6 @@ import interfaces.IChiTietKhuyenMai;
 public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	private Connection conn;
 
-	
 	@Override
 	public ArrayList<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
 		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
@@ -38,6 +38,15 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		return list;
 	}
 	
+	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {
+		if(danhSachSPKM.size() > 0) {
+			for(int i = 0; i  < danhSachSPKM.size(); i++) {
+				addSanPhamKhuyenMai(khuyenMai, danhSachSPKM.get(i));
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham) {
 		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
@@ -56,4 +65,10 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		}
 		return false;
 	}
+
+	public ChiTietKhuyenMai_DAO() {
+		conn = ConnectDB.getConnection();
+	}
+	
+	
 }

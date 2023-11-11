@@ -24,5 +24,10 @@ public class ChiTietKhuyenMai_BUS implements IChiTietKhuyenMai{
 		// TODO Auto-generated method stub
 		return chiTietKhuyenMai_DAO.addSanPhamKhuyenMai(khuyenMai, sanPham);
 	}
+	@Override
+	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {
+		// TODO Auto-generated method stub
+		return chiTietKhuyenMai_DAO.addSDanhSachSPKM(khuyenMai, danhSachSPKM);
+	}
 
 }
