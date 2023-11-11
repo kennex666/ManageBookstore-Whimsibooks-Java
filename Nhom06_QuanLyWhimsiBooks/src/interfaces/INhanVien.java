@@ -15,5 +15,7 @@ public interface INhanVien  {
 	public String getTenTuMa(String x);
 	public boolean isMaNhanVienExists(String x);
 	public int phatSinhMaNhanVien();
+	ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
+			String chucVu);
 	
 }

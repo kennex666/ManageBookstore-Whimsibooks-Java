@@ -1,6 +1,11 @@
 /*
 ASUS - 07/11/2023 06:04:27 PM
 */
+ALTER DATABASE QuanLyNhaSachWhimsiBooks
+MODIFY FILE (NAME = 'QuanLyNhaSachWhimsiBooksver1', FILENAME = 'E:\PTUD\database\QuanLyNhaSachWhimsiBooks.mdf');
+SELECT name AS 'QuanLyNhaSachWhimsiBooksver1'
+FROM sys.databases;
+
 CREATE DATABASE QuanLyNhaSachWhimsiBooks
 GO
 use QuanLyNhaSachWhimsiBooks

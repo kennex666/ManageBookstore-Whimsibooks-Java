@@ -10,34 +10,38 @@ import java.util.ArrayList;
 import connectDB.ConnectDB;
 import entities.NhanVien;
 import interfaces.INhanVien;
-
+import java.util.List;
 public class NhanVien_DAO implements INhanVien {
 	Connection conn = ConnectDB.getConnection();
-	@Override
-	public ArrayList<NhanVien> findEmployee(String x) {
+	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh, String chucVu) {
+		System.out.println("ma nhan vien nè :"+maNhanVien);
+		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? AND GioiTinh = ? AND ChucVu = ?";
+	    Connection conn = ConnectDB.getConnection();
+	    try {
+	    	PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, "%" + maNhanVien + "%");
+	        pstmt.setString(2, "%" + tenNhanVien + "%");
+	        pstmt.setString(3, "%" + soDienThoai + "%");
+	        pstmt.setString(4, gioiTinh);
+	        pstmt.setString(5, chucVu);
 
-		ArrayList<NhanVien> listNhanVien = new ArrayList<NhanVien>();
-		String query = "SELECT *From NhanVien where hoTen like ? OR NhanVienID =? OR SoDienThoai like ?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+	        ResultSet rs = pstmt.executeQuery();
+	        while (rs.next()) {
+	            // Tạo đối tượng NhanVien từ kết quả tìm kiếm
+	            NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
+	                    rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
+	                    rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
+	                    rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
 
-			pstmt.setString(1, "%" + x + "%"); // Tìm theo tên
-			pstmt.setString(2, x); // tìm theo mã
-			pstmt.setString(3, "%" + x + "%"); // tìm theo Số điện thoại bọc đầu cuối.
+	            // Thêm đối tượng NhanVien vào danh sách
+	            listNhanVien.add(nhanVien);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
-						rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
-						rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
-						rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi")
-
-				);
-				listNhanVien.add(nhanVien);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return listNhanVien;
+	    return listNhanVien;
 	}
 
 	@Override
@@ -138,9 +142,11 @@ public class NhanVien_DAO implements INhanVien {
 			pretm.setString(6, x.getGioiTinh());
 			pretm.setString(7, x.getSoDienThoai());
 			pretm.setString(8, x.getChucVu());
-			pretm.setString(9, x.getEmail());
+			pretm.setString(9, x.getEmail	());
 			pretm.setDate(10, Date.valueOf(x.getNgaySinh()));
 			pretm.setString(11, x.getDiaChi());
+			 // Đặt giá trị cho tham số trong điều kiện WHERE (nhanVienID)
+		    pretm.setString(12, x.getNhanVienID());
 			return (pretm.executeUpdate() > 0) ? true : false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -232,6 +238,12 @@ public class NhanVien_DAO implements INhanVien {
 			return -1;
 		}
 		
+	}
+
+	@Override
+	public ArrayList<NhanVien> findEmployee(String x) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
