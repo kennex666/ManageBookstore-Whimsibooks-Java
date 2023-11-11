@@ -7,9 +7,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import connectDB.ConnectDB;
 import entities.KhuyenMai;
+import entities.SanPham;
 import interfaces.IKhuyenMai;
 
 public class KhuyenMai_DAO implements IKhuyenMai{
@@ -58,6 +60,7 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		return list;
 	}
 	@Override
+	
 	public boolean addKhuyenMai(KhuyenMai khuyenMai) {
 		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
 		String tenKhuyenMai = khuyenMai.getTenKhuyenMai();
@@ -66,10 +69,13 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		Date ngayKhuyenMai = khuyenMai.getNgayKhuyenMai();
 		Date ngayHetHanKM = khuyenMai.getNgayHetHanKM();
 		double donHangTu = khuyenMai.getDonHangTu();
+		int soLuongKhuyenMai = khuyenMai.getSoLuongKhuyenMai();
+		int soLuotDaApDung = khuyenMai.getSoLuotDaApDung();
 		
-		String insert = "INSERT INTO KhuyenMai (CodeKhuyenMai, TenKhuyenMai, LoaiGiamGia, GiaTri,NgayKhuyenMai, NgayHetHanKM, DonHangTu) VALUES (?,?,?,?,?,?,?)";
+		String insertKM = "INSERT INTO KhuyenMai (CodeKhuyenMai, TenKhuyenMai, LoaiGiamGia, GiaTri,NgayKhuyenMai, NgayHetHanKM, DonHangTu, SoLuongKhuyenMai,SoLuotDaApDung) VALUES (?,?,?,?,?,?,?,?,?)";
+		
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(insert);
+			PreparedStatement preparedStatement = conn.prepareStatement(insertKM);
 			preparedStatement.setString(1, codeKhuyenMai);
 			preparedStatement.setString(2, tenKhuyenMai);
 			preparedStatement.setString(3, loaiKhuyenMai);
@@ -77,6 +83,8 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 			preparedStatement.setDate(5, ngayKhuyenMai);
 			preparedStatement.setDate(6, ngayHetHanKM);
 			preparedStatement.setDouble(7, donHangTu);
+			preparedStatement.setInt(8 ,soLuongKhuyenMai);
+			preparedStatement.setInt(9, soLuotDaApDung);
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -84,6 +92,7 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return false;
 	}
+	
 
 	@Override
 	public boolean editKhuyenMai(KhuyenMai khuyenMai) {

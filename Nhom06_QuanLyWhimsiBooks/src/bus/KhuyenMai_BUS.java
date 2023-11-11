@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import dao.KhuyenMai_DAO;
 import entities.KhuyenMai;
+import entities.SanPham;
 import interfaces.IKhuyenMai;
 
 public class KhuyenMai_BUS implements IKhuyenMai{
@@ -36,13 +37,13 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	@Override
 	public boolean addKhuyenMai(KhuyenMai khuyenMai) {
 		// TODO Auto-generated method stub
-		return false;
+		return khuyenMai_DAO.addKhuyenMai(khuyenMai);
 	}
 
 	@Override
 	public boolean editKhuyenMai(KhuyenMai khuyenMai) {
 		// TODO Auto-generated method stub
-		return false;
+		return khuyenMai_DAO.editKhuyenMai(khuyenMai);
 	}
 
 }

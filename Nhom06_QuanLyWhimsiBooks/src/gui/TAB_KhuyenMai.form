@@ -323,6 +323,9 @@
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuActionPerformed"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -425,10 +428,10 @@
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                                   <StringArray count="4">
-                                    <StringItem index="0" value="Item 1"/>
-                                    <StringItem index="1" value="Item 2"/>
-                                    <StringItem index="2" value="Item 3"/>
-                                    <StringItem index="3" value="Item 4"/>
+                                    <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
+                                    <StringItem index="1" value="Nh&#xe0; cung c&#x1ea5;p"/>
+                                    <StringItem index="2" value="Danh m&#x1ee5;c"/>
+                                    <StringItem index="3" value="Th&#x1b0;&#x1a1;ng hi&#x1ec7;u"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -524,13 +527,13 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                       <SubComponents>
-                        <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+                        <Container class="javax.swing.JScrollPane" name="jScrollPane2">
                           <AuxValues>
                             <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                           </AuxValues>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
-                              <BorderConstraints direction="Center"/>
+                              <BorderConstraints direction="First"/>
                             </Constraint>
                           </Constraints>
 
@@ -538,36 +541,13 @@
                           <SubComponents>
                             <Component class="javax.swing.JTable" name="tableChonSP">
                               <Properties>
-                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                                  <Table columnCount="3" rowCount="0">
-                                    <Column editable="true" title="Ch&#x1ecd;n" type="java.lang.Object"/>
-                                    <Column editable="true" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
-                                    <Column editable="true" title="T&#xea;n s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
-                                  </Table>
-                                </Property>
-                                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
-                                  <TableColumnModel selectionModel="0">
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                      <Title/>
-                                      <Editor/>
-                                      <Renderer/>
-                                    </Column>
-                                  </TableColumnModel>
-                                </Property>
-                                <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                                  <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                                <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                                  <Connection code="tableModelSP = new DefaultTableModel(&#xa;    new Object [][] {&#xa;    },&#xa;    new String [] {&#xa;        &quot;Ch&#x1ecd;n&quot;, &quot;M&#xe3; s&#x1ea3;n ph&#x1ea9;m&quot;, &quot;T&#xea;n s&#x1ea3;n ph&#x1ea9;m&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;}" type="code"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tableChonSPMouseClicked"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -631,6 +611,9 @@
                               <Dimension value="[180, 22]"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTimKMTheoMaActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.Box$Filler" name="filler6">
                           <Properties>
@@ -814,18 +797,8 @@
                       <SubComponents>
                         <Component class="javax.swing.JTable" name="tableKM">
                           <Properties>
-                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="9" rowCount="0">
-                                <Column editable="true" title="STT" type="java.lang.Object"/>
-                                <Column editable="true" title="M&#xe3; khuy&#x1ec5;n m&#xe3;i" type="java.lang.Object"/>
-                                <Column editable="true" title="T&#xea;n khuy&#x1ebf;n m&#xe3;i" type="java.lang.Object"/>
-                                <Column editable="true" title="Lo&#x1ea1;i khuy&#x1ebf;n m&#xe3;i" type="java.lang.Object"/>
-                                <Column editable="true" title="Gi&#xe1; tr&#x1ecb;" type="java.lang.Object"/>
-                                <Column editable="true" title="&#xc1;p d&#x1ee5;ng t&#x1eeb; &#x111;&#x1a1;n" type="java.lang.Object"/>
-                                <Column editable="true" title="Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u" type="java.lang.Object"/>
-                                <Column editable="true" title="Ng&#xe0;y k&#x1ebf;t th&#xfa;c" type="java.lang.Object"/>
-                                <Column editable="true" title="Xem s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
-                              </Table>
+                            <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                              <Connection code="tableModel = new DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; khuy&#x1ec5;n m&#xe3;i&quot;, &quot;T&#xea;n khuy&#x1ebf;n m&#xe3;i&quot;, &quot;Lo&#x1ea1;i khuy&#x1ebf;n m&#xe3;i&quot;, &quot;Gi&#xe1; tr&#x1ecb;&quot;, &quot;&#xc1;p d&#x1ee5;ng t&#x1eeb; &#x111;&#x1a1;n&quot;, &quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;, &quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;, &quot;Xem s&#x1ea3;n ph&#x1ea9;m&quot;&#xa;    }&#xa;)" type="code"/>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">

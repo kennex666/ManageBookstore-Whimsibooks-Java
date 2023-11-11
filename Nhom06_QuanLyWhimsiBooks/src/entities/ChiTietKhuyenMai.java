@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class ChiTietKhuyenMai {
 	private KhuyenMai khuyenMai;
-	private ArrayList<SanPham> danhSachSP;
+	private SanPham sanPham;
 	private Date ngayTao;
 
 	public ChiTietKhuyenMai(Date ngayTao) {
@@ -14,14 +14,21 @@ public class ChiTietKhuyenMai {
 		this.ngayTao = ngayTao;
 	}
 
-	public ChiTietKhuyenMai(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSP, Date ngayTao) {
+	
+	
+	public ChiTietKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham, Date ngayTao) {
 		super();
 		this.khuyenMai = khuyenMai;
-		this.danhSachSP = danhSachSP;
+		this.sanPham = sanPham;
 		this.ngayTao = ngayTao;
 	}
-	
-	
+
+	public SanPham getSanPham() {
+		return sanPham;
+	}
+	public void setSanPham(SanPham sanPham) {
+		this.sanPham = sanPham;
+	}
 	public KhuyenMai getKhuyenMai() {
 		return khuyenMai;
 	}
@@ -29,15 +36,7 @@ public class ChiTietKhuyenMai {
 	public void setKhuyenMai(KhuyenMai khuyenMai) {
 		this.khuyenMai = khuyenMai;
 	}
-
-	public ArrayList<SanPham> getDanhSachSP() {
-		return danhSachSP;
-	}
-
-	public void setDanhSachSP(ArrayList<SanPham> danhSachSP) {
-		this.danhSachSP = danhSachSP;
-	}
-
+	
 	public Date getNgayTao() {
 		return ngayTao;
 	}

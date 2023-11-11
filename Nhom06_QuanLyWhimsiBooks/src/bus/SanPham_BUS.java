@@ -10,6 +10,11 @@ public class SanPham_BUS implements ISanPham{
 
 	private SanPham_DAO sanPham_DAO;
 	
+	@Override
+	public ArrayList<SanPham> laySanPhamChoKM() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.laySanPhamChoKM();
+	}
 	public SanPham_BUS() {
 		// TODO Auto-generated constructor stub
 		sanPham_DAO = new SanPham_DAO();

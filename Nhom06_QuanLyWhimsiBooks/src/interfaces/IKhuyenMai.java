@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 
 import entities.KhuyenMai;
+import entities.SanPham;
 
 public interface IKhuyenMai {
 	public ArrayList<KhuyenMai> getAllKhuyenMai();

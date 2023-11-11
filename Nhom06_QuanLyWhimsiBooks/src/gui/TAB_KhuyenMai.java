@@ -5,14 +5,20 @@
 package gui;
 
 import java.awt.Color;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
+import bus.ChiTietKhuyenMai_BUS;
 import bus.KhuyenMai_BUS;
+import bus.SanPham_BUS;
+import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
+import entities.SanPham;
 
 /**
  *
@@ -20,15 +26,24 @@ import entities.NhaCungCap;
  */
 public class TAB_KhuyenMai extends javax.swing.JPanel {
 	private DefaultTableModel tableModel;
+	private DefaultTableModel tableModelSP;
 	private KhuyenMai_BUS khuyenMai_BUS;
 	private ArrayList<KhuyenMai> danhSachKM;
+	private SanPham_BUS sanPham_BUS;
+	private ArrayList<SanPham> danhSachSp;
+	private ChiTietKhuyenMai_BUS chiTietKhuyenMai_BUS;
+	private ArrayList<ChiTietKhuyenMai> danhSachCTTKM;
+	private Calendar currentDate;
     /**
      * Creates new form TAB_KhuyenMai
      */
     public TAB_KhuyenMai() {
         initComponents();
         khuyenMai_BUS = new KhuyenMai_BUS();
-        loadData();
+        sanPham_BUS = new SanPham_BUS();
+        loadDataKM();
+        loadDataSP();
+        currentDate = Calendar.getInstance();
     }
 
     /**
@@ -90,7 +105,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         TimMaSanPham = new javax.swing.JTextField();
         btnTIMKiem = new javax.swing.JButton();
         tableSelectKhuyenMai = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tableChonSP = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jPanel19 = new javax.swing.JPanel();
@@ -222,6 +237,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-luuKM.png"))); // NOI18N
         btnLuu.setText("Thêm");
+        btnLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLuuActionPerformed(evt);
+            }
+        });
         jPanel5.add(btnLuu);
 
         btnKhuyenMaiTao.add(jPanel5);
@@ -260,7 +280,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel17.add(jLabel10);
         jPanel17.add(filler3);
 
-        comboboxApDung.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboboxApDung.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nhà cung cấp", "Danh mục", "Thương hiệu" }));
         jPanel17.add(comboboxApDung);
 
         titleSelectKhuyenMai.add(jPanel17);
@@ -308,17 +328,29 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         tableSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(870, 200));
         tableSelectKhuyenMai.setLayout(new java.awt.BorderLayout());
 
-        tableChonSP.setModel(new javax.swing.table.DefaultTableModel(
+        tableChonSP.setModel(tableModelSP = new DefaultTableModel(
             new Object [][] {
-
             },
             new String [] {
                 "Chọn", "Mã sản phẩm", "Tên sản phẩm"
             }
-        ));
-        jScrollPane1.setViewportView(tableChonSP);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            };
 
-        tableSelectKhuyenMai.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tableChonSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableChonSPMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tableChonSP);
+
+        tableSelectKhuyenMai.add(jScrollPane2, java.awt.BorderLayout.PAGE_START);
 
         jPanel4.add(tableSelectKhuyenMai, java.awt.BorderLayout.CENTER);
 
@@ -338,6 +370,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel20.setLayout(new javax.swing.BoxLayout(jPanel20, javax.swing.BoxLayout.LINE_AXIS));
 
         txtTimKMTheoMa.setPreferredSize(new java.awt.Dimension(180, 22));
+        txtTimKMTheoMa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTimKMTheoMaActionPerformed(evt);
+            }
+        });
         jPanel20.add(txtTimKMTheoMa);
         jPanel20.add(filler6);
 
@@ -402,8 +439,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         add(pnlALL, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    public  void Huy() {
+    	txtMaKM.setText("");
+    	txtTenKM.setText("");
+    	txtHinhThuc.setSelectedIndex(0);
+    	txtMucGiamGia.setText("");
+    	txtNgayBatDau.setDate(currentDate.getTime());
+    	Calendar currentDateToMoth = currentDate;
+    	currentDateToMoth.add(Calendar.MONTH, 1);
+    	txtNgayKetThuc.setDate(currentDateToMoth.getTime());
+    }
+    
     private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyActionPerformed
-        // TODO add your handling code here:
+        Huy();
     }//GEN-LAST:event_btnHuyActionPerformed
 
     private void btnTIMKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTIMKiemActionPerformed
@@ -418,7 +466,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableKMMouseClicked
 
-    private void loadData() {
+    private void txtTimKMTheoMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimKMTheoMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTimKMTheoMaActionPerformed
+
+    private void tableChonSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableChonSPMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableChonSPMouseClicked
+    
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+        
+    }//GEN-LAST:event_btnLuuActionPerformed
+
+    private void loadDataKM() {
     	tableKM.removeAll();
     	tableKM.setRowSelectionAllowed(false);
     	tableModel.setRowCount(0);
@@ -428,6 +488,18 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	int stt = 1;
     	for(KhuyenMai km : danhSachKM) {
     		tableModel.addRow(new Object[] {stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(), km.getLoaiKhuyenMai(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),km.getDonHangTu(), km.getSoLuongKhuyenMai(), km.getSoLuotDaApDung()});
+    	}
+    }
+    
+    private void loadDataSP() {
+    	tableChonSP.removeAll();
+    	tableChonSP.setRowSelectionAllowed(false);
+    	tableModelSP.setRowCount(0);
+    	danhSachSp = new ArrayList<>();
+    	danhSachSp = sanPham_BUS.laySanPhamChoKM();
+    	int stt = 1;
+    	for(int i = 0; i < danhSachSp.size(); i++) {
+    		tableModelSP.addRow(new Object[] {false ,danhSachSp.get(i).getSanPhamID(),danhSachKM.get(i).getTenKhuyenMai()});
     	}
     }
 
@@ -482,7 +554,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPanel pnlALL;
     private javax.swing.JTextField soLuongApDung;
