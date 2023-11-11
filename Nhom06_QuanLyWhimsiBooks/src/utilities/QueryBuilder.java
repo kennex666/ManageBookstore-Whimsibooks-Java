@@ -115,8 +115,8 @@ public class QueryBuilder {
 					tempStr = (String) x[2];
 					if (tempStr.length() < 1)
 						continue;
-					paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1]  + " = " )
-							: " " + conditionsAll + " " + ((String) x[1]  + " = " );
+					paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1]  + " LIKE " )
+							: " " + conditionsAll + " " + ((String) x[1]  + " LIKE " );
 				
 					paramsQuery += (tempStr.charAt(0) == '?') ? "CONCAT(?"
                                                 :"CONCAT('" +  tempStr.charAt(0) + "'";
