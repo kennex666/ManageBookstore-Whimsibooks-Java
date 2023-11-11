@@ -12,13 +12,13 @@ import entities.NhanVien;
 import interfaces.INhanVien;
 
 public class NhanVien_DAO implements INhanVien {
-	Connection conn = ConnectDB.getConnection();
+	Connection conn;
 	@Override
 	public ArrayList<NhanVien> findEmployee(String x) {
 
 		ArrayList<NhanVien> listNhanVien = new ArrayList<NhanVien>();
 		String query = "SELECT *From NhanVien where hoTen like ? OR NhanVienID =? OR SoDienThoai like ?";
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 
 			pstmt.setString(1, "%" + x + "%"); // Tìm theo tên
 			pstmt.setString(2, x); // tìm theo mã
@@ -99,7 +99,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean addNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
 		String query = "INSERT INTO NhanVien(NhanVienID,UserName,Password,NgayTaoTK,HoTen,GioiTinh,SoDienThoai,ChucVu,Email,NgaySinh,DiaChi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -126,7 +125,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean editNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
 		String query = "UPDATE NhanVien SET NhanVienID =?,UserName=?,Password=?,NgayTaoTK =?,HoTen = ?,GioiTinh = ?,SoDienThoai = ?,ChucVu = ?,Email= ?,NgaySinh =?,DiaChi=? where nhanVienID =?";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -152,7 +150,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean deleteNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
 		String query = "DELETE FROM NhanVien WHERE NhanVienID = ?";
 
 		try {
@@ -178,7 +175,7 @@ public class NhanVien_DAO implements INhanVien {
 		NhanVien nhanVien = null;
 		String query = "SELECT * FROM NhanVien WHERE nhanVienID = ?";
 
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
 			pstmt.setString(1, x);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -199,7 +196,6 @@ public class NhanVien_DAO implements INhanVien {
 
 	@Override
 	public boolean isMaNhanVienExists(String x) {
-		Connection conn = ConnectDB.getConnection();
 		String query = "SELECT COUNT(*) FROM NhanVien WHERE nhanVienID = ?";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -220,7 +216,6 @@ public class NhanVien_DAO implements INhanVien {
 	
 	@Override
 	public int phatSinhMaNhanVien() {
-		Connection conn = ConnectDB.getConnection();
 		try {
 			PreparedStatement ps =conn.prepareStatement("SELECT COUNT(*) FROM NhanVien");
 			ResultSet rs = ps.executeQuery();
@@ -234,6 +229,9 @@ public class NhanVien_DAO implements INhanVien {
 		
 	}
 
-	
+	public NhanVien_DAO() {
+		// TODO Auto-generated constructor stub
+		conn = ConnectDB.getConnection();
+	}
 	
 }

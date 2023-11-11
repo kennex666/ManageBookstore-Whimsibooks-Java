@@ -3,6 +3,9 @@ package gui;
 
 import bus.ChiTietHoaDon_BUS;
 import bus.HoaDon_BUS;
+import bus.KhachHang_BUS;
+import bus.KhuyenMai_BUS;
+import bus.NhanVien_BUS;
 import bus.SanPham_BUS;
 import connectDB.ConnectDB;
 
@@ -20,6 +23,9 @@ import javax.swing.table.DefaultTableModel;
 import entities.ChiTietHoaDon;
 import entities.HoaDon;
 import entities.HoaDonTra;
+import entities.KhachHang;
+import entities.KhuyenMai;
+import entities.NhanVien;
 import entities.SanPham;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -40,10 +46,18 @@ import utilities.*;
  */
 public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private SanPham_BUS sanPham_BUS;
+    private NhanVien_BUS nhanVien_BUS;
+    private KhachHang_BUS khachHang_BUS;
+    private KhuyenMai_BUS khuyenMai_BUS;
     private HoaDon_BUS hoaDon_BUS;
     private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
+    
     private HoaDon hoaDon;
     private HoaDonTra hoaDonTra;
+    private NhanVien nhanVien;
+    private KhachHang khachHang;
+    private KhuyenMai khuyenMai;
+    
     private DefaultTableModel tblModelCTHD, tblHoaDon;
     private ArrayList<HoaDon> listHoaDon;
     private TAB_HoaDon_EditorMode trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
@@ -56,7 +70,25 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         sanPham_BUS = new SanPham_BUS();
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
+        khachHang_BUS = new KhachHang_BUS();
+        khuyenMai_BUS = new KhuyenMai_BUS();
+        
+        
     	hoaDon = new HoaDon();
+        
+    	
+    	/** 
+    	 * Test this case
+    	 */
+        CurrentSession.getInstance().setNhanVienHienHanh(
+                nhanVien_BUS.getNhanVienByNhanVienID("NV0002")
+        );
+        hoaDon.setNhanVien(CurrentSession.getNhanVien());
+
+        khachHang = new KhachHang();
+        khuyenMai = new KhuyenMai();
+        
         hoaDonTra = new HoaDonTra();
         trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
     	
@@ -268,8 +300,10 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     
     public void loadHoaDon(String x){
         hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
-        if (hoaDon == null)
+        if (hoaDon == null){
         	hoaDon = new HoaDon();
+                hoaDon.setNhanVien(CurrentSession.getNhanVien());
+        }
         ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
         if (cthdTemp == null)
         	cthdTemp = new ArrayList<ChiTietHoaDon>();
@@ -782,6 +816,11 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20,20)
     );
     btnKhachHangEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    btnKhachHangEnter.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnKhachHangEnterActionPerformed(evt);
+        }
+    });
     jPanel12.add(btnKhachHangEnter);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1628,6 +1667,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     
     public void clearHoaDonDangTao(){
         hoaDon = new HoaDon();
+        hoaDon.setNhanVien(CurrentSession.getNhanVien());
         while (tblModelCTHD.getRowCount() > 0)
             tblModelCTHD.removeRow(0);
         updateThongTinBill();
@@ -1768,7 +1808,6 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         
         obj[0] = start;
         obj[1] = end;
-        System.out.println(start + "  " + end);
         obj[2] = HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem()).equalsIgnoreCase("ALL") ? null : HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem());
         obj[3] = txt_DSHD_GiaTriTu.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriTu.getText());
         obj[4] = txt_DSHD_GiaTriDen.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriDen.getText());
@@ -1792,9 +1831,15 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
         }
     }//GEN-LAST:event_btn_DSHD_DoiTraHoaDonActionPerformed
+
+    private void btnKhachHangEnterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangEnterActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnKhachHangEnterActionPerformed
     
     public void thanhToanHoanTat() {
     	hoaDon = new HoaDon();
+        hoaDon.setNhanVien(CurrentSession.getNhanVien());
         while (tblModelCTHD.getRowCount() > 0)
             tblModelCTHD.removeRow(0);
         updateThongTinBill();

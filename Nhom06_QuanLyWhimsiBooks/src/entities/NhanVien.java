@@ -30,11 +30,10 @@ public class NhanVien {
 		return nhanVienID;
 	}
 
-	public void setNhanVienID(String nhanVienID) throws Exception {
-//		 kiểm tra chuỗi rỗng hoặc chỉ chứa khoảng trắng.
-		if(nhanVienID==null || nhanVienID.trim().isEmpty())
-			throw new Exception("Mã khách hàng rỗng! Đã có lỗi trong quá trình phát sinh");
-		this.nhanVienID = nhanVienID;
+	public void setNhanVienID(String nhanVienID) {
+            if(nhanVienID==null || nhanVienID.trim().isEmpty())
+                nhanVienID = "NV0001";
+            this.nhanVienID = nhanVienID;
 	}
 
 	public String getUserName() {

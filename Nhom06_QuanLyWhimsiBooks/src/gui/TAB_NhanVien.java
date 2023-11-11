@@ -707,7 +707,6 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	}
 	
 	private boolean btnThemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThemActionPerformed
-		ConnectDB.connect();
 
 		if (valid()) {
 			try {

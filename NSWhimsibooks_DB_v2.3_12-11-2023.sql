@@ -1,9 +1,11 @@
 ﻿/*
-	Database Version 2.3 - Update 12/11/2023
-	Fix some issue. Fixed Boolean Entity
-	Fixed display Vietnamese
-	Fixed value some Table
-	Update HoaDonTra
+	Database Version 2.4 - Update 12/11/2023
+	[2.2]
+		Fix some issue. Fixed Boolean Entity
+		Fixed display Vietnamese
+		Fixed value some Table
+	[2.3] Update HoaDonTra
+	[2.4] Add trigger
 */
 CREATE DATABASE QuanLyNhaSachWhimsiBooks
 GO
@@ -251,3 +253,64 @@ INSERT INTO ChiTietTraHang (SoLuong, HoaDonID, SanPhamID, DonGia, LiDoTrahang)
 VALUES
     (1, 'HD04112301', 1, 100000, 'Defective product'),
     (1, 'HD04112302', 2, 80000, 'Wrong item delivered');
+
+
+
+-- SCRIPT BY BẢO
+GO
+
+--- Trigger kích hoạt khi thêm chi tiết hoá đơn
+CREATE TRIGGER trg_ThemChiTietHoaDon
+ON ChiTietHoaDon
+AFTER INSERT
+AS BEGIN	
+	declare @SanPhamID AS nvarchar(255), @SoLuongLayDi AS int
+	SET @SanPhamID = (SELECT SanPhamID FROM inserted)
+	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
+	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
+	WHERE @SanPhamID = SanPhamID
+END
+GO
+
+--- Trigger kích hoạt khi sửa chi tiết hoá đơn
+CREATE TRIGGER trg_SuaChiTietHoaDon
+ON ChiTietHoaDon
+AFTER UPDATE
+AS BEGIN	
+	declare @SanPhamIDTra AS nvarchar(255), @SanPhamIDLay AS nvarchar(255), @SoLuongLayDi AS int, @SoLuongTraLai AS int
+	SET @SanPhamIDLay = (SELECT SanPhamID FROM inserted)
+	SET @SanPhamIDTra = (SELECT SanPhamID FROM deleted)
+	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
+	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
+	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
+	WHERE @SanPhamIDLay = SanPhamID
+	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
+	WHERE @SanPhamIDTra = SanPhamID
+END
+GO
+
+--- Trigger kích hoạt khi xoá chi tiết hoá đơn
+CREATE TRIGGER trg_XoaChiTietHoaDon
+ON ChiTietHoaDon
+AFTER DELETE
+AS BEGIN	
+	declare @SanPhamID AS nvarchar(255), @SoLuongTraLai AS int
+	SET @SanPhamID = (SELECT SanPhamID FROM deleted)
+	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
+	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
+	WHERE @SanPhamID = SanPhamID
+END
+GO
+
+--- Trigger kích hoạt khi thêm chi tiết trả hoá đơn
+CREATE TRIGGER trg_ThemChiTietTraHang
+ON ChiTietTraHang
+AFTER INSERT
+AS BEGIN	
+	declare @SanPhamID AS nvarchar(255), @SoLuongTraLai AS int
+	SET @SanPhamID = (SELECT SanPhamID FROM inserted)
+	SET @SoLuongTraLai = (SELECT SoLuong FROM inserted)
+	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
+	WHERE @SanPhamID = SanPhamID
+END
+GO

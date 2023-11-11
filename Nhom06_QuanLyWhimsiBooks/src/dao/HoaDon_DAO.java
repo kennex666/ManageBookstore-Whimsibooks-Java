@@ -309,8 +309,6 @@ public class HoaDon_DAO implements IHoaDon{
                             params[7]
                     );
                     
-                    	 System.out.println(queryBuilder.generateQuery("AND")[1]);
-
 			ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
 			while (rs.next()) {
 				HoaDon hd = new HoaDon();

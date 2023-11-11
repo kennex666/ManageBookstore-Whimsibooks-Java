@@ -20,6 +20,8 @@ public class KhachHang {
 	public KhachHang(String khachHangID) {
 		this.khachHangID = khachHangID;
 	}
+	public KhachHang() {
+	}
 
 	public String getKhachHangID() {
 		return khachHangID;
