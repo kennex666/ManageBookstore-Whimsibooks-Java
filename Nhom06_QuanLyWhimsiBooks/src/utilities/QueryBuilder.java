@@ -150,15 +150,14 @@ public class QueryBuilder {
 	 */
 	public PreparedStatement setParamsForPrepairedStament(Connection conn, String conditionForAll) {
 		PreparedStatement pstm = null;
-		int tempCol = 0;
 		try {
 		Object[] obj = generateQuery(conditionForAll);
 		if (obj == null)
 			return null;
 		String tempQuery = (String) obj[1];
-		int numParamsQuery = (int) obj[0];
+		int numParamsQuery = 0;
 		pstm = conn.prepareStatement(tempQuery);
-		if (numParamsQuery < 1)
+		if ((int) obj[0] < 1)
 			return pstm;
 		
 		for (Object[] x : params) {
