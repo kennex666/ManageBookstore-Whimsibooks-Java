@@ -12,12 +12,10 @@ import entities.NhanVien;
 import interfaces.INhanVien;
 import java.util.List;
 public class NhanVien_DAO implements INhanVien {
-	Connection conn = ConnectDB.getConnection();
+	private Connection conn ;
 	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh, String chucVu) {
-		System.out.println("ma nhan vien nè :"+maNhanVien);
 		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
 	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? AND GioiTinh = ? AND ChucVu = ?";
-	    Connection conn = ConnectDB.getConnection();
 	    try {
 	    	PreparedStatement pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, "%" + maNhanVien + "%");
@@ -47,8 +45,10 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public ArrayList<NhanVien> getAllEmployees() {
 		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
-		String query = "SELECT * FROM NhanVien";
-		try (PreparedStatement pstmt = conn.prepareStatement(query); ResultSet rs = pstmt.executeQuery()) {
+		try {
+			String query = "SELECT * FROM NhanVien";
+			PreparedStatement pstmt = conn.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				NhanVien nhanVien = new NhanVien();
 				nhanVien.setNhanVienID(rs.getString("nhanVienID"));
@@ -59,7 +59,6 @@ public class NhanVien_DAO implements INhanVien {
 				if (ngayTaoTKSQL != null) {
 					nhanVien.setNgayTaoTK(ngayTaoTKSQL.toLocalDate());
 				}
-
 				nhanVien.setHoTen(rs.getString("hoTen"));
 				nhanVien.setGioiTinh(rs.getString("gioiTinh"));
 				nhanVien.setSoDienThoai(rs.getString("soDienThoai"));
@@ -86,7 +85,6 @@ public class NhanVien_DAO implements INhanVien {
 		// TODO Auto-generated method stub
 		int soLuong = 0;
 		try {
-			Connection conn = ConnectDB.getConnection();
 			String query = "SELECT Count(*) AS soLuong FROM NhanVien ";
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(query);
@@ -103,7 +101,7 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean addNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
+
 		String query = "INSERT INTO NhanVien(NhanVienID,UserName,Password,NgayTaoTK,HoTen,GioiTinh,SoDienThoai,ChucVu,Email,NgaySinh,DiaChi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -130,7 +128,7 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean editNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
+
 		String query = "UPDATE NhanVien SET NhanVienID =?,UserName=?,Password=?,NgayTaoTK =?,HoTen = ?,GioiTinh = ?,SoDienThoai = ?,ChucVu = ?,Email= ?,NgaySinh =?,DiaChi=? where nhanVienID =?";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -158,7 +156,7 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean deleteNhanVien(NhanVien x) {
 		boolean result = false;
-		Connection conn = ConnectDB.getConnection();
+
 		String query = "DELETE FROM NhanVien WHERE NhanVienID = ?";
 
 		try {
@@ -184,7 +182,8 @@ public class NhanVien_DAO implements INhanVien {
 		NhanVien nhanVien = null;
 		String query = "SELECT * FROM NhanVien WHERE nhanVienID = ?";
 
-		try (Connection conn = ConnectDB.getConnection(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+		try  {
+			PreparedStatement pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, x);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -205,7 +204,6 @@ public class NhanVien_DAO implements INhanVien {
 
 	@Override
 	public boolean isMaNhanVienExists(String x) {
-		Connection conn = ConnectDB.getConnection();
 		String query = "SELECT COUNT(*) FROM NhanVien WHERE nhanVienID = ?";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(query)) {
@@ -226,7 +224,6 @@ public class NhanVien_DAO implements INhanVien {
 	
 	@Override
 	public int phatSinhMaNhanVien() {
-		Connection conn = ConnectDB.getConnection();
 		try {
 			PreparedStatement ps =conn.prepareStatement("SELECT COUNT(*) FROM NhanVien");
 			ResultSet rs = ps.executeQuery();
@@ -246,6 +243,10 @@ public class NhanVien_DAO implements INhanVien {
 		return null;
 	}
 
+	public NhanVien_DAO() {
+		this.conn = ConnectDB.getConnection();
+	}
+	
 	
 	
 }
