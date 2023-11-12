@@ -55,6 +55,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		loadNhanVienTable();
 		showTuBangLenForm();
 		txtMa.setEditable(false);
+		customizeTable();
 
 	}
 
@@ -668,17 +669,6 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	
 	//	chức năng tìm kiếmmm
 	
-	private String phatSinhMaNhanVien() {
-	
-		try {
-			String maNV = "NV" + String.format("%04d", nhanvienBus.phatSinhMaNhanVien() + 1);
-			return maNV;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return "NV" + "0001";
-		}
-	}
-
 	private void btnHienThiBangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHienThiBangActionPerformed
 		loadNhanVienTable();
 	}// GEN-LAST:event_btnHienThiBangActionPerformed
@@ -769,6 +759,21 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	}
 
 	
+	//	chức năng tìm kiếmmm
+	
+	//	chức năng tìm kiếmmm
+	
+	private String phatSinhMaNhanVien() {
+	
+		try {
+			String maNV = "NV" + String.format("%04d", nhanvienBus.phatSinhMaNhanVien() + 1);
+			return maNV;
+		} catch (Exception e) {
+			// TODO: handle exception
+			return "NV" + "0001";
+		}
+	}
+
 	private boolean btnThemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThemActionPerformed
 	
 		if (valid()) {
@@ -875,7 +880,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		}
 	}
 
-	//	chức năng tìm kiếmmm
+	
 	
 	private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) throws Exception {// GEN-FIRST:event_btnXoaActionPerformed
 	

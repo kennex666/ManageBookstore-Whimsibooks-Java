@@ -320,6 +320,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Xo&#xe1; r&#x1ed7;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnXoaRongActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btnHienThiBang">
               <Properties>
@@ -331,6 +334,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Hi&#x1ec3;n th&#x1ecb; b&#x1ea3;ng"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHienThiBangActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -371,10 +377,10 @@
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="cboGioiTinh1" min="-2" pref="66" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="jLabel16" min="-2" pref="86" max="-2" attributes="0"/>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Component id="jLabel16" min="-2" pref="92" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="cboLoaiKH1" min="-2" pref="59" max="-2" attributes="0"/>
+                                      <Component id="cboLoaiKH1" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="txtSDT1" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txtTen1" alignment="0" max="32767" attributes="0"/>

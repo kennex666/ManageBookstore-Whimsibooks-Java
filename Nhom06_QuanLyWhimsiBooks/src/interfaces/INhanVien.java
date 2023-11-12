@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import entities.NhanVien;
 
 public interface INhanVien  {
-	public ArrayList<NhanVien> findEmployee(String x);
+	ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
+			String chucVu);
+
 	public ArrayList<NhanVien> getAllEmployees();
 	public int totalNhanVien ();
 	public boolean addNhanVien(NhanVien x);
@@ -15,7 +17,6 @@ public interface INhanVien  {
 	public String getTenTuMa(String x);
 	public boolean isMaNhanVienExists(String x);
 	public int phatSinhMaNhanVien();
-	ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
-			String chucVu);
+	public ArrayList<NhanVien> findEmployee(String x);
 	
 }

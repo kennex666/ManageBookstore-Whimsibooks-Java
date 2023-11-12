@@ -34,17 +34,21 @@ public class KhachHang_BUS implements IKhachHang {
 		// TODO Auto-generated method stub
 		return kh_dao.addKhachHang(kh);
 	}
-
+@Override
+	public KhachHang getKhachHangByKhachHangID(String ma) {
+		// TODO Auto-generated method stub
+		return kh_dao.getKhachHangByKhachHangID(ma);
+	}
 	@Override
 	public boolean editKhachHang(KhachHang kh) {
 		// TODO Auto-generated method stub
-		return false;
+		return kh_dao.editKhachHang(kh);
 	}
 
 	@Override
 	public boolean deleteKhachHang(KhachHang kh) {
-		// TODO Auto-generated method stub
-		return false;
+		return kh_dao.deleteKhachHang(kh);
+		
 	}
 
 	@Override
@@ -57,5 +61,15 @@ public class KhachHang_BUS implements IKhachHang {
 	public ArrayList<NhanVien> findKhachHang(String x) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public String phatSinhMaKhachHang() {
+		// TODO Auto-generated method stub
+		return kh_dao.phatSinhMaKhachHang();
+	}
+	@Override
+	public String phatSinhMaSoThue(String loaiKhachHang) {
+		// TODO Auto-generated method stub
+		return kh_dao.phatSinhMaSoThue(loaiKhachHang);
 	}
 }
