@@ -22,7 +22,14 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     
     public ChiTietSanPham(SanPham x) {
         initComponents();
-        this.sanPham = x;
+
+//        this.jLabel_TenSanPham.setText(x.getTenSanPham());
+//        this.jLabel_TacGia.setText(x.getTacGia().getTenTacGia());
+//        this.jLabel_DanhMuc.setText(x.getDanhMuc().getTenDanhMuc());
+//        this.jLabel_NhaXuatBan.setText(x.getNhaXuatBan().getTenNhaXuatBan());
+//        this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
+//        
+//        this.sanPham = x;
     }
 
 
@@ -44,30 +51,30 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel_TenSanPham1 = new javax.swing.JPanel();
         jLabel132 = new javax.swing.JLabel();
-        jLabel133 = new javax.swing.JLabel();
+        jLabel_TenSanPham = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel160 = new javax.swing.JPanel();
         jLabel124 = new javax.swing.JLabel();
-        jLabel125 = new javax.swing.JLabel();
+        jLabel_TacGia = new javax.swing.JLabel();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel161 = new javax.swing.JPanel();
         jLabel126 = new javax.swing.JLabel();
-        jLabel127 = new javax.swing.JLabel();
+        jLabel_NhaXuatBan = new javax.swing.JLabel();
         filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel162 = new javax.swing.JPanel();
         jLabel128 = new javax.swing.JLabel();
-        jLabel129 = new javax.swing.JLabel();
+        jLabel_DanhMuc = new javax.swing.JLabel();
         filler4 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel163 = new javax.swing.JPanel();
         jLabel130 = new javax.swing.JLabel();
-        jLabel131 = new javax.swing.JLabel();
+        jLabel_SoLuong = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel164 = new javax.swing.JPanel();
-        jButton28 = new javax.swing.JButton();
+        jButton_Sua = new javax.swing.JButton();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 30), new java.awt.Dimension(10, 10));
-        jButton29 = new javax.swing.JButton();
+        jButton_NgungBan = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -120,9 +127,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel132.setText("Tên sản phẩm: ");
         jPanel_TenSanPham1.add(jLabel132);
 
-        jLabel133.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel133.setText("Field_TenSanPham");
-        jPanel_TenSanPham1.add(jLabel133);
+        jLabel_TenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_TenSanPham.setText("Field_TenSanPham");
+        jPanel_TenSanPham1.add(jLabel_TenSanPham);
 
         jPanel159.add(jPanel_TenSanPham1);
         jPanel159.add(filler1);
@@ -134,9 +141,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel124.setText("Tác giả: ");
         jPanel160.add(jLabel124);
 
-        jLabel125.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel125.setText("Field_TacGia");
-        jPanel160.add(jLabel125);
+        jLabel_TacGia.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_TacGia.setText("Field_TacGia");
+        jPanel160.add(jLabel_TacGia);
 
         jPanel159.add(jPanel160);
         jPanel159.add(filler2);
@@ -148,9 +155,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel126.setText("Nhà xuất bản: ");
         jPanel161.add(jLabel126);
 
-        jLabel127.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel127.setText("Field_NhaXuatBan");
-        jPanel161.add(jLabel127);
+        jLabel_NhaXuatBan.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_NhaXuatBan.setText("Field_NhaXuatBan");
+        jPanel161.add(jLabel_NhaXuatBan);
 
         jPanel159.add(jPanel161);
         jPanel159.add(filler3);
@@ -162,9 +169,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel128.setText("Danh mục: ");
         jPanel162.add(jLabel128);
 
-        jLabel129.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel129.setText("Field_DanhMuc");
-        jPanel162.add(jLabel129);
+        jLabel_DanhMuc.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_DanhMuc.setText("Field_DanhMuc");
+        jPanel162.add(jLabel_DanhMuc);
 
         jPanel159.add(jPanel162);
         jPanel159.add(filler4);
@@ -176,9 +183,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel130.setText("Số lượng: ");
         jPanel163.add(jLabel130);
 
-        jLabel131.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel131.setText("Field_SoLuong");
-        jPanel163.add(jLabel131);
+        jLabel_SoLuong.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_SoLuong.setText("Field_SoLuong");
+        jPanel163.add(jLabel_SoLuong);
 
         jPanel159.add(jPanel163);
         jPanel159.add(filler5);
@@ -189,29 +196,29 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jPanel164.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel164.setLayout(new javax.swing.BoxLayout(jPanel164, javax.swing.BoxLayout.LINE_AXIS));
 
-        jButton28.setBackground(new java.awt.Color(85, 182, 83));
-        jButton28.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton28.setForeground(new java.awt.Color(255, 255, 255));
-        jButton28.setText("Sửa");
-        jButton28.setAutoscrolls(true);
-        jButton28.addActionListener(new java.awt.event.ActionListener() {
+        jButton_Sua.setBackground(new java.awt.Color(85, 182, 83));
+        jButton_Sua.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jButton_Sua.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Sua.setText("Sửa");
+        jButton_Sua.setAutoscrolls(true);
+        jButton_Sua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
             }
         });
-        jPanel164.add(jButton28);
+        jPanel164.add(jButton_Sua);
         jPanel164.add(filler9);
 
-        jButton29.setBackground(new java.awt.Color(219, 79, 78));
-        jButton29.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jButton29.setForeground(new java.awt.Color(255, 255, 255));
-        jButton29.setText("Ngừng bán");
-        jButton29.addActionListener(new java.awt.event.ActionListener() {
+        jButton_NgungBan.setBackground(new java.awt.Color(219, 79, 78));
+        jButton_NgungBan.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jButton_NgungBan.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_NgungBan.setText("Ngừng bán");
+        jButton_NgungBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNgungKDActionPerformed(evt);
             }
         });
-        jPanel164.add(jButton29);
+        jPanel164.add(jButton_NgungBan);
 
         jPanel159.add(jPanel164);
 
@@ -258,18 +265,18 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
-    private javax.swing.JButton jButton28;
-    private javax.swing.JButton jButton29;
+    private javax.swing.JButton jButton_NgungBan;
+    private javax.swing.JButton jButton_Sua;
     private javax.swing.JLabel jLabel124;
-    private javax.swing.JLabel jLabel125;
     private javax.swing.JLabel jLabel126;
-    private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
-    private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel130;
-    private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel132;
-    private javax.swing.JLabel jLabel133;
+    private javax.swing.JLabel jLabel_DanhMuc;
+    private javax.swing.JLabel jLabel_NhaXuatBan;
+    private javax.swing.JLabel jLabel_SoLuong;
+    private javax.swing.JLabel jLabel_TacGia;
+    private javax.swing.JLabel jLabel_TenSanPham;
     private javax.swing.JPanel jPanel159;
     private javax.swing.JPanel jPanel160;
     private javax.swing.JPanel jPanel161;

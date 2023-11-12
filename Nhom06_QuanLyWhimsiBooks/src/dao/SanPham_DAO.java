@@ -18,6 +18,8 @@ import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.Numberic;
 
 public class SanPham_DAO implements ISanPham{
@@ -120,9 +122,11 @@ public class SanPham_DAO implements ISanPham{
 			String sql = "INSERT INTO SanPham(TenSanPham, NgayNhap, GiaNhap, Thue, "
 					+ "LoaiDoiTra, Barcode, ImgPath, TinhTrang, SoLuongTon, NamSanXuat, "
 					+ "LoaiSanPham, DonViDoLuong, KichThuoc, XuatXu, NgonNgu, "
-					+ "SoTrang, LoaiBia)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "SoTrang, LoaiBia, TacGiaID, NhaCungCapID, TheLoaiID, NhaXuatBanID, DanhMucID, ThuongHieuID)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try {
+
+                            
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setString(1, sp.getTenSanPham());
 				pstm.setDate(2, (Date) sp.getNgayNhap());
@@ -141,6 +145,13 @@ public class SanPham_DAO implements ISanPham{
 				pstm.setString(15, sp.getNgonNgu());
 				pstm.setInt(16, sp.getSoTrang());
 				pstm.setString(17, sp.getLoaiBia());
+                                pstm.setInt(18, sp.getTacGia().getTacGiaID());
+                                pstm.setString(19, sp.getNhaCungCap().getNhaCungCapID());
+                                pstm.setInt(20, sp.getTheLoai().getTheLoaiID());
+                                pstm.setInt(21, sp.getNhaXuatBan().getNhaXuatBanID());
+                                pstm.setInt(22, sp.getDanhMuc().getDanhMucID());
+                                pstm.setInt(23, sp.getThuongHieu().getThuongHieuID());
+                                
 				return(pstm.executeUpdate()>0)?true:false;
 				
 			} catch (Exception e) {
@@ -305,5 +316,117 @@ public class SanPham_DAO implements ISanPham{
 			return null;
 		}
 	}
+
+    @Override
+    public int getIdTacGiaByName(String name) {
+        try {
+                	
+		String query = "SELECT TacGiaID FROM TacGia WHERE TenTacGia = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("TacGiaID");
+                    return id;
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;		
+    }
+
+    @Override
+    public int getIdTheloaiByName(String name) {
+        try {
+                String query = "SELECT TheLoaiID FROM TheLoai WHERE TenTheLoai = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("TheLoaiID");
+                    return id;
+                }
+               
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public int getIdNhaXuatBanByName(String name) {
+        try {
+                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("NhaXuatBanID");
+                    return id;
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public String getIdNhaCungCapByName(String name) {
+         try {
+                String query = "SELECT NhaCungCapID FROM NhaCungCap WHERE TenNhaCungCap = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String id = rs.getString("NhaCungCapID");
+                    return id;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public int getIdThuongHieuByName(String name) {
+         try {
+                String query = "SELECT ThuongHieuID FROM ThuongHieu WHERE TenThuongHieu = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("ThuongHieuID");
+                    return id;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public int getIdDanhMucByName(String name) {
+        try {
+                String query = "SELECT DanhMucID FROM DanhMuc WHERE TenDanhMuc = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("DanhMucID");
+                    return id;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
 	
 }

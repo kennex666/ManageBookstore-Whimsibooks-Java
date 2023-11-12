@@ -77,7 +77,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1365, Short.MAX_VALUE)
+            .addGap(0, 1100, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -93,6 +93,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel_Sach.setPreferredSize(new java.awt.Dimension(1280, 2000));
         jPanel_Sach.setLayout(new java.awt.BorderLayout());
 
+        jPanel4.setAutoscrolls(true);
         jPanel4.setFocusable(false);
 
         jButton1.setBackground(new java.awt.Color(15, 145, 239));
@@ -138,7 +139,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -171,7 +172,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -202,7 +203,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -233,7 +234,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 247, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -264,7 +265,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 222, Short.MAX_VALUE)
                     .addComponent(jComboBox9, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -295,11 +296,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 116, Short.MAX_VALUE)
+            .addGap(0, 98, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel9Layout.setVerticalGroup(
@@ -324,7 +325,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1423, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1100, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -372,29 +373,12 @@ public class TAB_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        SanPham x = null;
-        try {
-            // TODO add your handling code here:
- //           x = new SanPham(0, 999, 2003, 9, 9, new Date(), 9999, 10, "STCL" + 0, "LOAILO", "1234" , "/", "NGUNGBAN", "NO", "15cm", "L", "XuatXu", "VNESD", "Meemf");
-        } catch (Exception ex) {
-            Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        ChiTietSanPham jPanel_New_SanPham = new ChiTietSanPham(x);
+        TAB_ThemSanPham taB_ThemSanPham = new TAB_ThemSanPham();
+        taB_ThemSanPham.setLocationRelativeTo(null);
+        taB_ThemSanPham.setVisible(true);
+        
 
-
-//        int componentLastest = jPanel_List_SanPham.getComponentCount() - 1;
-
-        //
-        //        gridBagConstraints = new java.awt.GridBagConstraints();
-        //        gridBagConstraints.anchor = GridBagConstraints.FIRST_LINE_START;
-        ////        gridBagConstraints.weightx = 0.1;
-        ////        gridBagConstraints.weighty = 0.1;
-        //        gridBagConstraints.gridx = ++grid[0];
-
-        //        if (grid[0] % 4 == 0){
-            //            gridBagConstraints.gridy = ++grid[1];
-            //            gridBagConstraints.gridx = grid[0] = 1;
-            //        }
+        ChiTietSanPham jPanel_New_SanPham = new ChiTietSanPham();
 
         jPanel_Empty1.setBackground(Color.white);
         jPanel_Empty2.setBackground(Color.white);
@@ -402,8 +386,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel_Empty1.setPreferredSize(new Dimension(545, 274));
         jPanel_Empty2.setPreferredSize(new Dimension(545, 274));
 
-        //        jPanel_Empty1.setBackground(Color.red);
-        //        jPanel_Empty2.setBackground(Color.blue);
+
         if (dem  == 0){
             box.add(jPanel_New_SanPham);
 
@@ -424,7 +407,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 Row++;
                 dem = 0;
 
-                jPanel_List_SanPham.add(box);
+               jPanel_List_SanPham.add(box);
             }else if(dem == 1){
 
                 box.remove(jPanel_Empty1);
@@ -432,15 +415,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 
                 box.add(jPanel_New_SanPham);
                 box.add(jPanel_Empty1);
-                jPanel_List_SanPham.add(box);
+               jPanel_List_SanPham.add(box);
                 dem++;
 
             }
         }
 
         this.revalidate();
-
-        //jPanel_List_SanPham.add(jPanel_New_SanPham, gridBagConstraints);
     }//GEN-LAST:event_jButton1ActionPerformed
 
         Box box = new Box(BoxLayout.X_AXIS);
