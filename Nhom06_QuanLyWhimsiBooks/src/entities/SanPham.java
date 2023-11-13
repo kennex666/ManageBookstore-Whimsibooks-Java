@@ -33,8 +33,9 @@ public class SanPham {
 	}
 	public void setSoLuongTon(int soLuongTon) throws Exception{
 		if (soLuongTon < 0)
-			throw new Exception("Số lượng không được âm");
-		this.soLuongTon = soLuongTon;
+			this.soLuongTon = 0;
+		else
+			this.soLuongTon = soLuongTon;
 	}
 	public int getNamSanXuat() {
 		return namSanXuat;

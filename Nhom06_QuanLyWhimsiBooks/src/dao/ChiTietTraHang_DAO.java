@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import connectDB.ConnectDB;
 import entities.ChiTietHoaDon;
+import entities.ChiTietTraHang;
 import entities.DanhMuc;
 import entities.NhaCungCap;
 import entities.NhaXuatBan;
@@ -21,20 +22,21 @@ import interfaces.IChiTietTraHang;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
+public class ChiTietTraHang_DAO implements IChiTietTraHang {
 	private Connection conn;
 	@Override
-	public boolean addMotChiTietCuaHoaDon(ChiTietHoaDon x) {
+	public boolean addMotChiTietCuaHoaDon(ChiTietTraHang x) {
 		// TODO Auto-generated method stub
 		try {
 			PreparedStatement pstm = conn.prepareStatement(
-				"INSERT INTO ChiTietHoaDon(hoaDonID,sanPhamID,soLuong,donGia)VALUES(?,?,?,?)"
+				"INSERT INTO ChiTietTraHang(hoaDonID,sanPhamID,soLuong,donGia,lidotrahang)VALUES(?,?,?,?,?)"
 			);
 
 			pstm.setString(1, x.getHoaDon().getHoaDonID());
 			pstm.setInt(2, x.getSanPham().getSanPhamID());
 			pstm.setInt(3, x.getSoLuong());
 			pstm.setDouble(4, x.getSanPham().getGiaBan());
+			pstm.setString(5, x.getLiDoTraHang());
 			pstm.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -44,7 +46,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		}
 	}
 	@Override
-	public boolean addNhieuChiTietCuaMotHoaDon(ArrayList<ChiTietHoaDon> x) {
+	public boolean addNhieuChiTietCuaMotHoaDon(ArrayList<ChiTietTraHang> x) {
             
             // Xoá chi tiết hoá đơn cũ để cập nhật lại
             if (x.size() < 1)
@@ -52,7 +54,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
             try {
                 // TODO Auto-generated method stub
                 PreparedStatement pstm = conn.prepareStatement(
-                        "DELETE FROM ChiTietHoaDon WHERE HoaDonID = ?"
+                        "DELETE FROM ChiTietTraHang WHERE HoaDonID = ?"
                 );
                 
                 pstm.setString(1, x.get(0).getHoaDon().getHoaDonID());
@@ -60,24 +62,24 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
                 pstm.executeUpdate();
                 
             } catch (Exception ex) {
-                ex.printStackTrace();
+                
             }
             
             // Cập nhật chi tiết hoá đơn mới
-		for (ChiTietHoaDon y : x) {
+		for (ChiTietTraHang y : x) {
 			if (!addMotChiTietCuaHoaDon(y))
 				return false;
 		}
 		return true;
 	}
 	@Override
-	public ArrayList<ChiTietHoaDon> getAllChiTietCuaMotHoaDon(String maHoaDon) {
+	public ArrayList<ChiTietTraHang> getAllChiTietCuaMotHoaDon(String maHoaDon) {
 		// TODO Auto-generated method stub
-		ArrayList<ChiTietHoaDon> listCT = new ArrayList<ChiTietHoaDon>();
+		ArrayList<ChiTietTraHang> listCT = new ArrayList<ChiTietTraHang>();
 
 		try {
 			PreparedStatement pstm = conn.prepareStatement(
-				"SELECT * FROM ChiTietHoaDon cthd JOIN SanPham sp ON cthd.SanPhamID = sp.SanPhamID WHERE HoaDonID = ?"
+				"SELECT * FROM ChiTietTraHang cthd JOIN SanPham sp ON cthd.SanPhamID = sp.SanPhamID WHERE HoaDonID = ?"
 			);
 
 			pstm.setString(1, maHoaDon);
@@ -129,7 +131,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 						loaidoitra, barcode, img, tinhtrang, loaisanpham, donvidoluong, 
 						kichthuoc, xuatxu, ngongu, loaibia,
 						tg, tl, nxb, th, dm, ncc);
-				ChiTietHoaDon cthd = new ChiTietHoaDon(sanPham,
+				ChiTietTraHang cthd = new ChiTietTraHang(sanPham,
 						rs.getInt("soLuong"));
 				cthd.setDonGia(rs.getDouble("donGia"));
 				listCT.add(cthd);
@@ -143,12 +145,12 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		}
 	}
 	@Override
-	public boolean removeMotChiTietCuaHoaDon(ChiTietHoaDon x) {
+	public boolean removeMotChiTietCuaHoaDon(ChiTietTraHang x) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 	
-	public ChiTietHoaDon_DAO() {
+	public ChiTietTraHang_DAO() {
 		// TODO Auto-generated constructor stub
 		conn = ConnectDB.getConnection();
 	}

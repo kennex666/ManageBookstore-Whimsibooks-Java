@@ -37,9 +37,9 @@ public class HoaDonTra {
     	listChiTietHoaDon = new ArrayList<ChiTietTraHang>();
     }
 
-    public HoaDonTra(HoaDonTra other) {
-        this(other.hoaDonID, other.ngayTraHoaDon, other.trangThai);
-    	listChiTietHoaDon = new ArrayList<ChiTietTraHang>();
+    public HoaDonTra(String hoaDonID) {
+       this.hoaDonID = hoaDonID;
+        listChiTietHoaDon = new ArrayList<ChiTietTraHang>();
     }
 
     
@@ -105,11 +105,11 @@ public class HoaDonTra {
     public int addChiTietHoaDon(ChiTietTraHang x) {
 		if (listChiTietHoaDon.contains(x)){
 			int temp = listChiTietHoaDon.indexOf(x);
-       	 	listChiTietHoaDon.get(temp)
-       	 	.setSoLuong(
-       	 		listChiTietHoaDon.get(temp).getSoLuong() + 1
-       	 	);
-       	 	return temp;
+                    listChiTietHoaDon.get(temp)
+                    .setSoLuong(
+                            listChiTietHoaDon.get(temp).getSoLuong() + x.getSoLuong()
+                    );
+                    return temp;
 	   	}
 		
 		listChiTietHoaDon.add(x);
@@ -125,7 +125,7 @@ public class HoaDonTra {
     	}
     }
 	
-	public void removeChiTietHoaDon(ChiTietHoaDon x) {
+	public void removeChiTietHoaDon(ChiTietTraHang x) {
 		listChiTietHoaDon.remove(x);
 	}
         
@@ -158,15 +158,9 @@ public class HoaDonTra {
 			Object[] tempObj = new Object[10];
 			ChiTietTraHang tempCTHD = listChiTietHoaDon.get(listChiTietHoaDon.indexOf(x));
 			tempObj[0] = listChiTietHoaDon.indexOf(x) + 1; 
-			tempObj[1] = tempCTHD.getSanPham().getSanPhamID();
-			tempObj[2] = tempCTHD.getSanPham().getTenSanPham();
-			tempObj[3] = tempCTHD.getSanPham().getGiaBan();
-			tempObj[4] = "";
-			tempObj[5] = tempCTHD.getSoLuong();
-			tempObj[6] = "";
-			tempObj[7] = tempCTHD.getSanPham().getThue();
-			tempObj[8] = tempCTHD.tinhTongTien();
-			tempObj[9] = "";
+			tempObj[1] = tempCTHD.getSanPham().getTenSanPham();
+			tempObj[2] = tempCTHD.getSoLuong();
+			tempObj[3] = "";
 		return tempObj;
 	}
 	

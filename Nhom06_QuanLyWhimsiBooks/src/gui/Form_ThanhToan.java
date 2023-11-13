@@ -610,11 +610,10 @@ public class Form_ThanhToan extends javax.swing.JFrame {
                 (tienTraLai > 0 ? "Đừng quên trả khách " + Numberic.formatVND(tienTraLai) + " nhé!" : "Đã nhận đủ tiền!") + "\nBạn có muốn in hoá đơn?"
         )){
             
-        	
-        }else {
-        	tabBanHang.thanhToanHoanTat();
-        	closeFormThanhToan();
         }
+
+    	tabBanHang.thanhToanHoanTat();
+    	closeFormThanhToan();
         
     }//GEN-LAST:event_btnThanhToanHoanTatActionPerformed
 
@@ -696,7 +695,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         if (Numberic.isDouble(temp)){
             tempDoubleTKD = Numberic.parseDouble(temp);
             if (tempDoubleTKD == 0)
-                txtTienKhachDua.setText("");
+                txtTienKhachDua.setText("0");
             else
                 txtTienKhachDua.setText(String.format("%.0f", tempDoubleTKD));
             tempTraLai = tempDoubleTKD - hoaDon.tinhThanhTien();

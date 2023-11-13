@@ -236,17 +236,20 @@ VALUES
 -- Sample data for HoaDon table
 INSERT INTO HoaDon (HoaDonID, CodeKhuyenMai, KhachHangID, NhanVienID, NgayLapHoaDon, TongTien, TrangThai, Thue, GiaKhuyenMai)
 VALUES
-   ('HD04112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-04', 100000, 'Paid', 10000, 0),
-   ('HD04112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-04', 80000, 'Paid', 8000, 0),
-   ('HD07112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-07', 100000, 'Paid', 10000, 0),
-   ('HD07112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-07', 80000, 'Paid', 8000, 0);
+   ('HD04112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-04', 100000, 'DA_XU_LY', 10000, 0),
+   ('HD04112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-04', 80000, 'HUY_BO', 8000, 0),
+   ('HD07112301', 'NO_APPLY', 'KH0001', 'NV0001', '2023-11-07', 100000, 'CHO_XU_LY', 10000, 0),
+   ('HD07112302', 'NO_APPLY', 'KH0002', 'NV0002', '2023-11-07', 80000, 'DA_XU_LY', 8000, 0);
 
 
  --Sample data for ChiTietHoaDon table
 INSERT INTO ChiTietHoaDon (SoLuong, HoaDonID, SanPhamID, DonGia)
 VALUES
-   (1, 'HD07112301', 1, 100000),
-   (1, 'HD07112302', 2, 80000);
+	(8, 'HD04112301', 1, 100000),
+   (4, 'HD04112302', 1, 100000),
+   (4, 'HD04112302', 2, 80000),
+   (19, 'HD07112301', 1, 100000),
+   (14, 'HD07112302', 2, 80000);
 	
 -- Sample data for ChiTietTraHang table
 INSERT INTO ChiTietTraHang (SoLuong, HoaDonID, SanPhamID, DonGia, LiDoTrahang)
@@ -259,6 +262,40 @@ VALUES
 -- SCRIPT BY BẢO
 GO
 
+--- Trigger kích hoạt khi cập nhật hoá đơn
+--CREATE TRIGGER trg_SuaHoaDon
+--ON HoaDon
+--AFTER UPDATE
+--AS BEGIN
+
+--	declare @HoaDonID AS nvarchar(255), @TrangThai AS nvarchar(255)
+--	declare @SanPhamID AS nvarchar(255), @SoLuong AS INT
+	
+--	SET @HoaDonID = (SELECT HoaDonID FROM inserted)
+--	SET @TrangThai = (SELECT TrangThai FROM inserted)
+		
+--	IF @TrangThai <> 'HUY_BO'
+--		BEGIN
+--			RETURN
+--		END
+
+--	DECLARE chitietcapnhat CURSOR FOR (SELECT SanPhamID, SoLuong FROM ChiTietHoaDon WHERE HoaDonID = @HoaDonID)
+--	OPEN chitietcapnhat;  
+--	FETCH NEXT FROM chitietcapnhat  
+--	INTO @SanPhamID, @SoLuong
+--	WHILE @@FETCH_STATUS = 0  
+--	BEGIN
+--		UPDATE SanPham SET SoLuongTon += @SoLuong WHERE SanPhamID = @SanPhamID
+--		FETCH NEXT FROM chitietcapnhat  
+--		INTO @SanPhamID, @SoLuong
+--	END
+--	CLOSE chitietcapnhat;  
+--	DEALLOCATE chitietcapnhat;
+--END
+--GO
+
+
+
 --- Trigger kích hoạt khi thêm chi tiết hoá đơn
 CREATE TRIGGER trg_ThemChiTietHoaDon
 ON ChiTietHoaDon
@@ -267,6 +304,10 @@ AS BEGIN
 	declare @SanPhamID AS nvarchar(255), @SoLuongLayDi AS int
 	SET @SanPhamID = (SELECT SanPhamID FROM inserted)
 	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
+	IF 'HUY_BO' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
+	BEGIN
+		RETURN
+	END
 	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
 	WHERE @SanPhamID = SanPhamID
 END
@@ -282,13 +323,16 @@ AS BEGIN
 	SET @SanPhamIDTra = (SELECT SanPhamID FROM deleted)
 	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
 	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
+	IF 'HUY_BO' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
+	BEGIN
+		RETURN
+	END
 	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
 	WHERE @SanPhamIDLay = SanPhamID
 	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
 	WHERE @SanPhamIDTra = SanPhamID
 END
 GO
-
 --- Trigger kích hoạt khi xoá chi tiết hoá đơn
 CREATE TRIGGER trg_XoaChiTietHoaDon
 ON ChiTietHoaDon
@@ -311,6 +355,20 @@ AS BEGIN
 	SET @SanPhamID = (SELECT SanPhamID FROM inserted)
 	SET @SoLuongTraLai = (SELECT SoLuong FROM inserted)
 	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
+	WHERE @SanPhamID = SanPhamID
+END
+GO
+
+
+--- Trigger kích hoạt khi xoá chi tiết trả hoá đơn
+CREATE TRIGGER trg_XoaChiTietTraHang
+ON ChiTietTraHang
+AFTER INSERT
+AS BEGIN	
+	declare @SanPhamID AS nvarchar(255), @SoLuongTraLai AS int
+	SET @SanPhamID = (SELECT SanPhamID FROM deleted)
+	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
+	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongTraLai
 	WHERE @SanPhamID = SanPhamID
 END
 GO

@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Objects;
+
 public class ChiTietTraHang {
 	private int soLuong;
 	private String liDoTraHang;
@@ -17,6 +19,12 @@ public class ChiTietTraHang {
 		this.donGia = donGia;
 		this.hoaDon = hoaDon;
 		this.sanPham = sanPham;
+	}
+
+	public ChiTietTraHang(SanPham sanPham, int soLuong) {
+		// TODO Auto-generated constructor stub
+		this.sanPham = sanPham;
+		this.soLuong = soLuong;
 	}
 
 	public double getDonGia() {
@@ -70,7 +78,26 @@ public class ChiTietTraHang {
 		// đang lập. Giá bán đã kèm VAT
 		return donGia > 0 ? donGia * soLuong : (soLuong * sanPham.getGiaBan());
 	}
+        
+    
 	
+	@Override
+	public int hashCode() {
+		return Objects.hash(sanPham);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ChiTietTraHang other = (ChiTietTraHang) obj;
+		return Objects.equals(sanPham, other.sanPham);
+	}
+
 	// Phương thức toString
 	@Override
 	public String toString() {

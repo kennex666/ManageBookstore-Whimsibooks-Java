@@ -209,6 +209,7 @@ public class HoaDon {
 			lines.add(tableRowChiTietHoaDon(tempCTHD));
 			
 		}
+		System.out.println(listChiTietHoaDon.size());
 		return lines;
 	}
 	
