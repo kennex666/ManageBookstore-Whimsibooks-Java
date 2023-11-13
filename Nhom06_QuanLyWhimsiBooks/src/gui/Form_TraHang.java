@@ -11,6 +11,8 @@ import bus.HoaDon_BUS;
 import dao.ChiTietTraHang_DAO;
 import entities.HoaDonTra;
 import entities.HoaDon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
@@ -89,6 +91,17 @@ public class Form_TraHang extends javax.swing.JFrame {
             tblModelTraHang.addRow(k);
         }
         
+        comboBox.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            int selectedIndex = comboBox.getSelectedIndex();
+            if (jTable1.getSelectedRow() < 0)
+                return;
+            String selectedItem = comboBox.getSelectedItem().toString();
+
+            // Do something with the selected item
+            hoaDonTra.getListChiTietHoaDon().get(jTable1.getSelectedRow()).setLiDoTraHang(selectedItem);
+        }
+    });
     }
     
     

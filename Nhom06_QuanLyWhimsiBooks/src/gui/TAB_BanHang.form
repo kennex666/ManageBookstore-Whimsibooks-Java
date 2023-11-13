@@ -490,6 +490,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="txtMaSanPham">
                       <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldClicked"/>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddSanPhamActionPerformed"/>
                       </Events>
                       <Constraints>
@@ -1558,6 +1559,7 @@
                                 </Property>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldClicked"/>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaKhachHangActionPerformed"/>
                               </Events>
                               <AuxValues>
@@ -2204,6 +2206,7 @@
                                 </Property>
                               </Properties>
                               <Events>
+                                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldClicked"/>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtKhuyenMaiActionPerformed"/>
                               </Events>
                               <AuxValues>

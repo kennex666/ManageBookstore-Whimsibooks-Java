@@ -46,6 +46,7 @@ import utilities.*;
  * @author duong
  */
 public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
+        private JTextField lastClicked;
 	private SanPham_BUS sanPham_BUS;
 	private NhanVien_BUS nhanVien_BUS;
 	private KhachHang_BUS khachHang_BUS;
@@ -510,1036 +511,1072 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
 	// <editor-fold defaultstate="collapsed" desc="Generated
-	// Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
-		java.awt.GridBagConstraints gridBagConstraints;
-
-		jTabbed = new javax.swing.JTabbedPane();
-		tabbedHoaDon = new javax.swing.JPanel();
-		tabBanHang_HoaDon_Center = new javax.swing.JPanel();
-		jPanel7 = new javax.swing.JPanel();
-		jScrollPane1 = new javax.swing.JScrollPane();
-		tblChiTietHoaDon = new javax.swing.JTable();
-		tabBanHang_HoaDon_Button = new javax.swing.JPanel();
-		btnHangCho = new javax.swing.JButton();
-		btnCancelHD = new javax.swing.JButton();
-		jPanel6 = new javax.swing.JPanel();
-		jLabel3 = new javax.swing.JLabel();
-		txtMaSanPham = new javax.swing.JTextField();
-		jPanel5 = new javax.swing.JPanel();
-		btnThemSanPham = new javax.swing.JButton();
-		btnXoaRongMaSP = new javax.swing.JButton();
-		tabBanHang_HoaDon_Right = new javax.swing.JPanel();
-		tabBanHang_HoaDon_Right_KhachHang = new javax.swing.JPanel();
-		jPanel11 = new javax.swing.JPanel();
-		jPanel12 = new javax.swing.JPanel();
-		txtMaKhachHang = new utilities.JTextFieldPlaceHolder();
-		btnKhachHangEnter = new javax.swing.JButton();
-		jLabel8 = new javax.swing.JLabel();
-		jTextField7 = new javax.swing.JTextField();
-		jTextField8 = new javax.swing.JTextField();
-		jLabel9 = new javax.swing.JLabel();
-		tabBanHang_HoaDon_Right_GiamGia = new javax.swing.JPanel();
-		jPanel15 = new javax.swing.JPanel();
-		jPanel16 = new javax.swing.JPanel();
-		txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
-		btnKhuyenMaiEnter = new javax.swing.JButton();
-		jLabel12 = new javax.swing.JLabel();
-		jTextField14 = new javax.swing.JTextField();
-		jTextField15 = new javax.swing.JTextField();
-		jLabel13 = new javax.swing.JLabel();
-		panel_TongTien = new javax.swing.JPanel();
-		lblTongTien = new javax.swing.JLabel();
-		txtValueTongTien = new javax.swing.JTextField();
-		lblChietKhau = new javax.swing.JLabel();
-		txtValueChietKhau = new javax.swing.JTextField();
-		lblThanhTien = new javax.swing.JLabel();
-		txtValueThanhTien = new javax.swing.JTextField();
-		txtValueTongThue = new javax.swing.JTextField();
-		lblThue = new javax.swing.JLabel();
-		btnThanhToan = new javax.swing.JButton();
-		btnKeyPad = new javax.swing.JButton();
-		tabbedDanhSachHoaDon = new javax.swing.JPanel();
-		jPanel1 = new javax.swing.JPanel();
-		jPanel2 = new javax.swing.JPanel();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
-		txt_DSHD_TuNLHD = new com.toedter.calendar.JDateChooser();
-		txt_DSHD_DenNLHD = new com.toedter.calendar.JDateChooser();
-		jLabel4 = new javax.swing.JLabel();
-		jLabel11 = new javax.swing.JLabel();
-		cbo_DSHD_TrangThai = new javax.swing.JComboBox<>();
-		txt_DSHD_GiaTriTu = new javax.swing.JTextField();
-		txt_DSHD_GiaTriDen = new javax.swing.JTextField();
-		jLabel14 = new javax.swing.JLabel();
-		jLabel15 = new javax.swing.JLabel();
-		jLabel16 = new javax.swing.JLabel();
-		txt_DSHD_MaHoaDon = new javax.swing.JTextField();
-		txt_DSHD_MaKH = new javax.swing.JTextField();
-		txt_DSHD_MaNV = new javax.swing.JTextField();
-		jLabel17 = new javax.swing.JLabel();
-		btn_DSHD_Search = new javax.swing.JButton();
-		btn_DSHD_taiLai = new javax.swing.JButton();
-		jLabel18 = new javax.swing.JLabel();
-		jPanel8 = new javax.swing.JPanel();
-		jPanel9 = new javax.swing.JPanel();
-		btn_DSHD_ThanhToan = new javax.swing.JButton();
-		btn_DSHD_InHD = new javax.swing.JButton();
-		btn_DSHD_XemChiTiet = new javax.swing.JButton();
-		btn_DSHD_DoiTraHoaDon = new javax.swing.JButton();
-		btn_DSHD_HuyHoaDon = new javax.swing.JButton();
-		jPanel10 = new javax.swing.JPanel();
-		jScrollPane2 = new javax.swing.JScrollPane();
-		jTable2 = new javax.swing.JTable();
-		TAB_BanHang_HoaDon = new javax.swing.JPanel();
-
-		setLayout(new java.awt.BorderLayout());
-
-		jTabbed.addChangeListener(new javax.swing.event.ChangeListener() {
-			public void stateChanged(javax.swing.event.ChangeEvent evt) {
-				tabSwitchBanHang(evt);
-			}
-		});
-		jTabbed.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				jTabbedMouseClicked(evt);
-			}
-		});
-
-		tabbedHoaDon.setLayout(new java.awt.GridBagLayout());
-
-		java.awt.GridBagLayout tabBanHang_HoaDon_CenterLayout = new java.awt.GridBagLayout();
-		tabBanHang_HoaDon_CenterLayout.columnWidths = new int[] { 0 };
-		tabBanHang_HoaDon_CenterLayout.rowHeights = new int[] { 0, 0, 0 };
-		tabBanHang_HoaDon_Center.setLayout(tabBanHang_HoaDon_CenterLayout);
-
-		jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-		jPanel7.setLayout(new java.awt.BorderLayout());
-
-		tblChiTietHoaDon.setModel(tblModelCTHD = new javax.swing.table.DefaultTableModel(new Object[][] {
-
-		}, new String[] { "STT", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "-", "Số lượng", "+", "Thuế", "Thành tiền",
-				"Xoá" }) {
-			Class[] types = new Class[] { java.lang.Object.class, java.lang.String.class, java.lang.String.class,
-					java.lang.Double.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class,
-					java.lang.String.class, java.lang.Double.class, java.lang.Object.class };
-			boolean[] canEdit = new boolean[] { false, false, false, false, false, true, false, false, false, false };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		tblChiTietHoaDon.setCellSelectionEnabled(true);
-		jScrollPane1.setViewportView(tblChiTietHoaDon);
-		if (tblChiTietHoaDon.getColumnModel().getColumnCount() > 0) {
-			tblChiTietHoaDon.getColumnModel().getColumn(0).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(0).setPreferredWidth(20);
-			tblChiTietHoaDon.getColumnModel().getColumn(0).setHeaderValue("STT");
-			tblChiTietHoaDon.getColumnModel().getColumn(1).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(1).setPreferredWidth(50);
-			tblChiTietHoaDon.getColumnModel().getColumn(1).setHeaderValue("Mã sản phẩm");
-			tblChiTietHoaDon.getColumnModel().getColumn(2).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(2).setHeaderValue("Tên sản phẩm");
-			tblChiTietHoaDon.getColumnModel().getColumn(3).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(3).setHeaderValue("Đơn giá");
-			tblChiTietHoaDon.getColumnModel().getColumn(4).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(4).setPreferredWidth(10);
-			tblChiTietHoaDon.getColumnModel().getColumn(4).setHeaderValue("-");
-			tblChiTietHoaDon.getColumnModel().getColumn(5).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(5).setPreferredWidth(30);
-			tblChiTietHoaDon.getColumnModel().getColumn(5).setHeaderValue("Số lượng");
-			tblChiTietHoaDon.getColumnModel().getColumn(6).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(6).setPreferredWidth(10);
-			tblChiTietHoaDon.getColumnModel().getColumn(6).setHeaderValue("+");
-			tblChiTietHoaDon.getColumnModel().getColumn(7).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(7).setPreferredWidth(30);
-			tblChiTietHoaDon.getColumnModel().getColumn(7).setHeaderValue("Thuế");
-			tblChiTietHoaDon.getColumnModel().getColumn(8).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(8).setHeaderValue("Thành tiền");
-			tblChiTietHoaDon.getColumnModel().getColumn(9).setResizable(false);
-			tblChiTietHoaDon.getColumnModel().getColumn(9).setPreferredWidth(25);
-			tblChiTietHoaDon.getColumnModel().getColumn(9).setHeaderValue("Xoá");
-		}
-		tblChiTietHoaDon.getAccessibleContext().setAccessibleName("");
-
-		jPanel7.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-		java.awt.GridBagLayout tabBanHang_HoaDon_Right_GiamGia1Layout = new java.awt.GridBagLayout();
-		tabBanHang_HoaDon_Right_GiamGia1Layout.columnWidths = new int[] { 0, 8, 0, 8, 0 };
-		tabBanHang_HoaDon_Right_GiamGia1Layout.rowHeights = new int[] { 0, 11, 0 };
-		tabBanHang_HoaDon_Button.setLayout(tabBanHang_HoaDon_Right_GiamGia1Layout);
-
-		btnHangCho.setBackground(new java.awt.Color(15, 145, 239));
-		btnHangCho.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		btnHangCho.setForeground(new java.awt.Color(255, 255, 255));
-		btnHangCho.setIcon(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-waitlist.png")), 25, 25));
-		btnHangCho.setText("Hàng chờ (F5)");
-		btnHangCho.setIconTextGap(30);
-		btnHangCho.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnHangChoActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.ipady = 14;
-		gridBagConstraints.weightx = 0.1;
-		tabBanHang_HoaDon_Button.add(btnHangCho, gridBagConstraints);
-
-		btnCancelHD.setBackground(new java.awt.Color(239, 162, 162));
-		btnCancelHD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		btnCancelHD.setForeground(new java.awt.Color(255, 255, 255));
-		btnCancelHD.setText("Huỷ hoá đơn (F9)");
-		btnCancelHD.setIconTextGap(30);
-		btnCancelHD.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnCancelHDActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridheight = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.1;
-		tabBanHang_HoaDon_Button.add(btnCancelHD, gridBagConstraints);
-
-		jPanel7.add(tabBanHang_HoaDon_Button, java.awt.BorderLayout.PAGE_END);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		tabBanHang_HoaDon_Center.add(jPanel7, gridBagConstraints);
-
-		java.awt.GridBagLayout jPanel6Layout = new java.awt.GridBagLayout();
-		jPanel6Layout.columnWidths = new int[] { 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10,
-				0 };
-		jPanel6Layout.rowHeights = new int[] { 0, 10, 0, 10, 0 };
-		jPanel6.setLayout(jPanel6Layout);
-
-		jLabel3.setText("Mã sản phẩm:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.weighty = 0.09;
-		gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-		jPanel6.add(jLabel3, gridBagConstraints);
-
-		txtMaSanPham.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnAddSanPhamActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
-		jPanel6.add(txtMaSanPham, gridBagConstraints);
-
-		java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
-		jPanel5Layout.columnWidths = new int[] { 0, 22, 0, 22, 0, 22, 0 };
-		jPanel5Layout.rowHeights = new int[] { 0 };
-		jPanel5.setLayout(jPanel5Layout);
-
-		btnThemSanPham.setBackground(new java.awt.Color(15, 102, 165));
-		btnThemSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-		btnThemSanPham.setForeground(new java.awt.Color(255, 255, 255));
-		btnThemSanPham.setIcon(ImageProcessing
-				.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20, 20));
-		btnThemSanPham.setIconTextGap(10);
-		btnThemSanPham.setPreferredSize(new java.awt.Dimension(50, 20));
-		btnThemSanPham.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnAddSanPhamActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.5;
-		jPanel5.add(btnThemSanPham, gridBagConstraints);
-
-		btnXoaRongMaSP.setBackground(new java.awt.Color(239, 162, 162));
-		btnXoaRongMaSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-		btnXoaRongMaSP.setForeground(new java.awt.Color(255, 255, 255));
-		btnXoaRongMaSP.setIcon(ImageProcessing
-				.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-delete.png")), 15, 20));
-		btnXoaRongMaSP.setIconTextGap(10);
-		btnXoaRongMaSP.setPreferredSize(new java.awt.Dimension(50, 20));
-		btnXoaRongMaSP.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnXoaRongMaSPActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.ipady = 15;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.5;
-		jPanel5.add(btnXoaRongMaSP, gridBagConstraints);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 12;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 7;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
-		gridBagConstraints.weighty = 0.2;
-		jPanel6.add(jPanel5, gridBagConstraints);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		tabBanHang_HoaDon_Center.add(jPanel6, gridBagConstraints);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.3;
-		gridBagConstraints.weighty = 0.2;
-		gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
-		tabbedHoaDon.add(tabBanHang_HoaDon_Center, gridBagConstraints);
-
-		java.awt.GridBagLayout tabBanHang_HoaDon_RightLayout = new java.awt.GridBagLayout();
-		tabBanHang_HoaDon_RightLayout.columnWidths = new int[] { 0 };
-		tabBanHang_HoaDon_RightLayout.rowHeights = new int[] { 0, 14, 0, 14, 0 };
-		tabBanHang_HoaDon_Right.setLayout(tabBanHang_HoaDon_RightLayout);
-
-		tabBanHang_HoaDon_Right_KhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng"));
-		tabBanHang_HoaDon_Right_KhachHang.setLayout(new java.awt.BorderLayout());
-
-		java.awt.GridBagLayout jPanel11Layout = new java.awt.GridBagLayout();
-		jPanel11Layout.columnWidths = new int[] { 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0 };
-		jPanel11Layout.rowHeights = new int[] { 0, 9, 0, 9, 0, 9, 0 };
-		jPanel11.setLayout(jPanel11Layout);
-
-		txtMaKhachHang.setMinimumSize(new java.awt.Dimension(16, 22));
-		txtMaKhachHang.setPreferredSize(new java.awt.Dimension(150, 30));
-		txtMaKhachHang.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				txtMaKhachHangActionPerformed(evt);
-			}
-		});
-		jPanel12.add(txtMaKhachHang);
-
-		btnKhachHangEnter.setBackground(new java.awt.Color(15, 102, 165));
-		btnKhachHangEnter.setIcon(ImageProcessing
-				.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20, 20));
-		btnKhachHangEnter.setPreferredSize(new java.awt.Dimension(50, 30));
-		btnKhachHangEnter.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnKhachHangEnterActionPerformed(evt);
-			}
-		});
-		jPanel12.add(btnKhachHangEnter);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 21;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		jPanel11.add(jPanel12, gridBagConstraints);
-
-		jLabel8.setText("Tên khách hàng:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
-		jPanel11.add(jLabel8, gridBagConstraints);
-
-		jTextField7.setEditable(false);
-		jTextField7.setFocusable(false);
-		jTextField7.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jTextField7ActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.gridwidth = 11;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		jPanel11.add(jTextField7, gridBagConstraints);
-
-		jTextField8.setEditable(false);
-		jTextField8.setFocusable(false);
-		jTextField8.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jTextField8ActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 11;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		jPanel11.add(jTextField8, gridBagConstraints);
-
-		jLabel9.setText("Mã khách hàng:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-		jPanel11.add(jLabel9, gridBagConstraints);
-
-		tabBanHang_HoaDon_Right_KhachHang.add(jPanel11, java.awt.BorderLayout.PAGE_START);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_KhachHang, gridBagConstraints);
-
-		tabBanHang_HoaDon_Right_GiamGia.setBorder(javax.swing.BorderFactory.createTitledBorder("Khuyến mãi"));
-		tabBanHang_HoaDon_Right_GiamGia.setLayout(new java.awt.BorderLayout());
-
-		java.awt.GridBagLayout jPanel15Layout = new java.awt.GridBagLayout();
-		jPanel15Layout.columnWidths = new int[] { 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0 };
-		jPanel15Layout.rowHeights = new int[] { 0, 9, 0, 9, 0, 9, 0 };
-		jPanel15.setLayout(jPanel15Layout);
-
-		txtKhuyenMai.setMinimumSize(new java.awt.Dimension(16, 22));
-		txtKhuyenMai.setPreferredSize(new java.awt.Dimension(150, 30));
-		txtKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				txtKhuyenMaiActionPerformed(evt);
-			}
-		});
-		jPanel16.add(txtKhuyenMai);
-
-		btnKhuyenMaiEnter.setBackground(new java.awt.Color(15, 102, 165));
-		btnKhuyenMaiEnter.setIcon(ImageProcessing
-				.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-tap.png")), 20, 20));
-		btnKhuyenMaiEnter.setPreferredSize(new java.awt.Dimension(50, 30));
-		jPanel16.add(btnKhuyenMaiEnter);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 21;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		jPanel15.add(jPanel16, gridBagConstraints);
-
-		jLabel12.setText("Chương trình:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
-		jPanel15.add(jLabel12, gridBagConstraints);
-
-		jTextField14.setEditable(false);
-		jTextField14.setFocusable(false);
-		jTextField14.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jTextField14ActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.gridwidth = 11;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		jPanel15.add(jTextField14, gridBagConstraints);
-
-		jTextField15.setEditable(false);
-		jTextField15.setFocusable(false);
-		jTextField15.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jTextField15ActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.gridwidth = 11;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
-		gridBagConstraints.weightx = 0.1;
-		jPanel15.add(jTextField15, gridBagConstraints);
-
-		jLabel13.setText("Mã giảm giá:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
-		jPanel15.add(jLabel13, gridBagConstraints);
-
-		tabBanHang_HoaDon_Right_GiamGia.add(jPanel15, java.awt.BorderLayout.PAGE_START);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_GiamGia, gridBagConstraints);
-
-		java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
-		jPanel1Layout.columnWidths = new int[] { 0, 33, 0 };
-		jPanel1Layout.rowHeights = new int[] { 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0 };
-		panel_TongTien.setLayout(jPanel1Layout);
-
-		lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		lblTongTien.setText("Tổng tiền:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		panel_TongTien.add(lblTongTien, gridBagConstraints);
-
-		txtValueTongTien.setEditable(false);
-		txtValueTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		txtValueTongTien.setFocusable(false);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-		panel_TongTien.add(txtValueTongTien, gridBagConstraints);
-
-		lblChietKhau.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		lblChietKhau.setText("Chiết khấu:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		panel_TongTien.add(lblChietKhau, gridBagConstraints);
-
-		txtValueChietKhau.setEditable(false);
-		txtValueChietKhau.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		txtValueChietKhau.setFocusable(false);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-		panel_TongTien.add(txtValueChietKhau, gridBagConstraints);
-
-		lblThanhTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		lblThanhTien.setText("Thành tiền:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 12;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		panel_TongTien.add(lblThanhTien, gridBagConstraints);
-
-		txtValueThanhTien.setEditable(false);
-		txtValueThanhTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		txtValueThanhTien.setFocusable(false);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 12;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-		panel_TongTien.add(txtValueThanhTien, gridBagConstraints);
-
-		txtValueTongThue.setEditable(false);
-		txtValueTongThue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		txtValueTongThue.setFocusable(false);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 1;
-		gridBagConstraints.gridy = 8;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
-		panel_TongTien.add(txtValueTongThue, gridBagConstraints);
-
-		lblThue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-		lblThue.setText("Thuế:");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 8;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-		panel_TongTien.add(lblThue, gridBagConstraints);
-
-		btnThanhToan.setBackground(new java.awt.Color(15, 145, 239));
-		btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
-		btnThanhToan.setIcon(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-purchase.png")), 35, 35));
-		btnThanhToan.setText("Thanh toán (F12)");
-		btnThanhToan.setIconTextGap(30);
-		btnThanhToan.setMargin(new java.awt.Insets(0, 10, 0, 0));
-		btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnThanhToanActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 20;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 12;
-		panel_TongTien.add(btnThanhToan, gridBagConstraints);
-
-		btnKeyPad.setBackground(new java.awt.Color(15, 145, 239));
-		btnKeyPad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		btnKeyPad.setForeground(new java.awt.Color(255, 255, 255));
-		btnKeyPad.setIcon(
-				ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-keypad.png")), 30, 30));
-		btnKeyPad.setText("Bàn phím số");
-		btnKeyPad.setIconTextGap(30);
-		btnKeyPad.setMargin(new java.awt.Insets(0, 0, 0, 25));
-		btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnKeyPadActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 16;
-		gridBagConstraints.gridwidth = 3;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 12;
-		panel_TongTien.add(btnKeyPad, gridBagConstraints);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 0;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
-		gridBagConstraints.weighty = 0.4;
-		tabBanHang_HoaDon_Right.add(panel_TongTien, gridBagConstraints);
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
-		tabbedHoaDon.add(tabBanHang_HoaDon_Right, gridBagConstraints);
-
-		jTabbed.addTab("Hoá đơn", tabbedHoaDon);
-
-		tabbedDanhSachHoaDon.setLayout(new java.awt.BorderLayout());
-
-		jPanel1.setLayout(new java.awt.BorderLayout());
-
-		jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-		jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-		java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
-		jPanel2Layout.columnWidths = new int[] { 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0 };
-		jPanel2Layout.rowHeights = new int[] { 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7,
-				0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0 };
-		jPanel2.setLayout(jPanel2Layout);
-
-		jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-		jLabel1.setText("Tìm kiếm hoá đơn");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 0;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel1, gridBagConstraints);
-
-		jLabel2.setText("Trạng thái");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 8;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel2, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 6;
-		gridBagConstraints.ipadx = 17;
-		jPanel2.add(txt_DSHD_TuNLHD, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 6;
-		gridBagConstraints.ipadx = 17;
-		jPanel2.add(txt_DSHD_DenNLHD, gridBagConstraints);
-
-		jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel4.setText("-");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 6;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
-		jPanel2.add(jLabel4, gridBagConstraints);
-
-		jLabel11.setText("Ngày lập hoá đơn");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 4;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel11, gridBagConstraints);
-
-		cbo_DSHD_TrangThai.setModel(
-				new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 10;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(cbo_DSHD_TrangThai, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 14;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(txt_DSHD_GiaTriTu, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 14;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(txt_DSHD_GiaTriDen, gridBagConstraints);
-
-		jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-		jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-		jLabel14.setText("-");
-		jLabel14.setFocusable(false);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 14;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
-		jPanel2.add(jLabel14, gridBagConstraints);
-
-		jLabel15.setText("Giá trị hoá đơn");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 12;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel15, gridBagConstraints);
-
-		jLabel16.setText("Mã hoá đơn");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 16;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel16, gridBagConstraints);
-
-		txt_DSHD_MaHoaDon.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				txt_DSHD_MaHoaDonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 18;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(txt_DSHD_MaHoaDon, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 22;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(txt_DSHD_MaKH, gridBagConstraints);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 26;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(txt_DSHD_MaNV, gridBagConstraints);
-
-		jLabel17.setText("Mã/Số điện thoại nhân viên bán");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 24;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel17, gridBagConstraints);
-
-		btn_DSHD_Search.setBackground(new java.awt.Color(15, 145, 239));
-		btn_DSHD_Search.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_Search.setText("Tìm kiếm");
-		btn_DSHD_Search.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_SearchActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 30;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = 19;
-		gridBagConstraints.ipady = 8;
-		gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
-		jPanel2.add(btn_DSHD_Search, gridBagConstraints);
-
-		btn_DSHD_taiLai.setBackground(new java.awt.Color(15, 145, 239));
-		btn_DSHD_taiLai.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_taiLai.setText("Tải lại");
-		btn_DSHD_taiLai.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_taiLaiActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 5;
-		gridBagConstraints.gridy = 30;
-		gridBagConstraints.gridwidth = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.ipadx = 19;
-		gridBagConstraints.ipady = 8;
-		gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
-		jPanel2.add(btn_DSHD_taiLai, gridBagConstraints);
-
-		jLabel18.setText("Mã/Số điện thoại khách hàng");
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 20;
-		gridBagConstraints.gridwidth = 5;
-		gridBagConstraints.ipadx = 9;
-		gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
-		jPanel2.add(jLabel18, gridBagConstraints);
-
-		jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
-
-		jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
-		jPanel8.setLayout(new java.awt.BorderLayout());
-
-		java.awt.GridBagLayout jPanel9Layout = new java.awt.GridBagLayout();
-		jPanel9Layout.columnWidths = new int[] { 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0 };
-		jPanel9Layout.rowHeights = new int[] { 0, 7, 0, 7, 0 };
-		jPanel9.setLayout(jPanel9Layout);
-
-		btn_DSHD_ThanhToan.setBackground(new java.awt.Color(15, 145, 239));
-		btn_DSHD_ThanhToan.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_ThanhToan.setIcon(ImageProcessing.resizeIcon(
-				new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-xulyhoadoncu.png")), 25, 25));
-		btn_DSHD_ThanhToan.setText("Xử lý hoá đơn");
-		btn_DSHD_ThanhToan.setEnabled(false);
-		btn_DSHD_ThanhToan.setIconTextGap(12);
-		btn_DSHD_ThanhToan.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_ThanhToanActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
-		jPanel9.add(btn_DSHD_ThanhToan, gridBagConstraints);
-
-		btn_DSHD_InHD.setBackground(new java.awt.Color(137, 140, 141));
-		btn_DSHD_InHD.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_InHD.setIcon(ImageProcessing
-				.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-print.png")), 25, 25));
-		btn_DSHD_InHD.setText("In hoá đơn");
-		btn_DSHD_InHD.setEnabled(false);
-		btn_DSHD_InHD.setIconTextGap(12);
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 4;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
-		jPanel9.add(btn_DSHD_InHD, gridBagConstraints);
-
-		btn_DSHD_XemChiTiet.setBackground(new java.awt.Color(137, 140, 141));
-		btn_DSHD_XemChiTiet.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_XemChiTiet.setIcon(ImageProcessing.resizeIcon(
-				new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-viewdetails.png")), 25, 25));
-		btn_DSHD_XemChiTiet.setText("Xem chi tiết");
-		btn_DSHD_XemChiTiet.setEnabled(false);
-		btn_DSHD_XemChiTiet.setIconTextGap(12);
-		btn_DSHD_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_XemChiTietActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 6;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
-		jPanel9.add(btn_DSHD_XemChiTiet, gridBagConstraints);
-
-		btn_DSHD_DoiTraHoaDon.setBackground(new java.awt.Color(137, 140, 141));
-		btn_DSHD_DoiTraHoaDon.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_DoiTraHoaDon.setIcon(ImageProcessing.resizeIcon(
-				new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-doitrahoadon.png")), 25, 25));
-		btn_DSHD_DoiTraHoaDon.setText("Đổi trả hoá đơn");
-		btn_DSHD_DoiTraHoaDon.setEnabled(false);
-		btn_DSHD_DoiTraHoaDon.setIconTextGap(12);
-		btn_DSHD_DoiTraHoaDon.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_DoiTraHoaDonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 8;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
-		jPanel9.add(btn_DSHD_DoiTraHoaDon, gridBagConstraints);
-
-		btn_DSHD_HuyHoaDon.setBackground(new java.awt.Color(137, 140, 141));
-		btn_DSHD_HuyHoaDon.setForeground(new java.awt.Color(255, 255, 255));
-		btn_DSHD_HuyHoaDon.setIcon(ImageProcessing.resizeIcon(
-				new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-delete-white.png")), 25, 25));
-		btn_DSHD_HuyHoaDon.setText("Huỷ hoá đơn");
-		btn_DSHD_HuyHoaDon.setEnabled(false);
-		btn_DSHD_HuyHoaDon.setIconTextGap(12);
-		btn_DSHD_HuyHoaDon.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btn_DSHD_HuyHoaDonActionPerformed(evt);
-			}
-		});
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 10;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-		gridBagConstraints.ipady = 10;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
-		jPanel9.add(btn_DSHD_HuyHoaDon, gridBagConstraints);
-
-		jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
-
-		java.awt.GridBagLayout jPanel10Layout = new java.awt.GridBagLayout();
-		jPanel10Layout.columnWidths = new int[] { 0, 10, 0, 10, 0 };
-		jPanel10Layout.rowHeights = new int[] { 0, 7, 0, 7, 0 };
-		jPanel10.setLayout(jPanel10Layout);
-
-		jTable2.setModel(tblHoaDon = new javax.swing.table.DefaultTableModel(new Object[][] {
-
-		}, new String[] { "STT", "Mã hoá đơn", "Tên khách hàng", "Nhân viên xử lý", "Thời gian lập HĐ", "Trạng thái",
-				"Thành tiền" }) {
-			Class[] types = new Class[] { java.lang.String.class, java.lang.String.class, java.lang.String.class,
-					java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class };
-			boolean[] canEdit = new boolean[] { false, false, false, false, false, false, false };
-
-			public Class getColumnClass(int columnIndex) {
-				return types[columnIndex];
-			}
-
-			public boolean isCellEditable(int rowIndex, int columnIndex) {
-				return canEdit[columnIndex];
-			}
-		});
-		jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-			public void mouseClicked(java.awt.event.MouseEvent evt) {
-				tblHoaDonMouseClicked(evt);
-			}
-		});
-		jScrollPane2.setViewportView(jTable2);
-		if (jTable2.getColumnModel().getColumnCount() > 0) {
-			jTable2.getColumnModel().getColumn(0).setResizable(false);
-			jTable2.getColumnModel().getColumn(0).setPreferredWidth(30);
-			jTable2.getColumnModel().getColumn(1).setResizable(false);
-			jTable2.getColumnModel().getColumn(2).setResizable(false);
-			jTable2.getColumnModel().getColumn(3).setResizable(false);
-			jTable2.getColumnModel().getColumn(4).setResizable(false);
-			jTable2.getColumnModel().getColumn(5).setResizable(false);
-			jTable2.getColumnModel().getColumn(6).setResizable(false);
-		}
-
-		gridBagConstraints = new java.awt.GridBagConstraints();
-		gridBagConstraints.gridx = 2;
-		gridBagConstraints.gridy = 2;
-		gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-		gridBagConstraints.weightx = 0.1;
-		gridBagConstraints.weighty = 0.1;
-		jPanel10.add(jScrollPane2, gridBagConstraints);
-
-		jPanel8.add(jPanel10, java.awt.BorderLayout.CENTER);
-
-		jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);
-
-		tabbedDanhSachHoaDon.add(jPanel1, java.awt.BorderLayout.CENTER);
-
-		jTabbed.addTab("Danh sách hoá đơn", tabbedDanhSachHoaDon);
-
-		javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
-		TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
-		TAB_BanHang_HoaDonLayout.setHorizontalGroup(TAB_BanHang_HoaDonLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 965, Short.MAX_VALUE));
-		TAB_BanHang_HoaDonLayout.setVerticalGroup(TAB_BanHang_HoaDonLayout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING).addGap(0, 581, Short.MAX_VALUE));
-
-		jTabbed.addTab("Hoá đơn", TAB_BanHang_HoaDon);
-
-		add(jTabbed, java.awt.BorderLayout.CENTER);
-	}// </editor-fold>//GEN-END:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
+
+        jTabbed = new javax.swing.JTabbedPane();
+        tabbedHoaDon = new javax.swing.JPanel();
+        tabBanHang_HoaDon_Center = new javax.swing.JPanel();
+        jPanel7 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblChiTietHoaDon = new javax.swing.JTable();
+        tabBanHang_HoaDon_Button = new javax.swing.JPanel();
+        btnHangCho = new javax.swing.JButton();
+        btnCancelHD = new javax.swing.JButton();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        txtMaSanPham = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
+        btnThemSanPham = new javax.swing.JButton();
+        btnXoaRongMaSP = new javax.swing.JButton();
+        tabBanHang_HoaDon_Right = new javax.swing.JPanel();
+        tabBanHang_HoaDon_Right_KhachHang = new javax.swing.JPanel();
+        jPanel11 = new javax.swing.JPanel();
+        jPanel12 = new javax.swing.JPanel();
+        txtMaKhachHang = new utilities.JTextFieldPlaceHolder();
+        btnKhachHangEnter = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jTextField7 = new javax.swing.JTextField();
+        jTextField8 = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        tabBanHang_HoaDon_Right_GiamGia = new javax.swing.JPanel();
+        jPanel15 = new javax.swing.JPanel();
+        jPanel16 = new javax.swing.JPanel();
+        txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
+        btnKhuyenMaiEnter = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jTextField14 = new javax.swing.JTextField();
+        jTextField15 = new javax.swing.JTextField();
+        jLabel13 = new javax.swing.JLabel();
+        panel_TongTien = new javax.swing.JPanel();
+        lblTongTien = new javax.swing.JLabel();
+        txtValueTongTien = new javax.swing.JTextField();
+        lblChietKhau = new javax.swing.JLabel();
+        txtValueChietKhau = new javax.swing.JTextField();
+        lblThanhTien = new javax.swing.JLabel();
+        txtValueThanhTien = new javax.swing.JTextField();
+        txtValueTongThue = new javax.swing.JTextField();
+        lblThue = new javax.swing.JLabel();
+        btnThanhToan = new javax.swing.JButton();
+        btnKeyPad = new javax.swing.JButton();
+        tabbedDanhSachHoaDon = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txt_DSHD_TuNLHD = new com.toedter.calendar.JDateChooser();
+        txt_DSHD_DenNLHD = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        cbo_DSHD_TrangThai = new javax.swing.JComboBox<>();
+        txt_DSHD_GiaTriTu = new javax.swing.JTextField();
+        txt_DSHD_GiaTriDen = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        txt_DSHD_MaHoaDon = new javax.swing.JTextField();
+        txt_DSHD_MaKH = new javax.swing.JTextField();
+        txt_DSHD_MaNV = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        btn_DSHD_Search = new javax.swing.JButton();
+        btn_DSHD_taiLai = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jPanel9 = new javax.swing.JPanel();
+        btn_DSHD_ThanhToan = new javax.swing.JButton();
+        btn_DSHD_InHD = new javax.swing.JButton();
+        btn_DSHD_XemChiTiet = new javax.swing.JButton();
+        btn_DSHD_DoiTraHoaDon = new javax.swing.JButton();
+        btn_DSHD_HuyHoaDon = new javax.swing.JButton();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
+        TAB_BanHang_HoaDon = new javax.swing.JPanel();
+
+        setLayout(new java.awt.BorderLayout());
+
+        jTabbed.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                tabSwitchBanHang(evt);
+            }
+        });
+        jTabbed.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedMouseClicked(evt);
+            }
+        });
+
+        tabbedHoaDon.setLayout(new java.awt.GridBagLayout());
+
+        java.awt.GridBagLayout tabBanHang_HoaDon_CenterLayout = new java.awt.GridBagLayout();
+        tabBanHang_HoaDon_CenterLayout.columnWidths = new int[] {0};
+        tabBanHang_HoaDon_CenterLayout.rowHeights = new int[] {0, 0, 0};
+        tabBanHang_HoaDon_Center.setLayout(tabBanHang_HoaDon_CenterLayout);
+
+        jPanel7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        jPanel7.setLayout(new java.awt.BorderLayout());
+
+        tblChiTietHoaDon.setModel(tblModelCTHD = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Mã sản phẩm", "Tên sản phẩm", "Đơn giá", "-", "Số lượng", "+", "Thuế", "Thành tiền", "Xoá"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Object.class, java.lang.String.class, java.lang.Double.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tblChiTietHoaDon.setCellSelectionEnabled(true);
+        jScrollPane1.setViewportView(tblChiTietHoaDon);
+        if (tblChiTietHoaDon.getColumnModel().getColumnCount() > 0) {
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setPreferredWidth(20);
+            tblChiTietHoaDon.getColumnModel().getColumn(0).setHeaderValue("STT");
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setPreferredWidth(50);
+            tblChiTietHoaDon.getColumnModel().getColumn(1).setHeaderValue("Mã sản phẩm");
+            tblChiTietHoaDon.getColumnModel().getColumn(2).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(2).setHeaderValue("Tên sản phẩm");
+            tblChiTietHoaDon.getColumnModel().getColumn(3).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(3).setHeaderValue("Đơn giá");
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setPreferredWidth(10);
+            tblChiTietHoaDon.getColumnModel().getColumn(4).setHeaderValue("-");
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setPreferredWidth(30);
+            tblChiTietHoaDon.getColumnModel().getColumn(5).setHeaderValue("Số lượng");
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setPreferredWidth(10);
+            tblChiTietHoaDon.getColumnModel().getColumn(6).setHeaderValue("+");
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setPreferredWidth(30);
+            tblChiTietHoaDon.getColumnModel().getColumn(7).setHeaderValue("Thuế");
+            tblChiTietHoaDon.getColumnModel().getColumn(8).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(8).setHeaderValue("Thành tiền");
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setResizable(false);
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setPreferredWidth(25);
+            tblChiTietHoaDon.getColumnModel().getColumn(9).setHeaderValue("Xoá");
+        }
+        tblChiTietHoaDon.getAccessibleContext().setAccessibleName("");
+
+        jPanel7.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        java.awt.GridBagLayout tabBanHang_HoaDon_Right_GiamGia1Layout = new java.awt.GridBagLayout();
+        tabBanHang_HoaDon_Right_GiamGia1Layout.columnWidths = new int[] {0, 8, 0, 8, 0};
+        tabBanHang_HoaDon_Right_GiamGia1Layout.rowHeights = new int[] {0, 11, 0};
+        tabBanHang_HoaDon_Button.setLayout(tabBanHang_HoaDon_Right_GiamGia1Layout);
+
+        btnHangCho.setBackground(new java.awt.Color(15, 145, 239));
+        btnHangCho.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        btnHangCho.setForeground(new java.awt.Color(255, 255, 255));
+        btnHangCho.setIcon(ImageProcessing.resizeIcon(
+            new ImageIcon(getClass().getResource("/img/icon/btn-waitlist.png"))
+            , 25, 25));
+    btnHangCho.setText("Hàng chờ (F5)");
+    btnHangCho.setIconTextGap(30);
+    btnHangCho.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnHangChoActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridheight = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipady = 14;
+    gridBagConstraints.weightx = 0.1;
+    tabBanHang_HoaDon_Button.add(btnHangCho, gridBagConstraints);
+
+    btnCancelHD.setBackground(new java.awt.Color(239, 162, 162));
+    btnCancelHD.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    btnCancelHD.setForeground(new java.awt.Color(255, 255, 255));
+    btnCancelHD.setText("Huỷ hoá đơn (F9)");
+    btnCancelHD.setIconTextGap(30);
+    btnCancelHD.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnCancelHDActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridheight = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.1;
+    tabBanHang_HoaDon_Button.add(btnCancelHD, gridBagConstraints);
+
+    jPanel7.add(tabBanHang_HoaDon_Button, java.awt.BorderLayout.PAGE_END);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    tabBanHang_HoaDon_Center.add(jPanel7, gridBagConstraints);
+
+    java.awt.GridBagLayout jPanel6Layout = new java.awt.GridBagLayout();
+    jPanel6Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel6Layout.rowHeights = new int[] {0, 10, 0, 10, 0};
+    jPanel6.setLayout(jPanel6Layout);
+
+    jLabel3.setText("Mã sản phẩm:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.weighty = 0.09;
+    gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
+    jPanel6.add(jLabel3, gridBagConstraints);
+
+    txtMaSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTextFieldClicked(evt);
+        }
+    });
+    txtMaSanPham.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnAddSanPhamActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(4, 0, 4, 0);
+    jPanel6.add(txtMaSanPham, gridBagConstraints);
+
+    java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
+    jPanel5Layout.columnWidths = new int[] {0, 22, 0, 22, 0, 22, 0};
+    jPanel5Layout.rowHeights = new int[] {0};
+    jPanel5.setLayout(jPanel5Layout);
+
+    btnThemSanPham.setBackground(new java.awt.Color(15, 102, 165));
+    btnThemSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnThemSanPham.setForeground(new java.awt.Color(255, 255, 255));
+    btnThemSanPham.setIcon(
+        ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20,20)
+    );
+    btnThemSanPham.setIconTextGap(10);
+    btnThemSanPham.setPreferredSize(new java.awt.Dimension(50, 20));
+    btnThemSanPham.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnAddSanPhamActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.5;
+    jPanel5.add(btnThemSanPham, gridBagConstraints);
+
+    btnXoaRongMaSP.setBackground(new java.awt.Color(239, 162, 162));
+    btnXoaRongMaSP.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnXoaRongMaSP.setForeground(new java.awt.Color(255, 255, 255));
+    btnXoaRongMaSP.setIcon(
+        ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-delete.png")), 15,20)
+    );
+    btnXoaRongMaSP.setIconTextGap(10);
+    btnXoaRongMaSP.setPreferredSize(new java.awt.Dimension(50, 20));
+    btnXoaRongMaSP.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnXoaRongMaSPActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipady = 15;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.5;
+    jPanel5.add(btnXoaRongMaSP, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 12;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.gridwidth = 7;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.EAST;
+    gridBagConstraints.weighty = 0.2;
+    jPanel6.add(jPanel5, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    tabBanHang_HoaDon_Center.add(jPanel6, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.3;
+    gridBagConstraints.weighty = 0.2;
+    gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
+    tabbedHoaDon.add(tabBanHang_HoaDon_Center, gridBagConstraints);
+
+    java.awt.GridBagLayout tabBanHang_HoaDon_RightLayout = new java.awt.GridBagLayout();
+    tabBanHang_HoaDon_RightLayout.columnWidths = new int[] {0};
+    tabBanHang_HoaDon_RightLayout.rowHeights = new int[] {0, 14, 0, 14, 0};
+    tabBanHang_HoaDon_Right.setLayout(tabBanHang_HoaDon_RightLayout);
+
+    tabBanHang_HoaDon_Right_KhachHang.setBorder(javax.swing.BorderFactory.createTitledBorder("Khách hàng"));
+    tabBanHang_HoaDon_Right_KhachHang.setLayout(new java.awt.BorderLayout());
+
+    java.awt.GridBagLayout jPanel11Layout = new java.awt.GridBagLayout();
+    jPanel11Layout.columnWidths = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
+    jPanel11Layout.rowHeights = new int[] {0, 9, 0, 9, 0, 9, 0};
+    jPanel11.setLayout(jPanel11Layout);
+
+    txtMaKhachHang.setMinimumSize(new java.awt.Dimension(16, 22));
+    txtMaKhachHang.setPreferredSize(new java.awt.Dimension(150, 30));
+    txtMaKhachHang.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTextFieldClicked(evt);
+        }
+    });
+    txtMaKhachHang.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txtMaKhachHangActionPerformed(evt);
+        }
+    });
+    jPanel12.add(txtMaKhachHang);
+
+    btnKhachHangEnter.setBackground(new java.awt.Color(15, 102, 165));
+    btnKhachHangEnter.setIcon(
+        ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20,20)
+    );
+    btnKhachHangEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    btnKhachHangEnter.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnKhachHangEnterActionPerformed(evt);
+        }
+    });
+    jPanel12.add(btnKhachHangEnter);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 21;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    jPanel11.add(jPanel12, gridBagConstraints);
+
+    jLabel8.setText("Tên khách hàng:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
+    jPanel11.add(jLabel8, gridBagConstraints);
+
+    jTextField7.setEditable(false);
+    jTextField7.setFocusable(false);
+    jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jTextField7ActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.gridwidth = 11;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    jPanel11.add(jTextField7, gridBagConstraints);
+
+    jTextField8.setEditable(false);
+    jTextField8.setFocusable(false);
+    jTextField8.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jTextField8ActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.gridwidth = 11;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    jPanel11.add(jTextField8, gridBagConstraints);
+
+    jLabel9.setText("Mã khách hàng:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
+    jPanel11.add(jLabel9, gridBagConstraints);
+
+    tabBanHang_HoaDon_Right_KhachHang.add(jPanel11, java.awt.BorderLayout.PAGE_START);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_KhachHang, gridBagConstraints);
+
+    tabBanHang_HoaDon_Right_GiamGia.setBorder(javax.swing.BorderFactory.createTitledBorder("Khuyến mãi"));
+    tabBanHang_HoaDon_Right_GiamGia.setLayout(new java.awt.BorderLayout());
+
+    java.awt.GridBagLayout jPanel15Layout = new java.awt.GridBagLayout();
+    jPanel15Layout.columnWidths = new int[] {0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0, 8, 0};
+    jPanel15Layout.rowHeights = new int[] {0, 9, 0, 9, 0, 9, 0};
+    jPanel15.setLayout(jPanel15Layout);
+
+    txtKhuyenMai.setMinimumSize(new java.awt.Dimension(16, 22));
+    txtKhuyenMai.setPreferredSize(new java.awt.Dimension(150, 30));
+    txtKhuyenMai.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            jTextFieldClicked(evt);
+        }
+    });
+    txtKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txtKhuyenMaiActionPerformed(evt);
+        }
+    });
+    jPanel16.add(txtKhuyenMai);
+
+    btnKhuyenMaiEnter.setBackground(new java.awt.Color(15, 102, 165));
+    btnKhuyenMaiEnter.setIcon(
+        ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-tap.png")), 20,20)
+    );
+    btnKhuyenMaiEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    jPanel16.add(btnKhuyenMaiEnter);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 21;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    jPanel15.add(jPanel16, gridBagConstraints);
+
+    jLabel12.setText("Chương trình:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
+    jPanel15.add(jLabel12, gridBagConstraints);
+
+    jTextField14.setEditable(false);
+    jTextField14.setFocusable(false);
+    jTextField14.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jTextField14ActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.gridwidth = 11;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    jPanel15.add(jTextField14, gridBagConstraints);
+
+    jTextField15.setEditable(false);
+    jTextField15.setFocusable(false);
+    jTextField15.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            jTextField15ActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.gridwidth = 11;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+    gridBagConstraints.weightx = 0.1;
+    jPanel15.add(jTextField15, gridBagConstraints);
+
+    jLabel13.setText("Mã giảm giá:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
+    jPanel15.add(jLabel13, gridBagConstraints);
+
+    tabBanHang_HoaDon_Right_GiamGia.add(jPanel15, java.awt.BorderLayout.PAGE_START);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    tabBanHang_HoaDon_Right.add(tabBanHang_HoaDon_Right_GiamGia, gridBagConstraints);
+
+    java.awt.GridBagLayout jPanel1Layout = new java.awt.GridBagLayout();
+    jPanel1Layout.columnWidths = new int[] {0, 33, 0};
+    jPanel1Layout.rowHeights = new int[] {0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0, 9, 0};
+    panel_TongTien.setLayout(jPanel1Layout);
+
+    lblTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    lblTongTien.setText("Tổng tiền:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    panel_TongTien.add(lblTongTien, gridBagConstraints);
+
+    txtValueTongTien.setEditable(false);
+    txtValueTongTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    txtValueTongTien.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+    panel_TongTien.add(txtValueTongTien, gridBagConstraints);
+
+    lblChietKhau.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    lblChietKhau.setText("Chiết khấu:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    panel_TongTien.add(lblChietKhau, gridBagConstraints);
+
+    txtValueChietKhau.setEditable(false);
+    txtValueChietKhau.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    txtValueChietKhau.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+    panel_TongTien.add(txtValueChietKhau, gridBagConstraints);
+
+    lblThanhTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    lblThanhTien.setText("Thành tiền:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 12;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    panel_TongTien.add(lblThanhTien, gridBagConstraints);
+
+    txtValueThanhTien.setEditable(false);
+    txtValueThanhTien.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    txtValueThanhTien.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 12;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+    panel_TongTien.add(txtValueThanhTien, gridBagConstraints);
+
+    txtValueTongThue.setEditable(false);
+    txtValueTongThue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    txtValueTongThue.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 1;
+    gridBagConstraints.gridy = 8;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(0, 10, 0, 0);
+    panel_TongTien.add(txtValueTongThue, gridBagConstraints);
+
+    lblThue.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+    lblThue.setText("Thuế:");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 8;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+    panel_TongTien.add(lblThue, gridBagConstraints);
+
+    btnThanhToan.setBackground(new java.awt.Color(15, 145, 239));
+    btnThanhToan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    btnThanhToan.setForeground(new java.awt.Color(255, 255, 255));
+    btnThanhToan.setIcon(ImageProcessing.resizeIcon(
+        new ImageIcon(getClass().getResource("/img/icon/btn-purchase.png"))
+        , 35, 35));
+btnThanhToan.setText("Thanh toán (F12)");
+btnThanhToan.setIconTextGap(30);
+btnThanhToan.setMargin(new java.awt.Insets(0, 10, 0, 0));
+btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnThanhToanActionPerformed(evt);
+    }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 20;
+    gridBagConstraints.gridwidth = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 12;
+    panel_TongTien.add(btnThanhToan, gridBagConstraints);
+
+    btnKeyPad.setBackground(new java.awt.Color(15, 145, 239));
+    btnKeyPad.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    btnKeyPad.setForeground(new java.awt.Color(255, 255, 255));
+    btnKeyPad.setIcon(ImageProcessing.resizeIcon(
+        new ImageIcon(getClass().getResource("/img/icon/btn-keypad.png"))
+        , 30, 30));
+btnKeyPad.setText("Bàn phím số");
+btnKeyPad.setIconTextGap(30);
+btnKeyPad.setMargin(new java.awt.Insets(0, 0, 0, 25));
+btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
+    public void actionPerformed(java.awt.event.ActionEvent evt) {
+        btnKeyPadActionPerformed(evt);
+    }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 16;
+    gridBagConstraints.gridwidth = 3;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 12;
+    panel_TongTien.add(btnKeyPad, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 0;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+    gridBagConstraints.weighty = 0.4;
+    tabBanHang_HoaDon_Right.add(panel_TongTien, gridBagConstraints);
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(0, 8, 0, 0);
+    tabbedHoaDon.add(tabBanHang_HoaDon_Right, gridBagConstraints);
+
+    jTabbed.addTab("Hoá đơn", tabbedHoaDon);
+
+    tabbedDanhSachHoaDon.setLayout(new java.awt.BorderLayout());
+
+    jPanel1.setLayout(new java.awt.BorderLayout());
+
+    jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+    jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
+    jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel2Layout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
+    jPanel2.setLayout(jPanel2Layout);
+
+    jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+    jLabel1.setText("Tìm kiếm hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 0;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel1, gridBagConstraints);
+
+    jLabel2.setText("Trạng thái");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 8;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel2, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.ipadx = 17;
+    jPanel2.add(txt_DSHD_TuNLHD, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.ipadx = 17;
+    jPanel2.add(txt_DSHD_DenNLHD, gridBagConstraints);
+
+    jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel4.setText("-");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 6;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+    jPanel2.add(jLabel4, gridBagConstraints);
+
+    jLabel11.setText("Ngày lập hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 4;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel11, gridBagConstraints);
+
+    cbo_DSHD_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 10;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(cbo_DSHD_TrangThai, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(txt_DSHD_GiaTriTu, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(txt_DSHD_GiaTriDen, gridBagConstraints);
+
+    jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+    jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+    jLabel14.setText("-");
+    jLabel14.setFocusable(false);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+    jPanel2.add(jLabel14, gridBagConstraints);
+
+    jLabel15.setText("Giá trị hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 12;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel15, gridBagConstraints);
+
+    jLabel16.setText("Mã hoá đơn");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 16;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel16, gridBagConstraints);
+
+    txt_DSHD_MaHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txt_DSHD_MaHoaDonActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 18;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(txt_DSHD_MaHoaDon, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 22;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(txt_DSHD_MaKH, gridBagConstraints);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 26;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(txt_DSHD_MaNV, gridBagConstraints);
+
+    jLabel17.setText("Mã/Số điện thoại nhân viên bán");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 24;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel17, gridBagConstraints);
+
+    btn_DSHD_Search.setBackground(new java.awt.Color(15, 145, 239));
+    btn_DSHD_Search.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_Search.setText("Tìm kiếm");
+    btn_DSHD_Search.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_SearchActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 30;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 19;
+    gridBagConstraints.ipady = 8;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
+    jPanel2.add(btn_DSHD_Search, gridBagConstraints);
+
+    btn_DSHD_taiLai.setBackground(new java.awt.Color(15, 145, 239));
+    btn_DSHD_taiLai.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_taiLai.setText("Tải lại");
+    btn_DSHD_taiLai.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_taiLaiActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 5;
+    gridBagConstraints.gridy = 30;
+    gridBagConstraints.gridwidth = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 19;
+    gridBagConstraints.ipady = 8;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
+    jPanel2.add(btn_DSHD_taiLai, gridBagConstraints);
+
+    jLabel18.setText("Mã/Số điện thoại khách hàng");
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 20;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.ipadx = 9;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
+    jPanel2.add(jLabel18, gridBagConstraints);
+
+    jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
+
+    jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+    jPanel8.setLayout(new java.awt.BorderLayout());
+
+    java.awt.GridBagLayout jPanel9Layout = new java.awt.GridBagLayout();
+    jPanel9Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0, 10, 0};
+    jPanel9Layout.rowHeights = new int[] {0, 7, 0, 7, 0};
+    jPanel9.setLayout(jPanel9Layout);
+
+    btn_DSHD_ThanhToan.setBackground(new java.awt.Color(15, 145, 239));
+    btn_DSHD_ThanhToan.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_ThanhToan.setIcon(ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-xulyhoadoncu.png")), 25,25));
+    btn_DSHD_ThanhToan.setText("Xử lý hoá đơn");
+    btn_DSHD_ThanhToan.setEnabled(false);
+    btn_DSHD_ThanhToan.setIconTextGap(12);
+    btn_DSHD_ThanhToan.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_ThanhToanActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_ThanhToan, gridBagConstraints);
+
+    btn_DSHD_InHD.setBackground(new java.awt.Color(137, 140, 141));
+    btn_DSHD_InHD.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_InHD.setIcon(ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-print.png")), 25,25));
+    btn_DSHD_InHD.setText("In hoá đơn");
+    btn_DSHD_InHD.setEnabled(false);
+    btn_DSHD_InHD.setIconTextGap(12);
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_InHD, gridBagConstraints);
+
+    btn_DSHD_XemChiTiet.setBackground(new java.awt.Color(137, 140, 141));
+    btn_DSHD_XemChiTiet.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_XemChiTiet.setIcon(ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-viewdetails.png")), 25,25));
+    btn_DSHD_XemChiTiet.setText("Xem chi tiết");
+    btn_DSHD_XemChiTiet.setEnabled(false);
+    btn_DSHD_XemChiTiet.setIconTextGap(12);
+    btn_DSHD_XemChiTiet.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_XemChiTietActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 6;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_XemChiTiet, gridBagConstraints);
+
+    btn_DSHD_DoiTraHoaDon.setBackground(new java.awt.Color(137, 140, 141));
+    btn_DSHD_DoiTraHoaDon.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_DoiTraHoaDon.setIcon(ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-doitrahoadon.png")), 25,25));
+    btn_DSHD_DoiTraHoaDon.setText("Đổi trả hoá đơn");
+    btn_DSHD_DoiTraHoaDon.setEnabled(false);
+    btn_DSHD_DoiTraHoaDon.setIconTextGap(12);
+    btn_DSHD_DoiTraHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_DoiTraHoaDonActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 8;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_DoiTraHoaDon, gridBagConstraints);
+
+    btn_DSHD_HuyHoaDon.setBackground(new java.awt.Color(137, 140, 141));
+    btn_DSHD_HuyHoaDon.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_HuyHoaDon.setIcon(ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-delete-white.png")), 25,25));
+    btn_DSHD_HuyHoaDon.setText("Huỷ hoá đơn");
+    btn_DSHD_HuyHoaDon.setEnabled(false);
+    btn_DSHD_HuyHoaDon.setIconTextGap(12);
+    btn_DSHD_HuyHoaDon.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_HuyHoaDonActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 10;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipady = 10;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.insets = new java.awt.Insets(9, 0, 7, 0);
+    jPanel9.add(btn_DSHD_HuyHoaDon, gridBagConstraints);
+
+    jPanel8.add(jPanel9, java.awt.BorderLayout.PAGE_START);
+
+    java.awt.GridBagLayout jPanel10Layout = new java.awt.GridBagLayout();
+    jPanel10Layout.columnWidths = new int[] {0, 10, 0, 10, 0};
+    jPanel10Layout.rowHeights = new int[] {0, 7, 0, 7, 0};
+    jPanel10.setLayout(jPanel10Layout);
+
+    jTable2.setModel(tblHoaDon = new javax.swing.table.DefaultTableModel(
+        new Object [][] {
+
+        },
+        new String [] {
+            "STT", "Mã hoá đơn", "Tên khách hàng", "Nhân viên xử lý", "Thời gian lập HĐ", "Trạng thái", "Thành tiền"
+        }
+    ) {
+        Class[] types = new Class [] {
+            java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+        };
+        boolean[] canEdit = new boolean [] {
+            false, false, false, false, false, false, false
+        };
+
+        public Class getColumnClass(int columnIndex) {
+            return types [columnIndex];
+        }
+
+        public boolean isCellEditable(int rowIndex, int columnIndex) {
+            return canEdit [columnIndex];
+        }
+    });
+    jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            tblHoaDonMouseClicked(evt);
+        }
+    });
+    jScrollPane2.setViewportView(jTable2);
+    if (jTable2.getColumnModel().getColumnCount() > 0) {
+        jTable2.getColumnModel().getColumn(0).setResizable(false);
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(30);
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+        jTable2.getColumnModel().getColumn(6).setResizable(false);
+    }
+
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 2;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.weightx = 0.1;
+    gridBagConstraints.weighty = 0.1;
+    jPanel10.add(jScrollPane2, gridBagConstraints);
+
+    jPanel8.add(jPanel10, java.awt.BorderLayout.CENTER);
+
+    jPanel1.add(jPanel8, java.awt.BorderLayout.CENTER);
+
+    tabbedDanhSachHoaDon.add(jPanel1, java.awt.BorderLayout.CENTER);
+
+    jTabbed.addTab("Danh sách hoá đơn", tabbedDanhSachHoaDon);
+
+    javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
+    TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
+    TAB_BanHang_HoaDonLayout.setHorizontalGroup(
+        TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 965, Short.MAX_VALUE)
+    );
+    TAB_BanHang_HoaDonLayout.setVerticalGroup(
+        TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 581, Short.MAX_VALUE)
+    );
+
+    jTabbed.addTab("Hoá đơn", TAB_BanHang_HoaDon);
+
+    add(jTabbed, java.awt.BorderLayout.CENTER);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldClicked
+        // TODO add your handling code here:
+        lastClicked = (JTextField) evt.getSource();
+    }//GEN-LAST:event_jTextFieldClicked
 
 	private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtMaKhachHangActionPerformed
 		// TODO add your handling code here:
@@ -1567,6 +1604,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
 	private void btnKeyPadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnKeyPadActionPerformed
 		// TODO add your handling code here:
+            new Frame_KeyPad(this, txtKhuyenMai).setVisible(true);
 	}// GEN-LAST:event_btnKeyPadActionPerformed
 
 	private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanActionPerformed
@@ -1581,6 +1619,11 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 			new Form_ThanhToan(hoaDon, ((JFrame) this.getTopLevelAncestor()), this).setVisible(true);
 		}
 		case TRA_HANG -> {
+                    if (hoaDonTra.getListChiTietHoaDon().size() < 1) {
+				ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
+						"Chưa có thực hiện đổi trả sản phẩm nào, không thể tạo hoá đơn trả!!", txtMaSanPham);
+				return;
+			}
 			new Form_TraHang(hoaDon, ((JFrame) this.getTopLevelAncestor()), this, hoaDonTra).setVisible(true);
 		}
 		default -> {
@@ -1599,6 +1642,9 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 		x.requestFocus();
 	}
 
+        public JTextField getLastClickedJTextField(){
+            return lastClicked;
+        }
 	private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddSanPhamActionPerformed
 		// TODO add your handling code here:
 		int tempPos = -1;
@@ -1919,84 +1965,84 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 		tblModelCTHD.addRow(hoaDon.tableRowChiTietHoaDon(x));
 	}
 
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JPanel TAB_BanHang_HoaDon;
-	private javax.swing.JButton btnCancelHD;
-	private javax.swing.JButton btnHangCho;
-	private javax.swing.JButton btnKeyPad;
-	private javax.swing.JButton btnKhachHangEnter;
-	private javax.swing.JButton btnKhuyenMaiEnter;
-	private javax.swing.JButton btnThanhToan;
-	private javax.swing.JButton btnThemSanPham;
-	private javax.swing.JButton btnXoaRongMaSP;
-	private javax.swing.JButton btn_DSHD_DoiTraHoaDon;
-	private javax.swing.JButton btn_DSHD_HuyHoaDon;
-	private javax.swing.JButton btn_DSHD_InHD;
-	private javax.swing.JButton btn_DSHD_Search;
-	private javax.swing.JButton btn_DSHD_ThanhToan;
-	private javax.swing.JButton btn_DSHD_XemChiTiet;
-	private javax.swing.JButton btn_DSHD_taiLai;
-	private javax.swing.JComboBox<String> cbo_DSHD_TrangThai;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel11;
-	private javax.swing.JLabel jLabel12;
-	private javax.swing.JLabel jLabel13;
-	private javax.swing.JLabel jLabel14;
-	private javax.swing.JLabel jLabel15;
-	private javax.swing.JLabel jLabel16;
-	private javax.swing.JLabel jLabel17;
-	private javax.swing.JLabel jLabel18;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel8;
-	private javax.swing.JLabel jLabel9;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPanel jPanel10;
-	private javax.swing.JPanel jPanel11;
-	private javax.swing.JPanel jPanel12;
-	private javax.swing.JPanel jPanel15;
-	private javax.swing.JPanel jPanel16;
-	private javax.swing.JPanel jPanel2;
-	private javax.swing.JPanel jPanel5;
-	private javax.swing.JPanel jPanel6;
-	private javax.swing.JPanel jPanel7;
-	private javax.swing.JPanel jPanel8;
-	private javax.swing.JPanel jPanel9;
-	private javax.swing.JScrollPane jScrollPane1;
-	private javax.swing.JScrollPane jScrollPane2;
-	private javax.swing.JTabbedPane jTabbed;
-	private javax.swing.JTable jTable2;
-	private javax.swing.JTextField jTextField14;
-	private javax.swing.JTextField jTextField15;
-	private javax.swing.JTextField jTextField7;
-	private javax.swing.JTextField jTextField8;
-	private javax.swing.JLabel lblChietKhau;
-	private javax.swing.JLabel lblThanhTien;
-	private javax.swing.JLabel lblThue;
-	private javax.swing.JLabel lblTongTien;
-	private javax.swing.JPanel panel_TongTien;
-	private javax.swing.JPanel tabBanHang_HoaDon_Button;
-	private javax.swing.JPanel tabBanHang_HoaDon_Center;
-	private javax.swing.JPanel tabBanHang_HoaDon_Right;
-	private javax.swing.JPanel tabBanHang_HoaDon_Right_GiamGia;
-	private javax.swing.JPanel tabBanHang_HoaDon_Right_KhachHang;
-	private javax.swing.JPanel tabbedDanhSachHoaDon;
-	private javax.swing.JPanel tabbedHoaDon;
-	private javax.swing.JTable tblChiTietHoaDon;
-	private javax.swing.JTextField txtKhuyenMai;
-	private javax.swing.JTextField txtMaKhachHang;
-	private javax.swing.JTextField txtMaSanPham;
-	private javax.swing.JTextField txtValueChietKhau;
-	private javax.swing.JTextField txtValueThanhTien;
-	private javax.swing.JTextField txtValueTongThue;
-	private javax.swing.JTextField txtValueTongTien;
-	private com.toedter.calendar.JDateChooser txt_DSHD_DenNLHD;
-	private javax.swing.JTextField txt_DSHD_GiaTriDen;
-	private javax.swing.JTextField txt_DSHD_GiaTriTu;
-	private javax.swing.JTextField txt_DSHD_MaHoaDon;
-	private javax.swing.JTextField txt_DSHD_MaKH;
-	private javax.swing.JTextField txt_DSHD_MaNV;
-	private com.toedter.calendar.JDateChooser txt_DSHD_TuNLHD;
-	// End of variables declaration//GEN-END:variables
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel TAB_BanHang_HoaDon;
+    private javax.swing.JButton btnCancelHD;
+    private javax.swing.JButton btnHangCho;
+    private javax.swing.JButton btnKeyPad;
+    private javax.swing.JButton btnKhachHangEnter;
+    private javax.swing.JButton btnKhuyenMaiEnter;
+    private javax.swing.JButton btnThanhToan;
+    private javax.swing.JButton btnThemSanPham;
+    private javax.swing.JButton btnXoaRongMaSP;
+    private javax.swing.JButton btn_DSHD_DoiTraHoaDon;
+    private javax.swing.JButton btn_DSHD_HuyHoaDon;
+    private javax.swing.JButton btn_DSHD_InHD;
+    private javax.swing.JButton btn_DSHD_Search;
+    private javax.swing.JButton btn_DSHD_ThanhToan;
+    private javax.swing.JButton btn_DSHD_XemChiTiet;
+    private javax.swing.JButton btn_DSHD_taiLai;
+    private javax.swing.JComboBox<String> cbo_DSHD_TrangThai;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
+    private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
+    private javax.swing.JPanel jPanel15;
+    private javax.swing.JPanel jPanel16;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTabbedPane jTabbed;
+    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField jTextField14;
+    private javax.swing.JTextField jTextField15;
+    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField jTextField8;
+    private javax.swing.JLabel lblChietKhau;
+    private javax.swing.JLabel lblThanhTien;
+    private javax.swing.JLabel lblThue;
+    private javax.swing.JLabel lblTongTien;
+    private javax.swing.JPanel panel_TongTien;
+    private javax.swing.JPanel tabBanHang_HoaDon_Button;
+    private javax.swing.JPanel tabBanHang_HoaDon_Center;
+    private javax.swing.JPanel tabBanHang_HoaDon_Right;
+    private javax.swing.JPanel tabBanHang_HoaDon_Right_GiamGia;
+    private javax.swing.JPanel tabBanHang_HoaDon_Right_KhachHang;
+    private javax.swing.JPanel tabbedDanhSachHoaDon;
+    private javax.swing.JPanel tabbedHoaDon;
+    private javax.swing.JTable tblChiTietHoaDon;
+    private javax.swing.JTextField txtKhuyenMai;
+    private javax.swing.JTextField txtMaKhachHang;
+    private javax.swing.JTextField txtMaSanPham;
+    private javax.swing.JTextField txtValueChietKhau;
+    private javax.swing.JTextField txtValueThanhTien;
+    private javax.swing.JTextField txtValueTongThue;
+    private javax.swing.JTextField txtValueTongTien;
+    private com.toedter.calendar.JDateChooser txt_DSHD_DenNLHD;
+    private javax.swing.JTextField txt_DSHD_GiaTriDen;
+    private javax.swing.JTextField txt_DSHD_GiaTriTu;
+    private javax.swing.JTextField txt_DSHD_MaHoaDon;
+    private javax.swing.JTextField txt_DSHD_MaKH;
+    private javax.swing.JTextField txt_DSHD_MaNV;
+    private com.toedter.calendar.JDateChooser txt_DSHD_TuNLHD;
+    // End of variables declaration//GEN-END:variables
 }
