@@ -12,6 +12,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -486,7 +487,46 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyNCCActionPerformed
     
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
-        // TODO add your handling code here:
+    	 JFileChooser excelFileChooser = new JFileChooser("D:\\");
+    	    excelFileChooser.setDialogTitle("Save Excel File");
+    	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
+    	    excelFileChooser.setFileFilter(fnef);
+
+    	    int excelChooser = excelFileChooser.showSaveDialog(null);
+
+    	    if (excelChooser == JFileChooser.APPROVE_OPTION) {
+    	        File excelFile = excelFileChooser.getSelectedFile();
+
+    	        // Kiểm tra nếu tên file không kết thúc bằng ".xlsx", thêm ".xlsx" vào
+    	        if (!excelFile.getName().toLowerCase().endsWith(".xlsx")) {
+    	            excelFile = new File(excelFile.getParentFile(), excelFile.getName() + ".xlsx");
+    	        }
+
+    	        try {
+    	            FileOutputStream fileOut = new FileOutputStream(excelFile);
+    	            XSSFWorkbook workbook = new XSSFWorkbook();
+    	            XSSFSheet sheet = workbook.createSheet("Sheet1");
+
+    	            // Code để ghi dữ liệu vào workbook
+    	            // Ví dụ: Ghi dữ liệu từ danh sách NhaCungCap vào các dòng của sheet
+    	            int rowNum = 0;
+    	            for (NhaCungCap ncc : danhSachNCC) {
+    	                Row row = sheet.createRow(rowNum++);
+    	                row.createCell(0).setCellValue(ncc.getTenNhaCungCap());
+    	                row.createCell(1).setCellValue(ncc.getSoDienThoai());
+    	                row.createCell(2).setCellValue(ncc.getEmail());
+    	                row.createCell(3).setCellValue(ncc.getDiaChi());
+    	            }
+
+    	            workbook.write(fileOut);
+    	            fileOut.close();
+    	            JOptionPane.showMessageDialog(null, "Exported Successfully !!.....");
+    	        } catch (FileNotFoundException e) {
+    	            e.printStackTrace();
+    	        } catch (IOException e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
     
     
