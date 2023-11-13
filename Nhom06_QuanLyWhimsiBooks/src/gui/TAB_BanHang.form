@@ -1560,7 +1560,6 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldClicked"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtMaKhachHangActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new utilities.JTextFieldPlaceHolder()"/>
@@ -1580,7 +1579,7 @@
                                 </Property>
                               </Properties>
                               <Events>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKhachHangEnterActionPerformed"/>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKhachHangEnterAP"/>
                               </Events>
                             </Component>
                           </SubComponents>
@@ -1595,28 +1594,22 @@
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField7">
+                        <Component class="javax.swing.JTextField" name="txtDisplayTenKH">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField7ActionPerformed"/>
-                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="6" gridY="4" gridWidth="11" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="19" weightX="0.1" weightY="0.0"/>
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField8">
+                        <Component class="javax.swing.JTextField" name="txtDisplayMaKH">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField8ActionPerformed"/>
-                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="6" gridY="2" gridWidth="11" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="19" weightX="0.1" weightY="0.0"/>
@@ -1957,11 +1950,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="110_jTextField7">
-                              <CodeVariable name="jTextField7" type="8194" declaredType="javax.swing.JTextField"/>
+                            <CodeExpression id="110_txtDisplayTenKH">
+                              <CodeVariable name="txtDisplayTenKH" type="8194" declaredType="javax.swing.JTextField"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jTextField7"/>
+                                  <ComponentRef name="txtDisplayTenKH"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>
@@ -2065,11 +2058,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="118_jTextField8">
-                              <CodeVariable name="jTextField8" type="8194" declaredType="javax.swing.JTextField"/>
+                            <CodeExpression id="118_txtDisplayMaKH">
+                              <CodeVariable name="txtDisplayMaKH" type="8194" declaredType="javax.swing.JTextField"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jTextField8"/>
+                                  <ComponentRef name="txtDisplayMaKH"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>
@@ -2207,7 +2200,6 @@
                               </Properties>
                               <Events>
                                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextFieldClicked"/>
-                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtKhuyenMaiActionPerformed"/>
                               </Events>
                               <AuxValues>
                                 <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new utilities.JTextFieldPlaceHolder()"/>
@@ -2225,6 +2217,9 @@
                                   <Dimension value="[50, 30]"/>
                                 </Property>
                               </Properties>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKhuyenMaiEnterActionPer"/>
+                              </Events>
                             </Component>
                           </SubComponents>
                         </Container>
@@ -2238,28 +2233,22 @@
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField14">
+                        <Component class="javax.swing.JTextField" name="txtDisplayChuongTrinhKM">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField14ActionPerformed"/>
-                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="6" gridY="4" gridWidth="11" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="19" weightX="0.1" weightY="0.0"/>
                             </Constraint>
                           </Constraints>
                         </Component>
-                        <Component class="javax.swing.JTextField" name="jTextField15">
+                        <Component class="javax.swing.JTextField" name="txtDisplayMaGiamGia">
                           <Properties>
                             <Property name="editable" type="boolean" value="false"/>
                             <Property name="focusable" type="boolean" value="false"/>
                           </Properties>
-                          <Events>
-                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField15ActionPerformed"/>
-                          </Events>
                           <Constraints>
                             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout" value="org.netbeans.modules.form.compat2.layouts.DesignGridBagLayout$GridBagConstraintsDescription">
                               <GridBagConstraints gridX="6" gridY="2" gridWidth="11" gridHeight="1" fill="2" ipadX="0" ipadY="0" insetsTop="0" insetsLeft="0" insetsBottom="0" insetsRight="0" anchor="19" weightX="0.1" weightY="0.0"/>
@@ -2600,11 +2589,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="148_jTextField14">
-                              <CodeVariable name="jTextField14" type="8194" declaredType="javax.swing.JTextField"/>
+                            <CodeExpression id="148_txtDisplayChuongTrinhKM">
+                              <CodeVariable name="txtDisplayChuongTrinhKM" type="8194" declaredType="javax.swing.JTextField"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jTextField14"/>
+                                  <ComponentRef name="txtDisplayChuongTrinhKM"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>
@@ -2708,11 +2697,11 @@
                             <CodeMethod name="add" class="java.awt.Container" parameterTypes="java.awt.Component, java.lang.Object"/>
                           </StatementProvider>
                           <Parameters>
-                            <CodeExpression id="156_jTextField15">
-                              <CodeVariable name="jTextField15" type="8194" declaredType="javax.swing.JTextField"/>
+                            <CodeExpression id="156_txtDisplayMaGiamGia">
+                              <CodeVariable name="txtDisplayMaGiamGia" type="8194" declaredType="javax.swing.JTextField"/>
                               <ExpressionOrigin>
                                 <ExpressionProvider type="ComponentRef">
-                                  <ComponentRef name="jTextField15"/>
+                                  <ComponentRef name="txtDisplayMaGiamGia"/>
                                 </ExpressionProvider>
                               </ExpressionOrigin>
                             </CodeExpression>

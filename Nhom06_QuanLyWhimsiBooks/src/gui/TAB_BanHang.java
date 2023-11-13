@@ -77,21 +77,16 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 		khachHang_BUS = new KhachHang_BUS();
 		khuyenMai_BUS = new KhuyenMai_BUS();
 
-		hoaDon = new HoaDon();
-
+                CurrentSession.getInstance().setNhanVienHienHanh(nhanVien_BUS.getNhanVienByNhanVienID("NV0002"));
+		
 		/**
 		 * Test this case
 		 */
-		CurrentSession.getInstance().setNhanVienHienHanh(nhanVien_BUS.getNhanVienByNhanVienID("NV0002"));
-		hoaDon.setNhanVien(CurrentSession.getNhanVien());
 
-		khachHang = new KhachHang();
-		khuyenMai = new KhuyenMai();
-
-		hoaDonTra = new HoaDonTra();
 		trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
 
 		initComponents();
+                setDefaultEntities();
 
 		tblChiTietHoaDon.getColumn("-").setCellRenderer(new ButtonRender(ImageProcessing
 				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png")), 15, 15)));
@@ -537,8 +532,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         txtMaKhachHang = new utilities.JTextFieldPlaceHolder();
         btnKhachHangEnter = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
+        txtDisplayTenKH = new javax.swing.JTextField();
+        txtDisplayMaKH = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         tabBanHang_HoaDon_Right_GiamGia = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
@@ -546,8 +541,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
         btnKhuyenMaiEnter = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField15 = new javax.swing.JTextField();
+        txtDisplayChuongTrinhKM = new javax.swing.JTextField();
+        txtDisplayMaGiamGia = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         panel_TongTien = new javax.swing.JPanel();
         lblTongTien = new javax.swing.JLabel();
@@ -862,11 +857,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             jTextFieldClicked(evt);
         }
     });
-    txtMaKhachHang.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtMaKhachHangActionPerformed(evt);
-        }
-    });
     jPanel12.add(txtMaKhachHang);
 
     btnKhachHangEnter.setBackground(new java.awt.Color(15, 102, 165));
@@ -876,7 +866,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     btnKhachHangEnter.setPreferredSize(new java.awt.Dimension(50, 30));
     btnKhachHangEnter.addActionListener(new java.awt.event.ActionListener() {
         public void actionPerformed(java.awt.event.ActionEvent evt) {
-            btnKhachHangEnterActionPerformed(evt);
+            btnKhachHangEnterAP(evt);
         }
     });
     jPanel12.add(btnKhachHangEnter);
@@ -896,13 +886,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
     jPanel11.add(jLabel8, gridBagConstraints);
 
-    jTextField7.setEditable(false);
-    jTextField7.setFocusable(false);
-    jTextField7.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField7ActionPerformed(evt);
-        }
-    });
+    txtDisplayTenKH.setEditable(false);
+    txtDisplayTenKH.setFocusable(false);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 4;
@@ -910,15 +895,10 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
     gridBagConstraints.weightx = 0.1;
-    jPanel11.add(jTextField7, gridBagConstraints);
+    jPanel11.add(txtDisplayTenKH, gridBagConstraints);
 
-    jTextField8.setEditable(false);
-    jTextField8.setFocusable(false);
-    jTextField8.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField8ActionPerformed(evt);
-        }
-    });
+    txtDisplayMaKH.setEditable(false);
+    txtDisplayMaKH.setFocusable(false);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 2;
@@ -926,7 +906,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
     gridBagConstraints.weightx = 0.1;
-    jPanel11.add(jTextField8, gridBagConstraints);
+    jPanel11.add(txtDisplayMaKH, gridBagConstraints);
 
     jLabel9.setText("Mã khách hàng:");
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -962,11 +942,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             jTextFieldClicked(evt);
         }
     });
-    txtKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            txtKhuyenMaiActionPerformed(evt);
-        }
-    });
     jPanel16.add(txtKhuyenMai);
 
     btnKhuyenMaiEnter.setBackground(new java.awt.Color(15, 102, 165));
@@ -974,6 +949,11 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-tap.png")), 20,20)
     );
     btnKhuyenMaiEnter.setPreferredSize(new java.awt.Dimension(50, 30));
+    btnKhuyenMaiEnter.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnKhuyenMaiEnterActionPer(evt);
+        }
+    });
     jPanel16.add(btnKhuyenMaiEnter);
 
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -991,13 +971,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(3, 0, 2, 0);
     jPanel15.add(jLabel12, gridBagConstraints);
 
-    jTextField14.setEditable(false);
-    jTextField14.setFocusable(false);
-    jTextField14.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField14ActionPerformed(evt);
-        }
-    });
+    txtDisplayChuongTrinhKM.setEditable(false);
+    txtDisplayChuongTrinhKM.setFocusable(false);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 4;
@@ -1005,15 +980,10 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
     gridBagConstraints.weightx = 0.1;
-    jPanel15.add(jTextField14, gridBagConstraints);
+    jPanel15.add(txtDisplayChuongTrinhKM, gridBagConstraints);
 
-    jTextField15.setEditable(false);
-    jTextField15.setFocusable(false);
-    jTextField15.addActionListener(new java.awt.event.ActionListener() {
-        public void actionPerformed(java.awt.event.ActionEvent evt) {
-            jTextField15ActionPerformed(evt);
-        }
-    });
+    txtDisplayMaGiamGia.setEditable(false);
+    txtDisplayMaGiamGia.setFocusable(false);
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 6;
     gridBagConstraints.gridy = 2;
@@ -1021,7 +991,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
     gridBagConstraints.weightx = 0.1;
-    jPanel15.add(jTextField15, gridBagConstraints);
+    jPanel15.add(txtDisplayMaGiamGia, gridBagConstraints);
 
     jLabel13.setText("Mã giảm giá:");
     gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1578,6 +1548,59 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         lastClicked = (JTextField) evt.getSource();
     }//GEN-LAST:event_jTextFieldClicked
 
+    private void btnKhachHangEnterAP(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangEnterAP
+        // TODO add your handling code here:
+        try{
+            if (txtMaKhachHang.getText().isBlank()){
+                khachHang.setKhachHangID("KH0001");
+                khachHang.setHoTen("Khách lẻ");
+                txtDisplayMaKH.setText(khachHang.getKhachHangID());
+                txtDisplayTenKH.setText(khachHang.getHoTen());
+                ErrorMessage.showMessageWithFocusTextField("Cảnh báo", "Bạn chưa nhập mã/sdt khách hàng!", txtMaKhachHang);
+                return;
+            }
+            
+            khachHang = khachHang_BUS.getKhachHangTuMaVaSDT(txtMaKhachHang.getText().trim());
+            if (khachHang == null){
+                khachHang = new KhachHang();
+                khachHang.setKhachHangID("KH0001");
+                khachHang.setHoTen("Khách lẻ");
+                ErrorMessage.showMessageWithFocusTextField("Thông tin", "Khách hàng không tồn tại!", txtMaKhachHang);
+            }
+            
+            txtDisplayMaKH.setText(khachHang.getKhachHangID());
+                txtDisplayTenKH.setText(khachHang.getHoTen());
+            return;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnKhachHangEnterAP
+
+    private void btnKhuyenMaiEnterActionPer(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiEnterActionPer
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnKhuyenMaiEnterActionPer
+
+    public void setDefaultEntities(){
+        try {
+        hoaDonTra = new HoaDonTra();
+        hoaDonTra.setNhanVien(CurrentSession.getNhanVien());
+	hoaDon = new HoaDon();
+	hoaDon.setNhanVien(CurrentSession.getNhanVien());
+        
+	khuyenMai = new KhuyenMai("NO_APPLY");
+        khuyenMai.setTenKhuyenMai("Không áp dụng");
+	khachHang = new KhachHang("KH0001");
+        khachHang.setHoTen("Khách lẻ");
+
+        txtDisplayMaGiamGia.setText(khuyenMai.getCodeKhuyenMai());
+        txtDisplayChuongTrinhKM.setText(khuyenMai.getTenKhuyenMai());
+        txtDisplayMaKH.setText(khachHang.getKhachHangID());
+        txtDisplayTenKH.setText(khachHang.getHoTen());
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    
 	private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtMaKhachHangActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_txtMaKhachHangActionPerformed
@@ -1749,10 +1772,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 	}
 
 	public void clearHoaDonDangTao() {
-		hoaDonTra = new HoaDonTra();
-		hoaDonTra.setNhanVien(CurrentSession.getNhanVien());
-		hoaDon = new HoaDon();
-		hoaDon.setNhanVien(CurrentSession.getNhanVien());
+		setDefaultEntities();
 		while (tblModelCTHD.getRowCount() > 0)
 			tblModelCTHD.removeRow(0);
 		updateThongTinBill();
@@ -1951,8 +1971,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 	}// GEN-LAST:event_jTabbedMouseClicked
 
 	public void thanhToanHoanTat() {
-		hoaDon = new HoaDon();
-		hoaDon.setNhanVien(CurrentSession.getNhanVien());
+		setDefaultEntities();
 		while (tblModelCTHD.getRowCount() > 0)
 			tblModelCTHD.removeRow(0);
 		if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
@@ -2013,10 +2032,6 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbed;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField15;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
     private javax.swing.JLabel lblChietKhau;
     private javax.swing.JLabel lblThanhTien;
     private javax.swing.JLabel lblThue;
@@ -2030,6 +2045,10 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JPanel tabbedDanhSachHoaDon;
     private javax.swing.JPanel tabbedHoaDon;
     private javax.swing.JTable tblChiTietHoaDon;
+    private javax.swing.JTextField txtDisplayChuongTrinhKM;
+    private javax.swing.JTextField txtDisplayMaGiamGia;
+    private javax.swing.JTextField txtDisplayMaKH;
+    private javax.swing.JTextField txtDisplayTenKH;
     private javax.swing.JTextField txtKhuyenMai;
     private javax.swing.JTextField txtMaKhachHang;
     private javax.swing.JTextField txtMaSanPham;

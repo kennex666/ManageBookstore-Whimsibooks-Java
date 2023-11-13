@@ -13,4 +13,5 @@ public interface IKhachHang {
 	public boolean editKhachHang(KhachHang kh);
 	public boolean deleteKhachHang(KhachHang kh);
 	public String getLayTenTuMa(String x);
+        public KhachHang getKhachHangTuMaVaSDT(String x);
 }
