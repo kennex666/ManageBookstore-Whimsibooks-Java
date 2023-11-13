@@ -1570,6 +1570,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             
             txtDisplayMaKH.setText(khachHang.getKhachHangID());
                 txtDisplayTenKH.setText(khachHang.getHoTen());
+                hoaDon.setKhachHang(khachHang);
             return;
         } catch (Exception e){
             e.printStackTrace();
