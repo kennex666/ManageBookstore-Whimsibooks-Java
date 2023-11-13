@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class ChiTietSanPham extends javax.swing.JPanel {
-
+    SanPham x = new SanPham();
     /**
      * Creates new form ChiTietSanPham
      */
@@ -26,6 +26,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     }
     
     public ChiTietSanPham(SanPham x) {
+        this.x = x;
         initComponents();
         ConnectDB.getInstance().connect();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
@@ -258,6 +259,12 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
+        TAB_ThemSanPham tAB_ThemSanPham = new TAB_ThemSanPham();
+        tAB_ThemSanPham.setVisible(true);
+        tAB_ThemSanPham.setLocationRelativeTo(null);
+        
+        tAB_ThemSanPham.setSanPham(x);
+        
         
     }//GEN-LAST:event_btnSuaActionPerformed
 

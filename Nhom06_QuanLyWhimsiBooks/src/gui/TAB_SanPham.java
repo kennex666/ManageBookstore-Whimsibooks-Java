@@ -30,8 +30,7 @@ import utilities.ImageProcessing;
  * @author duong
  */
 public class TAB_SanPham extends javax.swing.JPanel {
-    private int grid[] = {0,0};
-    private int dem = 0;
+    
 
     
     private final int COLUNM_BOX = 3;
@@ -42,7 +41,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
     public TAB_SanPham() {
 
         initComponents();
-  
+        loadSanPham();
+        
+    }
+    
+    public void loadSanPham()
+    {
+        int dem = 0;
         
         ConnectDB.getInstance().connect();
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
@@ -58,34 +63,32 @@ public class TAB_SanPham extends javax.swing.JPanel {
             this.jComboBox_NhaXuatBan.addItem(nhaXuatBan.getTenNhaXuatBan().toString());
         }
 //       
-        
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham();
-        for(SanPham sanPham : list)
-        {        
-            ChiTietSanPham jPanel_New_SanPham = new ChiTietSanPham(sanPham);
-
             jPanel_Empty1.setBackground(Color.white);
             jPanel_Empty2.setBackground(Color.white);
 
             jPanel_Empty1.setPreferredSize(new Dimension(545, 274));
             jPanel_Empty2.setPreferredSize(new Dimension(545, 274));
-
-
+        
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham();
+                    box.removeAll();
+        for(SanPham sanPham : list)
+        {        
+            ChiTietSanPham jPanel_New_SanPham = new ChiTietSanPham(sanPham);
         if (dem  == 0){
             box.add(jPanel_New_SanPham);
-
             box.add(jPanel_Empty1);
             box.add(jPanel_Empty2);
             jPanel_List_SanPham.add(box);
-            dem++;
+            ++dem;
 
         }else{
             if (dem == 2){
 
                 //                box = new Box(BoxLayout.X_AXIS);
-                box.add(jPanel_New_SanPham);
                 box.remove(jPanel_Empty1);
+                box.add(jPanel_New_SanPham);
+
                 //box.add(jPanel_New_SanPham);
 
                 box = new Box(BoxLayout.X_AXIS);
@@ -101,16 +104,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 box.add(jPanel_New_SanPham);
                 box.add(jPanel_Empty1);
                jPanel_List_SanPham.add(box);
-                dem++;
+                ++dem;
 
             }
         }
 
         this.revalidate();
         }
-        
-
-        
         
     }
 
@@ -338,7 +338,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel11.setText("Tìm trạng thái");
 
-        jComboBox_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        jComboBox_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Còn bán", "Ngưng bán" }));
         jComboBox_TrangThai.setName(""); // NOI18N
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
@@ -484,58 +484,30 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
     private void jButton_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_refreshActionPerformed
         // TODO add your handling code here:
-        ConnectDB.getInstance().connect();
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham();
-        this.jTextField_TimKiem.setText("");
         this.jPanel_List_SanPham.removeAll();
-        for(SanPham sanPham : list)
+
+        ConnectDB.getInstance().connect();
+        DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
+        ArrayList<DanhMuc> list_danhMuc = danhMuc_BUS.getAllDanhMuc();
+        for(DanhMuc dm : list_danhMuc)
         {
-            ChiTietSanPham jPanel_New_SanPham = new ChiTietSanPham(sanPham);
-
-            jPanel_Empty1.setBackground(Color.white);
-            jPanel_Empty2.setBackground(Color.white);
-
-            jPanel_Empty1.setPreferredSize(new Dimension(545, 274));
-            jPanel_Empty2.setPreferredSize(new Dimension(545, 274));
-
-            if (dem  == 0){
-                box.add(jPanel_New_SanPham);
-
-                box.add(jPanel_Empty1);
-                box.add(jPanel_Empty2);
-                jPanel_List_SanPham.add(box);
-                dem++;
-
-            }else{
-                if (dem == 2){
-
-                    //                box = new Box(BoxLayout.X_AXIS);
-                    box.add(jPanel_New_SanPham);
-                    box.remove(jPanel_Empty1);
-                    //box.add(jPanel_New_SanPham);
-
-                    box = new Box(BoxLayout.X_AXIS);
-                    Row++;
-                    dem = 0;
-
-                    jPanel_List_SanPham.add(box);
-                }else if(dem == 1){
-
-                    box.remove(jPanel_Empty1);
-                    box.remove(jPanel_Empty2);
-
-                    box.add(jPanel_New_SanPham);
-                    box.add(jPanel_Empty1);
-                    jPanel_List_SanPham.add(box);
-                    dem++;
-
-                }
-            }
-
-            this.revalidate();
+            this.jComboBox_DanhMuc.addItem(dm.getTenDanhMuc().toString());
         }
+        NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
+        ArrayList<NhaXuatBan> list_nhaXuatBan = nhaXuatBan_BUS.getAllNhaXuatBan();
+        for(NhaXuatBan nhaXuatBan : list_nhaXuatBan)
+        {
+            this.jComboBox_NhaXuatBan.addItem(nhaXuatBan.getTenNhaXuatBan().toString());
+        }
+//       
+        
+        this.jTextField_TimKiem.setText("");
+        
+        this.revalidate();
+        this.repaint();
 
+        loadSanPham();
+        
     }//GEN-LAST:event_jButton_refreshActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed

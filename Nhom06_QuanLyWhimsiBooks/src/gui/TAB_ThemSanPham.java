@@ -14,6 +14,7 @@ import entities.SanPham;
 import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.text.ParseException;
@@ -63,9 +64,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 10), new java.awt.Dimension(10, 10));
+        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 20), new java.awt.Dimension(10, 10));
         filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 10), new java.awt.Dimension(10, 10));
-        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 10), new java.awt.Dimension(10, 10));
+        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 10), new java.awt.Dimension(10, 10));
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 10), new java.awt.Dimension(0, 0));
         jLabel_Img = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
@@ -193,11 +194,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 955, Short.MAX_VALUE)
+            .addGap(0, 836, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 72, Short.MAX_VALUE)
+            .addGap(0, 57, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel5);
@@ -213,15 +214,18 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel18.setMaximumSize(new java.awt.Dimension(300, 300));
         jPanel18.setPreferredSize(new java.awt.Dimension(320, 250));
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel2.setText("Hình ảnh");
-        jLabel2.setPreferredSize(new java.awt.Dimension(37, 22));
+        jLabel2.setPreferredSize(new java.awt.Dimension(200, 22));
         jPanel18.add(jLabel2);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setMaximumSize(new java.awt.Dimension(350, 300));
         jPanel6.setPreferredSize(new java.awt.Dimension(300, 200));
+        jPanel6.setRequestFocusEnabled(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
         jPanel6.add(filler28, java.awt.BorderLayout.LINE_END);
         jPanel6.add(filler27, java.awt.BorderLayout.PAGE_START);
@@ -232,7 +236,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Img.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jLabel_Img.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel_Img.setPreferredSize(new java.awt.Dimension(280, 100));
+        jLabel_Img.setMaximumSize(new java.awt.Dimension(50, 200));
+        jLabel_Img.setMinimumSize(new java.awt.Dimension(50, 200));
+        jLabel_Img.setPreferredSize(new java.awt.Dimension(50, 200));
         jPanel6.add(jLabel_Img, java.awt.BorderLayout.CENTER);
 
         jPanel18.add(jPanel6);
@@ -251,11 +257,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 143, Short.MAX_VALUE)
+            .addGap(0, 115, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 49, Short.MAX_VALUE)
+            .addGap(0, 44, Short.MAX_VALUE)
         );
 
         jPanel19.add(jPanel7);
@@ -758,11 +764,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1124, Short.MAX_VALUE)
+            .addGap(0, 1005, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 63, Short.MAX_VALUE)
+            .addGap(0, 42, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3);
@@ -829,7 +835,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         JFileChooser chooser;
-        BufferedImage img;
+        BufferedImage img = null;
         File file;
         
         chooser = new JFileChooser();
@@ -840,8 +846,13 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        ImageIcon icon = new ImageIcon(file.toString());
+        
+        
+        Image image = (Image)img; // transform it 
+        Image newimg = img.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way        
+        ImageIcon icon = new ImageIcon(newimg); 
         jLabel_Img.setIcon(icon);
+       
 
         
        
@@ -875,8 +886,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
         
-        
-
         SanPham sanPham = getNewSanPham();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         try {
@@ -885,6 +894,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             e.printStackTrace();
         }
         sanPham_BUS.addSanPham(sanPham);
+        ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
+        SanPham SanPham = null;
+        chiTietSanPham.x = SanPham;
         
         this.setVisible(false);
         
@@ -1014,6 +1026,70 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             ex.printStackTrace();
         }
         return sanPham;
+    }
+    
+    public void setSanPham(SanPham x)
+    {
+        ConnectDB.getInstance().connect();
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        
+        ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
+
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg); 
+        this.jLabel_Img.setIcon(imageIcon);
+        
+        this.jTextField_TenSanPham.setText(x.getTenSanPham());
+        this.jTextField_SoLuongTon.setText(x.getSoLuongTon() + "");
+        this.jTextField_TacGia.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
+        this.jTextField_ThuongHieu.setText(x.getThuongHieu().getTenThuongHieu());
+        this.jTextField_Barcode.setText(x.getBarcode());
+        this.jTextField_NhaCungCap.setText(x.getNhaCungCap().getTenNhaCungCap());
+        this.jTextField_GiaNhap.setText(x.getGiaNhap() + "");
+        if(x.getTinhTrang().equals("Còn hàng"))
+        {
+            this.jComboBox_TinhTrang.setSelectedIndex(0);
+        }
+        else if(x.getTinhTrang().equals("Hết hàng"))
+        {
+            this.jComboBox_TinhTrang.setSelectedIndex(1);
+        }
+        else if(x.getTinhTrang().equals("Ngừng kinh doanh"))
+        {
+            this.jComboBox_TinhTrang.setSelectedIndex(0);
+        }
+        this.jTextField_Thue.setText(x.getThue() + "");
+        this.jTextField_TheLoai.setText(x.getTheLoai().getTenTheLoai());
+        this.jTextField1_NamSanXuat.setText(x.getNamSanXuat() + "");
+        if(x.getLoaiSanPham().equals("Sách"))
+        {
+            this.jComboBox_LoaiSanPham.setSelectedIndex(0);
+        }
+        else if(x.getLoaiSanPham().equals("Sản phẩm khác"))
+        {
+            this.jComboBox_LoaiSanPham.setSelectedIndex(1);
+        }
+        this.jTextField_DonViDoLuong.setText(x.getDonViDoLuong());
+        this.jTextField_KichThuoc.setText(x.getKichThuoc());
+        this.jTextField_XuatXu.setText(x.getXuatXu());
+        this.jTextField_NgonNgu.setText(x.getNgonNgu());
+        this.jTextField_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
+        this.jTextField_DanhMuc.setText(sanPham_BUS.getNameDanhMucByID(x.getDanhMuc().getDanhMucID()));
+        this.jTextField_SoTrang.setText(x.getSoTrang()+"");
+        this.jTextField_LoaiBia.setText(x.getLoaiBia());
+        if(x.getLoaiDoiTra().equals("Được đổi trả"))
+        {
+            this.jComboBox_LoaiDoiTra.setSelectedIndex(0);
+        }
+        if(x.getLoaiDoiTra().equals("Không được đổi"))
+        {
+            this.jComboBox_LoaiDoiTra.setSelectedIndex(1);
+        }
+        this.txtNgay.setDate(x.getNgayNhap());
+        
+         
+       
     }
     /**
      * @param args the command line arguments
