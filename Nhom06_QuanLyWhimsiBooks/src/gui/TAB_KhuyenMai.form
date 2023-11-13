@@ -509,9 +509,9 @@
                           </Layout>
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="TimMaSanPham">
-                              <Properties>
-                                <Property name="text" type="java.lang.String" value="M&#xe3; s&#x1ea3;n ph&#x1ea9;m..."/>
-                              </Properties>
+                              <AuxValues>
+                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="utilities.JTextFieldPlaceHolder"/>
+                              </AuxValues>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                   <BorderConstraints direction="Center"/>

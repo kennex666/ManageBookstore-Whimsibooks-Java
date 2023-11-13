@@ -8,14 +8,33 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import bus.NhaCungCap_BUS;
 import entities.NhaCungCap;
@@ -473,8 +492,49 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     
 
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
-       
-    }//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
+        File excelFile;
+        FileInputStream excelFIS = null;
+        BufferedInputStream excelBIS = null;
+        
+        String defaultCurrentDirectoryPath = "D:\\";
+        JFileChooser excelFileChooser = new JFileChooser(defaultCurrentDirectoryPath);
+        excelFileChooser.setDialogTitle("Select Excel File");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+        excelFileChooser.setFileFilter(fnef);
+        int excelChooser = excelFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+			try {
+				excelFile = excelFileChooser.getSelectedFile();
+		        
+		        excelFIS = new FileInputStream(excelFile);
+				excelBIS = new BufferedInputStream(excelFIS);
+				XSSFWorkbook workbook = new XSSFWorkbook(excelBIS);
+				XSSFSheet datatypeSheet = workbook.getSheetAt(0);
+	
+				
+				Iterator<Row> iterator = datatypeSheet.iterator();
+				Row firstRow = iterator.next();
+				Cell firstCell = firstRow.getCell(0);
+				while (iterator.hasNext()) {
+					Row currentRow = iterator.next();
+					NhaCungCap ncc = new NhaCungCap();
+					ncc.setNhaCungCapID(phatSinhMaNhaCungCap());
+					ncc.setTenNhaCungCap(currentRow.getCell(0).getStringCellValue());
+					ncc.setSoDienThoai(currentRow.getCell(1).getStringCellValue());;
+					ncc.setEmail(currentRow.getCell(2).getStringCellValue());;
+					ncc.setDiaChi(currentRow.getCell(3).getStringCellValue());
+					nhaCungCap_BUS.addNhaCungCap(ncc);
+				}
+				JOptionPane.showMessageDialog(null, "Imported Successfully !!.....");
+				loadData();
+				workbook.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+	}//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
     
 
     private void btnCapNhatNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNCCActionPerformed
