@@ -160,7 +160,7 @@ public class HoaDonTra {
 			tempObj[0] = listChiTietHoaDon.indexOf(x) + 1; 
 			tempObj[1] = tempCTHD.getSanPham().getTenSanPham();
 			tempObj[2] = tempCTHD.getSoLuong();
-			tempObj[3] = "";
+			tempObj[3] = "Không có lý do";
 		return tempObj;
 	}
 	

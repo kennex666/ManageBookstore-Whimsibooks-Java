@@ -143,7 +143,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
 					// Nếu là trả hàng
 					if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
-						ChiTietTraHang ctth = new ChiTietTraHang(oldValue - newValue, TOOL_TIP_TEXT_KEY,
+						ChiTietTraHang ctth = new ChiTietTraHang(oldValue - newValue, "Không có lý do",
 								hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
 								hoaDon.getListChiTietHoaDon().get(row).getSanPham());
 						hoaDonTra.addChiTietHoaDon(ctth);

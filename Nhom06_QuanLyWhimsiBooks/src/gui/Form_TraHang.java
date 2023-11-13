@@ -22,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JRootPane;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilities.ColorProcessing;
 import utilities.ErrorMessage;
@@ -67,19 +68,19 @@ public class Form_TraHang extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null); 
         
-        lblCanThanhToan.setText(Numberic.formatVND(x.tinhThanhTien()));
+        lblCanThanhToan.setText(Numberic.formatVND(z.tinhTongHoan()));
         lblTongTien.setText(Numberic.formatVND(x.tinhTongTien()));
-        lblMaHoaDon.setText(x.getHoaDonID());
+        lblMaHoaDon.setText(z.getHoaDonID());
         
-        lblTraKhach.setText(Numberic.formatVND(x.tinhThanhTien()));
+        lblTraKhach.setText(Numberic.formatVND(z.tinhTongHoan()));
         
-        JComboBox<String> cboInTable = new JComboBox<>();
-        cboInTable.addItem("Sản phẩm lỗi do NSX");
-        cboInTable.addItem("Sản phẩm hết hạn");
-        cboInTable.addItem("Khách hàng đổi ý");
-        cboInTable.addItem("KH không hài lòng");
+        String[] options = {"Sản phẩm lỗi do NSX", "Sản phẩm hết hạn", "Khách hàng đổi ý", "KH không hài lòng", "Không có lý do"};
+        DefaultComboBoxModel model = new DefaultComboBoxModel(options);
+        JComboBox comboBox = new JComboBox(model);
 
-        jTable1.getColumnModel().getColumn(3).setCellEditor( new DefaultCellEditor(cboInTable));
+
+        jTable1.setColumnSelectionAllowed(true);
+        jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(comboBox));
         
         ArrayList<Object[]> cthdtList = hoaDonTra.tableChiTietHoaDon();
         if (cthdtList == null)
@@ -276,7 +277,7 @@ public class Form_TraHang extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -351,6 +352,36 @@ public class Form_TraHang extends javax.swing.JFrame {
 
     private void btnThanhToanHoanTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanHoanTatActionPerformed
         // TODO add your handling code here:
+
+    	hoaDon_BUS.cancelHoaDon(hoaDon);
+    	hoaDon.setHoaDonID(null);
+    	
+    	hoaDon.setTrangThai("DA_XU_LY");
+        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+        
+        if (!result){
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn.");
+            return;
+        }
+        
+        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+        if (!result) {
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
+            return;
+        }
+        
+        result = hoaDonTra_BUS.createHoaDon(hoaDonTra);
+        
+        if (!result){
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn trả.");
+            return;
+        }
+        
+        result = chiTietTraHang_BUS.addNhieuChiTietCuaMotHoaDon(hoaDonTra.getListChiTietHoaDon());
+        if (!result) {
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
+            return;
+        }
         tabBanHang.thanhToanHoanTat();
         closeFormThanhToan();
     }//GEN-LAST:event_btnThanhToanHoanTatActionPerformed
