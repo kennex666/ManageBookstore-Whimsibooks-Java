@@ -413,20 +413,78 @@ public class SanPham_DAO implements ISanPham{
 
     @Override
     public int getIdDanhMucByName(String name) {
-        try {
-                String query = "SELECT DanhMucID FROM DanhMuc WHERE TenDanhMuc = ?";
+       try {
+                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
                 PreparedStatement pstm = conn.prepareStatement(query);
 		pstm.setString(1, name);
                 ResultSet rs = pstm.executeQuery();
                 while(rs.next())
                 {
-                    int id = rs.getInt("DanhMucID");
+                    int id = rs.getInt("NhaXuatBanID");
                     return id;
                 }
+                
         } catch (Exception e) {
             e.printStackTrace();
         }
 	return -1;
     }
+
+    @Override
+    public String getNameTacGiaByID(int ID) {
+        try {
+                String query = "SELECT TenTacGia FROM TacGia WHERE TacGiaID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenTacGia");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameNhaXuatBanByID(int ID) {
+          try {
+                String query = "SELECT TenNhaXuatBan FROM NhaXuatBan WHERE NhaXuatBanID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenNhaXuatBan");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameDanhMucByID(int ID) {
+         try {
+                String query = "SELECT TenDanhMuc FROM DanhMuc WHERE DanhMucID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenDanhMuc");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+
+        
 	
 }

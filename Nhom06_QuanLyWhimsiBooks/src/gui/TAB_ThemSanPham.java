@@ -321,7 +321,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jLabel_TacGia.setText("Tác giả");
         jLabel_TacGia.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel55.add(jLabel_TacGia, java.awt.BorderLayout.CENTER);
-        jLabel_TacGia.getAccessibleContext().setAccessibleName("Tác giả");
 
         jTextField_TacGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTextField_TacGia.setPreferredSize(new java.awt.Dimension(71, 35));
@@ -843,6 +842,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         }
         ImageIcon icon = new ImageIcon(file.toString());
         jLabel_Img.setIcon(icon);
+
+        
        
 
         
@@ -873,6 +874,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_SuaActionPerformed
 
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
+        
+        
+
         SanPham sanPham = getNewSanPham();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         try {
@@ -914,9 +918,12 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         Date DATE = Date.valueOf(date);
         
         
+        String pathImg = jLabel_Img.getIcon().toString();
+        File file = new File(pathImg);
+        String filePath = file.getPath(); 
+        String partialPath = filePath.substring(filePath.indexOf("img\\products"));
         
-        
-        String ImgPath = jLabel_Img.getText();
+ 
         
         NhaCungCap ncc = new NhaCungCap();
         TheLoai tl = new TheLoai();
@@ -932,6 +939,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         String tenDanhMuc = jTextField_DanhMuc.getText();
         String tenThuongHieu = jTextField_ThuongHieu.getText();
         
+
        
         try {
             ncc.setTenNhaCungCap(tenNhaCungCap);
@@ -954,17 +962,20 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         }
         
         ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
-        System.out.println(ncc.getNhaCungCapID());
+
+        
         tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
-        System.out.println(tl.getTheLoaiID());
+
         nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
-        System.out.println(nxb.getNhaXuatBanID());
+        
         dm.setDanhMucID(sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc()));
-        System.out.println(dm.getDanhMucID());
+
         tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
-        System.out.println(tg.getTacGiaID());
+
         th.setThuongHieuID(sanPham_BUS.getIdThuongHieuByName(th.getTenThuongHieu()));
-        System.out.println(th.getThuongHieuID());
+
+        
+    
         
         
         
@@ -989,7 +1000,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setLoaiBia(loaiBia);
             sanPham.setLoaiDoiTra(loaiDoiTra);
             sanPham.setNgayNhap(DATE);
-            sanPham.setImgPath(ImgPath);
+            sanPham.setImgPath(partialPath);
             
             sanPham.setTacGia(tg);
             sanPham.setTheLoai(tl);

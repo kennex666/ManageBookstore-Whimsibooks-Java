@@ -4,7 +4,12 @@
  */
 package gui;
 
+import bus.SanPham_BUS;
+import connectDB.ConnectDB;
 import entities.SanPham;
+import entities.TacGia;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,7 +17,7 @@ import javax.swing.JOptionPane;
  * @author ASUS
  */
 public class ChiTietSanPham extends javax.swing.JPanel {
-    private SanPham sanPham;
+
     /**
      * Creates new form ChiTietSanPham
      */
@@ -22,14 +27,31 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     
     public ChiTietSanPham(SanPham x) {
         initComponents();
+        ConnectDB.getInstance().connect();
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        
+   
+   
 
-//        this.jLabel_TenSanPham.setText(x.getTenSanPham());
-//        this.jLabel_TacGia.setText(x.getTacGia().getTenTacGia());
-//        this.jLabel_DanhMuc.setText(x.getDanhMuc().getTenDanhMuc());
-//        this.jLabel_NhaXuatBan.setText(x.getNhaXuatBan().getTenNhaXuatBan());
-//        this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
-//        
-//        this.sanPham = x;
+        this.jLabel_TenSanPham.setText(x.getTenSanPham());
+        this.jLabel_TacGia.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
+        this.jLabel_DanhMuc.setText(sanPham_BUS.getNameDanhMucByID(x.getDanhMuc().getDanhMucID()));
+        this.jLabel_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
+        this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
+        
+//        if (getClass().getResource(x.getImgPath().toString()) == null){
+//            jLabel_Img.setText("No image");
+//            return;
+//        }
+
+        ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
+
+        Image image = imageIcon.getImage(); // transform it 
+        Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        imageIcon = new ImageIcon(newimg); 
+        this.jLabel_Img.setIcon(imageIcon);
+        
+
     }
 
 
@@ -44,7 +66,11 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
         jPanel_Component_SanPham = new javax.swing.JPanel();
         jPanel_Box_Left = new javax.swing.JPanel();
-        jPanel_Img = new javax.swing.JPanel();
+        jLabel_Img = new javax.swing.JLabel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
+        filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 10), new java.awt.Dimension(0, 0));
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 20), new java.awt.Dimension(0, 0));
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 5), new java.awt.Dimension(0, 0));
         jPanel_Info_SanPham1 = new javax.swing.JPanel();
         jPanel159 = new javax.swing.JPanel();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
@@ -82,35 +108,21 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jPanel_Component_SanPham.setMinimumSize(new java.awt.Dimension(430, 300));
         jPanel_Component_SanPham.setLayout(new javax.swing.BoxLayout(jPanel_Component_SanPham, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel_Img.setBackground(new java.awt.Color(255, 204, 255));
+        jPanel_Box_Left.setPreferredSize(new java.awt.Dimension(170, 254));
+        jPanel_Box_Left.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel_ImgLayout = new javax.swing.GroupLayout(jPanel_Img);
-        jPanel_Img.setLayout(jPanel_ImgLayout);
-        jPanel_ImgLayout.setHorizontalGroup(
-            jPanel_ImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 178, Short.MAX_VALUE)
-        );
-        jPanel_ImgLayout.setVerticalGroup(
-            jPanel_ImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 224, Short.MAX_VALUE)
-        );
+        jLabel_Img.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel_Img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jLabel_Img.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel_Img.setPreferredSize(new java.awt.Dimension(150, 300));
+        jPanel_Box_Left.add(jLabel_Img, java.awt.BorderLayout.CENTER);
+        jLabel_Img.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout jPanel_Box_LeftLayout = new javax.swing.GroupLayout(jPanel_Box_Left);
-        jPanel_Box_Left.setLayout(jPanel_Box_LeftLayout);
-        jPanel_Box_LeftLayout.setHorizontalGroup(
-            jPanel_Box_LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_Box_LeftLayout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
-                .addComponent(jPanel_Img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel_Box_LeftLayout.setVerticalGroup(
-            jPanel_Box_LeftLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_Box_LeftLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel_Img, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jPanel_Box_Left.add(filler11, java.awt.BorderLayout.LINE_END);
+        jPanel_Box_Left.add(filler12, java.awt.BorderLayout.PAGE_START);
+        jPanel_Box_Left.add(filler13, java.awt.BorderLayout.PAGE_END);
+        jPanel_Box_Left.add(filler14, java.awt.BorderLayout.LINE_START);
 
         jPanel_Component_SanPham.add(jPanel_Box_Left);
 
@@ -246,7 +258,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showConfirmDialog(null, sanPham.getTenSanPham());
+        
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnNgungKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgungKDActionPerformed
@@ -257,6 +269,10 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
+    private javax.swing.Box.Filler filler12;
+    private javax.swing.Box.Filler filler13;
+    private javax.swing.Box.Filler filler14;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -273,6 +289,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel130;
     private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel_DanhMuc;
+    private javax.swing.JLabel jLabel_Img;
     private javax.swing.JLabel jLabel_NhaXuatBan;
     private javax.swing.JLabel jLabel_SoLuong;
     private javax.swing.JLabel jLabel_TacGia;
@@ -285,7 +302,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel164;
     private javax.swing.JPanel jPanel_Box_Left;
     private javax.swing.JPanel jPanel_Component_SanPham;
-    private javax.swing.JPanel jPanel_Img;
     private javax.swing.JPanel jPanel_Info_SanPham1;
     private javax.swing.JPanel jPanel_TenSanPham1;
     // End of variables declaration//GEN-END:variables

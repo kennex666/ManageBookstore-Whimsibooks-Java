@@ -21,5 +21,9 @@ public interface ISanPham {
         public String getIdNhaCungCapByName(String name);
         public int getIdThuongHieuByName(String name);
         public int getIdDanhMucByName(String name);
+        
+        public String getNameTacGiaByID(int ID);
+        public String getNameNhaXuatBanByID(int ID);
+        public String getNameDanhMucByID(int ID);
 	
 }
