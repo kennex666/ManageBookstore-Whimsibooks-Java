@@ -509,9 +509,9 @@
                           </Layout>
                           <SubComponents>
                             <Component class="javax.swing.JTextField" name="TimMaSanPham">
-                              <AuxValues>
-                                <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="utilities.JTextFieldPlaceHolder"/>
-                              </AuxValues>
+                              <Events>
+                                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TimMaSanPhamActionPerformed"/>
+                              </Events>
                               <Constraints>
                                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout" value="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout$BorderConstraintsDescription">
                                   <BorderConstraints direction="Center"/>

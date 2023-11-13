@@ -351,7 +351,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel12.setLayout(new java.awt.BorderLayout(10, 0));
 
-        TimMaSanPham.setText("Mã sản phẩm...");
+        TimMaSanPham.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TimMaSanPhamActionPerformed(evt);
+            }
+        });
         jPanel12.add(TimMaSanPham, java.awt.BorderLayout.CENTER);
 
         btnTimKiem.setBackground(new java.awt.Color(15, 145, 239));
@@ -632,6 +636,10 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         	}
         }
     }//GEN-LAST:event_btnTimKiemActionPerformed
+
+    private void TimMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimMaSanPhamActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TimMaSanPhamActionPerformed
     
     // Load date
     private void loadDataKM() {
