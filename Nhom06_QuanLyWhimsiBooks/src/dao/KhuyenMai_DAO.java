@@ -44,7 +44,46 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			Statement stm =  conn.createStatement();
-			String query = "Select * from KhachHang WHERE MaKH = '" + maKhuyenMai + "'";
+			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+maKhuyenMai+"%'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+					list.add(khuyenMai);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
+		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+		try {
+			Statement stm =  conn.createStatement();
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+					list.add(khuyenMai);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<KhuyenMai> SapXepKhuyenMaiTheoGiaTri(String maKhuyenMai) {
+		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+maKhuyenMai+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {
@@ -59,8 +98,8 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return list;
 	}
-	@Override
 	
+	@Override
 	public boolean addKhuyenMai(KhuyenMai khuyenMai) {
 		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
 		String tenKhuyenMai = khuyenMai.getTenKhuyenMai();

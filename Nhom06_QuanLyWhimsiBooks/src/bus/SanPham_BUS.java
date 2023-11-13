@@ -22,7 +22,7 @@ public class SanPham_BUS implements ISanPham{
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		// TODO Auto-generated method stub
-		return null;
+		return sanPham_DAO.getDanhSachSanPham(query);
 	}
 
 	@Override
