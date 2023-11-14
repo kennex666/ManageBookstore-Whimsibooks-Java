@@ -19,21 +19,9 @@ public class SanPham {
 	private NhaCungCap nhaCungCap;
 	
 	
-	// contructer cho khuyến mãi
-	public SanPham(int sanPhamID, String tenSanPham , int soLuongTon, String imgPath) {
-		this.sanPhamID = sanPhamID;
-		this.soLuongTon = soLuongTon;
-		this.tenSanPham = tenSanPham;
-		this.imgPath = imgPath;
-	}
-	
-	public SanPham(int sanPhamID, String tenSanPham) {
-		this.sanPhamID = sanPhamID;
-		this.tenSanPham = tenSanPham;
-	}
-	
 	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
 
+	
 	public int getSanPhamID() {
 		return sanPhamID;
 	}
@@ -279,7 +267,6 @@ public class SanPham {
 		this.giaNhap = 0;
 		this.soTrang = 0;
 	}
-
 	
 	/* Tính giá bán */
 	public double getGiaBan() {

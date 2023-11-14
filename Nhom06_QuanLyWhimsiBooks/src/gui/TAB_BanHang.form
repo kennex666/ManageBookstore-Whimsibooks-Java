@@ -3530,7 +3530,6 @@
                           <Connection code="ImageProcessing.resizeIcon(&#xa;                    new ImageIcon(getClass().getResource(&quot;/img/icon/btn-waitlist.png&quot;))&#xa;                , 45, 45)" type="code"/>
                         </Property>
                         <Property name="text" type="java.lang.String" value="H&#xe0;ng ch&#x1edd; (F5)"/>
-                        <Property name="autoscrolls" type="boolean" value="true"/>
                         <Property name="horizontalAlignment" type="int" value="10"/>
                         <Property name="iconTextGap" type="int" value="50"/>
                         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
