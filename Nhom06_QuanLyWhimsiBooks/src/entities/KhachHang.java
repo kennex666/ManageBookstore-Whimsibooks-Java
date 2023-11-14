@@ -14,11 +14,23 @@ public class KhachHang {
 	private String maSoThue;
 	private String diaChi;
 	private String loaiKhachHang;
-	
-	
-
+	public KhachHang() {
+		
+	}
 	public KhachHang(String khachHangID) {
 		this.khachHangID = khachHangID;
+	}
+	public KhachHang(String khachHangID, String hoTen, String soDienThoai, LocalDate ngaySinh, String gioiTinh, String email,
+			String maSoThue, String diaChi, String loaiKhachHang) {
+		this.khachHangID = khachHangID;
+		this.hoTen = hoTen;
+		this.soDienThoai = soDienThoai;
+		this.ngaySinh = ngaySinh;
+		this.gioiTinh = gioiTinh;
+		this.email = email;
+		this.maSoThue = maSoThue;
+		this.diaChi = diaChi;
+		this.loaiKhachHang = loaiKhachHang;
 	}
 
 	public String getKhachHangID() {
@@ -103,18 +115,7 @@ public class KhachHang {
 	}
 	
 	
-	public KhachHang(String khachHangID, String hoTen, String soDienThoai, LocalDate ngaySinh, String gioiTinh, String email,
-			String maSoThue, String diaChi, String loaiKhachHang) {
-		this.khachHangID = khachHangID;
-		this.hoTen = hoTen;
-		this.soDienThoai = soDienThoai;
-		this.ngaySinh = ngaySinh;
-		this.gioiTinh = gioiTinh;
-		this.email = email;
-		this.maSoThue = maSoThue;
-		this.diaChi = diaChi;
-		this.loaiKhachHang = loaiKhachHang;
-	}
+	
 
 	@Override
 	public int hashCode() {

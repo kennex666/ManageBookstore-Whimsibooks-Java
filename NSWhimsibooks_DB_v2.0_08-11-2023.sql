@@ -1,4 +1,4 @@
-/*
+﻿/*
 ASUS - 07/11/2023 06:04:27 PM
 */
 CREATE DATABASE QuanLyNhaSachWhimsiBooks
@@ -6,9 +6,9 @@ GO
 use QuanLyNhaSachWhimsiBooks
 GO
 CREATE TABLE KhuyenMai (
-  CodeKhuyenMai    varchar(255) NOT NULL, 
-  TenKhuyenMai     varchar(255) NULL, 
-  LoaiGiamGia      varchar(255) NULL, 
+  CodeKhuyenMai    nvarchar(255) NOT NULL, 
+  TenKhuyenMai     nvarchar(255) NULL, 
+  LoaiGiamGia      nvarchar(255) NULL, 
   GiaTri           float(10) NOT NULL, 
   NgayKhuyenMai    datetime NULL, 
   NgayHetHanKM     datetime NULL, 
@@ -17,57 +17,57 @@ CREATE TABLE KhuyenMai (
   SoLuotDaApDung   int NOT NULL, 
   PRIMARY KEY (CodeKhuyenMai));
 CREATE TABLE NhanVien (
-  NhanVienID  varchar(255) NOT NULL, 
-  UserName    varchar(255) NULL, 
-  Password    varchar(255) NULL, 
+  NhanVienID  nvarchar(255) NOT NULL, 
+  UserName    nvarchar(255) NULL, 
+  Password    nvarchar(255) NULL, 
   NgayTaoTK   datetime NULL, 
-  HoTen       varchar(255) NULL, 
-  GioiTinh    varchar(255) NULL, 
-  SoDIenThoai varchar(255) NULL, 
-  ChucVu      varchar(255) NULL, 
-  Email       varchar(255) NULL, 
+  HoTen       nvarchar(255) NULL, 
+  GioiTinh    nvarchar(255) NULL, 
+  SoDIenThoai nvarchar(255) NULL, 
+  ChucVu      nvarchar(255) NULL, 
+  Email       nvarchar(255) NULL, 
   NgaySInh    datetime NULL, 
-  DiaChi      varchar(255) NULL, 
+  DiaChi      nvarchar(255) NULL, 
   PRIMARY KEY (NhanVienID));
 CREATE TABLE NhaCungCap (
-  NhaCungCapID  varchar(255) NOT NULL, 
-  TenNhaCungCap varchar(255) NULL, 
-  SoDIenThoai   varchar(255) NULL, 
-  Email         varchar(255) NULL, 
-  DiaChi        varchar(255) NULL, 
+  NhaCungCapID  nvarchar(255) NOT NULL, 
+  TenNhaCungCap nvarchar(255) NULL, 
+  SoDIenThoai   nvarchar(255) NULL, 
+  Email         nvarchar(255) NULL, 
+  DiaChi        nvarchar(255) NULL, 
   PRIMARY KEY (NhaCungCapID));
 CREATE TABLE ChiTietTraHang (
   SoLuong     int NOT NULL, 
-  HoaDonID    varchar(255) NOT NULL, 
+  HoaDonID    nvarchar(255) NOT NULL, 
   SanPhamID   int NOT NULL, 
   DonGia      float(10) NOT NULL, 
-  LiDoTrahang varchar(255) NULL);
+  LiDoTrahang nvarchar(255) NULL);
 CREATE TABLE HoaDonTra (
-  HoaDonID      varchar(255) NOT NULL, 
-  KhachHangID   varchar(255) NOT NULL, 
+  HoaDonID      nvarchar(255) NOT NULL, 
+  KhachHangID   nvarchar(255) NOT NULL, 
   NgayTraHoaDon datetime NULL, 
   TongHoan      float(10) NOT NULL, 
-  TrangThai     varchar(255) NULL, 
+  TrangThai     nvarchar(255) NULL, 
   PRIMARY KEY (HoaDonID));
 CREATE TABLE KhachHang (
-  KhachHangID   varchar(255) NOT NULL, 
-  HoTen         varchar(255) NULL, 
-  SoDienThoai   varchar(255) NULL, 
+  KhachHangID   nvarchar(255) NOT NULL, 
+  HoTen         nvarchar(255) NULL, 
+  SoDienThoai   nvarchar(255) NULL, 
   NgaySInh      datetime NULL, 
-  GioiTinh      varchar(255) NULL, 
-  Email         varchar(255) NULL, 
-  MaSoThue      varchar(255) NULL, 
-  DiaChi        varchar(255) NULL, 
-  LoaiKhachHang varchar(255) NULL, 
+  GioiTinh      nvarchar(255) NULL, 
+  Email         nvarchar(255) NULL, 
+  MaSoThue      nvarchar(255) NULL, 
+  DiaChi        nvarchar(255) NULL, 
+  LoaiKhachHang nvarchar(255) NULL, 
   PRIMARY KEY (KhachHangID));
 CREATE TABLE HoaDon (
-  HoaDonID      varchar(255) NOT NULL, 
-  CodeKhuyenMai varchar(255) NOT NULL, 
-  KhachHangID   varchar(255) NOT NULL, 
-  NhanVienID    varchar(255) NOT NULL, 
+  HoaDonID      nvarchar(255) NOT NULL, 
+  CodeKhuyenMai nvarchar(255) NOT NULL, 
+  KhachHangID   nvarchar(255) NOT NULL, 
+  NhanVienID    nvarchar(255) NOT NULL, 
   NgayLapHoaDon datetime NULL, 
   TongTien      float(10) NOT NULL, 
-  TrangThai     varchar(255) NULL, 
+  TrangThai     nvarchar(255) NULL, 
   Thue          float(10) NOT NULL, 
   GiaKhuyenMai  float(10) NOT NULL, 
   PRIMARY KEY (HoaDonID));
@@ -78,62 +78,62 @@ CREATE TABLE SanPham (
   NhaXuatBanID int NOT NULL, 
   ThuongHieuID int NOT NULL, 
   DanhMucID    int NOT NULL, 
-  NhaCungCapID varchar(255) NOT NULL, 
-  TenSanPham   varchar(255) NULL, 
+  NhaCungCapID nvarchar(255) NOT NULL, 
+  TenSanPham   nvarchar(255) NULL, 
   NgayNhap     datetime NULL, 
   Thue         float(10) NOT NULL, 
   LoaiDoiTra   bit NOT NULL, 
-  Barcode      varchar(255) NULL, 
-  ImgPath      varchar(255) NULL, 
-  TinhTrang    varchar(255) NULL, 
+  Barcode      nvarchar(255) NULL, 
+  ImgPath      nvarchar(255) NULL, 
+  TinhTrang    nvarchar(255) NULL, 
   SoLuongTon   int NOT NULL, 
   NamSanXuat   int NOT NULL, 
-  LoaiSanPham  varchar(255) NULL, 
-  DonViDoLuong varchar(255) NULL, 
-  KichThuoc    varchar(255) NULL, 
-  XuatXu       varchar(255) NULL, 
-  NgonNgu      varchar(255) NULL, 
+  LoaiSanPham  nvarchar(255) NULL, 
+  DonViDoLuong nvarchar(255) NULL, 
+  KichThuoc    nvarchar(255) NULL, 
+  XuatXu       nvarchar(255) NULL, 
+  NgonNgu      nvarchar(255) NULL, 
   SoTrang      int NOT NULL, 
-  LoaiBia      varchar(255) NULL, 
+  LoaiBia      nvarchar(255) NULL, 
   GiaNhap      float(10) NOT NULL, 
   PRIMARY KEY (SanPhamID));
 CREATE TABLE ChiTietHoaDon (
   SoLuong   int NOT NULL, 
-  HoaDonID  varchar(255) NOT NULL, 
+  HoaDonID  nvarchar(255) NOT NULL, 
   SanPhamID int NOT NULL, 
   DonGia    float(10) NOT NULL);
 CREATE TABLE TacGia (
   TacGiaID  int IDENTITY NOT NULL, 
-  TenTacGia varchar(255) NULL, 
-  QuocTich  varchar(255) NULL, 
+  TenTacGia nvarchar(255) NULL, 
+  QuocTich  nvarchar(255) NULL, 
   PRIMARY KEY (TacGiaID));
 CREATE TABLE TheLoai (
   TheLoaiID  int IDENTITY NOT NULL, 
-  TenTheLoai varchar(255) NULL, 
+  TenTheLoai nvarchar(255) NULL, 
   PRIMARY KEY (TheLoaiID));
 CREATE TABLE DanhMuc (
   DanhMucID  int IDENTITY NOT NULL, 
-  TenDanhMuc varchar(255) NULL, 
+  TenDanhMuc nvarchar(255) NULL, 
   PRIMARY KEY (DanhMucID));
 CREATE TABLE ThuongHieu (
   ThuongHieuID  int IDENTITY NOT NULL, 
-  TenThuongHieu varchar(255) NULL, 
+  TenThuongHieu nvarchar(255) NULL, 
   PRIMARY KEY (ThuongHieuID));
 CREATE TABLE NhaXuatBan (
   NhaXuatBanID   int IDENTITY NOT NULL, 
-  TenNhaXuatBan  varchar(255) NULL, 
-  DiaChi         varchar(255) NULL, 
-  SoDienThoai    varchar(255) NULL, 
-  Email          varchar(255) NULL, 
-  Website        varchar(255) NULL, 
+  TenNhaXuatBan  nvarchar(255) NULL, 
+  DiaChi         nvarchar(255) NULL, 
+  SoDienThoai    nvarchar(255) NULL, 
+  Email          nvarchar(255) NULL, 
+  Website        nvarchar(255) NULL, 
   NamThanhLap    int NOT NULL, 
-  LinhVucXuatBan varchar(255) NULL, 
-  QuocGia        varchar(255) NULL, 
+  LinhVucXuatBan nvarchar(255) NULL, 
+  QuocGia        nvarchar(255) NULL, 
   PRIMARY KEY (NhaXuatBanID));
 CREATE TABLE ChiTietKhuyenMai (
   NgayTao                datetime NULL, 
   SanPhamSanPhamID       int NOT NULL, 
-  KhuyenMaiCodeKhuyenMai varchar(255) NOT NULL);
+  KhuyenMaiCodeKhuyenMai nvarchar(255) NOT NULL);
 ALTER TABLE SanPham ADD CONSTRAINT FKSanPham819527 FOREIGN KEY (NhaCungCapID) REFERENCES NhaCungCap (NhaCungCapID);
 ALTER TABLE ChiTietHoaDon ADD CONSTRAINT FKChiTietHoa598636 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
 ALTER TABLE ChiTietTraHang ADD CONSTRAINT FKChiTietTra137106 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
@@ -155,6 +155,7 @@ ALTER TABLE SanPham ADD CONSTRAINT FKSanPham553584 FOREIGN KEY (TacGiaID) REFERE
 -- Sample data for KhuyenMai table
 INSERT INTO KhuyenMai (CodeKhuyenMai, TenKhuyenMai, LoaiGiamGia, GiaTri, NgayKhuyenMai, NgayHetHanKM, DonHangTu, SoLuongKhuyenMai, SoLuotDaApDung)
 VALUES 
+    ('NO_APPLY', 'Không áp dụng', 'PHAN_TRAM', 0, '2023-11-01', '2023-11-30', 1.0, 100, 0),
     ('KM001', 'Discount 10%', 'Percentage', 10.0, '2023-11-01', '2023-11-30', 1.0, 100, 0),
     ('KM002', 'Black Friday', 'Fixed', 50.0, '2023-11-25', '2023-11-27', 1.0, 200, 0);
 
@@ -192,29 +193,11 @@ VALUES
     ('Category 1'),
     ('Category 2');
 
--- Sample data for ThuongHieu table
-INSERT INTO ThuongHieu (TenThuongHieu)
-VALUES
-    ('Brand A'),
-    ('Brand B');
-
 -- Sample data for NhaXuatBan table
 INSERT INTO NhaXuatBan (TenNhaXuatBan, DiaChi, SoDienThoai, Email, Website, NamThanhLap, LinhVucXuatBan, QuocGia)
 VALUES
     ('Publisher 1', '123 Publisher St', '111-222-3333', 'publisher1@example.com', 'www.publisher1.com', 1990, 'Fiction', 'USA'),
     ('Publisher 2', '456 Publisher Ave', '444-555-6666', 'publisher2@example.com', 'www.publisher2.com', 1985, 'Mystery', 'UK');
-
--- Sample data for TacGia table
-INSERT INTO TacGia (TenTacGia, QuocTich)
-VALUES
-    ('Author A', 'USA'),
-    ('Author B', 'UK');
-
--- Sample data for TheLoai table
-INSERT INTO TheLoai (TenTheLoai)
-VALUES
-    ('Fiction'),
-    ('Mystery');
 
 -- Sample data for ThuongHieu table
 INSERT INTO ThuongHieu (TenThuongHieu)
