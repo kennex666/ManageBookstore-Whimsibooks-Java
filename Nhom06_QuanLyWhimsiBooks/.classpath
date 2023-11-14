@@ -9,10 +9,13 @@
 	<classpathentry kind="lib" path="src/lib/sqljdbc42.jar"/>
 	<classpathentry kind="lib" path="src/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="lib" path="src/lib/gui325.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/fastexcel-0.15.7.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/fastexcel-reader-0.15.7.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/jxls-jexcel-1.0.9.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/poi-5.2.4.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/poi-ooxml-5.2.4.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-3.17.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -39,34 +39,68 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	}
 
 	@Override
-	public String getNameByID(String maNCC) {
+	public ArrayList<NhaCungCap> getNCCByID(String maNCC) {
+		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap '"+maNCC+"'";
+			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+maNCC+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
-				return rs.getString("TenNhaCungCap");
+				try {
+					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
+					list.add(nhaCungCap);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return list;
 	}
 
 	@Override
-	public String getNameByPhone(String sdt) {
+	public ArrayList<NhaCungCap> getNCCByPhone(String sdt) {
+		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap '"+sdt+"'";
+			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+sdt+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
-				return rs.getString("TenNhaCungCap");
+				try {
+					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
+					list.add(nhaCungCap);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return list;
 	}
+	
+	@Override
+	public ArrayList<NhaCungCap> getNCCByName(String name) {
+		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+		try {
+			Statement stm = conn.createStatement();
+			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+name+"%'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
+					list.add(nhaCungCap);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
@@ -131,6 +165,4 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		this.conn = ConnectDB.getConnection();
 		this.hangNhap_DAO = new HangNhap_DAO();
 	}
-	
-	
 }
