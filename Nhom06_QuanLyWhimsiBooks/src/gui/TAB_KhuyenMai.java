@@ -649,16 +649,24 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     }
     
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-    	danhSachSp = new ArrayList<>();
-    	danhSachSp = sanPham_BUS.laySanPhamChoKM();
+//    	danhSachSp = new ArrayList<>();
+//    	danhSachSp = sanPham_BUS.laySanPhamChoKM();
     	String txtTimSp = TimMaSanPham.getText();
-        if(kiemTraTimMaSP(txtTimSp)) {
-        	for(int i = 0; i < danhSachSp.size(); i++) {
-        		if(danhSachSp.get(i).getSanPhamID() == Integer.valueOf(txtTimSp)) {
-        			tableModelSP.setValueAt(true, i, 0);
-        		}
+//        if(kiemTraTimMaSP(txtTimSp)) {
+//        	for(int i = 0; i < danhSachSp.size(); i++) {
+//        		if(danhSachSp.get(i).getSanPhamID() == Integer.valueOf(txtTimSp)) {
+//        			tableModelSP.setValueAt(true, i, 0);
+//        		}
+//        	}
+//        }
+        
+        for (int i = 0; i < tableModelSP.getRowCount(); i++) {
+        	int j = 1;
+        	if (((int)tableModelSP.getValueAt(i, j) + "").equalsIgnoreCase(txtTimSp)) {
+        		tableModelSP.setValueAt(true, i, 0);
         	}
         }
+        
     }//GEN-LAST:event_btnTimKiemActionPerformed
 
     private void TimMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimMaSanPhamActionPerformed

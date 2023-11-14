@@ -135,8 +135,9 @@ public class GUI_Login extends JFrame implements ActionListener{
 		
 		btnLogin.addActionListener(this);
 		btnResetPassword.addActionListener(this);
-                txtUsername.addActionListener(this);
-                pwdUserType.addActionListener(this);
+		txtUsername.addActionListener(this);pwdUserType.addActionListener(this);
+        txtUsername.setText("quanly01");
+        pwdUserType.setText("123456");
 		
 	}
 	

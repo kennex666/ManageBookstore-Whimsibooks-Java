@@ -24,6 +24,7 @@ import connectDB.ConnectDB;
 import utilities.ColorProcessing;
 import utilities.CurrentSession;
 import utilities.CurrentSession.EnumQuyenHan;
+import utilities.ErrorMessage;
 import utilities.WindowTitle;
 
 /**
@@ -452,6 +453,16 @@ public class GUI_MainMenu extends javax.swing.JFrame {
        // Tab khuyến mãi
        if (evt.getSource().equals(btnTabKhuyenMai)){
     	   tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
+    	   return;
+       }
+       
+       if (evt.getSource().equals(btnTabDangXuat)) {
+    	   if (ErrorMessage.showConfirmDialogYesNo("Thông báo", "Bạn có muốn đăng xuất khỏi hệ thống không?"))
+    	   {
+    		   new GUI_Login().setVisible(true);
+        	   CurrentSession.getInstance().setNhanVienHienHanh(null);
+    		   this.dispose();
+    	   }
     	   return;
        }
     }//GEN-LAST:event_btnTabActionPerformed

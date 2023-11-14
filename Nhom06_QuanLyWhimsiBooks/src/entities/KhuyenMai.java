@@ -36,9 +36,6 @@ public class KhuyenMai {
 		this.setDonHangTu(donHangTu);
 	}
 	
-	public KhuyenMai(String codeKhuyenMai) {
-		this.setCodeKhuyenMai(codeKhuyenMai);
-	}
 	
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {

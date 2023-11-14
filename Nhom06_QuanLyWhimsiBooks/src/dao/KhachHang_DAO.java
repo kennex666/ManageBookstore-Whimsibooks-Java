@@ -27,10 +27,10 @@ public class KhachHang_DAO implements IKhachHang {
 				qb.addParameter(Enum_DataType.STRING, "KhachHangID", "%?%", maKhachHang.isBlank() ? null : maKhachHang);
 				qb.addParameter(Enum_DataType.STRING, "hoTen", "%?%", tenKhachHang.isBlank() ? null : tenKhachHang);
 				qb.addParameter(Enum_DataType.STRING, "SoDienThoai", "%?%", soDienThoai.isBlank() ? null : soDienThoai);
-				qb.addParameter(Enum_DataType.STRING, "GioiTinh", "=", gioiTinh.isBlank() ? null : gioiTinh);
-				qb.addParameter(Enum_DataType.STRING, "LoaiKhachHang", "=", loaiKhachHang.isBlank() ? null : loaiKhachHang);
+				qb.addParameter(Enum_DataType.STRING, "GioiTinh", "=",null );
+				qb.addParameter(Enum_DataType.STRING, "LoaiKhachHang", "=", null);
 
-				PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "OR");
+				PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "AND");
 
 		        ResultSet rs = pstmt.executeQuery();
 		        while (rs.next()) {
