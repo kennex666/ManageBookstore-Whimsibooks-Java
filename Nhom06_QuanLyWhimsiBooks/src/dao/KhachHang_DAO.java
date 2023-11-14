@@ -12,7 +12,6 @@ import entities.NhanVien;
 import interfaces.IKhachHang;
 import java.sql.ResultSet;
 import java.time.LocalDate;
-import java.util.Date;
 import utilities.QueryBuilder;
 
 public class KhachHang_DAO implements IKhachHang {

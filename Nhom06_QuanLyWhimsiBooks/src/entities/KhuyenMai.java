@@ -59,31 +59,6 @@ public class KhuyenMai {
 	}
 
 
-
-	public int getSoLuongKhuyenMai() {
-		return soLuongKhuyenMai;
-	}
-
-
-
-	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
-		this.soLuongKhuyenMai = soLuongKhuyenMai;
-	}
-
-
-
-	public int getSoLuotDaApDung() {
-		return soLuotDaApDung;
-	}
-
-
-
-	public void setSoLuotDaApDung(int soLuotDaApDung) {
-		this.soLuotDaApDung = soLuotDaApDung;
-	}
-
-
-
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;
 	}
