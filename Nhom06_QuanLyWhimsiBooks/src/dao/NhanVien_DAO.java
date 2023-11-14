@@ -74,7 +74,7 @@ public class NhanVien_DAO implements INhanVien {
 				listNhanVien.add(nhanVien);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+                    return listNhanVien;
 		}
 
 		return listNhanVien;
@@ -101,7 +101,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean addNhanVien(NhanVien x) {
 		boolean result = false;
-
 		String query = "INSERT INTO NhanVien(NhanVienID,UserName,Password,NgayTaoTK,HoTen,GioiTinh,SoDienThoai,ChucVu,Email,NgaySinh,DiaChi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -128,7 +127,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean editNhanVien(NhanVien x) {
 		boolean result = false;
-
 		String query = "UPDATE NhanVien SET NhanVienID =?,UserName=?,Password=?,NgayTaoTK =?,HoTen = ?,GioiTinh = ?,SoDienThoai = ?,ChucVu = ?,Email= ?,NgaySinh =?,DiaChi=? where nhanVienID =?";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
@@ -156,7 +154,6 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean deleteNhanVien(NhanVien x) {
 		boolean result = false;
-
 		String query = "DELETE FROM NhanVien WHERE NhanVienID = ?";
 
 		try {

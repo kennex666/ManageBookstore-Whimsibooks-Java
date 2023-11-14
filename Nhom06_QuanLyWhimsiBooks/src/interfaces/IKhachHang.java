@@ -17,4 +17,5 @@ public interface IKhachHang {
 	public ArrayList<NhanVien> findKhachHang(String x);
 	public String phatSinhMaKhachHang();
 	String phatSinhMaSoThue(String loaiKhachHang);
+        public KhachHang getKhachHangTuMaVaSDT(String x);
 }

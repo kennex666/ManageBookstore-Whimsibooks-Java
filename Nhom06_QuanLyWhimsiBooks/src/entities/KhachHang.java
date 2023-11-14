@@ -20,6 +20,8 @@ public class KhachHang {
 	public KhachHang(String khachHangID) {
 		this.khachHangID = khachHangID;
 	}
+	public KhachHang() {
+	}
 	public KhachHang(String khachHangID, String hoTen, String soDienThoai, LocalDate ngaySinh, String gioiTinh, String email,
 			String maSoThue, String diaChi, String loaiKhachHang) {
 		this.khachHangID = khachHangID;

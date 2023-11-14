@@ -10,61 +10,56 @@ import java.util.Date;
 
 import connectDB.ConnectDB;
 import entities.HoaDon;
+import entities.HoaDonTra;
 import entities.KhachHang;
 import entities.KhuyenMai;
 import entities.NhanVien;
 import interfaces.IHoaDon;
+import interfaces.IHoaDonTra;
 import utilities.QueryBuilder;
 
-public class HoaDon_DAO implements IHoaDon{
+public class HoaDonTra_DAO implements IHoaDonTra{
 	private Connection conn;
 	
-	public HoaDon_DAO() {
+	public HoaDonTra_DAO() {
 		// TODO Auto-generated constructor stub
 		conn = ConnectDB.getConnection();
 	}
 	
 	@Override
-	public boolean createHoaDon(HoaDon x) {
+	public boolean createHoaDon(HoaDonTra x) {
 		// TODO Auto-generated method stub
-		String query = "INSERT INTO HoaDon(HoaDonID, CodeKhuyenMai, KhachHangID, NhanVienID, NgayLapHoaDon, TongTien, TrangThai, Thue, GiaKhuyenMai) VALUES(?, ? ,? ,?, ?, ? ,? ,?, ?)";
+		String query = "INSERT INTO HoaDonTra(HoaDonID, KhachHangID, NhanVienID, NgayTraHoaDon, TongHoan, TrangThai) VALUES(?, ? ,? ,?, ?, ?)";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(1, x.getHoaDonID());
-			pstm.setString(2, (x.getKhuyenMai() == null ) ? "NO_APPLY" : x.getKhuyenMai().getCodeKhuyenMai());
-			pstm.setString(3, (x.getKhachHang() == null ) ? "KH0001" : x.getKhachHang().getKhachHangID());
-			pstm.setString(4, (x.getNhanVien() == null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
+			pstm.setString(2, (x.getKhachHang() == null ) ? "KH0001" : x.getKhachHang().getKhachHangID());
+			pstm.setString(3, (x.getNhanVien() == null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
 			java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
-			pstm.setTimestamp(5, now);
-			pstm.setDouble(6, x.tinhThanhTien());
-			pstm.setString(7, x.getTrangThai());
-			pstm.setDouble(8, x.getThue());
-			pstm.setDouble(9, x.getGiaKhuyenMai());
+			pstm.setTimestamp(4, now);
+			pstm.setDouble(5, x.tinhTongHoan());
+			pstm.setString(6, x.getTrangThai());
 			return (pstm.executeUpdate() > 0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-                        e.printStackTrace();
+            e.printStackTrace();
 			return false;
 		}
 	}
 
         @Override
-        public boolean updateHoaDon(HoaDon x) {
-            String query = "UPDATE HoaDon SET CodeKhuyenMai = ?, KhachHangID = ?, NhanVienID = ?, NgayLapHoaDon = ?, TongTien = ?, TrangThai = ?, Thue = ?, GiaKhuyenMai = ? WHERE HoaDonID = ?";
-		try {
-			PreparedStatement pstm = conn.prepareStatement(query);
-			pstm.setString(9, x.getHoaDonID());
-			pstm.setString(1, (x.getKhuyenMai() == null || x.getKhuyenMai().getCodeKhuyenMai() == null) ? "NO_APPLY" : x.getKhuyenMai().getCodeKhuyenMai());
-			pstm.setString(2, (x.getKhachHang() == null ||  x.getKhachHang().getKhachHangID() == null) ? "KH0001" : x.getKhachHang().getKhachHangID());
-			pstm.setString(3, (x.getNhanVien() == null ||  x.getNhanVien().getNhanVienID() ==null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
-            java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
-			pstm.setTimestamp(4, now);
-			pstm.setDouble(5, x.tinhThanhTien());
-			pstm.setString(6, x.getTrangThai());
-			pstm.setDouble(7, x.getThue());
-			pstm.setDouble(8, x.getGiaKhuyenMai());
-                        pstm.executeUpdate();
-			return true;
+        public boolean updateHoaDon(HoaDonTra x) {
+        	String query = "UPDATE HoaDonTra SET KhachHangID = ?, NhanVienID = ?, NgayTraHoaDon = ?, TongHoan = ?, TrangThai = ? WHERE HoaDonID = ?";
+    		try {
+    			PreparedStatement pstm = conn.prepareStatement(query);
+    			pstm.setString(1, (x.getKhachHang() == null ) ? "KH0001" : x.getKhachHang().getKhachHangID());
+    			pstm.setString(2, (x.getNhanVien() == null ) ? "NV0001" : x.getNhanVien().getNhanVienID());
+    			java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
+    			pstm.setTimestamp(3, now);
+    			pstm.setDouble(4, x.tinhTongHoan());
+    			pstm.setString(5, x.getTrangThai());
+    			pstm.setString(6, x.getHoaDonID());
+    			return (pstm.executeUpdate() > 0);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
                         e.printStackTrace();
@@ -73,8 +68,8 @@ public class HoaDon_DAO implements IHoaDon{
         }
 
         @Override
-        public boolean cancelHoaDon(HoaDon x) {
-            String query = "UPDATE HoaDon SET TrangThai = ? WHERE HoaDonID = ?";
+        public boolean cancelHoaDon(HoaDonTra x) {
+            String query = "UPDATE HoaDonTra SET TrangThai = ? WHERE HoaDonID = ?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(1, "HUY_BO");
@@ -91,32 +86,28 @@ public class HoaDon_DAO implements IHoaDon{
         
         
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDon() {
-		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
-		String query = "SELECT TOP 100 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai  WHERE YEAR(NgayLapHoaDon) = YEAR(GETDATE()) AND MONTH(NgayLapHoaDon) = MONTH(GETDATE()) AND DAY(NgayLapHoaDon) = DAY(GETDATE()) ORDER BY NgayLapHoaDon DESC";
+	public ArrayList<HoaDonTra> getDanhSachHoaDon() {
+		ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
+		String query = "SELECT TOP 100 * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID WHERE YEAR(NgayTraHoaDon) = YEAR(GETDATE()) AND MONTH(NgayTraHoaDon) = MONTH(GETDATE()) AND DAY(NgayTraHoaDon) = DAY(GETDATE()) ORDER BY NgayTraHoaDon DESC";
 		try {
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(query);
 			
 			while (rs.next()) {
-				HoaDon hd = new HoaDon();
+				HoaDonTra hd = new HoaDonTra();
 			
 				String hoaDonID = rs.getString("HoaDonID");
-				String codeKM = rs.getString("CodeKhuyenMai");
 				String khachHangID = rs.getString("KhachHangID");
 				String nhanVienID = rs.getString("NhanVienID");
-				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
-				double tongTien = rs.getDouble("tongTien");
+				Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
+				double tongTien = rs.getDouble("tongHoan");
 				String trangThai = rs.getString("TrangThai");
-				double thue = rs.getDouble("thue");
-				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
 				
 				hd.setHoaDonID(hoaDonID);
-				hd.setNgayLapHoaDon(ngayLapHoaDon);
-				hd.setTongTien(tongTien);
+				hd.setNgayTraHoaDon(NgayTraHoaDon);
+				hd.setTongHoan(tongTien);
 				hd.setTrangThai(trangThai);
-				hd.setThue(thue);
-				hd.setGiaKhuyenMai(giaKhuyenMai);
+				hd.setTongHoan(tongTien);
 				
 				
 				String hoTenNhanVien = rs.getString("HoTen");
@@ -144,12 +135,6 @@ public class HoaDon_DAO implements IHoaDon{
 				kh.setEmail(emailKH);
 				hd.setKhachHang(kh);
 				
-				String tenKhuyenMai = rs.getString("TenKhuyenMai");
-				
-				KhuyenMai km = new KhuyenMai(codeKM);
-				km.setTenKhuyenMai(tenKhuyenMai);
-				hd.setKhuyenMai(km);
-				
 				listHoaDon.add(hd);
 
 			}
@@ -161,47 +146,43 @@ public class HoaDon_DAO implements IHoaDon{
 		}
 	}
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
+	public ArrayList<HoaDonTra> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
 		// TODO Auto-generated method stub
-		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+		ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
                 
-		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
                 
 		try {
                     QueryBuilder queryBuilder = new QueryBuilder(query);
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
-                            "NgayLapHoaDon", 
+                            "NgayTraHoaDon", 
                             ">=", 
                             batDau
                     );
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
-                            "NgayLapHoaDon", 
+                            "NgayTraHoaDon", 
                             "<=", 
                             ketThuc
                     );   
 			ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
 			
 			while (rs.next()) {
-				HoaDon hd = new HoaDon();
-			
+				HoaDonTra hd = new HoaDonTra();
+				
 				String hoaDonID = rs.getString("HoaDonID");
-				String codeKM = rs.getString("CodeKhuyenMai");
 				String khachHangID = rs.getString("KhachHangID");
 				String nhanVienID = rs.getString("NhanVienID");
-				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
-				double tongTien = rs.getDouble("tongTien");
+				Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
+				double tongTien = rs.getDouble("tongHoan");
 				String trangThai = rs.getString("TrangThai");
-				double thue = rs.getDouble("thue");
-				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
 				
 				hd.setHoaDonID(hoaDonID);
-				hd.setNgayLapHoaDon(ngayLapHoaDon);
-				hd.setTongTien(tongTien);
+				hd.setNgayTraHoaDon(NgayTraHoaDon);
+				hd.setTongHoan(tongTien);
 				hd.setTrangThai(trangThai);
-				hd.setThue(thue);
-				hd.setGiaKhuyenMai(giaKhuyenMai);
+				hd.setTongHoan(tongTien);
 				
 				
 				String hoTenNhanVien = rs.getString("HoTen");
@@ -229,12 +210,6 @@ public class HoaDon_DAO implements IHoaDon{
 				kh.setEmail(emailKH);
 				hd.setKhachHang(kh);
 				
-				String tenKhuyenMai = rs.getString("TenKhuyenMai");
-				
-				KhuyenMai km = new KhuyenMai(codeKM);
-				km.setTenKhuyenMai(tenKhuyenMai);
-				hd.setKhuyenMai(km);
-				
 				listHoaDon.add(hd);
 
 			}
@@ -247,23 +222,23 @@ public class HoaDon_DAO implements IHoaDon{
 	}
 	
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
+	public ArrayList<HoaDonTra> getDanhSachHoaDonNangCao(Object[] params) {
 		// TODO Auto-generated method stub
-		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+		ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
                 
-		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
                 
 		try {
                     QueryBuilder queryBuilder = new QueryBuilder(query);
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
-                            "NgayLapHoaDon", 
+                            "NgayTraHoaDon", 
                             ">", 
                             params[0]
                     );
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
-                            "NgayLapHoaDon", 
+                            "NgayTraHoaDon", 
                             "<=", 
                             params[1]
                     );
@@ -311,24 +286,20 @@ public class HoaDon_DAO implements IHoaDon{
                     
 			ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
 			while (rs.next()) {
-				HoaDon hd = new HoaDon();
-			
-				String hdID = rs.getString("HoaDonID");
-				String codeKM = rs.getString("CodeKhuyenMai");
+				HoaDonTra hd = new HoaDonTra();
+				
+				String hoaDonID = rs.getString("HoaDonID");
 				String khachHangID = rs.getString("KhachHangID");
 				String nhanVienID = rs.getString("NhanVienID");
-				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
-				double tongTien = rs.getDouble("tongTien");
-				String trangThaiHD = rs.getString("TrangThai");
-				double thue = rs.getDouble("thue");
-				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
+				Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
+				double tongTien = rs.getDouble("tongHoan");
+				String trangThai = rs.getString("TrangThai");
 				
-				hd.setHoaDonID(hdID);
-				hd.setNgayLapHoaDon(ngayLapHoaDon);
-				hd.setTongTien(tongTien);
-				hd.setTrangThai(trangThaiHD);
-				hd.setThue(thue);
-				hd.setGiaKhuyenMai(giaKhuyenMai);
+				hd.setHoaDonID(hoaDonID);
+				hd.setNgayTraHoaDon(NgayTraHoaDon);
+				hd.setTongHoan(tongTien);
+				hd.setTrangThai(trangThai);
+				hd.setTongHoan(tongTien);
 				
 				
 				String hoTenNhanVien = rs.getString("HoTen");
@@ -355,12 +326,6 @@ public class HoaDon_DAO implements IHoaDon{
 				kh.setSoDienThoai(sdtKH);
 				kh.setEmail(emailKH);
 				hd.setKhachHang(kh);
-				
-				String tenKhuyenMai = rs.getString("TenKhuyenMai");
-				
-				KhuyenMai km = new KhuyenMai(codeKM);
-				km.setTenKhuyenMai(tenKhuyenMai);
-				hd.setKhuyenMai(km);
 				
 				listHoaDon.add(hd);
 
@@ -374,8 +339,8 @@ public class HoaDon_DAO implements IHoaDon{
 	}
 	
 	@Override
-	public HoaDon getHoaDonByID(HoaDon hd) {
-		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai WHERE HoaDonID = ?";
+	public HoaDonTra getHoaDonByID(HoaDonTra hd) {
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai WHERE HoaDonID = ?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(1, hd.getHoaDonID());
@@ -385,53 +350,43 @@ public class HoaDon_DAO implements IHoaDon{
 				return null;
 			
 			String hoaDonID = rs.getString("HoaDonID");
-				String codeKM = rs.getString("CodeKhuyenMai");
-				String khachHangID = rs.getString("KhachHangID");
-				String nhanVienID = rs.getString("NhanVienID");
-				Date ngayLapHoaDon = rs.getTimestamp("NgayLapHoaDon");
-				double tongTien = rs.getDouble("tongTien");
-				String trangThai = rs.getString("TrangThai");
-				double thue = rs.getDouble("thue");
-				double giaKhuyenMai = rs.getDouble("giaKhuyenMai");
-				
-				hd.setHoaDonID(hoaDonID);
-				hd.setNgayLapHoaDon(ngayLapHoaDon);
-				hd.setTongTien(tongTien);
-				hd.setTrangThai(trangThai);
-				hd.setThue(thue);
-				hd.setGiaKhuyenMai(giaKhuyenMai);
-				
-				
-				String hoTenNhanVien = rs.getString("HoTen");
-				String chucVu = rs.getString("chucvu");
-				
-				NhanVien nv = new NhanVien(nhanVienID);
-				nv.setHoTen(hoTenNhanVien);
-				nv.setChucVu(chucVu);
-				hd.setNhanVien(nv);
-				
-	
-				String hoTenKH = rs.getString(22);
-				String maSoThue = rs.getString("MaSoThue");
-				String diaChi = rs.getString("diaChi");
-				String loaiKH = rs.getString("LoaiKhachHang");
-				String sdtKH = rs.getString("SoDienThoai");
-				String emailKH = rs.getString("Email");
-				
-				KhachHang kh = new KhachHang(khachHangID);
-				kh.setHoTen(hoTenKH);
-				kh.setMaSoThue(maSoThue);
-				kh.setDiaChi(diaChi);
-				kh.setLoaiKhachHang(loaiKH);
-				kh.setSoDienThoai(sdtKH);
-				kh.setEmail(emailKH);
-				hd.setKhachHang(kh);
-				
-				String tenKhuyenMai = rs.getString("TenKhuyenMai");
-				
-				KhuyenMai km = new KhuyenMai(codeKM);
-				km.setTenKhuyenMai(tenKhuyenMai);
-				hd.setKhuyenMai(km);
+			String khachHangID = rs.getString("KhachHangID");
+			String nhanVienID = rs.getString("NhanVienID");
+			Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
+			double tongTien = rs.getDouble("tongHoan");
+			String trangThai = rs.getString("TrangThai");
+			
+			hd.setHoaDonID(hoaDonID);
+			hd.setNgayTraHoaDon(NgayTraHoaDon);
+			hd.setTongHoan(tongTien);
+			hd.setTrangThai(trangThai);
+			hd.setTongHoan(tongTien);
+			
+			
+			String hoTenNhanVien = rs.getString("HoTen");
+			String chucVu = rs.getString("chucvu");
+			
+			NhanVien nv = new NhanVien(nhanVienID);
+			nv.setHoTen(hoTenNhanVien);
+			nv.setChucVu(chucVu);
+			hd.setNhanVien(nv);
+			
+
+			String hoTenKH = rs.getString(22);
+			String maSoThue = rs.getString("MaSoThue");
+			String diaChi = rs.getString("diaChi");
+			String loaiKH = rs.getString("LoaiKhachHang");
+			String sdtKH = rs.getString("SoDienThoai");
+			String emailKH = rs.getString("Email");
+			
+			KhachHang kh = new KhachHang(khachHangID);
+			kh.setHoTen(hoTenKH);
+			kh.setMaSoThue(maSoThue);
+			kh.setDiaChi(diaChi);
+			kh.setLoaiKhachHang(loaiKH);
+			kh.setSoDienThoai(sdtKH);
+			kh.setEmail(emailKH);
+			hd.setKhachHang(kh);
 			
 			
 			return hd;
@@ -447,7 +402,7 @@ public class HoaDon_DAO implements IHoaDon{
 		// TODO Auto-generated method stub
 		try {
 			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery("SELECT COUNT(*) AS [SoLuong] FROM HoaDon WHERE YEAR(NgayLapHoaDon) = YEAR(GETDATE()) AND MONTH(NgayLapHoaDon) = MONTH(GETDATE()) AND DAY(NgayLapHoaDon) = DAY(GETDATE())");
+			ResultSet rs = stm.executeQuery("SELECT COUNT(*) AS [SoLuong] FROM HoaDonTra WHERE YEAR(NgayTraHoaDon) = YEAR(GETDATE()) AND MONTH(NgayTraHoaDon) = MONTH(GETDATE()) AND DAY(NgayTraHoaDon) = DAY(GETDATE())");
 			rs.next();
 			return rs.getInt("SoLuong");
 		} catch (Exception e) {

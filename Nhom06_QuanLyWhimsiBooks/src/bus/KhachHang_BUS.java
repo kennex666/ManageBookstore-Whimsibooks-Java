@@ -1,5 +1,6 @@
 package bus;
 
+import dao.KhachHang_DAO;
 import java.util.ArrayList;
 
 import dao.KhachHang_DAO;
@@ -55,6 +56,12 @@ public class KhachHang_BUS implements IKhachHang {
 	public String getLayTenTuMa(String x) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	@Override
+	public KhachHang getKhachHangTuMaVaSDT(String x) {
+		KhachHang_DAO kh_DAO = new KhachHang_DAO();
+		return kh_DAO.getKhachHangTuMaVaSDT(x);
 	}
 
 	@Override

@@ -34,7 +34,9 @@ public class KhuyenMai {
 		this.setDonHangTu(donHangTu);
 	}
 	
-	
+	public KhuyenMai(String codeKhuyenMai) {
+		this.setCodeKhuyenMai(codeKhuyenMai);
+	}
 	
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {
@@ -46,6 +48,37 @@ public class KhuyenMai {
 		this.ngayHetHanKM = ngayHetHanKM;
 		this.donHangTu = donHangTu;
 		this.soLuongKhuyenMai = soLuongKhuyenMai;
+		this.soLuotDaApDung = soLuotDaApDung;
+	}
+
+
+
+	public KhuyenMai() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+
+	public int getSoLuongKhuyenMai() {
+		return soLuongKhuyenMai;
+	}
+
+
+
+	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
+		this.soLuongKhuyenMai = soLuongKhuyenMai;
+	}
+
+
+
+	public int getSoLuotDaApDung() {
+		return soLuotDaApDung;
+	}
+
+
+
+	public void setSoLuotDaApDung(int soLuotDaApDung) {
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
 

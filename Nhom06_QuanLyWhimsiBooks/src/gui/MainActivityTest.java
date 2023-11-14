@@ -5,6 +5,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
+import utilities.CurrentSession;
 
 public class MainActivityTest {
 	public static void main(String[] args) {
@@ -12,7 +13,7 @@ public class MainActivityTest {
 			UIManager.setLookAndFeel(new FlatIntelliJLaf());
 		} catch (UnsupportedLookAndFeelException e) {
 		}
-
+        CurrentSession.getInstance();
          GUI_MainMenu gui_Main = new GUI_MainMenu();
          gui_Main.setVisible(true);
          gui_Main.activateGUITest();
