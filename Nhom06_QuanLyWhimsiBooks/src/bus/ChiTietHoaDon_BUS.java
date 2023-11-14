@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dao.ChiTietHoaDon_DAO;
 import entities.ChiTietHoaDon;
 import interfaces.IChiTietHoaDon;
+import interfaces.IChiTietTraHang;
 
 public class ChiTietHoaDon_BUS implements IChiTietHoaDon {
 	private ChiTietHoaDon_DAO chiTietHoaDon_DAO;

@@ -1000,6 +1000,14 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setSoLuongTon(soLuongTon);
             sanPham.setBarcode(barcode);
             sanPham.setGiaNhap(giaNhap);
+            if (tinhTrang.equalsIgnoreCase("Còn hàng")) {
+            	tinhTrang = "CON_HANG";
+            	
+            } else if (tinhTrang.equalsIgnoreCase("Hết hàng")) {
+            	tinhTrang = "HET_HANG";
+            }else {
+            	tinhTrang = "NGUNG_KINH_DOANH";
+            }
             sanPham.setTinhTrang(tinhTrang);
             sanPham.setThue(thue);
             sanPham.setNamSanXuat(namSanXuat);
@@ -1010,7 +1018,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setNgonNgu(ngonNgu);
             sanPham.setSoTrang(soTrang);
             sanPham.setLoaiBia(loaiBia);
-            sanPham.setLoaiDoiTra(loaiDoiTra);
+            sanPham.setLoaiDoiTra(loaiDoiTra.equalsIgnoreCase("Được đổi trả") ? "DUOC_DOI_TRA" : "KHONG_DOI_TRA");
             sanPham.setNgayNhap(DATE);
             sanPham.setImgPath(partialPath);
             

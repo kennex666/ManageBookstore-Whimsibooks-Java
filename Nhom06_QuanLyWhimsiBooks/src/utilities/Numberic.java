@@ -1,5 +1,7 @@
 package utilities;
 
+import java.text.DecimalFormat;
+
 public class Numberic {
 	public static boolean isInteger(String x) {
 		try {
@@ -31,5 +33,23 @@ public class Numberic {
 			e.printStackTrace();
 			return -500;
 		}
+	}
+	
+	public static double roundNumber(double x) {
+		return Math.floor(x/1000) * 1000;
+	}
+	
+	public static String roundNumberAndFormat(String format, double x) {
+		return String.format(format, roundNumber(x));
+	}
+	
+	public static String roundNumberAndFormatVND(double x) {
+		DecimalFormat df = new DecimalFormat("#,### VND");
+		return df.format(roundNumber(x));
+	}
+	
+	public static String formatVND(double x) {
+		DecimalFormat df = new DecimalFormat("#,### VND");
+		return df.format(x);
 	}
 }

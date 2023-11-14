@@ -16,10 +16,9 @@ public class ThuongHieu {
 		return tenThuongHieu;
 	}
 	public void setTenThuongHieu(String tenThuongHieu) throws Exception {
-		if (tenThuongHieu.trim().isBlank() || tenThuongHieu.trim().isEmpty())
-			throw new Exception("Tên thương hiệu không được để trống");
 		this.tenThuongHieu = tenThuongHieu;
 	}
+	
 	public ThuongHieu(int thuongHieuID, String tenThuongHieu) throws Exception {
 		super();
 		setTenThuongHieu(tenThuongHieu);
@@ -45,8 +44,7 @@ public class ThuongHieu {
 		return thuongHieuID == other.thuongHieuID;
 	}
 	@Override
-	public String toString() {
-		return tenThuongHieu;
-	}
-	
+    public String toString() {
+        return thuongHieuID + ": " + tenThuongHieu;
+    }
 }

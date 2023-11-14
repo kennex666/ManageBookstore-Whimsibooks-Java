@@ -4,12 +4,18 @@ import java.util.ArrayList;
 
 import dao.SanPham_DAO;
 import entities.SanPham;
+import entities.ThuongHieu;
 import interfaces.ISanPham;
 
 public class SanPham_BUS implements ISanPham{
 
 	private SanPham_DAO sanPham_DAO;
 	
+	@Override
+	public ArrayList<SanPham> laySanPhamChoKM() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.laySanPhamChoKM();
+	}
 	public SanPham_BUS() {
 		// TODO Auto-generated constructor stub
 		sanPham_DAO = new SanPham_DAO();
@@ -17,7 +23,7 @@ public class SanPham_BUS implements ISanPham{
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		// TODO Auto-generated method stub
-		return null;
+		return sanPham_DAO.getDanhSachSanPham(query);
 	}
 
 	@Override
@@ -54,6 +60,16 @@ public class SanPham_BUS implements ISanPham{
 	public ArrayList<SanPham> getDanhSachSanPham() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPham();
+	}
+	@Override
+	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getSPTheoThuongHieu(maThuongHieu);
+	}
+	@Override
+	public ArrayList<ThuongHieu> getThuongHieu() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getThuongHieu();
 	}
 
     @Override

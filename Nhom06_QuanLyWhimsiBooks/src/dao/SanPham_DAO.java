@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
+import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.NhaXuatBan;
 import entities.SanPham;
@@ -25,6 +26,68 @@ import utilities.Numberic;
 public class SanPham_DAO implements ISanPham{
 
 	private Connection conn;
+	
+	// Lấy danh sách sản phẩm cho khuyến mãi
+	public ArrayList<SanPham> laySanPhamChoKM() {
+		ArrayList<SanPham> list = new ArrayList<SanPham>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM SanPham";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"),rs.getString("TenSanPham"),rs.getInt("SoLuongTon"),rs.getString("ImgPath"));
+					list.add(sanPham);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+		ArrayList<SanPham> list = new ArrayList<SanPham>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "Select * from [dbo].[SanPham] where ThuongHieuID = '"+maThuongHieu+"'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"),rs.getString("TenSanPham"),rs.getInt("SoLuongTon"),rs.getString("ImgPath"));
+					list.add(sanPham);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<ThuongHieu> getThuongHieu() {
+		ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "Select * from [dbo].[ThuongHieu]";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					ThuongHieu thuongHieu = new ThuongHieu(rs.getInt("ThuongHieuID"),rs.getString("TenThuongHieu"));
+					list.add(thuongHieu);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		ArrayList<SanPham> list = new ArrayList<SanPham>();

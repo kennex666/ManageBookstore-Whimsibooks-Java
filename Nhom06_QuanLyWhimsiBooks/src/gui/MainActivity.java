@@ -9,6 +9,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 
 import connectDB.ConnectDB;
+import utilities.CurrentSession;
 
 public class MainActivity {
 	public static void main(String[] args) {
@@ -18,6 +19,8 @@ public class MainActivity {
 		 */
 		
 		ConnectDB.getInstance().connect();
+                
+                CurrentSession.getInstance();
 		try {
 			UIManager.setLookAndFeel(new FlatMacLightLaf());
 		} catch (UnsupportedLookAndFeelException e) {
