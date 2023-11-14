@@ -177,6 +177,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
+        TAB_BanHang_HoaDon = new javax.swing.JPanel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -654,6 +655,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             new ImageIcon(getClass().getResource("/img/icon/btn-waitlist.png"))
             , 45, 45));
     jButton2.setText("Hàng chờ (F5)");
+    jButton2.setAutoscrolls(true);
     jButton2.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
     jButton2.setIconTextGap(50);
     jButton2.setMargin(new java.awt.Insets(2, 35, 3, 14));
@@ -758,6 +760,19 @@ jPanel4Layout.setHorizontalGroup(
 
     jTabbedPane1.addTab("Danh sách hoá đơn", jPanel4);
 
+    javax.swing.GroupLayout TAB_BanHang_HoaDonLayout = new javax.swing.GroupLayout(TAB_BanHang_HoaDon);
+    TAB_BanHang_HoaDon.setLayout(TAB_BanHang_HoaDonLayout);
+    TAB_BanHang_HoaDonLayout.setHorizontalGroup(
+        TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 903, Short.MAX_VALUE)
+    );
+    TAB_BanHang_HoaDonLayout.setVerticalGroup(
+        TAB_BanHang_HoaDonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        .addGap(0, 514, Short.MAX_VALUE)
+    );
+
+    jTabbedPane1.addTab("Hoá đơn", TAB_BanHang_HoaDon);
+
     add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -829,6 +844,7 @@ jPanel4Layout.setHorizontalGroup(
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel TAB_BanHang_HoaDon;
     private javax.swing.JButton btnThemSanPham;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

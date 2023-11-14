@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
+import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.NhaXuatBan;
 import entities.SanPham;
@@ -18,11 +19,35 @@ import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import utilities.Numberic;
 
 public class SanPham_DAO implements ISanPham{
 
 	private Connection conn;
+	
+	// Lấy danh sách sản phẩm cho khuyến mãi
+	public ArrayList<SanPham> laySanPhamChoKM() {
+		ArrayList<SanPham> list = new ArrayList<SanPham>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM SanPham";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"),rs.getString("TenSanPham"),rs.getInt("SoLuongTon"),rs.getString("ImgPath"));
+					list.add(sanPham);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		ArrayList<SanPham> list = new ArrayList<SanPham>();
@@ -120,9 +145,11 @@ public class SanPham_DAO implements ISanPham{
 			String sql = "INSERT INTO SanPham(TenSanPham, NgayNhap, GiaNhap, Thue, "
 					+ "LoaiDoiTra, Barcode, ImgPath, TinhTrang, SoLuongTon, NamSanXuat, "
 					+ "LoaiSanPham, DonViDoLuong, KichThuoc, XuatXu, NgonNgu, "
-					+ "SoTrang, LoaiBia)"
-					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "SoTrang, LoaiBia, TacGiaID, NhaCungCapID, TheLoaiID, NhaXuatBanID, DanhMucID, ThuongHieuID)"
+					+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 			try {
+
+                            
 				PreparedStatement pstm = conn.prepareStatement(sql);
 				pstm.setString(1, sp.getTenSanPham());
 				pstm.setDate(2, (Date) sp.getNgayNhap());
@@ -141,6 +168,13 @@ public class SanPham_DAO implements ISanPham{
 				pstm.setString(15, sp.getNgonNgu());
 				pstm.setInt(16, sp.getSoTrang());
 				pstm.setString(17, sp.getLoaiBia());
+                                pstm.setInt(18, sp.getTacGia().getTacGiaID());
+                                pstm.setString(19, sp.getNhaCungCap().getNhaCungCapID());
+                                pstm.setInt(20, sp.getTheLoai().getTheLoaiID());
+                                pstm.setInt(21, sp.getNhaXuatBan().getNhaXuatBanID());
+                                pstm.setInt(22, sp.getDanhMuc().getDanhMucID());
+                                pstm.setInt(23, sp.getThuongHieu().getThuongHieuID());
+                                
 				return(pstm.executeUpdate()>0)?true:false;
 				
 			} catch (Exception e) {
@@ -305,5 +339,175 @@ public class SanPham_DAO implements ISanPham{
 			return null;
 		}
 	}
+
+    @Override
+    public int getIdTacGiaByName(String name) {
+        try {
+                	
+		String query = "SELECT TacGiaID FROM TacGia WHERE TenTacGia = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("TacGiaID");
+                    return id;
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;		
+    }
+
+    @Override
+    public int getIdTheloaiByName(String name) {
+        try {
+                String query = "SELECT TheLoaiID FROM TheLoai WHERE TenTheLoai = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("TheLoaiID");
+                    return id;
+                }
+               
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public int getIdNhaXuatBanByName(String name) {
+        try {
+                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("NhaXuatBanID");
+                    return id;
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public String getIdNhaCungCapByName(String name) {
+         try {
+                String query = "SELECT NhaCungCapID FROM NhaCungCap WHERE TenNhaCungCap = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String id = rs.getString("NhaCungCapID");
+                    return id;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public int getIdThuongHieuByName(String name) {
+         try {
+                String query = "SELECT ThuongHieuID FROM ThuongHieu WHERE TenThuongHieu = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("ThuongHieuID");
+                    return id;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public int getIdDanhMucByName(String name) {
+       try {
+                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, name);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    int id = rs.getInt("NhaXuatBanID");
+                    return id;
+                }
+                
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return -1;
+    }
+
+    @Override
+    public String getNameTacGiaByID(int ID) {
+        try {
+                String query = "SELECT TenTacGia FROM TacGia WHERE TacGiaID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenTacGia");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameNhaXuatBanByID(int ID) {
+          try {
+                String query = "SELECT TenNhaXuatBan FROM NhaXuatBan WHERE NhaXuatBanID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenNhaXuatBan");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameDanhMucByID(int ID) {
+         try {
+                String query = "SELECT TenDanhMuc FROM DanhMuc WHERE DanhMucID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenDanhMuc");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+
+        
 	
 }

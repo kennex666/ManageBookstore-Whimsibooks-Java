@@ -8,14 +8,34 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import bus.NhaCungCap_BUS;
 import entities.NhaCungCap;
@@ -427,26 +447,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	tableNCC.removeAll();
     	tableModel.setRowCount(0);
     	TBTimKiem.setText("");
-    	
-    	if(timKiemTheoMa.length() > 0) {
-    		for(NhaCungCap nhaCungCap : danhSachNCC) {
-    			if(nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
-    				danhSachNCCTimKiem.add(nhaCungCap);
-    		}
-    	}
-    	if(timKiemTheoSDT.length() > 0) {
-    		for(NhaCungCap nhaCungCap : danhSachNCC) {
-    			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT))
-    				danhSachNCCTimKiem.add(nhaCungCap);
-    		}
-    		if(timKiemTheoMa.length() > 0) {
-    			danhSachNCCTimKiem.clear();
-        		for(NhaCungCap nhaCungCap : danhSachNCC) {
-        			if(nhaCungCap.getSoDienThoai().contains(timKiemTheoSDT) && nhaCungCap.getNhaCungCapID().contains(timKiemTheoMa))
-        				danhSachNCCTimKiem.add(nhaCungCap);
-        		}
-    		}
-    	}
+    	danhSachNCCTimKiem = nhaCungCap_BUS.getNhaCungCapTheoDieuKien(timKiemTheoMa, timKiemTheoSDT, timKiemTheoTen);
     	int stt = 1;
     	for(NhaCungCap nhaCungCap : danhSachNCCTimKiem) {
     		tableModel.addRow(new Object[] {stt++, nhaCungCap.getNhaCungCapID(), nhaCungCap.getTenNhaCungCap(), nhaCungCap.getSoDienThoai(), nhaCungCap.getEmail(), nhaCungCap.getDiaChi()});
@@ -486,12 +487,94 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyNCCActionPerformed
     
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
-        // TODO add your handling code here:
+    	 JFileChooser excelFileChooser = new JFileChooser("D:\\");
+    	    excelFileChooser.setDialogTitle("Save Excel File");
+    	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
+    	    excelFileChooser.setFileFilter(fnef);
+
+    	    int excelChooser = excelFileChooser.showSaveDialog(null);
+
+    	    if (excelChooser == JFileChooser.APPROVE_OPTION) {
+    	        File excelFile = excelFileChooser.getSelectedFile();
+
+    	        // Kiểm tra nếu tên file không kết thúc bằng ".xlsx", thêm ".xlsx" vào
+    	        if (!excelFile.getName().toLowerCase().endsWith(".xlsx")) {
+    	            excelFile = new File(excelFile.getParentFile(), excelFile.getName() + ".xlsx");
+    	        }
+
+    	        try {
+    	            FileOutputStream fileOut = new FileOutputStream(excelFile);
+    	            XSSFWorkbook workbook = new XSSFWorkbook();
+    	            XSSFSheet sheet = workbook.createSheet("Sheet1");
+
+    	            // Code để ghi dữ liệu vào workbook
+    	            // Ví dụ: Ghi dữ liệu từ danh sách NhaCungCap vào các dòng của sheet
+    	            int rowNum = 0;
+    	            for (NhaCungCap ncc : danhSachNCC) {
+    	                Row row = sheet.createRow(rowNum++);
+    	                row.createCell(0).setCellValue(ncc.getTenNhaCungCap());
+    	                row.createCell(1).setCellValue(ncc.getSoDienThoai());
+    	                row.createCell(2).setCellValue(ncc.getEmail());
+    	                row.createCell(3).setCellValue(ncc.getDiaChi());
+    	            }
+
+    	            workbook.write(fileOut);
+    	            fileOut.close();
+    	            JOptionPane.showMessageDialog(null, "Exported Successfully !!.....");
+    	        } catch (FileNotFoundException e) {
+    	            e.printStackTrace();
+    	        } catch (IOException e) {
+    	            e.printStackTrace();
+    	        }
+    	    }
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
+    
+    
 
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
+        File excelFile;
+        FileInputStream excelFIS = null;
+        BufferedInputStream excelBIS = null;
+        
+        String defaultCurrentDirectoryPath = "D:\\";
+        JFileChooser excelFileChooser = new JFileChooser(defaultCurrentDirectoryPath);
+        excelFileChooser.setDialogTitle("Select Excel File");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+        excelFileChooser.setFileFilter(fnef);
+        int excelChooser = excelFileChooser.showOpenDialog(null);
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+			try {
+				excelFile = excelFileChooser.getSelectedFile();
+		        
+		        excelFIS = new FileInputStream(excelFile);
+				excelBIS = new BufferedInputStream(excelFIS);
+				XSSFWorkbook workbook = new XSSFWorkbook(excelBIS);
+				XSSFSheet datatypeSheet = workbook.getSheetAt(0);
+	
+				
+				Iterator<Row> iterator = datatypeSheet.iterator();
+				Row firstRow = iterator.next();
+				Cell firstCell = firstRow.getCell(0);
+				while (iterator.hasNext()) {
+					Row currentRow = iterator.next();
+					NhaCungCap ncc = new NhaCungCap();
+					ncc.setNhaCungCapID(phatSinhMaNhaCungCap());
+					ncc.setTenNhaCungCap(currentRow.getCell(0).getStringCellValue());
+					ncc.setSoDienThoai(currentRow.getCell(1).getStringCellValue());;
+					ncc.setEmail(currentRow.getCell(2).getStringCellValue());;
+					ncc.setDiaChi(currentRow.getCell(3).getStringCellValue());
+					nhaCungCap_BUS.addNhaCungCap(ncc);
+				}
+				JOptionPane.showMessageDialog(null, "Imported Successfully !!.....");
+				loadData();
+				workbook.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+        }
+	}//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
     
 
     private void btnCapNhatNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCapNhatNCCActionPerformed

@@ -1,9 +1,12 @@
 package entities;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class ChiTietKhuyenMai {
+	private KhuyenMai khuyenMai;
+	private SanPham sanPham;
 	private Date ngayTao;
 
 	public ChiTietKhuyenMai(Date ngayTao) {
@@ -11,6 +14,29 @@ public class ChiTietKhuyenMai {
 		this.ngayTao = ngayTao;
 	}
 
+	
+	
+	public ChiTietKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham, Date ngayTao) {
+		super();
+		this.khuyenMai = khuyenMai;
+		this.sanPham = sanPham;
+		this.ngayTao = ngayTao;
+	}
+
+	public SanPham getSanPham() {
+		return sanPham;
+	}
+	public void setSanPham(SanPham sanPham) {
+		this.sanPham = sanPham;
+	}
+	public KhuyenMai getKhuyenMai() {
+		return khuyenMai;
+	}
+
+	public void setKhuyenMai(KhuyenMai khuyenMai) {
+		this.khuyenMai = khuyenMai;
+	}
+	
 	public Date getNgayTao() {
 		return ngayTao;
 	}
