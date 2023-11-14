@@ -17,14 +17,14 @@ public class KhachHang_DAO implements IKhachHang {
 	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) {
 		  ArrayList<KhachHang> listKhachHang = new ArrayList<>();
-		    String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? AND GioiTinh = ? AND LoaiKhachHang = ?";
+		    String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
 		    try {
 		        PreparedStatement pstmt = conn.prepareStatement(query);
 		        pstmt.setString(1, "%" + maKhachHang + "%");
 		        pstmt.setString(2, "%" + tenKhachHang + "%");
 		        pstmt.setString(3, "%" + soDienThoai + "%");
-		        pstmt.setString(4, gioiTinh);
-		        pstmt.setString(5, loaiKhachHang);
+//		        pstmt.setString(4, gioiTinh);
+//		        pstmt.setString(4, loaiKhachHang);
 
 		        ResultSet rs = pstmt.executeQuery();
 		        while (rs.next()) {

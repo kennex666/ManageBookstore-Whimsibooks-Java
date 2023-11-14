@@ -15,14 +15,14 @@ public class NhanVien_DAO implements INhanVien {
 	private Connection conn ;
 	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh, String chucVu) {
 		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
-	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? AND GioiTinh = ? AND ChucVu = ?";
+	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? ";
 	    try {
 	    	PreparedStatement pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, "%" + maNhanVien + "%");
 	        pstmt.setString(2, "%" + tenNhanVien + "%");
 	        pstmt.setString(3, "%" + soDienThoai + "%");
-	        pstmt.setString(4, gioiTinh);
-	        pstmt.setString(5, chucVu);
+//	        pstmt.setString(4, gioiTinh);
+//	        pstmt.setString(5, chucVu);
 
 	        ResultSet rs = pstmt.executeQuery();
 	        while (rs.next()) {

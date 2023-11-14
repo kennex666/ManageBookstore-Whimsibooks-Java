@@ -17,9 +17,16 @@ import java.util.Date;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.formdev.flatlaf.json.ParseException;
 import com.formdev.flatlaf.ui.FlatListCellBorder.Default;
@@ -30,6 +37,15 @@ import connectDB.ConnectDB;
 import entities.KhachHang;
 import entities.NhanVien;
 import utilities.RegexPattern;
+
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.ArrayList;
+
+
+
 
 /**
  *
@@ -592,11 +608,14 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	        for (int i = 0; i < resultList.size(); i++) {
 	            KhachHang kh = resultList.get(i);
 	            model.addRow(
-	                    new Object[] { i + 1, kh.getKhachHangID(), kh.getHoTen(), kh.getGioiTinh(), kh.getSoDienThoai(),
-	                            kh.getNgaySinh(), kh.getEmail(), kh.getMaSoThue(), kh.getDiaChi(), kh.getLoaiKhachHang() });
+	                    new Object[] { i + 1, kh.getKhachHangID(), kh.getHoTen(), kh.getSoDienThoai(), kh.getNgaySinh(),
+	                    		kh.getEmail(), kh.getGioiTinh(), kh.getDiaChi(), kh.getMaSoThue(), kh.getLoaiKhachHang() });
+	            
+	           
 	        }
 	    } else {
-	        JOptionPane.showMessageDialog(this, "Không tìm thấy");
+	        JOptionPane.showMessageDialog(this, "Không tìm thấy khách hàng");
+	        model.setRowCount(0);
 	    }
 	}
 	
@@ -833,11 +852,41 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	private void btnImportKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImportKHActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_btnImportKHActionPerformed
+	public static void exportTableToExcel(JTable table, String filePath) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
 
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("DanhSachKhachHang");
+
+            // Tiêu đề cột
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < model.getColumnCount(); i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(model.getColumnName(i));
+            }
+
+            // Dữ liệu từ table
+            for (int row = 0; row < model.getRowCount(); row++) {
+                Row excelRow = sheet.createRow(row + 1);
+                for (int col = 0; col < model.getColumnCount(); col++) {
+                    Cell cell = excelRow.createCell(col);
+                    cell.setCellValue(model.getValueAt(row, col).toString());
+                }
+            }
+
+            // Lưu workbook xuống tệp Excel
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+                workbook.write(fileOut);
+                System.out.println("Xuất dữ liệu từ table thành công!");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 	private void btnExportKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportKHActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnExportKHActionPerformed
-
+//		String filePath = "E:\\PTUD\\database\\danhsachkhachhang_table.xlsx";
+//        exportTableToExcel(tblKhachHang, filePath);
+	}
 	private void btnDangXuatKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatKHActionPerformed
 		System.exit(0);
 	}// GEN-LAST:event_btnDangXuatKHActionPerformed
