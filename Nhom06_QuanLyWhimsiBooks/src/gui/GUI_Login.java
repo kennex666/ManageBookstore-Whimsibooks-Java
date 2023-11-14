@@ -1,5 +1,7 @@
 package gui;
 
+import bus.NhanVien_BUS;
+import entities.NhanVien;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -26,6 +28,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import utilities.CurrentSession;
+import utilities.ErrorMessage;
 /**
  * 
  * @author: Dương Thái Bảo
@@ -38,10 +42,13 @@ public class GUI_Login extends JFrame implements ActionListener{
 	private JTextField txtUsername;
 	private JPasswordField pwdUserType;
 	private JButton btnLogin, btnResetPassword;
+        private NhanVien nhanVien;
+        private NhanVien_BUS nhanVien_BUS;
 	/**
 	 * Create the frame.
 	 */
 	public GUI_Login() {
+            nhanVien_BUS = new NhanVien_BUS();
 		setTitle(WindowTitle.getTitleContent("Đăng nhập"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -128,6 +135,9 @@ public class GUI_Login extends JFrame implements ActionListener{
 		
 		btnLogin.addActionListener(this);
 		btnResetPassword.addActionListener(this);
+		txtUsername.addActionListener(this);pwdUserType.addActionListener(this);
+        txtUsername.setText("quanly01");
+        pwdUserType.setText("123456");
 		
 	}
 	
@@ -135,18 +145,57 @@ public class GUI_Login extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getSource().equals(btnLogin)) {
-			if (txtUsername.getText().equals("test") && new String(pwdUserType.getPassword()).equals("test")) {
-				GUI_MainMenu gui = new GUI_MainMenu();
-				gui.setVisible(true);
-				this.setVisible(false);
-				dispose();
-			}
-			return;
+                    if (txtUsername.getText().isBlank()){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Cần nhập username!", txtUsername);
+                        txtUsername.requestFocus();
+                        return;
+                    }
+                    if (new String(pwdUserType.getPassword()).length() < 1){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Cần nhập mật khẩu", txtUsername);
+                        pwdUserType.requestFocus();
+                        return;
+                    }
+                    nhanVien = nhanVien_BUS.dangNhapNhanVien(txtUsername.getText(), new String(pwdUserType.getPassword()));
+                    if (nhanVien == null){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Tài khoản/Mật khẩu không hợp lệ!", txtUsername);
+						return;
+                    }
+                    
+                    if (nhanVien.getNhanVienID() == null){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Tài khoản/Mật khẩu không hợp lệ!", txtUsername);
+						return;
+                    }
+                    
+                    CurrentSession.getInstance().setNhanVienHienHanh(nhanVien);
+					GUI_MainMenu gui = new GUI_MainMenu();
+					gui.guiDisable();
+					gui.setVisible(true);
+					this.setVisible(false);
+					dispose();
 		}
 		
 		if (e.getSource().equals(btnResetPassword)) {
-			return;
+                     ErrorMessage.showMessageWithFocusTextField("Tính năng đang phát triển", "Tính năng này chưa khả dụng!", txtUsername);
+
 		}
+                
+                if (e.getSource().equals(txtUsername)){
+                    if (txtUsername.getText().isBlank()){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Cần nhập username!", txtUsername);
+                        txtUsername.requestFocus();
+                        return;
+                    }
+                    pwdUserType.requestFocus();
+                }
+                
+                if (e.getSource().equals(pwdUserType)){
+                    if (new String(pwdUserType.getPassword()).length() < 1){
+                        ErrorMessage.showMessageWithFocusTextField("Lỗi đăng nhập", "Cần nhập mật khẩu", txtUsername);
+                        pwdUserType.requestFocus();
+                        return;
+                    } 
+                    btnLogin.doClick();
+                }
 		
 	}
 	

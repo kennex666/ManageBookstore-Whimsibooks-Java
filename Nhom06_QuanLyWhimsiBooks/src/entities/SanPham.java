@@ -19,9 +19,24 @@ public class SanPham {
 	private NhaCungCap nhaCungCap;
 	
 	
+	// contructer cho khuyến mãi
+	public SanPham(int sanPhamID, String tenSanPham , int soLuongTon, String imgPath) {
+		this.sanPhamID = sanPhamID;
+		this.soLuongTon = soLuongTon;
+		this.tenSanPham = tenSanPham;
+		this.imgPath = imgPath;
+	}
+	
+	public SanPham(int sanPhamID, String tenSanPham) {
+		this.sanPhamID = sanPhamID;
+		this.tenSanPham = tenSanPham;
+	}
+	
+	public SanPham(int sanPhamID) {
+		this.sanPhamID = sanPhamID;
+	}
 	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
 
-	
 	public int getSanPhamID() {
 		return sanPhamID;
 	}
@@ -31,10 +46,11 @@ public class SanPham {
 	public int getSoLuongTon() {
 		return soLuongTon;
 	}
-	public void setSoLuongTon(int soLuongTon) throws Exception{
+	public void setSoLuongTon(int soLuongTon){
 		if (soLuongTon < 0)
-			throw new Exception("Số lượng không được âm");
-		this.soLuongTon = soLuongTon;
+			this.soLuongTon = 0;
+		else
+			this.soLuongTon = soLuongTon;
 	}
 	public int getNamSanXuat() {
 		return namSanXuat;
@@ -60,7 +76,7 @@ public class SanPham {
 	}
 	
 	public double getThue() {
-		return thue;
+		return thue/100;
 	}
 	public void setThue(double thue) throws Exception{
 		if (thue < 0)
@@ -211,10 +227,6 @@ public class SanPham {
 		setLoaiBia(loaiBia);
 		
 	}
-	
-	
-	
-	
 
 	public SanPham(int sanPhamID, int soLuongTon, int namSanXuat, int soTrang, Date ngayNhap, double giaNhap,
 			double thue, String tenSanPham, String loaiDoiTra,String barcode, String imgPath, String tinhTrang, String loaiSanPham,
@@ -267,17 +279,19 @@ public class SanPham {
 		this.giaNhap = 0;
 		this.soTrang = 0;
 	}
+
 	
 	/* Tính giá bán */
 	public double getGiaBan() {
 		// TODO Auto-generated method stub
-		return giaNhap  + giaNhap * 0.2;
+		return (giaNhap  + giaNhap * 0.2) + (giaNhap  + giaNhap * 0.2) * getThue();
 	}
 	
 	@Override
 	public int hashCode() {
 		return Objects.hash(sanPhamID);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

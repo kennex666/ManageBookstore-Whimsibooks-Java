@@ -22,6 +22,9 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 
 import connectDB.ConnectDB;
 import utilities.ColorProcessing;
+import utilities.CurrentSession;
+import utilities.CurrentSession.EnumQuyenHan;
+import utilities.ErrorMessage;
 import utilities.WindowTitle;
 
 /**
@@ -44,8 +47,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private JButton isFocusTab;
     
     public GUI_MainMenu() {
-
-    	ConnectDB.getInstance().connect();
+        
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         utilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));
@@ -69,12 +71,22 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         tabNhaCungCap = new TAB_NhaCungCap();
         tabKhuyenMai = new TAB_KhuyenMai();
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
-        tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabBanHang);
+        tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
     }
 
     /*
         Default test start
     */
+    public void guiDisable() {
+    	btnTabThongKe.setVisible(false);
+    	if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
+    		btnTabNhanVien.setVisible(false);
+    		btnTabNhaCungCap.setVisible(false);
+    		btnTabKhachHang.setVisible(false);
+    	}else {
+    		
+    	}
+    }
     
     public void activateGUITest(){
         tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
@@ -440,6 +452,16 @@ public class GUI_MainMenu extends javax.swing.JFrame {
        // Tab khuyến mãi
        if (evt.getSource().equals(btnTabKhuyenMai)){
     	   tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
+    	   return;
+       }
+       
+       if (evt.getSource().equals(btnTabDangXuat)) {
+    	   if (ErrorMessage.showConfirmDialogYesNo("Thông báo", "Bạn có muốn đăng xuất khỏi hệ thống không?"))
+    	   {
+    		   new GUI_Login().setVisible(true);
+        	   CurrentSession.getInstance().setNhanVienHienHanh(null);
+    		   this.dispose();
+    	   }
     	   return;
        }
     }//GEN-LAST:event_btnTabActionPerformed

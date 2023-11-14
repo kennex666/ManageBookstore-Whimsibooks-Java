@@ -2,17 +2,19 @@ package entities;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class KhuyenMai {
 	private String codeKhuyenMai;
 	private String tenKhuyenMai;
-	private String loaiKhuyenMai;
+	private String loaiKhuyenMai; // PHAM_TRAM && GIA_TRI
 	private double giaTri;
 	private Date ngayKhuyenMai;
 	private Date ngayHetHanKM;
 	private double donHangTu;
 	private int soLuongKhuyenMai, soLuotDaApDung;
+        private ArrayList<ChiTietKhuyenMai> listApDung;
 
 	/**
 	 * @param codeKhuyenMai
@@ -35,10 +37,8 @@ public class KhuyenMai {
 	}
 	
 	
-	
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {
-		super();
 		this.codeKhuyenMai = codeKhuyenMai;
 		this.tenKhuyenMai = tenKhuyenMai;
 		this.loaiKhuyenMai = loaiKhuyenMai;
@@ -50,94 +50,142 @@ public class KhuyenMai {
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
 
+        public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMai(){
+            return listApDung;
+        }
+        
+         public void setChiTietKhuyenMai(ArrayList<ChiTietKhuyenMai> listApDung){
+            this.listApDung = listApDung;
+        }
+
+
+	public KhuyenMai() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public KhuyenMai(String codeKhuyenMai) {
+		this.codeKhuyenMai = codeKhuyenMai;
+	}
+
 
 
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;
 	}
-	
-	public void setCodeKhuyenMai(String codeKhuyenMai) throws IllegalArgumentException {
-	    // Kiểm tra xem codeKhuyenMai chỉ chứa ký tự hợp lệ và có ít nhất 6 ký tự
-	    if (codeKhuyenMai.matches("^[A-Za-z0-9_]+$") && codeKhuyenMai.length() >= 6) {
-	        this.codeKhuyenMai = codeKhuyenMai;
-	    } else {
-	        throw new IllegalArgumentException("Mã khuyến mãi cần ít nhất 6 ký tự");
-	    }
+
+
+
+	public void setCodeKhuyenMai(String codeKhuyenMai) {
+		this.codeKhuyenMai = codeKhuyenMai;
 	}
-	
+
+
+
 	public String getTenKhuyenMai() {
 		return tenKhuyenMai;
 	}
-	
-	public void setTenKhuyenMai(String tenKhuyenMai) throws IllegalArgumentException {
-	    if (!tenKhuyenMai.isEmpty() && tenKhuyenMai.length() > 0) {
-	        this.tenKhuyenMai = tenKhuyenMai;
-	    } else {
-	        throw new IllegalArgumentException("Tên khuyến mãi không thể rỗng");
-	    }
+
+
+
+	public void setTenKhuyenMai(String tenKhuyenMai) {
+		this.tenKhuyenMai = tenKhuyenMai;
 	}
-	
+
+
+
 	public String getLoaiKhuyenMai() {
 		return loaiKhuyenMai;
 	}
-	
-	public void setLoaiKhuyenMai(String loaiKhuyenMai) throws IllegalArgumentException {
-	    if (loaiKhuyenMai != null && !loaiKhuyenMai.isEmpty() && (loaiKhuyenMai.equals("GIA_TRI") || loaiKhuyenMai.equals("PHAN_TRAM"))) {
-	        this.loaiKhuyenMai = loaiKhuyenMai;
-	    } else {
-	        throw new IllegalArgumentException("Loại khuyến mãi không hợp lệ");
-	    }
+
+
+
+	public void setLoaiKhuyenMai(String loaiKhuyenMai) {
+		this.loaiKhuyenMai = loaiKhuyenMai;
 	}
-	
+
+
+
 	public double getGiaTri() {
 		return giaTri;
 	}
-	
-	public void setGiaTri(double giaTri) throws IllegalArgumentException {
-	    if (giaTri > 0) {
-	        this.giaTri = giaTri;
-	    } else {
-	        throw new IllegalArgumentException("Giá trị giảm giá không thể là một số âm hoặc bằng 0.");
-	    }
+
+
+
+	public void setGiaTri(double giaTri) {
+		this.giaTri = giaTri;
 	}
-	
+
+
+
 	public Date getNgayKhuyenMai() {
 		return ngayKhuyenMai;
 	}
+
+
 
 	public void setNgayKhuyenMai(Date ngayKhuyenMai) {
 		this.ngayKhuyenMai = ngayKhuyenMai;
 	}
 
+
+
 	public Date getNgayHetHanKM() {
 		return ngayHetHanKM;
 	}
 
-	public void setNgayHetHanKM(Date ngayHetHanKM) throws IllegalArgumentException {
-	    if (ngayKhuyenMai != null && ngayHetHanKM != null && ngayHetHanKM.before(ngayKhuyenMai)) {
-	        throw new IllegalArgumentException("Ngày hết hạn không thể trước ngày khuyến mãi");
-	    }
-	    this.ngayHetHanKM = ngayHetHanKM;
+
+
+	public void setNgayHetHanKM(Date ngayHetHanKM) {
+		this.ngayHetHanKM = ngayHetHanKM;
 	}
+
+
 
 	public double getDonHangTu() {
 		return donHangTu;
 	}
 
-	public void setDonHangTu(double donHangTu) throws IllegalArgumentException {
-	    if (donHangTu >= 0) {
-	        this.donHangTu = donHangTu;
-	    } else {
-	        throw new IllegalArgumentException("Giá trị đơn hàng phải từ 0 trở lên");
-	    }
+
+
+	public void setDonHangTu(double donHangTu) {
+		this.donHangTu = donHangTu;
 	}
 
-	
+
+
+	public int getSoLuongKhuyenMai() {
+		return soLuongKhuyenMai;
+	}
+
+
+
+	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
+		this.soLuongKhuyenMai = soLuongKhuyenMai;
+	}
+
+
+
+	public int getSoLuotDaApDung() {
+		return soLuotDaApDung;
+	}
+
+
+
+	public void setSoLuotDaApDung(int soLuotDaApDung) {
+		this.soLuotDaApDung = soLuotDaApDung;
+	}
+
+
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(codeKhuyenMai, donHangTu, giaTri, loaiKhuyenMai, ngayHetHanKM, ngayKhuyenMai, tenKhuyenMai);
+		return Objects.hash(codeKhuyenMai, donHangTu, giaTri, loaiKhuyenMai, ngayHetHanKM, ngayKhuyenMai,
+				soLuongKhuyenMai, soLuotDaApDung, tenKhuyenMai);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -153,14 +201,19 @@ public class KhuyenMai {
 				&& Double.doubleToLongBits(giaTri) == Double.doubleToLongBits(other.giaTri)
 				&& Objects.equals(loaiKhuyenMai, other.loaiKhuyenMai)
 				&& Objects.equals(ngayHetHanKM, other.ngayHetHanKM)
-				&& Objects.equals(ngayKhuyenMai, other.ngayKhuyenMai)
-				&& Objects.equals(tenKhuyenMai, other.tenKhuyenMai);
+				&& Objects.equals(ngayKhuyenMai, other.ngayKhuyenMai) && soLuongKhuyenMai == other.soLuongKhuyenMai
+				&& soLuotDaApDung == other.soLuotDaApDung && Objects.equals(tenKhuyenMai, other.tenKhuyenMai);
 	}
+
+
 
 	@Override
 	public String toString() {
-		return "KhaiMai [codeKhuyenMai=" + codeKhuyenMai + ", tenKhuyenMai=" + tenKhuyenMai + ", loaiKhuyenMai="
+		return "KhuyenMai [codeKhuyenMai=" + codeKhuyenMai + ", tenKhuyenMai=" + tenKhuyenMai + ", loaiKhuyenMai="
 				+ loaiKhuyenMai + ", giaTri=" + giaTri + ", ngayKhuyenMai=" + ngayKhuyenMai + ", ngayHetHanKM="
-				+ ngayHetHanKM + ", donHangTu=" + donHangTu + "]";
+				+ ngayHetHanKM + ", donHangTu=" + donHangTu + ", soLuongKhuyenMai=" + soLuongKhuyenMai
+				+ ", soLuotDaApDung=" + soLuotDaApDung + "]";
 	}
+	
+
 }
