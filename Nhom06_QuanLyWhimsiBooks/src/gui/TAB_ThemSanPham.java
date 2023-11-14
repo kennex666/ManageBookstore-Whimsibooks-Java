@@ -173,7 +173,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jButton_Huy = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1155, 790));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
