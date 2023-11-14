@@ -47,8 +47,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private JButton isFocusTab;
     
     public GUI_MainMenu() {
-
-    	ConnectDB.getInstance().connect();
+        
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         utilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));

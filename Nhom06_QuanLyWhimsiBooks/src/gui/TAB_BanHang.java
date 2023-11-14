@@ -7,7 +7,6 @@ import bus.KhachHang_BUS;
 import bus.KhuyenMai_BUS;
 import bus.NhanVien_BUS;
 import bus.SanPham_BUS;
-import connectDB.ConnectDB;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -876,6 +875,11 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             jTextFieldClicked(evt);
         }
     });
+    txtMaKhachHang.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            txtMaKhachHangActionPerformed(evt);
+        }
+    });
     jPanel12.add(txtMaKhachHang);
 
     btnKhachHangEnter.setBackground(new java.awt.Color(15, 102, 165));
@@ -1590,12 +1594,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             return;
         }
         preloadInfomation();
-        calcKhuyenMai();
+        updateThongTinBill();
     }//GEN-LAST:event_btnKhuyenMaiEnterActionPer
 
     private void txtKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtKhuyenMaiActionPerformed
         // TODO add your handling code here:
-        btnKhachHangEnter.doClick();
+        btnKhuyenMaiEnter.doClick();
     }//GEN-LAST:event_txtKhuyenMaiActionPerformed
 
     private void jTextFieldClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextFieldClicked
@@ -1642,8 +1646,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         txt_DSHD_MaKH.setText("");
         txt_DSHD_MaNV.setText("");
         cbo_DSHD_TrangThai.setSelectedIndex(0);
-        
     }//GEN-LAST:event_btn_DSHD_xoaRongActionPerformed
+
+    private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKhachHangActionPerformed
+        // TODO add your handling code here:
+        btnKhachHangEnter.doClick();
+    }//GEN-LAST:event_txtMaKhachHangActionPerformed
 
     private void calcKhuyenMai(){ 
         double tempChietKhau = 0;

@@ -368,6 +368,8 @@ public class Frame_KeyPad extends javax.swing.JFrame {
         Component focusedComponent = currentTextFocus;
         String numberClicked = jButtonClicked.getText();
         
+        if (!currentTextFocus.isEditable())
+        	return;
         currentTextFocus.requestFocus();
         if (numberClicked == "Enter"){
             try {
