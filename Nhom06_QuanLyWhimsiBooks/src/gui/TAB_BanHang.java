@@ -130,10 +130,19 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 								txtMaSanPham);
 						tblModelCTHD.setValueAt(oldValue, row, col);
 					} else if (newValue <= 0) {
+                                                
 						hoaDon.getListChiTietHoaDon().remove(row);
 						tblModelCTHD.removeRow(row);
 						reIndexTable();
 					} else {
+                                                if (hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon() < newValue){
+                                                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                                                        "Hiện chỉ còn " + hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon() 
+                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+                                                    
+                                                    hoaDon.getListChiTietHoaDon().get(row).setSoLuong(oldValue);
+                                                    return;
+                                                }
 						hoaDon.getListChiTietHoaDon().get(row).setSoLuong(newValue);
 					}
 
@@ -450,9 +459,16 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 					}
 				}
 				case 6 -> {
+                                    if (cthd.getSanPham().getSoLuongTon() < cthd.getSoLuong() + 1){
+                                        ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                                            "Hiện chỉ còn " + cthd.getSanPham().getSoLuongTon() 
+                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+                                            return;
+                                    }
 					cthd.setSoLuong(cthd.getSoLuong() + 1);
 					tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
 					tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+                                        
 
 				}
 				case 9 -> {
@@ -1692,6 +1708,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 					"Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
 			return;
 		}
+                if (x.getSoLuongTon() <= 0){
+                                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                                        "Sản phẩm này đã hết hàng, hãy báo với quản lý và bạn không được bán sản phẩm này!", txtMaSanPham);
+                                        return;
+                                }
 		ChiTietHoaDon ct = new ChiTietHoaDon(x, 1);
 
 		// Đổi trả hàng
@@ -1710,6 +1731,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 						txtMaSanPham);
 				return;
 			}
+                        
 			if (ct.getSoLuong() - 1 <= 0) {
 				hoaDon.removeChiTietHoaDon(ct);
 				tblModelCTHD.removeRow(tempPos);
@@ -1720,12 +1742,23 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 				tblModelCTHD.setValueAt(ct.tinhTongTien(), tempPos, 8);
 			}
 		} else {
-			tempPos = hoaDon.addChiTietHoaDon(ct);
-			if (tempPos == -1)
-				addRowIntoChiTietHoaDon(ct);
-			else {
-				tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
-			}
+                        // Kiểm tra tình trạng trước khi th 
+                       tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
+			if (tempPos >= 0) {
+				if (x.getSoLuongTon() < hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong() + 1){
+                                ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                                "Hiện chỉ còn " + x.getSoLuongTon() 
+                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+                                return;
+                        }
+                        }
+                        
+                            tempPos = hoaDon.addChiTietHoaDon(ct);
+                            if (tempPos == -1)
+                                    addRowIntoChiTietHoaDon(ct);
+                            else {
+                                    tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
+                            }
 		}
 		clearTextAndFocus(txtMaSanPham);
 		updateThongTinBill();

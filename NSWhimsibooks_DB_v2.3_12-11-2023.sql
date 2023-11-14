@@ -304,35 +304,34 @@ AS BEGIN
 	declare @SanPhamID AS nvarchar(255), @SoLuongLayDi AS int
 	SET @SanPhamID = (SELECT SanPhamID FROM inserted)
 	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
-	IF 'HUY_BO' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
+	IF 'DA_XU_LY' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
 	BEGIN
-		RETURN
+		UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
+		WHERE @SanPhamID = SanPhamID
 	END
-	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
-	WHERE @SanPhamID = SanPhamID
 END
 GO
 
 --- Trigger kích hoạt khi sửa chi tiết hoá đơn
-CREATE TRIGGER trg_SuaChiTietHoaDon
-ON ChiTietHoaDon
-AFTER UPDATE
-AS BEGIN	
-	declare @SanPhamIDTra AS nvarchar(255), @SanPhamIDLay AS nvarchar(255), @SoLuongLayDi AS int, @SoLuongTraLai AS int
-	SET @SanPhamIDLay = (SELECT SanPhamID FROM inserted)
-	SET @SanPhamIDTra = (SELECT SanPhamID FROM deleted)
-	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
-	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
-	IF 'HUY_BO' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
-	BEGIN
-		RETURN
-	END
-	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
-	WHERE @SanPhamIDLay = SanPhamID
-	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
-	WHERE @SanPhamIDTra = SanPhamID
-END
-GO
+--CREATE TRIGGER trg_SuaChiTietHoaDon
+--ON ChiTietHoaDon
+--AFTER UPDATE
+--AS BEGIN	
+--	declare @SanPhamIDTra AS nvarchar(255), @SanPhamIDLay AS nvarchar(255), @SoLuongLayDi AS int, @SoLuongTraLai AS int
+--	SET @SanPhamIDLay = (SELECT SanPhamID FROM inserted)
+--	SET @SanPhamIDTra = (SELECT SanPhamID FROM deleted)
+--	SET @SoLuongTraLai = (SELECT SoLuong FROM deleted)
+--	SET @SoLuongLayDi = (SELECT SoLuong FROM inserted)
+--	IF 'HUY_BO' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID =  (SELECT HoaDonID FROM inserted))
+--	BEGIN
+--		RETURN
+--	END
+--	UPDATE SanPham SET SoLuongTon = SoLuongTon - @SoLuongLayDi
+--	WHERE @SanPhamIDLay = SanPhamID
+--	UPDATE SanPham SET SoLuongTon = SoLuongTon + @SoLuongTraLai
+--	WHERE @SanPhamIDTra = SanPhamID
+--END
+--GO
 --- Trigger kích hoạt khi xoá chi tiết hoá đơn
 CREATE TRIGGER trg_XoaChiTietHoaDon
 ON ChiTietHoaDon

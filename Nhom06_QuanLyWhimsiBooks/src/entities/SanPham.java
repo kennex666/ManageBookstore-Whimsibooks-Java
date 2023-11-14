@@ -43,7 +43,7 @@ public class SanPham {
 	public int getSoLuongTon() {
 		return soLuongTon;
 	}
-	public void setSoLuongTon(int soLuongTon) throws Exception{
+	public void setSoLuongTon(int soLuongTon){
 		if (soLuongTon < 0)
 			this.soLuongTon = 0;
 		else
