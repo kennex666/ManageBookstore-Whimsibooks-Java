@@ -6,12 +6,12 @@ import java.util.Objects;
 public class NhaXuatBan {
 	private int nhaXuatBanID;
 	private String tenNhaXuatBan, diaChi, soDienThoai, email, website;
-	private Date namThanhLap;
+	private int namThanhLap;
 	private String linhVucXuatBan;
 	private String quocGia;
 
 	public NhaXuatBan(int nhaXuatBanID, String tenNhaXuatBan, String diaChi, String soDienThoai, String email,
-			String website, Date namThanhLap, String linhVucXuatBan, String quocGia) {
+			String website, int namThanhLap, String linhVucXuatBan, String quocGia) {
 		this.setNhaXuatBanID(nhaXuatBanID);
 		this.setTenNhaXuatBan(tenNhaXuatBan);
 		this.setDiaChi(diaChi);
@@ -29,7 +29,7 @@ public class NhaXuatBan {
 	public int getNhaXuatBanID() {
 		return nhaXuatBanID;
 	}
-	public void setNhaXuatBanID(int nhaXuatBan) {
+	public void setNhaXuatBanID(int nhaXuatBanID) {
 	    // Kiểm tra nhaXuatBan không rỗng
 //	    if (nhaXuatBanID.isEmpty()) {
 //	        throw new IllegalArgumentException("nhaXuatBan không được rỗng");
@@ -65,15 +65,15 @@ public class NhaXuatBan {
 		return soDienThoai;
 	}
 	public void setSoDienThoai(String soDienThoai) {
-	    // Kiểm tra soDienThoai không rỗng
-	    if (soDienThoai.isEmpty()) {
-	        throw new IllegalArgumentException("Số điện thoại không được rỗng");
-	    }
-
-	    // Kiểm tra định dạng
-	    if (!soDienThoai.matches("^\\+?\\d{9,10}$") && !soDienThoai.matches("^0\\d{9,10}$")) {
-	        throw new IllegalArgumentException("Số điện thoại không hợp lệ");
-	    }
+//	    // Kiểm tra soDienThoai không rỗng
+//	    if (soDienThoai.isEmpty()) {
+//	        throw new IllegalArgumentException("Số điện thoại không được rỗng");
+//	    }
+//
+//	    // Kiểm tra định dạng
+//	    if (!soDienThoai.matches("^\\+?\\d{9,10}$") && !soDienThoai.matches("^0\\d{9,10}$")) {
+//	        throw new IllegalArgumentException("Số điện thoại không hợp lệ");
+//	    }
 
 	    this.soDienThoai = soDienThoai;
 	}
@@ -99,14 +99,14 @@ public class NhaXuatBan {
 	public void setWebsite(String website) {
 		this.website = website;
 	}
-	public Date getNamThanhLap() {
+	public int getNamThanhLap() {
 		return namThanhLap;
 	}
-	public void setNamThanhLap(Date namThanhLap) {
+	public void setNamThanhLap(int namThanhLap) {
 	    // Kiểm tra năm thành lập
-	    if (namThanhLap.getTime() <= 0) {
-	        throw new IllegalArgumentException("Năm thành lập không hợp lệ");
-	    }
+//	    if (namThanhLap.getTime() <= 0) {
+//	        throw new IllegalArgumentException("Năm thành lập không hợp lệ");
+//	    }
 
 	    this.namThanhLap = namThanhLap;
 	}
