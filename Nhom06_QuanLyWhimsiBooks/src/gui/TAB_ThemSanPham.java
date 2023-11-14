@@ -173,7 +173,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jButton_Huy = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1155, 790));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
@@ -1000,6 +1000,14 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setSoLuongTon(soLuongTon);
             sanPham.setBarcode(barcode);
             sanPham.setGiaNhap(giaNhap);
+            if (tinhTrang.equalsIgnoreCase("Còn hàng")) {
+            	tinhTrang = "CON_HANG";
+            	
+            } else if (tinhTrang.equalsIgnoreCase("Hết hàng")) {
+            	tinhTrang = "HET_HANG";
+            }else {
+            	tinhTrang = "NGUNG_KINH_DOANH";
+            }
             sanPham.setTinhTrang(tinhTrang);
             sanPham.setThue(thue);
             sanPham.setNamSanXuat(namSanXuat);
@@ -1010,7 +1018,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setNgonNgu(ngonNgu);
             sanPham.setSoTrang(soTrang);
             sanPham.setLoaiBia(loaiBia);
-            sanPham.setLoaiDoiTra(loaiDoiTra);
+            sanPham.setLoaiDoiTra(loaiDoiTra.equalsIgnoreCase("Được đổi trả") ? "DUOC_DOI_TRA" : "KHONG_DOI_TRA");
             sanPham.setNgayNhap(DATE);
             sanPham.setImgPath(partialPath);
             

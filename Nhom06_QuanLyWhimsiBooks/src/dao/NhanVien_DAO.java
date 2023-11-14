@@ -10,7 +10,9 @@ import java.util.ArrayList;
 import connectDB.ConnectDB;
 import entities.NhanVien;
 import interfaces.INhanVien;
+import java.time.LocalDate;
 import java.util.List;
+import utilities.QueryBuilder;
 public class NhanVien_DAO implements INhanVien {
 	private Connection conn ;
 	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh, String chucVu) {
@@ -243,6 +245,31 @@ public class NhanVien_DAO implements INhanVien {
 	public NhanVien_DAO() {
 		this.conn = ConnectDB.getConnection();
 	}
+
+    @Override
+    public NhanVien dangNhapNhanVien(String user, String password) {
+        
+
+        NhanVien nhanVien = null;
+        try {
+        	PreparedStatement pstm = conn.prepareStatement("SELECT * FROM NhanVien WHERE UserName = ? AND Password = ?");
+            pstm.setString(1, user);
+            pstm.setString(2, password);
+            ResultSet rs = pstm.executeQuery();
+            if (rs.next()){
+                        nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"), rs.getString("password"),
+						rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"), rs.getString("gioiTinh"),
+						rs.getString("soDienThoai"), rs.getString("chucVu"), rs.getString("email"),
+						rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi")
+		);            
+            }
+            return nhanVien;
+        } catch (Exception e) {
+             return null;
+        }
+        
+        
+    }
 	
 	
 	

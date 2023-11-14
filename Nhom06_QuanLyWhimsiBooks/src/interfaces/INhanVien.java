@@ -18,5 +18,6 @@ public interface INhanVien  {
 	public boolean isMaNhanVienExists(String x);
 	public int phatSinhMaNhanVien();
 	public ArrayList<NhanVien> findEmployee(String x);
+        public NhanVien dangNhapNhanVien(String user, String password);
 	
 }

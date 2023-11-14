@@ -80,6 +80,13 @@ public class NhanVien_BUS implements INhanVien {
 		// TODO Auto-generated method stub
 		return nv_dao.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, chucVu);
 	}
+        
+        @Override
+        public NhanVien dangNhapNhanVien(String user, String password){
+            return nv_dao.dangNhapNhanVien(user, password);
+            
+        }
+
 	
 
 }

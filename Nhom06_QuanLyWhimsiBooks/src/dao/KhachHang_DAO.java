@@ -13,6 +13,7 @@ import interfaces.IKhachHang;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import utilities.QueryBuilder;
+import utilities.QueryBuilder.Enum_DataType;
 
 public class KhachHang_DAO implements IKhachHang {
 	private Connection conn ;
@@ -20,14 +21,16 @@ public class KhachHang_DAO implements IKhachHang {
 	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) {
 		  ArrayList<KhachHang> listKhachHang = new ArrayList<>();
-		    String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? AND GioiTinh = ? AND LoaiKhachHang = ?";
+		  QueryBuilder qb = new QueryBuilder("SELECT * FROM KhachHang ?");
 		    try {
-		        PreparedStatement pstmt = conn.prepareStatement(query);
-		        pstmt.setString(1, "%" + maKhachHang + "%");
-		        pstmt.setString(2, "%" + tenKhachHang + "%");
-		        pstmt.setString(3, "%" + soDienThoai + "%");
-		        pstmt.setString(4, gioiTinh);
-		        pstmt.setString(5, loaiKhachHang);
+
+				qb.addParameter(Enum_DataType.STRING, "KhachHangID", "%?%", maKhachHang.isBlank() ? null : maKhachHang);
+				qb.addParameter(Enum_DataType.STRING, "hoTen", "%?%", tenKhachHang.isBlank() ? null : tenKhachHang);
+				qb.addParameter(Enum_DataType.STRING, "SoDienThoai", "%?%", soDienThoai.isBlank() ? null : soDienThoai);
+				qb.addParameter(Enum_DataType.STRING, "GioiTinh", "=", gioiTinh.isBlank() ? null : gioiTinh);
+				qb.addParameter(Enum_DataType.STRING, "LoaiKhachHang", "=", loaiKhachHang.isBlank() ? null : loaiKhachHang);
+
+				PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "OR");
 
 		        ResultSet rs = pstmt.executeQuery();
 		        while (rs.next()) {

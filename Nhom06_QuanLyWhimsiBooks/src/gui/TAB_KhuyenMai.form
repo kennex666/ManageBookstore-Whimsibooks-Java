@@ -256,10 +256,9 @@
                             <Component class="javax.swing.JComboBox" name="txtHinhThuc">
                               <Properties>
                                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                                  <StringArray count="3">
-                                    <StringItem index="0" value="ALL"/>
-                                    <StringItem index="1" value="Percentage"/>
-                                    <StringItem index="2" value="Fixed"/>
+                                  <StringArray count="2">
+                                    <StringItem index="0" value="PHAN_TRAM"/>
+                                    <StringItem index="1" value="GIA_TRI"/>
                                   </StringArray>
                                 </Property>
                               </Properties>
@@ -341,6 +340,7 @@
                                   <Image iconType="3" name="/img/icon/icon-luuKM.png"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="Th&#xea;m"/>
+                                <Property name="iconTextGap" type="int" value="25"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLuuActionPerformed"/>
@@ -370,6 +370,7 @@
                                   <Image iconType="3" name="/img/icon/icon-huyKM.png"/>
                                 </Property>
                                 <Property name="text" type="java.lang.String" value="H&#x1ee7;y b&#x1ecf;"/>
+                                <Property name="iconTextGap" type="int" value="25"/>
                               </Properties>
                               <Events>
                                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHuyActionPerformed"/>
