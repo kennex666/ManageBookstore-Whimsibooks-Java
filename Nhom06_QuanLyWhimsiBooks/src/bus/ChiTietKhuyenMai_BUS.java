@@ -17,7 +17,7 @@ public class ChiTietKhuyenMai_BUS implements IChiTietKhuyenMai{
 	@Override
 	public ArrayList<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
 		// TODO Auto-generated method stub
-		return null;
+		return chiTietKhuyenMai_DAO.getAllChiTietKhuyenMai();
 	}
 	@Override
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham) {

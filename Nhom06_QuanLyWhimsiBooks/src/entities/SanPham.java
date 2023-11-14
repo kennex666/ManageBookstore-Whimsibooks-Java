@@ -35,7 +35,6 @@ public class SanPham {
 	public SanPham(int sanPhamID) {
 		this.sanPhamID = sanPhamID;
 	}
-	
 	// Thuộc tính mới trong csdl dưới dạng ID ==>>> Đổi về đối tượng, nhớ kiểm tra xem có tồn tại hay không?
 
 	public int getSanPhamID() {

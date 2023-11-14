@@ -60,6 +60,7 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return list;
 	}
+
 	
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
 		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
@@ -79,6 +80,7 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return list;
 	}
+	
 	
 	public ArrayList<KhuyenMai> SapXepKhuyenMaiTheoGiaTri(String maKhuyenMai) {
 		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();

@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
@@ -28,6 +29,7 @@ import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
+import entities.ThuongHieu;
 
 /**
  *
@@ -53,9 +55,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         khuyenMai_BUS = new KhuyenMai_BUS();
         sanPham_BUS = new SanPham_BUS();
         chiTietKhuyenMai_BUS = new ChiTietKhuyenMai_BUS();
-        txtMaKM.setText(phatSinhMaKhuyenMai());
         loadDataKM();
         loadDataSP();
+    	loadDuLieuThuongHieu();
         currentDate = Calendar.getInstance();
     }
 
@@ -177,7 +179,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jLabel2.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel10.add(jLabel2);
 
-        txtMaKM.setEditable(false);
+        txtMaKM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtMaKMActionPerformed(evt);
+            }
+        });
         jPanel10.add(txtMaKM);
 
         javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
@@ -317,11 +323,16 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel10.setText("Áp dụng theo: ");
+        jLabel10.setText("Áp dụng theo thương hiệu: ");
         jPanel17.add(jLabel10);
         jPanel17.add(filler3);
 
-        comboboxApDung.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Nhà cung cấp", "Danh mục", "Thương hiệu" }));
+        comboboxApDung.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        comboboxApDung.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboboxApDungItemStateChanged(evt);
+            }
+        });
         jPanel17.add(comboboxApDung);
 
         titleSelectKhuyenMai.add(jPanel17);
@@ -472,6 +483,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                 "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc","DonHangTu","SoLuongKhuyenMai","SoLuotDaApDung","Xem sản phẩm"
             }
         ));
+        tableKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableKMMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tableKM);
 
         jPanel11.add(jScrollPane3);
@@ -515,6 +531,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     // Lấy các giá trị có trong bảng
     // KiemTraDieuKienNhap
     public boolean kiemTraNhap() {
+    	String maKM = txtMaKM.getText();
     	String tenKM = txtTenKM.getText();
     	String soLuongApDung = txtSoLuongApDung.getText();
     	String donHangTu = txtDonHangTu.getText();
@@ -526,6 +543,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
     	ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
     	
+    	if(!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6}$"))) {
+    		new utilities.ShowMessageError().showError(this, txtMaKM, "Mã khuyến mãi không đúng định dạng (có 6 ký tự ví dụ: Abc_123)", "Thông báo");
+    		return false;
+    	}
+
     	if(!(tenKM.length() > 0 && tenKM.matches(utilities.RegexPattern.HOTEN))) {
     		new utilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng", "Thông báo");
     		return false;
@@ -555,6 +577,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
     	try {
         	if(kiemTraNhap()) {
+        		String maKM = txtMaKM.getText();
             	String tenKM = txtTenKM.getText();
             	String soLuongApDung = txtSoLuongApDung.getText();
             	String donHangTu = txtDonHangTu.getText();
@@ -566,7 +589,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
             	
             	ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
-            	KhuyenMai khuyenMai = new KhuyenMai(phatSinhMaKhuyenMai() ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),Integer.valueOf(soLuongApDung), 0);
+            	KhuyenMai khuyenMai = new KhuyenMai(maKM ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),Integer.valueOf(soLuongApDung), 0);
 
                 if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
         			JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -579,8 +602,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			e.printStackTrace();
 		}
     }//GEN-LAST:event_btnLuuActionPerformed
-    
-    
+   
     private void checkBoxSelectChoTatCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkBoxSelectChoTatCaMouseClicked
 	       int rowCount = tableChonSP.getRowCount();
 	       boolean isSelected = checkBoxSelectChoTatCa.isSelected();
@@ -642,6 +664,56 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void TimMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimMaSanPhamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TimMaSanPhamActionPerformed
+
+    private void loadDuLieuThuongHieu() {
+    	ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+    	list = sanPham_BUS.getThuongHieu();
+        for (ThuongHieu thuongHieu : list) {
+            comboboxApDung.addItem(thuongHieu.getThuongHieuID()+": "+thuongHieu.getTenThuongHieu());
+        }
+    }
+    
+    private void comboboxApDungItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboboxApDungItemStateChanged
+        String maTen = (String) comboboxApDung.getSelectedItem();
+        tableChonSP.removeAll();
+    	tableChonSP.setRowSelectionAllowed(false);
+    	tableModelSP.setRowCount(0);
+    	if(maTen.equals("Tất cả")) {
+        	danhSachSp = new ArrayList<>();
+        	danhSachSp = sanPham_BUS.laySanPhamChoKM();
+        	int stt = 1;
+        	for(int i = 0; i < danhSachSp.size(); i++) {
+        		tableModelSP.addRow(new Object[] {false ,danhSachSp.get(i).getSanPhamID(),danhSachSp.get(i).getTenSanPham()});
+        	}
+    	}
+    	else {
+    		String[] parts = maTen.split(": ");
+    		String ma = parts[0];
+    		danhSachSp = new ArrayList<>();
+        	danhSachSp = sanPham_BUS.getSPTheoThuongHieu(ma);
+        	int stt = 1;
+        	for(int i = 0; i < danhSachSp.size(); i++) {
+        		tableModelSP.addRow(new Object[] {false ,danhSachSp.get(i).getSanPhamID(),danhSachSp.get(i).getTenSanPham()});
+        	}
+    	}
+    }//GEN-LAST:event_comboboxApDungItemStateChanged
+
+    private void txtMaKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKMActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaKMActionPerformed
+
+    private void tableKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKMMouseClicked
+         int selectedRow = tableKM.getSelectedRow();
+         int selectedColumn = tableKM.getSelectedColumn();
+         
+         if (selectedColumn == tableKM.getColumnCount() - 1) {
+             // Tạo và hiển thị màn hình mới (giả sử gui_XemChiTietKhuyeMai là một JFrame)
+             GUI_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new GUI_XemChiTietKhuyeMai();
+             gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
+             gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+             gui_XemChiTietKhuyeMai.setVisible(true);
+         }
+    }//GEN-LAST:event_tableKMMouseClicked
     
     // Load date
     private void loadDataKM() {
@@ -654,12 +726,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	for(KhuyenMai km : danhSachKM) {
     		tableModel.addRow(new Object[] {stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(), km.getLoaiKhuyenMai(),km.getGiaTri(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),km.getDonHangTu(), km.getSoLuongKhuyenMai(), km.getSoLuotDaApDung()});
     	}
-    	 Calendar currentDate = Calendar.getInstance();
-         txtNgayBatDau.setDate(currentDate.getTime());
-         currentDate.add(currentDate.MONTH, 1);
-         txtNgayKetThuc.setDate(currentDate.getTime());
-         sorter = new TableRowSorter<>(tableModel);
-         tableKM.setRowSorter(sorter);
+    	Calendar currentDate = Calendar.getInstance();
+        txtNgayBatDau.setDate(currentDate.getTime());
+        currentDate.add(currentDate.MONTH, 1);
+        txtNgayKetThuc.setDate(currentDate.getTime());
+        sorter = new TableRowSorter<>(tableModel);
+        tableKM.setRowSorter(sorter);
     }
     
     private void loadDataSP() {

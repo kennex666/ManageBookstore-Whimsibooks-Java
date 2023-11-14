@@ -48,6 +48,46 @@ public class SanPham_DAO implements ISanPham{
 		return list;
 	}
 	
+	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+		ArrayList<SanPham> list = new ArrayList<SanPham>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "Select * from [dbo].[SanPham] where ThuongHieuID = '"+maThuongHieu+"'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"),rs.getString("TenSanPham"),rs.getInt("SoLuongTon"),rs.getString("ImgPath"));
+					list.add(sanPham);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<ThuongHieu> getThuongHieu() {
+		ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "Select * from [dbo].[ThuongHieu]";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					ThuongHieu thuongHieu = new ThuongHieu(rs.getInt("ThuongHieuID"),rs.getString("TenThuongHieu"));
+					list.add(thuongHieu);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
 	@Override
 	public ArrayList<SanPham> getDanhSachSanPham(String query) {
 		ArrayList<SanPham> list = new ArrayList<SanPham>();

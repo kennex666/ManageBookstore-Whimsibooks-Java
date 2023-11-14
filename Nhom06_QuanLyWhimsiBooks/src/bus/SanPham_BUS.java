@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dao.SanPham_DAO;
 import entities.SanPham;
+import entities.ThuongHieu;
 import interfaces.ISanPham;
 
 public class SanPham_BUS implements ISanPham{
@@ -59,6 +60,16 @@ public class SanPham_BUS implements ISanPham{
 	public ArrayList<SanPham> getDanhSachSanPham() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPham();
+	}
+	@Override
+	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getSPTheoThuongHieu(maThuongHieu);
+	}
+	@Override
+	public ArrayList<ThuongHieu> getThuongHieu() {
+		// TODO Auto-generated method stub
+		return sanPham_DAO.getThuongHieu();
 	}
 
     @Override
