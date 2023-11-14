@@ -6,6 +6,7 @@ import java.util.Date;
 
 import entities.HoaDon;
 import entities.SanPham;
+import entities.ThuongHieu;
 
 public interface ISanPham {
 	public  ArrayList<SanPham> laySanPhamChoKM();
@@ -16,5 +17,6 @@ public interface ISanPham {
 	public boolean editSanPham(SanPham sp);
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
 	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);
-	
+	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu);
+	public ArrayList<ThuongHieu> getThuongHieu();
 }
