@@ -142,6 +142,11 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		}
 		return list;
 	}
+        
+        @Override
+        public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai){
+            return khuyenMai_DAO.getKhuyenMaiByCodeKMForSeller(maKhuyenMai);
+        }
 	
 	@Override
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {

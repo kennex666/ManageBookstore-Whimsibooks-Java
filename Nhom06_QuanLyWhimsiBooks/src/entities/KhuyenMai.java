@@ -2,17 +2,19 @@ package entities;
 
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class KhuyenMai {
 	private String codeKhuyenMai;
 	private String tenKhuyenMai;
-	private String loaiKhuyenMai;
+	private String loaiKhuyenMai; // PHAM_TRAM && GIA_TRI
 	private double giaTri;
 	private Date ngayKhuyenMai;
 	private Date ngayHetHanKM;
 	private double donHangTu;
 	private int soLuongKhuyenMai, soLuotDaApDung;
+        private ArrayList<ChiTietKhuyenMai> listApDung;
 
 	/**
 	 * @param codeKhuyenMai
@@ -34,7 +36,9 @@ public class KhuyenMai {
 		this.setDonHangTu(donHangTu);
 	}
 	
-	
+	public KhuyenMai(String codeKhuyenMai) {
+		this.setCodeKhuyenMai(codeKhuyenMai);
+	}
 	
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {
@@ -49,6 +53,19 @@ public class KhuyenMai {
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
 
+        public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMai(){
+            return listApDung;
+        }
+        
+         public void setChiTietKhuyenMai(ArrayList<ChiTietKhuyenMai> listApDung){
+            this.listApDung = listApDung;
+        }
+
+
+	public KhuyenMai() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 
 	public KhuyenMai(String codeKhuyenMai) {

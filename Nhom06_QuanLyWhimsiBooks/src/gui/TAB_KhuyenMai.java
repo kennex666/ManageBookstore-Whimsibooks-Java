@@ -241,7 +241,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jLabel5.setText("Hình thức giảm giá");
         jPanel15.add(jLabel5);
 
-        txtHinhThuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Percentage", "Fixed" }));
+        txtHinhThuc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PHAN_TRAM", "GIA_TRI" }));
         jPanel15.add(txtHinhThuc);
 
         jLabel7.setText("Thời gian bắt đầu giảm giá");
@@ -275,6 +275,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
         btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-luuKM.png"))); // NOI18N
         btnLuu.setText("Thêm");
+        btnLuu.setIconTextGap(25);
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuuActionPerformed(evt);
@@ -291,6 +292,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-huyKM.png"))); // NOI18N
         btnHuy.setText("Hủy bỏ");
+        btnHuy.setIconTextGap(25);
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);

@@ -9,8 +9,13 @@ import entities.NhanVien;
 import interfaces.INhanVien;
 
 public class NhanVien_BUS implements INhanVien {
-	NhanVien_DAO nv_dao = new NhanVien_DAO();
+	private NhanVien_DAO nv_dao ;
 
+	public NhanVien_BUS() {
+		// TODO Auto-generated constructor stub
+		nv_dao = new NhanVien_DAO();
+	}
+	
 	@Override
 	public ArrayList<NhanVien> findEmployee(String x) {
 		// Tìm kiếm theo mã hoặc theo tên.
@@ -68,6 +73,20 @@ public class NhanVien_BUS implements INhanVien {
 		// TODO Auto-generated method stub
 		return nv_dao.phatSinhMaNhanVien();
 	}
+
+	@Override
+	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
+			String chucVu) {
+		// TODO Auto-generated method stub
+		return nv_dao.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, chucVu);
+	}
+        
+        @Override
+        public NhanVien dangNhapNhanVien(String user, String password){
+            return nv_dao.dangNhapNhanVien(user, password);
+            
+        }
+
 	
 
 }

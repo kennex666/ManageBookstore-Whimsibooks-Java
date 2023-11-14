@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import connectDB.ConnectDB;
+import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.SanPham;
 import interfaces.IKhuyenMai;
@@ -186,6 +187,38 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		} catch (Exception e) {
 			return 0;
 		}
+	}
+        
+        @Override
+	public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai) {
+		KhuyenMai km = null;
+		ArrayList<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
+		try {
+			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai = ?";
+                        PreparedStatement pstm = conn.prepareStatement(query);
+                        pstm.setString(1, maKhuyenMai);
+			ResultSet rs = pstm.executeQuery();
+			if(!rs.next()) {
+				return null;
+			}
+            km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+
+			query = "Select * from ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
+            pstm = conn.prepareStatement(query);
+            pstm.setString(1, maKhuyenMai);
+			rs = pstm.executeQuery();
+			while (rs.next()) {
+			    ChiTietKhuyenMai ctkm = new ChiTietKhuyenMai(new SanPham(rs.getInt("SanPhamID"))); 
+			    listCT.add(ctkm);
+			}
+			km.setChiTietKhuyenMai(listCT);
+			
+            return km;
+		} catch (Exception e) {
+			e.printStackTrace();
+                        
+		}
+		return km;
 	}
 
 	public KhuyenMai_DAO() {

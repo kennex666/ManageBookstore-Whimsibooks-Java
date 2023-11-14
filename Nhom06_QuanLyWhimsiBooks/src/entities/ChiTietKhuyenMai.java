@@ -14,7 +14,10 @@ public class ChiTietKhuyenMai {
 		this.ngayTao = ngayTao;
 	}
 
-	
+	public ChiTietKhuyenMai(SanPham sanPham) {
+		super();
+		this.sanPham = sanPham;
+	}
 	
 	public ChiTietKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham, Date ngayTao) {
 		super();
@@ -44,11 +47,13 @@ public class ChiTietKhuyenMai {
 	public void setNgayTao(Date ngayTao) {
 		this.ngayTao = ngayTao;
 	}
-
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(ngayTao);
+		return Objects.hash(sanPham);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -59,8 +64,10 @@ public class ChiTietKhuyenMai {
 		if (getClass() != obj.getClass())
 			return false;
 		ChiTietKhuyenMai other = (ChiTietKhuyenMai) obj;
-		return Objects.equals(ngayTao, other.ngayTao);
+		return Objects.equals(sanPham, other.sanPham);
 	}
+
+
 
 	@Override
 	public String toString() {

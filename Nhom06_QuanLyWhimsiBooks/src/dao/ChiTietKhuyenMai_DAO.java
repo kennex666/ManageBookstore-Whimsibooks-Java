@@ -53,7 +53,7 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham) {
 		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
 		int maSP = sanPham.getSanPhamID();
-		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamSanPhamID, KhuyenMaiCodeKhuyenMai) VALUES (?,?,?)";
+		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
 		try {
 			Calendar calendar = Calendar.getInstance();
 			PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
