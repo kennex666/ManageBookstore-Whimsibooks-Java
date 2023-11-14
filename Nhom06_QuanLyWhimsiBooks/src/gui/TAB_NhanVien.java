@@ -56,7 +56,6 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		showTuBangLenForm();
 		txtMa.setEditable(false);
 		customizeTable();
-
 	}
 
 	/**
