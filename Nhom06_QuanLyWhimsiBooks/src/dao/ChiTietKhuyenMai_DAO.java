@@ -26,7 +26,9 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(null, null,rs.getDate("NgayTao"));
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("SanPhamSanPhamID"));
+					SanPham sanPham = new SanPham(rs.getInt("KhuyenMaiCodeKhuyenMai"));
+					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
 					list.add(chiTietKhuyenMai);
 				} catch (Exception e) {
 					e.printStackTrace();

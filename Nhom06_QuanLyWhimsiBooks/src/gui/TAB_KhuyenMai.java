@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
@@ -480,6 +481,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                 "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc","DonHangTu","SoLuongKhuyenMai","SoLuotDaApDung","Xem sản phẩm"
             }
         ));
+        tableKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableKMMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tableKM);
 
         jPanel11.add(jScrollPane3);
@@ -693,6 +699,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void txtMaKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKMActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaKMActionPerformed
+
+    private void tableKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKMMouseClicked
+         int selectedRow = tableKM.getSelectedRow();
+         int selectedColumn = tableKM.getSelectedColumn();
+         
+         if (selectedColumn == tableKM.getColumnCount() - 1) {
+             // Tạo và hiển thị màn hình mới (giả sử gui_XemChiTietKhuyeMai là một JFrame)
+             GUI_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new GUI_XemChiTietKhuyeMai();
+             gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
+             gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+             gui_XemChiTietKhuyeMai.setVisible(true);
+         }
+    }//GEN-LAST:event_tableKMMouseClicked
     
     // Load date
     private void loadDataKM() {

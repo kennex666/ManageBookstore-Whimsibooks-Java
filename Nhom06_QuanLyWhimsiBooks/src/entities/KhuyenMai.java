@@ -51,6 +51,12 @@ public class KhuyenMai {
 
 
 
+	public KhuyenMai(String codeKhuyenMai) {
+		this.codeKhuyenMai = codeKhuyenMai;
+	}
+
+
+
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;
 	}
