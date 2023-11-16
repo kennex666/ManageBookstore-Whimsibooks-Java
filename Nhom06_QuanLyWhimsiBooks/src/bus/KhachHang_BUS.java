@@ -70,7 +70,7 @@ public class KhachHang_BUS implements IKhachHang {
 		return null;
 	}
 	@Override
-	public String phatSinhMaKhachHang() {
+	public int phatSinhMaKhachHang() {
 		// TODO Auto-generated method stub
 		return kh_dao.phatSinhMaKhachHang();
 	}

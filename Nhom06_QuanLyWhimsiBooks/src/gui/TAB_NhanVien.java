@@ -354,11 +354,11 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
 		jLabel15.setText("Giới tính");
 
-		cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+		cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Nam", "Nữ" }));
 
 		jLabel16.setText("Chức vụ");
 
-		cboChucVu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nhân viên", "Quản lý" }));
+		cboChucVu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Nhân viên", "Quản lý" }));
 
 		btnTimKiem.setBackground(new java.awt.Color(15, 145, 239));
 		btnTimKiem.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -763,14 +763,14 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	//	chức năng tìm kiếmmm
 	
 	private String phatSinhMaNhanVien() {
-	
-		try {
-			String maNV = "NV" + String.format("%04d", nhanvienBus.phatSinhMaNhanVien() + 1);
-			return maNV;
-		} catch (Exception e) {
-			// TODO: handle exception
-			return "NV" + "0001";
-		}
+	    try {
+	        int maxId = nhanvienBus.phatSinhMaNhanVien();
+	        String maNV = "NV" + String.format("%04d", maxId);
+	        return maNV;
+	    } catch (Exception e) {
+	        // Nếu có lỗi, trả về mã mặc định
+	        return "NV" + "0001";
+	    }
 	}
 
 	private boolean btnThemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThemActionPerformed

@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import entities.KhachHang;
@@ -21,17 +23,29 @@ public class KhachHang_DAO implements IKhachHang {
 	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) {
 		  ArrayList<KhachHang> listKhachHang = new ArrayList<>();
-		  QueryBuilder qb = new QueryBuilder("SELECT * FROM KhachHang ?");
-		    try {
+		  String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
+		    
+		  List<String> parameters = new ArrayList<>();
+		  parameters.add(maKhachHang.isBlank()? "%":"%"+maKhachHang+"%");
+		  parameters.add(tenKhachHang.isBlank()? "%":"%"+tenKhachHang+"%");
+		  parameters.add(soDienThoai.isBlank()? "%":"%"+soDienThoai+"%");
+		  if(!gioiTinh.isBlank()) {
+			  query +=" AND GioiTinh = ?";
+			  parameters.add(gioiTinh);
+		  }
+		  if(!loaiKhachHang.isBlank()) {
+			  query +=" AND LoaiKhachHang = ?";
+			  parameters.add(loaiKhachHang);
+		  }
+		  try {
 
-				qb.addParameter(Enum_DataType.STRING, "KhachHangID", "%?%", maKhachHang.isBlank() ? null : maKhachHang);
-				qb.addParameter(Enum_DataType.STRING, "hoTen", "%?%", tenKhachHang.isBlank() ? null : tenKhachHang);
-				qb.addParameter(Enum_DataType.STRING, "SoDienThoai", "%?%", soDienThoai.isBlank() ? null : soDienThoai);
-				qb.addParameter(Enum_DataType.STRING, "GioiTinh", "=",null );
-				qb.addParameter(Enum_DataType.STRING, "LoaiKhachHang", "=", null);
-
-				PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "AND");
-
+		    	 PreparedStatement pstmt = conn.prepareStatement(query);
+			  
+			       for(int i=0; i<parameters.size();i++) {
+			    	   pstmt.setString(i+1, parameters.get(i));
+			    	 
+			       }
+			       
 		        ResultSet rs = pstmt.executeQuery();
 		        while (rs.next()) {
 		            // Tạo đối tượng KhachHang từ kết quả tìm kiếm
@@ -45,7 +59,7 @@ public class KhachHang_DAO implements IKhachHang {
 		            listKhachHang.add(khachHang);
 		        }
 		    } catch (Exception e) {
-		        e.printStackTrace();
+		       e.printStackTrace();
 		    }
 
 		    return listKhachHang;
@@ -229,18 +243,16 @@ public class KhachHang_DAO implements IKhachHang {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String phatSinhMaKhachHang() {
-		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhachHang");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			int count =rs.getInt(1);
-			return "KH"+String.format("%04d", count+1);
-		} catch (Exception e) {
-			System.out.println("Lỗi phát sinh mã bên DAO");
-			return "KH"+"0001";
-		}
-		
+	public int phatSinhMaKhachHang() {
+	    try {
+	        PreparedStatement ps = conn.prepareStatement("SELECT MAX(CAST(SUBSTRING(KhachHangID, 3, LEN(KhachHangID)) AS INT)) FROM KhachHang");
+	        ResultSet rs = ps.executeQuery();
+	        rs.next();
+	        return rs.getInt(1);
+	    } catch (Exception e) {
+	        System.out.println("Lỗi phát sinh mã bên DAO");
+	        return 0;
+	    }
 	}
 	public String phatSinhMaSoThue(String loaiKhachHang) {
 	    try {

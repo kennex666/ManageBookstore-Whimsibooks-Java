@@ -15,7 +15,7 @@ public interface IKhachHang {
 	public boolean deleteKhachHang(KhachHang kh);
 	public String getLayTenTuMa(String x);
 	public ArrayList<NhanVien> findKhachHang(String x);
-	public String phatSinhMaKhachHang();
+	public int phatSinhMaKhachHang();
 	String phatSinhMaSoThue(String loaiKhachHang);
         public KhachHang getKhachHangTuMaVaSDT(String x);
 }
