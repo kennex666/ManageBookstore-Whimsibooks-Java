@@ -11,6 +11,10 @@ import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,6 +32,15 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import bus.NhanVien_BUS;
 
@@ -927,14 +940,96 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
 	
 	private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImportActionPerformed
-		// TODO add your handling code here:
+			JOptionPane.showMessageDialog(this, "Chức năng import sẽ cần dùng bên khách hàng ");
 	}// GEN-LAST:event_btnImportActionPerformed
 
 	//	chức năng tìm kiếmmm
 	
 	private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnExportActionPerformed
+		ArrayList<NhanVien> list = nhanvienBus.getAllEmployees();
+		try {
+			XSSFWorkbook workBook = new XSSFWorkbook();
+			XSSFSheet sheet =workBook.createSheet("Danh sách nhân viên");
+			XSSFRow row = null;
+			Cell cell = null;
+			XSSFCellStyle headerStyle = workBook.createCellStyle();
+	        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+	        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			row = sheet.createRow(0);
+			cell = row.createCell(0,CellType.STRING);
+			cell.setCellValue("STT");
+			cell.setCellStyle(headerStyle);
+			cell = row.createCell(1,CellType.STRING);
+			cell.setCellValue("Mã nhân viên");
+			
+			cell = row.createCell(2,CellType.STRING);
+			cell.setCellValue("Tên nhân viên");
+
+			cell = row.createCell(3,CellType.STRING);
+			cell.setCellValue("Giới tính");
+			
+			cell = row.createCell(4,CellType.STRING);
+			cell.setCellValue("Số điện thoại");
+			cell = row.createCell(5,CellType.STRING);
+			cell.setCellValue("Tài Khoản");
+			cell = row.createCell(6,CellType.STRING);
+			cell.setCellValue("Chức vụ");
+			cell = row.createCell(7,CellType.STRING);
+			cell.setCellValue("Email");
+			cell = row.createCell(8,CellType.STRING);
+			cell.setCellValue("Ngày sinh");
+			cell = row.createCell(9,CellType.STRING);
+			cell.setCellValue("Địa chỉ");
+			
+			for(int i=0 ; i<list.size();i++) {
+				row =sheet.createRow(1+i);
+				cell = row.createCell(0,CellType.NUMERIC);
+				cell.setCellValue(i+1);
+				
+				cell = row.createCell(1,CellType.STRING);
+				cell.setCellValue(list.get(i).getNhanVienID());
+				
+				cell = row.createCell(2,CellType.STRING);
+				cell.setCellValue(list.get(i).getHoTen());
+				
+				cell = row.createCell(3,CellType.STRING);
+				cell.setCellValue(list.get(i).getGioiTinh());
+				
+				cell = row.createCell(4,CellType.STRING);
+				cell.setCellValue(list.get(i).getSoDienThoai());
+				
+				cell = row.createCell(5,CellType.STRING);
+				cell.setCellValue(list.get(i).getUserName());
+				
+				cell = row.createCell(6,CellType.STRING);
+				cell.setCellValue(list.get(i).getChucVu());
+				
+				cell = row.createCell(7,CellType.STRING);
+				cell.setCellValue(list.get(i).getEmail());
+				
+				cell = row.createCell(8,CellType.STRING);
+				cell.setCellValue(list.get(i).getNgaySinh().toString());
+				
+				cell = row.createCell(9,CellType.STRING);
+				cell.setCellValue(list.get(i).getDiaChi());
+			}
+			File f  = new File("D://DanhSachNhanVien.xlxs");
+			try {
+				FileOutputStream fis = new FileOutputStream(f);
+				workBook.write(fis);
+				fis.close();
+			} catch (FileNotFoundException ex) {
+				JOptionPane.showMessageDialog(this, "In Thất bại");
+			}
+			catch (IOException ex) {
+
+			}
+			JOptionPane.showMessageDialog(this, "In thành công");
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Lỗi in file");
+		}
+	}
 
 
 	private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtTenActionPerformed

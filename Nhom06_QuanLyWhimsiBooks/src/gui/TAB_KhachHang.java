@@ -8,18 +8,37 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.formdev.flatlaf.json.ParseException;
 import com.formdev.flatlaf.ui.FlatListCellBorder.Default;
@@ -872,14 +891,222 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		}
 	}// GEN-LAST:event_btnXoaKHActionPerformed
 
-	private void btnImportKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImportKHActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnImportKHActionPerformed
+	private void btnImportKHActionPerformed(java.awt.event.ActionEvent evt) {
+	
+	        try {
+	            JFileChooser fileChooser = new JFileChooser();
+	            FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+	            fileChooser.setFileFilter(filter);
 
-	private void btnExportKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportKHActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnExportKHActionPerformed
+	            int returnVal = fileChooser.showOpenDialog(this);
 
+	            if (returnVal == JFileChooser.APPROVE_OPTION) {
+	                File file = fileChooser.getSelectedFile();
+
+	                ArrayList<KhachHang> importedList = readCustomerDataFromExcel(file);
+
+	                if (importedList.isEmpty()) {
+	                    JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
+	                    return;
+	                }
+
+	                KhachHang_BUS khachHangBus = new KhachHang_BUS();
+
+	                // Thêm dữ liệu vào cơ sở dữ liệu
+	                for (KhachHang khachHang : importedList) {
+	                    if (khachHangBus.addKhachHang(khachHang)) {
+	                        // Nếu thêm thành công, hiển thị thông báo
+	                        JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
+	                        loadKhachHangTable();
+	                        xoaRong();
+	                    } else {
+	                        // Nếu thêm không thành công, hiển thị thông báo lỗi
+	                        JOptionPane.showMessageDialog(this, "Lỗi khi thêm khách hàng");
+	                    }
+	                }
+	            }
+	        } catch (Exception e) {
+	            JOptionPane.showMessageDialog(this, "Lỗi khi đọc dữ liệu từ file Excel.");
+	       
+	        }
+	    }
+	
+
+
+	public static ArrayList<KhachHang> readCustomerDataFromExcel(File file) {
+	    ArrayList<KhachHang> customerList = new ArrayList<>();
+	    int sttColumnIndex = 0; // Chỉ số của cột STT
+
+	    try (FileInputStream fis = new FileInputStream(file);
+	         Workbook workbook = new XSSFWorkbook(fis)) {
+
+	        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet thứ nhất
+
+	        Iterator<Row> iterator = sheet.iterator();
+	        // Bỏ qua dòng tiêu đề
+	        if (iterator.hasNext()) {
+	            Row headerRow = iterator.next();
+	            // Tìm chỉ số của cột STT
+	            for (Cell cell : headerRow) {
+	                if (getStringValue(cell).equalsIgnoreCase("STT")) {
+	                    sttColumnIndex = cell.getColumnIndex();
+	                    break;
+	                }
+	            }
+	        }
+
+	        while (iterator.hasNext()) {
+	            Row currentRow = iterator.next();
+	            Iterator<Cell> cellIterator = currentRow.iterator();
+
+	            // Bỏ qua giá trị của cột STT
+	            for (int i = 0; i <= sttColumnIndex; i++) {
+	                cellIterator.next();
+	            }
+
+	            // Lấy giá trị cột giới tính trước cột số điện thoại
+	            String gioiTinh = getStringValue(cellIterator.next());
+	            String sdtKH = getStringValue(cellIterator.next());
+	            
+	            // Đảm bảo đọc đúng thứ tự của các cột
+	            String maKH = getStringValue(cellIterator.next());
+	            String tenKH = getStringValue(cellIterator.next());
+	            String ngaySinh = getStringValue(cellIterator.next());
+	            String email = getStringValue(cellIterator.next());
+	            String maSoThue = getStringValue(cellIterator.next());
+	            String diaChi = getStringValue(cellIterator.next());
+	            String loaiKH = getStringValue(cellIterator.next());
+	            
+	            LocalDate ngayht = LocalDate.now();
+
+	            KhachHang khachHang = new KhachHang(maKH, tenKH, sdtKH, ngayht, gioiTinh, email,
+	                    maSoThue, diaChi, loaiKH);
+	            // Thêm đối tượng KhachHang vào danh sách
+	            customerList.add(khachHang);
+	        }
+
+	    } catch (Exception e) {
+
+	    }
+	    return customerList;
+	}
+
+	private static String getStringValue(Cell cell) {
+	    if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+	        // Xử lý nếu là giá trị số
+	        return String.valueOf(cell.getNumericCellValue());
+	    } else if (cell.getCellTypeEnum() == CellType.STRING) {
+	        // Xử lý nếu là giá trị chuỗi
+	        return cell.getStringCellValue();
+	    }
+	    return "";
+	}
+
+
+	private void btnExportKHActionPerformed(java.awt.event.ActionEvent evt) {
+	    ArrayList<KhachHang> list = khachHangBus.getAllKhachHang();
+	    try {
+	        XSSFWorkbook workBook = new XSSFWorkbook();
+	        XSSFSheet sheet = workBook.createSheet("Danh sách khách hàng");
+	        XSSFRow row = null;
+	        Cell cell = null;
+
+	        // Tạo một CellStyle để bôi đen dòng tiêu đề
+	        XSSFCellStyle headerStyle = workBook.createCellStyle();
+	        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+	        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+	        // Tạo dòng tiêu đề từ dòng 0 và áp dụng CellStyle
+	        row = sheet.createRow(0);
+	        cell = row.createCell(0, CellType.STRING);
+	        cell.setCellValue("STT");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(1, CellType.STRING);
+	        cell.setCellValue("Mã khách hàng");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(2, CellType.STRING);
+	        cell.setCellValue("Tên khách hàng");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(3, CellType.STRING);
+	        cell.setCellValue("Giới tính");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(4, CellType.STRING);
+	        cell.setCellValue("Số điện thoại");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(5, CellType.STRING);
+	        cell.setCellValue("Ngày sinh");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(6, CellType.STRING);
+	        cell.setCellValue("Email");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(7, CellType.STRING);
+	        cell.setCellValue("Mã số thuế");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(8, CellType.STRING);
+	        cell.setCellValue("Địa chỉ");
+	        cell.setCellStyle(headerStyle);
+
+	        cell = row.createCell(9, CellType.STRING);
+	        cell.setCellValue("Loại khách hàng");
+	        cell.setCellStyle(headerStyle);
+
+	        // Tạo dòng dữ liệu từ dòng 1
+	        for (int i = 0; i < list.size(); i++) {
+	            row = sheet.createRow(1 + i);
+	            cell = row.createCell(0, CellType.NUMERIC);
+	            cell.setCellValue(i + 1);
+
+	            cell = row.createCell(1, CellType.STRING);
+	            cell.setCellValue(list.get(i).getKhachHangID());
+
+	            cell = row.createCell(2, CellType.STRING);
+	            cell.setCellValue(list.get(i).getHoTen());
+
+	            cell = row.createCell(3, CellType.STRING);
+	            cell.setCellValue(list.get(i).getGioiTinh());
+
+	            cell = row.createCell(4, CellType.STRING);
+	            cell.setCellValue(list.get(i).getSoDienThoai());
+
+	            cell = row.createCell(5, CellType.STRING);
+	            cell.setCellValue(list.get(i).getNgaySinh().toString());
+
+	            cell = row.createCell(6, CellType.STRING);
+	            cell.setCellValue(list.get(i).getEmail());
+
+	            cell = row.createCell(7, CellType.STRING);
+	            cell.setCellValue(list.get(i).getMaSoThue());
+
+	            cell = row.createCell(8, CellType.STRING);
+	            cell.setCellValue(list.get(i).getDiaChi());
+
+	            cell = row.createCell(9, CellType.STRING);
+	            cell.setCellValue(list.get(i).getLoaiKhachHang());
+	        }
+
+	        File f = new File("D://danhsach_khachhang.xlsx");
+	        try (FileOutputStream fis = new FileOutputStream(f)) {
+	            workBook.write(fis);
+	            JOptionPane.showMessageDialog(this, "In thành công");
+	        } catch (IOException ex) {
+	            ex.printStackTrace();
+	            JOptionPane.showMessageDialog(this, "Lỗi in file");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this, "Lỗi in file");
+	    }
+	}
+
+	
 	private void btnDangXuatKHActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnDangXuatKHActionPerformed
 		System.exit(0);
 	}// GEN-LAST:event_btnDangXuatKHActionPerformed
