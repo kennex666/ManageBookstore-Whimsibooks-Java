@@ -79,4 +79,7 @@ public class KhachHang_BUS implements IKhachHang {
 		// TODO Auto-generated method stub
 		return kh_dao.phatSinhMaSoThue(loaiKhachHang);
 	}
+	public boolean checkIfKhachHangExists(String maKH) {
+		return kh_dao.checkIfKhachHangExists(maKH);
+	}
 }

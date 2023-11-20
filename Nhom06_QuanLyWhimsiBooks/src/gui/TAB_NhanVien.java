@@ -12,6 +12,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,16 +20,19 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -40,6 +44,9 @@ import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import bus.NhanVien_BUS;
@@ -939,12 +946,111 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
 
 	
-	private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnImportActionPerformed
-			JOptionPane.showMessageDialog(this, "Chức năng import sẽ cần dùng bên khách hàng ");
-	}// GEN-LAST:event_btnImportActionPerformed
+	private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {
+	    try {
+	        JFileChooser fileChooser = new JFileChooser();
+	        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+	        fileChooser.setFileFilter(filter);
+
+	        int returnVal = fileChooser.showOpenDialog(this);
+
+	        if (returnVal == JFileChooser.APPROVE_OPTION) {
+	            File file = fileChooser.getSelectedFile();
+
+	            ArrayList<NhanVien> importedList = readEmployeeDataFromExcel(file);
+
+	            if (importedList.isEmpty()) {
+	                JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
+	                return;
+	            }
+
+	            NhanVien_BUS nhanVienBus = new NhanVien_BUS();
+
+	            // Thêm dữ liệu vào cơ sở dữ liệu
+	            for (NhanVien nhanVien : importedList) {
+	                if (nhanVienBus.addNhanVien(nhanVien)) {
+	                    // Nếu thêm thành công, hiển thị thông báo
+	                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
+	                    loadNhanVienTable();
+	                    // Có thể thêm các bước khác sau khi import thành công
+	                } else {
+	                    // Nếu thêm không thành công, hiển thị thông báo lỗi
+	                    JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên");
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        JOptionPane.showMessageDialog(this, "Lỗi khi đọc dữ liệu từ file Excel.");
+	        e.printStackTrace();
+	    }
+	}
+
+	public ArrayList<NhanVien> readEmployeeDataFromExcel(File file) {
+	    ArrayList<NhanVien> employeeList = new ArrayList<>();
+	    int sttColumnIndex = 0; // Chỉ số của cột STT
+
+	    try (FileInputStream fis = new FileInputStream(file);
+	         Workbook workbook = new XSSFWorkbook(fis)) {
+
+	        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet thứ nhất
+
+	        Iterator<Row> iterator = sheet.iterator();
+	        // Bỏ qua dòng tiêu đề
+	        if (iterator.hasNext()) {
+	            Row headerRow = iterator.next();
+	         
+	            // Tìm chỉ số của cột STT
+	            for (Cell cell : headerRow) {
+	            	   String cellValue = getStringValue(cell);
+	                if (cellValue != null&& getStringValue(cell).equalsIgnoreCase("STT")) {
+	                    sttColumnIndex = cell.getColumnIndex();
+	                    break;
+	                }
+	            }
+	        }
+
+	        while (iterator.hasNext()) {
+	            Row currentRow = iterator.next();
+	            Iterator<Cell> cellIterator = currentRow.iterator();
+
+	            // Bỏ qua giá trị của cột STT
+	            for (int i = 0; i <= sttColumnIndex; i++) {
+	                cellIterator.next();
+	            }
+
+	            // Đảm bảo đọc đúng thứ tự của các cột
+	            String maNV = getStringValue(cellIterator.next());
+	            String tenNV = getStringValue(cellIterator.next());
+	            String gioiTinh = getStringValue(cellIterator.next());
+	            String sdtNV = getStringValue(cellIterator.next());
+	            String taiKhoan = getStringValue(cellIterator.next());
+	            String chucVu = getStringValue(cellIterator.next());
+	            String email = getStringValue(cellIterator.next());
+	            String ngaySinh = getStringValue(cellIterator.next());
+	            String diaChi = getStringValue(cellIterator.next());
+
+	            LocalDate ngayht = LocalDate.now();
+
+	            LocalDate ngaySinhDate = LocalDate.parse(ngaySinh, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+	            NhanVien nhanVien = new NhanVien(maNV, taiKhoan, "", ngayht, tenNV, gioiTinh, sdtNV, chucVu, email, ngaySinhDate, diaChi);
+	          
+	            employeeList.add(nhanVien);
+	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return employeeList;
+	}
 
 	//	chức năng tìm kiếmmm
 	
+	private String getStringValue(Cell cell) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportActionPerformed
 		ArrayList<NhanVien> list = nhanvienBus.getAllEmployees();
 		try {
@@ -1013,18 +1119,18 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 				cell = row.createCell(9,CellType.STRING);
 				cell.setCellValue(list.get(i).getDiaChi());
 			}
-			File f  = new File("D://DanhSachNhanVien.xlxs");
+			File f  = new File("D://DanhSachNhanVien.xlsx");
 			try {
 				FileOutputStream fis = new FileOutputStream(f);
 				workBook.write(fis);
-				fis.close();
+//				fis.close();
 			} catch (FileNotFoundException ex) {
 				JOptionPane.showMessageDialog(this, "In Thất bại");
 			}
 			catch (IOException ex) {
 
 			}
-			JOptionPane.showMessageDialog(this, "In thành công");
+			JOptionPane.showMessageDialog(this, "In thành công D://DanhSachNhanVien.xlxs");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Lỗi in file");

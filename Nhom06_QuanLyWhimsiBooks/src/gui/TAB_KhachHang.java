@@ -685,7 +685,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		}
 	}
 
-	private String phatSinhMaKhachHang() {
+	public String phatSinhMaKhachHang1() {
 		try {
 			int maxId = khachHangBus.phatSinhMaKhachHang();
 			return "KH" + String.format("%04d", maxId + 1);
@@ -732,7 +732,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
 	private boolean valid() {
 		String errorMessage = "";
-		String maKH = phatSinhMaKhachHang();
+		String maKH = phatSinhMaKhachHang1();
 		String errorMessage1 = "";
 		// Kiểm tra mã khách hàng
 		if (maKH.isBlank()) {
@@ -797,7 +797,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	private void btnThemKHActionPerformed(java.awt.event.ActionEvent evt) {
 		if (valid()) {
 			try {
-				String maKH = phatSinhMaKhachHang();
+				String maKH = phatSinhMaKhachHang1();
 				String tenKH = txtTen.getText();
 				String sdtKH = txtSDT.getText();
 				java.util.Date chonNgaySinh = dtmNgaySinh.getDate();
@@ -933,24 +933,25 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	
 
 
-	public static ArrayList<KhachHang> readCustomerDataFromExcel(File file) {
+	public ArrayList<KhachHang> readCustomerDataFromExcel(File file) {
 	    ArrayList<KhachHang> customerList = new ArrayList<>();
-	    int sttColumnIndex = 0; // Chỉ số của cột STT
+	    int sttColumnIndex = 0;
+	    int maKhachHangColumnIndex = -1; // Chỉ số của cột Mã khách hàng
+	    KhachHang_BUS khachHangBus = new KhachHang_BUS();
 
 	    try (FileInputStream fis = new FileInputStream(file);
 	         Workbook workbook = new XSSFWorkbook(fis)) {
 
-	        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet thứ nhất
+	        Sheet sheet = workbook.getSheetAt(0);
 
 	        Iterator<Row> iterator = sheet.iterator();
-	        // Bỏ qua dòng tiêu đề
 	        if (iterator.hasNext()) {
 	            Row headerRow = iterator.next();
-	            // Tìm chỉ số của cột STT
 	            for (Cell cell : headerRow) {
 	                if (getStringValue(cell).equalsIgnoreCase("STT")) {
 	                    sttColumnIndex = cell.getColumnIndex();
-	                    break;
+	                } else if (getStringValue(cell).equalsIgnoreCase("Mã KHÁCH HÀNG")) {
+	                    maKhachHangColumnIndex = cell.getColumnIndex();
 	                }
 	            }
 	        }
@@ -959,38 +960,43 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	            Row currentRow = iterator.next();
 	            Iterator<Cell> cellIterator = currentRow.iterator();
 
-	            // Bỏ qua giá trị của cột STT
+	            // Bỏ qua giá trị của cột STT và Mã khách hàng
 	            for (int i = 0; i <= sttColumnIndex; i++) {
 	                cellIterator.next();
 	            }
 
-	            // Lấy giá trị cột giới tính trước cột số điện thoại
+	            String maKH = getStringValue(cellIterator.next());
+
+	            // Kiểm tra nếu Mã khách hàng đã tồn tại, bỏ qua dòng này
+	            if (maKhachHangColumnIndex != -1 && khachHangBus.checkIfKhachHangExists(maKH)) {
+	                continue;
+	            }
+
+	            // Đảm bảo đọc đúng thứ tự của các cột
+	            String tenKH = getStringValue(cellIterator.next());
 	            String gioiTinh = getStringValue(cellIterator.next());
 	            String sdtKH = getStringValue(cellIterator.next());
-	            
-	            // Đảm bảo đọc đúng thứ tự của các cột
-	            String maKH = getStringValue(cellIterator.next());
-	            String tenKH = getStringValue(cellIterator.next());
 	            String ngaySinh = getStringValue(cellIterator.next());
 	            String email = getStringValue(cellIterator.next());
 	            String maSoThue = getStringValue(cellIterator.next());
 	            String diaChi = getStringValue(cellIterator.next());
 	            String loaiKH = getStringValue(cellIterator.next());
-	            
+
 	            LocalDate ngayht = LocalDate.now();
 
-	            KhachHang khachHang = new KhachHang(maKH, tenKH, sdtKH, ngayht, gioiTinh, email,
+	            KhachHang khachHang = new KhachHang(phatSinhMaKhachHang1(), tenKH, sdtKH, ngayht, gioiTinh, email,
 	                    maSoThue, diaChi, loaiKH);
+
 	            // Thêm đối tượng KhachHang vào danh sách
 	            customerList.add(khachHang);
 	        }
 
 	    } catch (Exception e) {
-
+	        e.printStackTrace();
 	    }
+
 	    return customerList;
 	}
-
 	private static String getStringValue(Cell cell) {
 	    if (cell.getCellTypeEnum() == CellType.NUMERIC) {
 	        // Xử lý nếu là giá trị số
@@ -1095,7 +1101,8 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	        File f = new File("D://danhsach_khachhang.xlsx");
 	        try (FileOutputStream fis = new FileOutputStream(f)) {
 	            workBook.write(fis);
-	            JOptionPane.showMessageDialog(this, "In thành công");
+	            JOptionPane.showMessageDialog(this, "In thành công D://danhsach_khachhang");
+	        
 	        } catch (IOException ex) {
 	            ex.printStackTrace();
 	            JOptionPane.showMessageDialog(this, "Lỗi in file");

@@ -4,13 +4,17 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.poi.ss.formula.functions.Count;
+
 import connectDB.ConnectDB;
 import entities.KhachHang;
 import entities.NhanVien;
+import gui.TAB_KhachHang;
 import interfaces.IKhachHang;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -108,12 +112,13 @@ public class KhachHang_DAO implements IKhachHang {
 
 	@Override
 	public boolean addKhachHang(KhachHang kh) {
-
+		TAB_KhachHang makh12 = new TAB_KhachHang();
+		String maKH = makh12.phatSinhMaKhachHang1();
 		boolean result = false;
 		String query = "INSERT INTO KhachHang(KhachHangID,HoTen,SoDienThoai,NgaySinh,GioiTinh,Email,MaSoThue,DiaChi,LoaiKhachHang) VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
-			pretm.setString(1, kh.getKhachHangID());
+			pretm.setString(1, maKH);
 			pretm.setString(2, kh.getHoTen());
 			pretm.setString(3, kh.getSoDienThoai());
 			pretm.setDate(4, Date.valueOf(kh.getNgaySinh()));
@@ -125,7 +130,7 @@ public class KhachHang_DAO implements IKhachHang {
 
 			return (pretm.executeUpdate() > 0) ? true : false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Thêm thất bại");
 		}
 		return result;
 	}
@@ -272,7 +277,32 @@ public class KhachHang_DAO implements IKhachHang {
 	        return null; 
 	    }
 	}
-	
+	public boolean checkIfKhachHangExists(String maKH) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+
+            String query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, maKH);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                System.out.println(resultSet.getInt(1));
+                return count > 0;
+                
+            }
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return false;
+  }
+
 	
 	public KhachHang_DAO() {
 		this.conn=ConnectDB.getConnection();

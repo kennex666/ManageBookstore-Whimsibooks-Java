@@ -18,4 +18,5 @@ public interface IKhachHang {
 	public int phatSinhMaKhachHang();
 	String phatSinhMaSoThue(String loaiKhachHang);
         public KhachHang getKhachHangTuMaVaSDT(String x);
+        public boolean checkIfKhachHangExists(String maKH);
 }
