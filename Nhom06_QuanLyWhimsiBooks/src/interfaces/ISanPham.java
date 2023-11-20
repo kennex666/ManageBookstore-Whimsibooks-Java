@@ -31,5 +31,8 @@ public interface ISanPham {
         public String getNameTacGiaByID(int ID);
         public String getNameNhaXuatBanByID(int ID);
         public String getNameDanhMucByID(int ID);
+        public String getNameTheLoaiByID(int ID);
+        public String getNameThuongHieuByID(int ID);
+        public String getNameNhaCungCapByID(String ID);
 	
 }

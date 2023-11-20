@@ -71,9 +71,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" pref="239" max="-2" attributes="0"/>
+                          <Component id="jButton_ThemSanPham" min="-2" pref="239" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
-                          <Component id="jButton2" min="-2" pref="231" max="-2" attributes="0"/>
+                          <Component id="jButton_Import" min="-2" pref="231" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jPanel5" alignment="0" max="32767" attributes="0"/>
@@ -84,8 +84,8 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jButton2" pref="50" max="32767" attributes="0"/>
-                              <Component id="jButton1" max="32767" attributes="0"/>
+                              <Component id="jButton_Import" pref="50" max="32767" attributes="0"/>
+                              <Component id="jButton_ThemSanPham" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
@@ -95,7 +95,7 @@
                 </DimensionLayout>
               </Layout>
               <SubComponents>
-                <Component class="javax.swing.JButton" name="jButton1">
+                <Component class="javax.swing.JButton" name="jButton_ThemSanPham">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ef" green="91" red="f" type="rgb"/>
@@ -115,10 +115,10 @@
                     <Property name="iconTextGap" type="int" value="15"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ThemSanPhamActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="jButton2">
+                <Component class="javax.swing.JButton" name="jButton_Import">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="cc" green="cc" red="cc" type="rgb"/>
@@ -350,6 +350,9 @@
                               </StringArray>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_NhaXuatBanActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -407,6 +410,9 @@
                             </Property>
                             <Property name="name" type="java.lang.String" value="" noResource="true"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox_TrangThaiActionPerformed"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -600,8 +606,8 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="S&#xe1;ch">
-                <Property name="tabTitle" type="java.lang.String" value="S&#xe1;ch"/>
+              <JTabbedPaneConstraints tabName="S&#x1ea3;n ph&#x1ea9;m kh&#xe1;c">
+                <Property name="tabTitle" type="java.lang.String" value="S&#x1ea3;n ph&#x1ea9;m kh&#xe1;c"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>

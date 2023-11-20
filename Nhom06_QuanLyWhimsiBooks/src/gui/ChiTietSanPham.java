@@ -8,6 +8,7 @@ import bus.SanPham_BUS;
 import connectDB.ConnectDB;
 import entities.SanPham;
 import entities.TacGia;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
@@ -41,6 +42,12 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         this.jLabel_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
         
+        if(x.getTinhTrang().equals("NGUNG_KINH_DOANH"))
+        {
+           jButton_NgungBan.setBackground(new Color(204,204,204));
+           jButton_NgungBan.setText("Bán lại");
+        }
+        
        
 
         ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
@@ -72,7 +79,7 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel_Img = new javax.swing.JLabel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 10), new java.awt.Dimension(0, 0));
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 12), new java.awt.Dimension(0, 0));
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 7), new java.awt.Dimension(0, 0));
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 5), new java.awt.Dimension(0, 0));
         jPanel_Info_SanPham1 = new javax.swing.JPanel();
         jPanel159 = new javax.swing.JPanel();
@@ -133,7 +140,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jPanel_Component_SanPham.add(jPanel_Box_Left);
 
         jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jPanel_Info_SanPham1.setPreferredSize(null);
         jPanel_Info_SanPham1.setLayout(new javax.swing.BoxLayout(jPanel_Info_SanPham1, javax.swing.BoxLayout.LINE_AXIS));
 
         jPanel159.setMaximumSize(new java.awt.Dimension(305, 217));
@@ -219,6 +225,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jButton_Sua.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Sua.setText("Sửa");
         jButton_Sua.setAutoscrolls(true);
+        jButton_Sua.setMaximumSize(new java.awt.Dimension(80, 30));
+        jButton_Sua.setMinimumSize(new java.awt.Dimension(80, 30));
+        jButton_Sua.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton_Sua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -231,6 +240,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jButton_NgungBan.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jButton_NgungBan.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NgungBan.setText("Ngừng bán");
+        jButton_NgungBan.setMaximumSize(new java.awt.Dimension(120, 30));
+        jButton_NgungBan.setMinimumSize(new java.awt.Dimension(120, 30));
+        jButton_NgungBan.setPreferredSize(new java.awt.Dimension(105, 30));
         jButton_NgungBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNgungKDActionPerformed(evt);
@@ -256,12 +268,39 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         tAB_ThemSanPham.setLocationRelativeTo(null);
         
         tAB_ThemSanPham.setSanPham(x);
+        tAB_ThemSanPham.disVisibleForSua();
         
         
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnNgungKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgungKDActionPerformed
         // TODO add your handling code here:
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        int result = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn đổi trạng thái bán hàng không?");
+        if(jButton_NgungBan.getText().equals("Ngừng bán"))
+        {
+            if(result == 0)
+            {
+                jButton_NgungBan.setBackground(new Color(204,204,204));
+                jButton_NgungBan.setText("Bán lại");
+            }
+                
+            x.setTinhTrang("NGUNG_KINH_DOANH");
+            return;
+        }
+        
+        if(jButton_NgungBan.getText().equals("Bán lại"))
+        {
+            if(result == 0)
+            {
+                jButton_NgungBan.setBackground(new Color(219,79,78));
+                jButton_NgungBan.setText("Ngừng bán");
+            }
+           
+            x.setTinhTrang("CON_HANG");
+            return;
+        }
+       
     }//GEN-LAST:event_btnNgungKDActionPerformed
 
 

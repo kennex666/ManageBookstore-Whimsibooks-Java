@@ -236,7 +236,7 @@ public class SanPham_DAO implements ISanPham{
 			String sql = "UPDATE SanPham "
 					+ "SET  TenSanPham = ?, NgayNhap  = ?, GiaNhap = ?, Thue = ?, LoaiDoiTra = ?,"
 					+ "Barcode = ?, ImgPath = ?, TinhTrang = ?, SoLuongTon = ?, NamSanXuat = ?, LoaiSanPham = ?,"
-					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, SoTrang = ?, LoaiBia = ? WHERE NhanVienID = ?";
+					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, SoTrang = ?, LoaiBia = ? WHERE SanPhamID = ?";
 
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -539,6 +539,60 @@ public class SanPham_DAO implements ISanPham{
                 while(rs.next())
                 {
                     String name = rs.getString("TenDanhMuc");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameTheLoaiByID(int ID) {
+        try {
+                String query = "SELECT TenTheLoai FROM TheLoai WHERE TheLoaiID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenTheLoai");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameThuongHieuByID(int ID) {
+         try {
+                String query = "SELECT TenThuongHieu FROM ThuongHieu WHERE ThuongHieuID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenThuongHieu");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameNhaCungCapByID(String ID) {
+         try {
+                String query = "SELECT TenNhaCungCap FROM NhaCungCap WHERE NhaCungCapID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenNhaCungCap");
                     return name;
                 }
         } catch (Exception e) {

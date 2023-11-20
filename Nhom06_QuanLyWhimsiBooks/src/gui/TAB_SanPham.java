@@ -48,7 +48,9 @@ public class TAB_SanPham extends javax.swing.JPanel {
     public void loadSanPham()
     {
         
-        
+        jComboBox_DanhMuc.removeAllItems();
+        jComboBox_NhaXuatBan.removeAllItems();
+                
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
         ArrayList<DanhMuc> list_danhMuc = danhMuc_BUS.getAllDanhMuc();
         for(DanhMuc dm : list_danhMuc)
@@ -142,8 +144,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel_Sach = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_ThemSanPham = new javax.swing.JButton();
+        jButton_Import = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -208,28 +210,28 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel4.setAutoscrolls(true);
         jPanel4.setFocusable(false);
 
-        jButton1.setBackground(new java.awt.Color(15, 145, 239));
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/ico-plus.png")), 12 , 12));
-        jButton1.setText("Thêm sản phẩm");
-        jButton1.setAutoscrolls(true);
-        jButton1.setFocusable(false);
-        jButton1.setIconTextGap(15);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton_ThemSanPham.setBackground(new java.awt.Color(15, 145, 239));
+        jButton_ThemSanPham.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jButton_ThemSanPham.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_ThemSanPham.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/ico-plus.png")), 12 , 12));
+        jButton_ThemSanPham.setText("Thêm sản phẩm");
+        jButton_ThemSanPham.setAutoscrolls(true);
+        jButton_ThemSanPham.setFocusable(false);
+        jButton_ThemSanPham.setIconTextGap(15);
+        jButton_ThemSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton_ThemSanPhamActionPerformed(evt);
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(204, 204, 204));
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/ico-export.png")), 12 , 12));
-        jButton2.setText("Import Sản phẩm");
-        jButton2.setFocusCycleRoot(true);
-        jButton2.setFocusable(false);
-        jButton2.setIconTextGap(12);
+        jButton_Import.setBackground(new java.awt.Color(204, 204, 204));
+        jButton_Import.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jButton_Import.setForeground(new java.awt.Color(255, 255, 255));
+        jButton_Import.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/ico-export.png")), 12 , 12));
+        jButton_Import.setText("Import Sản phẩm");
+        jButton_Import.setFocusCycleRoot(true);
+        jButton_Import.setFocusable(false);
+        jButton_Import.setIconTextGap(12);
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
@@ -338,6 +340,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jLabel4.setPreferredSize(new java.awt.Dimension(85, 22));
 
         jComboBox_NhaXuatBan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        jComboBox_NhaXuatBan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_NhaXuatBanActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -369,6 +376,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         jComboBox_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Còn bán", "Ngưng bán" }));
         jComboBox_TrangThai.setName(""); // NOI18N
+        jComboBox_TrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox_TrangThaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -468,9 +480,9 @@ public class TAB_SanPham extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_ThemSanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -479,8 +491,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton_Import, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jButton_ThemSanPham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -811,7 +823,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         filler2.setBackground(new java.awt.Color(242, 242, 242));
         jPanel_Sach1.add(filler2, java.awt.BorderLayout.LINE_END);
 
-        jTabbedPane1.addTab("Sách", jPanel_Sach1);
+        jTabbedPane1.addTab("Sản phẩm khác", jPanel_Sach1);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -860,12 +872,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_TimKiemActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton_ThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSanPhamActionPerformed
         TAB_ThemSanPham taB_ThemSanPham = new TAB_ThemSanPham();
         taB_ThemSanPham.setLocationRelativeTo(null);
         taB_ThemSanPham.setVisible(true);
+        taB_ThemSanPham.disVisibleForLuu();
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton_ThemSanPhamActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -891,6 +904,14 @@ public class TAB_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton_refresh1ActionPerformed
 
+    private void jComboBox_NhaXuatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_NhaXuatBanActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_NhaXuatBanActionPerformed
+
+    private void jComboBox_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_TrangThaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox_TrangThaiActionPerformed
+
         Box box = new Box(BoxLayout.X_AXIS);
         int Row = 0;
         JPanel jPanel_Empty1 = new JPanel(); 
@@ -900,12 +921,12 @@ public class TAB_SanPham extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton_Import;
+    private javax.swing.JButton jButton_ThemSanPham;
     private javax.swing.JButton jButton_refresh;
     private javax.swing.JButton jButton_refresh1;
     private javax.swing.JComboBox<String> jComboBox_DanhMuc;
