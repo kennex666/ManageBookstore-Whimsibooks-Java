@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import connectDB.ConnectDB;
 import entities.NhanVien;
+import gui.TAB_NhanVien;
 import interfaces.INhanVien;
 import java.time.LocalDate;
 import java.util.List;
@@ -127,10 +128,14 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean addNhanVien(NhanVien x) {
 		boolean result = false;
+		TAB_NhanVien maNVTD  = new TAB_NhanVien();
+		String maNV = maNVTD.phatSinhMaNhanVien();
+		
+		
 		String query = "INSERT INTO NhanVien(NhanVienID,UserName,Password,NgayTaoTK,HoTen,GioiTinh,SoDienThoai,ChucVu,Email,NgaySinh,DiaChi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
-			pretm.setString(1, x.getNhanVienID());
+			pretm.setString(1,maNV);
 			pretm.setString(2, x.getUserName());
 			pretm.setString(3, x.getPassword());
 			pretm.setDate(4, Date.valueOf(x.getNgayTaoTK()));

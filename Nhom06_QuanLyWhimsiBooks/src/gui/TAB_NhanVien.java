@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -55,6 +57,17 @@ import entities.NhanVien;
 import utilities.ImageProcessing;
 import utilities.RegexPattern;
 
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.KeyStroke;
 /**
  *
  * @author s2quy
@@ -72,8 +85,16 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	public TAB_NhanVien() {
 
 		initComponents();
+		
+
+		
+		
+		
+		
+		
 		loadNhanVienTable();
 		showTuBangLenForm();
+		phimTat();
 		txtMa.setEditable(false);
 		customizeTable();
 	}
@@ -353,6 +374,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		txtMa1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtMa1ActionPerformed(evt);
+				btnTimKiem.doClick();
 			}
 		});
 
@@ -361,6 +383,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		txtTen1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtTen1ActionPerformed(evt);
+				btnTimKiem.doClick();
 			}
 		});
 
@@ -369,16 +392,17 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		txtSDT1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				txtSDT1ActionPerformed(evt);
+				btnTimKiem.doClick();
 			}
 		});
 
 		jLabel15.setText("Giới tính");
 
-		cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Nam", "Nữ" }));
+		cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Nam", "Nữ" }));
 
 		jLabel16.setText("Chức vụ");
 
-		cboChucVu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Nhân viên", "Quản lý" }));
+		cboChucVu1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Nhân viên", "Quản lý" }));
 
 		btnTimKiem.setBackground(new java.awt.Color(15, 145, 239));
 		btnTimKiem.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -387,9 +411,20 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		btnTimKiem.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnTimKiemActionPerformed(evt);
+			
 			}
+			
 		});
+		
+	
+        
+        
 
+        
+        
+        
+        
+        
 		javax.swing.GroupLayout rightLayout = new javax.swing.GroupLayout(right);
 		right.setLayout(rightLayout);
 		rightLayout
@@ -650,18 +685,18 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		add(Container, java.awt.BorderLayout.LINE_END);
 	}// </editor-fold>//GEN-END:initComponents
 
-	//	chức năng tìm kiếmmm
-	
-	//kết thức tìm kiếm
+	// chức năng tìm kiếmmm
+
+	// kết thức tìm kiếm
 	private void showTuBangLenForm() {
 		tblNhanVien.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-	
+
 				int row = tblNhanVien.rowAtPoint(e.getPoint());
 				if (row >= 0) {
 					// Lấy giá trị từ bảng và hiển thị lên các JTextField
 					txtMa.setText(tblNhanVien.getValueAt(row, 1).toString());
-	
+
 					txtTen.setText(tblNhanVien.getValueAt(row, 2).toString());
 					cboGioiTinh.setSelectedItem(tblNhanVien.getValueAt(row, 3).toString());
 					txtSDT.setText(tblNhanVien.getValueAt(row, 4).toString());
@@ -680,14 +715,14 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 					txtNgayLapTK.setDate(null);
 				}
 			}
-	
+
 		});
 	}
 
-	//	chức năng tìm kiếmmm
-	
-	//	chức năng tìm kiếmmm
-	
+	// chức năng tìm kiếmmm
+
+	// chức năng tìm kiếmmm
+
 	private void btnHienThiBangActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHienThiBangActionPerformed
 		loadNhanVienTable();
 	}// GEN-LAST:event_btnHienThiBangActionPerformed
@@ -698,16 +733,16 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		DefaultTableCellRenderer headerTitle = new DefaultTableCellRenderer();
 		// Tạo một đối tượng Color để đại diện cho màu nền
 		Color headerBackgroundColor = Color.decode("#2FA1D2"); // Màu nền là màu mã hex #42d212
-	
+
 		// Tạo một đối tượng Color để đại diện cho màu chữ
 		Color headerForegroundColor = Color.WHITE; // Màu chữ là màu trắng
-	
+
 		header.setBackground(headerBackgroundColor);
 		header.setForeground(headerForegroundColor);
 		header.setFont(new Font("arial", Font.BOLD, 12));
 		DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
 		centerRenderer.setHorizontalAlignment(JLabel.CENTER); // Đặt kiểu căn giữa
-	
+
 		// Đặt renderer cho từng cột riêng lẻ
 		for (int i = 0; i < tblNhanVien.getColumnCount(); i++) {
 			tblNhanVien.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
@@ -715,13 +750,13 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	}
 
 	private void loadNhanVienTable() {
-		
+
 		DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
 		model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
-	
+
 		NhanVien_BUS nhanVienBus = new NhanVien_BUS();
 		ArrayList<NhanVien> list = nhanVienBus.getAllEmployees();
-	
+
 		for (int i = 0; i < list.size(); i++) {
 			NhanVien nv = list.get(i);
 			model.addRow(new Object[] { i + 1, nv.getNhanVienID(), nv.getHoTen(), nv.getGioiTinh(), nv.getSoDienThoai(),
@@ -729,8 +764,8 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		}
 	}
 
-	//	chức năng tìm kiếmmm
-	
+	// chức năng tìm kiếmmm
+
 	private void XoaRong() {
 		txtMa.setText("");
 		txtTaiKhoan.setText("");
@@ -752,11 +787,11 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		String soDienThoai = txtSDT1.getText();
 		String gioiTinh = (String) cboGioiTinh1.getSelectedItem();
 		String chucVu = (String) cboChucVu1.getSelectedItem();
-	
+
 		// Gọi hàm tìm kiếm nâng cao từ lớp DAO
 		ArrayList<NhanVien> resultList = nhanvienBus.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai,
 				gioiTinh, chucVu);
-	
+
 		// Ví dụ hiển thị trên bảng (sử dụng một DefaultTableModel cho bảng jTable1)
 		DefaultTableModel model = (DefaultTableModel) tblNhanVien.getModel();
 		if (!resultList.isEmpty()) {
@@ -767,7 +802,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 						new Object[] { i + 1, nv.getNhanVienID(), nv.getHoTen(), nv.getGioiTinh(), nv.getSoDienThoai(),
 								nv.getUserName(), nv.getChucVu(), nv.getEmail(), nv.getNgaySinh(), nv.getDiaChi() });
 			}
-	
+
 		} else {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy");
 		}
@@ -777,27 +812,26 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		XoaRong();
 	}
 
-	
-	//	chức năng tìm kiếmmm
-	
-	//	chức năng tìm kiếmmm
-	
-	private String phatSinhMaNhanVien() {
-	    try {
-	        int maxId = nhanvienBus.phatSinhMaNhanVien();
-	        String maNV = "NV" + String.format("%04d", maxId);
-	        return maNV;
-	    } catch (Exception e) {
-	        // Nếu có lỗi, trả về mã mặc định
-	        return "NV" + "0001";
-	    }
+	// chức năng tìm kiếmmm
+
+	// chức năng tìm kiếmmm
+
+	public String phatSinhMaNhanVien() {
+		try {
+			int maxId = nhanvienBus.phatSinhMaNhanVien();
+			String maNV = "NV" + String.format("%04d", maxId);
+			return maNV;
+		} catch (Exception e) {
+			// Nếu có lỗi, trả về mã mặc định
+			return "NV" + "0001";
+		}
 	}
 
 	private boolean btnThemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThemActionPerformed
-	
+
 		if (valid()) {
 			try {
-	
+
 				String maNV = phatSinhMaNhanVien();
 				String taiKhoan = txtTaiKhoan.getText();
 				String matKhau = new String(txtMatKhau.getPassword());
@@ -809,10 +843,10 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 				String chucVu = (String) cboChucVu.getSelectedItem();
 				String email = txtEmail.getText();
 				java.util.Date chonNgay = txtNgay.getDate();
-	
+
 				String ngaySinh = dateFormat.format(chonNgay);
 				String diaChi = txtDiaChi.getText();
-	
+
 				NhanVien newNhanVien = new NhanVien();
 				newNhanVien.setNhanVienID(phatSinhMaNhanVien());
 				newNhanVien.setUserName(taiKhoan);
@@ -825,7 +859,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 				newNhanVien.setEmail(email);
 				newNhanVien.setNgaySinh(LocalDate.parse(ngaySinh));
 				newNhanVien.setDiaChi(diaChi);
-	
+
 				// Sử dụng lớp BUS để thêm thông tin nhân viên
 				NhanVien_BUS nhanVienBus = new NhanVien_BUS();
 				if (!validTrungMa(maNV)) {
@@ -836,32 +870,30 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 					}
 				}
 			} catch (Exception e) {
-	
+
 				JOptionPane.showMessageDialog(this, "Lỗi các trường nhập vào..");
 			}
 		}
 		return true;
 	}
 
-	
+	// chức năng tìm kiếmmm
 
-	//	chức năng tìm kiếmmm
-	
-	//	chức năng tìm kiếmmm
-	
+	// chức năng tìm kiếmmm
+
 	private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) throws Exception {
 		// Xác nhận trước khi thực hiện hành động sửa
-	
+
 		int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa?", "Xác nhận",
 				JOptionPane.YES_NO_OPTION);
-	
+
 		if (confirm == JOptionPane.YES_OPTION) {
 			// Lấy thông tin từ các trường nhập liệu trong giao diện
 			if (valid()) {
 				String maNhanVien = txtMa.getText();
 				String userName = txtTaiKhoan.getText();
 				String password = new String(txtMatKhau.getPassword());
-	
+
 				Date ngayTaoTK = txtNgay.getDate();
 				LocalDate ngayTaoTK1 = ngayTaoTK.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				String hoTen = txtTen.getText();
@@ -872,19 +904,19 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 				Date ngaySinhDate = txtNgay.getDate(); // Lấy ngày sinh từ JDateChooser
 				LocalDate ngaySinh = ngaySinhDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 				String diaChi = txtDiaChi.getText();
-	
+
 				NhanVien existingNhanVien = nhanvienBus.getNhanVienByNhanVienID(maNhanVien);
 				String oldPassword = existingNhanVien.getPassword();
 				if (password.isEmpty()) {
 					// Nếu mật khẩu trống, giữ nguyên giá trị mặc định trong CSDL
-	
+
 					password = oldPassword;
 					System.out.println("Mat khau moi" + password);
 				}
-	
+
 				NhanVien nhanVien = new NhanVien(maNhanVien, userName, password, ngayTaoTK1, hoTen, gioiTinh,
 						soDienThoai, chucVu, email, ngaySinh, diaChi);
-	
+
 				boolean result = nhanvienBus.editNhanVien(nhanVien);
 				// Hiển thị thông báo kết quả
 				if (result) {
@@ -899,245 +931,264 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 		}
 	}
 
-	
-	
 	private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) throws Exception {// GEN-FIRST:event_btnXoaActionPerformed
-	
+
 		// Lấy thông tin từ các trường nhập liệu trong giao diện
 		String maNhanVien = txtMa.getText();
-	
+
 		// Kiểm tra xem người dùng đã chọn một nhân viên để xóa chưa
 		if (maNhanVien.isEmpty()) {
 			JOptionPane.showMessageDialog(this, "Vui lòng chọn một nhân viên để xóa.", "Thông báo",
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-	
+
 		int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa nhân viên này?", "Xác nhận xóa",
 				JOptionPane.YES_NO_OPTION);
-	
+
 		if (confirm == JOptionPane.YES_OPTION) {
 			// Tạo một đối tượng NhanVien với mã nhân viên để truyền vào hàm xóa
 			NhanVien nhanVienXoa = new NhanVien();
 			nhanVienXoa.setNhanVienID(maNhanVien);
-	
+
 			// Gọi hàm xóa từ lớp DAO
 			boolean result = nhanvienBus.deleteNhanVien(nhanVienXoa);
-	
+
 			// Hiển thị thông báo kết quả
 			if (result) {
 				JOptionPane.showMessageDialog(this, "Xóa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
 				// Cập nhật lại bảng hoặc làm những gì đó cần thiết
 				loadNhanVienTable();
 			} else {
-				JOptionPane.showMessageDialog(this, "Xóa không thành công!", "Lỗi", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, "Không thể xoá nhân viên đang phân công!", "Lỗi",
+						JOptionPane.ERROR_MESSAGE);
 			}
 		}
-	
+
 	}
 
-	
-
-	
 	private void btnHuyActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHuyActionPerformed
 		// TODO add your handling code here:
 		System.exit(0);
 	}// GEN-LAST:event_btnHuyActionPerformed
 
-
-	
 	private void btnImportActionPerformed(java.awt.event.ActionEvent evt) {
-	    try {
-	        JFileChooser fileChooser = new JFileChooser();
-	        FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
-	        fileChooser.setFileFilter(filter);
+		try {
+			JFileChooser fileChooser = new JFileChooser();
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("Excel Files", "xlsx");
+			fileChooser.setFileFilter(filter);
 
-	        int returnVal = fileChooser.showOpenDialog(this);
+			int returnVal = fileChooser.showOpenDialog(this);
 
-	        if (returnVal == JFileChooser.APPROVE_OPTION) {
-	            File file = fileChooser.getSelectedFile();
+			if (returnVal == JFileChooser.APPROVE_OPTION) {
+				File file = fileChooser.getSelectedFile();
 
-	            ArrayList<NhanVien> importedList = readEmployeeDataFromExcel(file);
+				ArrayList<NhanVien> importedList = readEmployeeDataFromExcel(file);
 
-	            if (importedList.isEmpty()) {
-	                JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
-	                return;
-	            }
+				if (importedList.isEmpty()) {
+					JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
+					return;
+				}
 
-	            NhanVien_BUS nhanVienBus = new NhanVien_BUS();
+				NhanVien_BUS nhanVienBus = new NhanVien_BUS();
 
-	            // Thêm dữ liệu vào cơ sở dữ liệu
-	            for (NhanVien nhanVien : importedList) {
-	                if (nhanVienBus.addNhanVien(nhanVien)) {
-	                    // Nếu thêm thành công, hiển thị thông báo
-	                    JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
-	                    loadNhanVienTable();
-	                    // Có thể thêm các bước khác sau khi import thành công
-	                } else {
-	                    // Nếu thêm không thành công, hiển thị thông báo lỗi
-	                    JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên");
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        JOptionPane.showMessageDialog(this, "Lỗi khi đọc dữ liệu từ file Excel.");
-	        e.printStackTrace();
-	    }
+				// Thêm dữ liệu vào cơ sở dữ liệu
+				for (NhanVien nhanVien : importedList) {
+					if (nhanVienBus.addNhanVien(nhanVien)) {
+						// Nếu thêm thành công, hiển thị thông báo
+						JOptionPane.showMessageDialog(this, "Thêm nhân viên thành công");
+						loadNhanVienTable();
+						// Có thể thêm các bước khác sau khi import thành công
+					} else {
+						// Nếu thêm không thành công, hiển thị thông báo lỗi
+						JOptionPane.showMessageDialog(this, "Lỗi khi thêm nhân viên");
+					}
+				}
+			}
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(this, "Lỗi khi đọc dữ liệu từ file Excel.");
+			e.printStackTrace();
+		}
 	}
 
 	public ArrayList<NhanVien> readEmployeeDataFromExcel(File file) {
-	    ArrayList<NhanVien> employeeList = new ArrayList<>();
-	    int sttColumnIndex = 0; // Chỉ số của cột STT
+		ArrayList<NhanVien> employeeList = new ArrayList<>();
+		int sttColumnIndex = 0; // Chỉ số của cột STT
+		int maNhanVienColumnIndex = -1;
+		try (FileInputStream fis = new FileInputStream(file); Workbook workbook = new XSSFWorkbook(fis)) {
 
-	    try (FileInputStream fis = new FileInputStream(file);
-	         Workbook workbook = new XSSFWorkbook(fis)) {
+			Sheet sheet = workbook.getSheetAt(0); // Lấy sheet thứ nhất
 
-	        Sheet sheet = workbook.getSheetAt(0); // Lấy sheet thứ nhất
+			Iterator<Row> iterator = sheet.iterator();
+			// Bỏ qua dòng tiêu đề
+			if (iterator.hasNext()) {
+				Row headerRow = iterator.next();
 
-	        Iterator<Row> iterator = sheet.iterator();
-	        // Bỏ qua dòng tiêu đề
-	        if (iterator.hasNext()) {
-	            Row headerRow = iterator.next();
-	         
-	            // Tìm chỉ số của cột STT
-	            for (Cell cell : headerRow) {
-	            	   String cellValue = getStringValue(cell);
-	                if (cellValue != null&& getStringValue(cell).equalsIgnoreCase("STT")) {
-	                    sttColumnIndex = cell.getColumnIndex();
-	                    break;
-	                }
-	            }
-	        }
+				// Tìm chỉ số của cột STT
+				for (Cell cell : headerRow) {
+					String cellValue = getStringValue(cell);
+					if (cellValue != null && getStringValue(cell).equalsIgnoreCase("STT")) {
+						sttColumnIndex = cell.getColumnIndex();
+						break;
+					}
+					else if (getStringValue(cell).equalsIgnoreCase("MÃ NHÂN VIÊN")) {
+						maNhanVienColumnIndex = cell.getColumnIndex();
+					}
+				}
+			}
 
-	        while (iterator.hasNext()) {
-	            Row currentRow = iterator.next();
-	            Iterator<Cell> cellIterator = currentRow.iterator();
+			while (iterator.hasNext()) {
+				Row currentRow = iterator.next();
+				Iterator<Cell> cellIterator = currentRow.iterator();
 
-	            // Bỏ qua giá trị của cột STT
-	            for (int i = 0; i <= sttColumnIndex; i++) {
-	                cellIterator.next();
-	            }
+				// Bỏ qua giá trị của cột STT
+				for (int i = 0; i <= sttColumnIndex; i++) {
+					cellIterator.next();
+				}
 
-	            // Đảm bảo đọc đúng thứ tự của các cột
-	            String maNV = getStringValue(cellIterator.next());
-	            String tenNV = getStringValue(cellIterator.next());
-	            String gioiTinh = getStringValue(cellIterator.next());
-	            String sdtNV = getStringValue(cellIterator.next());
-	            String taiKhoan = getStringValue(cellIterator.next());
-	            String chucVu = getStringValue(cellIterator.next());
-	            String email = getStringValue(cellIterator.next());
-	            String ngaySinh = getStringValue(cellIterator.next());
-	            String diaChi = getStringValue(cellIterator.next());
+				// Đảm bảo đọc đúng thứ tự của các cột
+				String maNV = getStringValue(cellIterator.next());
+				String tenNV = getStringValue(cellIterator.next());
+				String gioiTinh = getStringValue(cellIterator.next());
+				String sdtNV = getStringValue(cellIterator.next());
+				String taiKhoan = getStringValue(cellIterator.next());
+				String chucVu = getStringValue(cellIterator.next());
+				String email = getStringValue(cellIterator.next());
+				String ngaySinh = getStringValue(cellIterator.next());
+				String diaChi = getStringValue(cellIterator.next());
 
-	            LocalDate ngayht = LocalDate.now();
+				LocalDate ngayht = LocalDate.now();
 
-	            LocalDate ngaySinhDate = LocalDate.parse(ngaySinh, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-	            NhanVien nhanVien = new NhanVien(maNV, taiKhoan, "", ngayht, tenNV, gioiTinh, sdtNV, chucVu, email, ngaySinhDate, diaChi);
-	          
-	            employeeList.add(nhanVien);
-	        }
+				LocalDate ngaySinhDate = LocalDate.parse(ngaySinh, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+				NhanVien nhanVien = new NhanVien(phatSinhMaNhanVien(), taiKhoan, "123456", ngayht, tenNV, gioiTinh, sdtNV, chucVu, email,
+						ngaySinhDate, diaChi);
+				employeeList.add(nhanVien);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-
-	    return employeeList;
+		return employeeList;
 	}
 
-	//	chức năng tìm kiếmmm
-	
+	// chức năng tìm kiếmmm
+
 	private String getStringValue(Cell cell) {
-		// TODO Auto-generated method stub
-		return null;
+		if (cell.getCellTypeEnum() == CellType.NUMERIC) {
+			// Xử lý nếu là giá trị số
+			return String.valueOf(cell.getNumericCellValue());
+		} else if (cell.getCellTypeEnum() == CellType.STRING) {
+			// Xử lý nếu là giá trị chuỗi
+			return cell.getStringCellValue();
+		}
+		return "";
 	}
 
 	private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportActionPerformed
 		ArrayList<NhanVien> list = nhanvienBus.getAllEmployees();
 		try {
-			XSSFWorkbook workBook = new XSSFWorkbook();
-			XSSFSheet sheet =workBook.createSheet("Danh sách nhân viên");
-			XSSFRow row = null;
-			Cell cell = null;
-			XSSFCellStyle headerStyle = workBook.createCellStyle();
-	        headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-	        headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-			row = sheet.createRow(0);
-			cell = row.createCell(0,CellType.STRING);
-			cell.setCellValue("STT");
-			cell.setCellStyle(headerStyle);
-			cell = row.createCell(1,CellType.STRING);
-			cell.setCellValue("Mã nhân viên");
-			
-			cell = row.createCell(2,CellType.STRING);
-			cell.setCellValue("Tên nhân viên");
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setDialogTitle("Chọn nơi lưu trữ file Excel");
+			fileChooser.setFileFilter(new FileNameExtensionFilter("Excel Files", "xlsx"));
 
-			cell = row.createCell(3,CellType.STRING);
-			cell.setCellValue("Giới tính");
-			
-			cell = row.createCell(4,CellType.STRING);
-			cell.setCellValue("Số điện thoại");
-			cell = row.createCell(5,CellType.STRING);
-			cell.setCellValue("Tài Khoản");
-			cell = row.createCell(6,CellType.STRING);
-			cell.setCellValue("Chức vụ");
-			cell = row.createCell(7,CellType.STRING);
-			cell.setCellValue("Email");
-			cell = row.createCell(8,CellType.STRING);
-			cell.setCellValue("Ngày sinh");
-			cell = row.createCell(9,CellType.STRING);
-			cell.setCellValue("Địa chỉ");
-			
-			for(int i=0 ; i<list.size();i++) {
-				row =sheet.createRow(1+i);
-				cell = row.createCell(0,CellType.NUMERIC);
-				cell.setCellValue(i+1);
-				
-				cell = row.createCell(1,CellType.STRING);
-				cell.setCellValue(list.get(i).getNhanVienID());
-				
-				cell = row.createCell(2,CellType.STRING);
-				cell.setCellValue(list.get(i).getHoTen());
-				
-				cell = row.createCell(3,CellType.STRING);
-				cell.setCellValue(list.get(i).getGioiTinh());
-				
-				cell = row.createCell(4,CellType.STRING);
-				cell.setCellValue(list.get(i).getSoDienThoai());
-				
-				cell = row.createCell(5,CellType.STRING);
-				cell.setCellValue(list.get(i).getUserName());
-				
-				cell = row.createCell(6,CellType.STRING);
-				cell.setCellValue(list.get(i).getChucVu());
-				
-				cell = row.createCell(7,CellType.STRING);
-				cell.setCellValue(list.get(i).getEmail());
-				
-				cell = row.createCell(8,CellType.STRING);
-				cell.setCellValue(list.get(i).getNgaySinh().toString());
-				
-				cell = row.createCell(9,CellType.STRING);
-				cell.setCellValue(list.get(i).getDiaChi());
-			}
-			File f  = new File("D://DanhSachNhanVien.xlsx");
-			try {
-				FileOutputStream fis = new FileOutputStream(f);
+			int userSelection = fileChooser.showSaveDialog(this);
+
+			if (userSelection == JFileChooser.APPROVE_OPTION) {
+				File fileToSave = fileChooser.getSelectedFile();
+				String filePath = fileToSave.getAbsolutePath();
+
+				XSSFWorkbook workBook = new XSSFWorkbook();
+				XSSFSheet sheet = workBook.createSheet("Danh sách nhân viên");
+				XSSFRow row = null;
+				Cell cell = null;
+				XSSFCellStyle headerStyle = workBook.createCellStyle();
+				headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+				headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+				row = sheet.createRow(0);
+				cell = row.createCell(0, CellType.STRING);
+				cell.setCellValue("STT");
+				cell.setCellStyle(headerStyle);
+				cell = row.createCell(1, CellType.STRING);
+				cell.setCellValue("Mã nhân viên");
+
+				cell = row.createCell(2, CellType.STRING);
+				cell.setCellValue("Tên nhân viên");
+
+				cell = row.createCell(3, CellType.STRING);
+				cell.setCellValue("Giới tính");
+
+				cell = row.createCell(4, CellType.STRING);
+				cell.setCellValue("Số điện thoại");
+				cell = row.createCell(5, CellType.STRING);
+				cell.setCellValue("Tài Khoản");
+				cell = row.createCell(6, CellType.STRING);
+				cell.setCellValue("Chức vụ");
+				cell = row.createCell(7, CellType.STRING);
+				cell.setCellValue("Email");
+				cell = row.createCell(8, CellType.STRING);
+				cell.setCellValue("Ngày sinh");
+				cell = row.createCell(9, CellType.STRING);
+				cell.setCellValue("Địa chỉ");
+
+				for (int i = 0; i < list.size(); i++) {
+					row = sheet.createRow(1 + i);
+					cell = row.createCell(0, CellType.NUMERIC);
+					cell.setCellValue(i + 1);
+
+					cell = row.createCell(1, CellType.STRING);
+					cell.setCellValue(list.get(i).getNhanVienID());
+
+					cell = row.createCell(2, CellType.STRING);
+					cell.setCellValue(list.get(i).getHoTen());
+
+					cell = row.createCell(3, CellType.STRING);
+					cell.setCellValue(list.get(i).getGioiTinh());
+
+					cell = row.createCell(4, CellType.STRING);
+					cell.setCellValue(list.get(i).getSoDienThoai());
+
+					cell = row.createCell(5, CellType.STRING);
+					cell.setCellValue(list.get(i).getUserName());
+
+					cell = row.createCell(6, CellType.STRING);
+					cell.setCellValue(list.get(i).getChucVu());
+
+					cell = row.createCell(7, CellType.STRING);
+					cell.setCellValue(list.get(i).getEmail());
+
+					cell = row.createCell(8, CellType.STRING);
+					cell.setCellValue(list.get(i).getNgaySinh().toString());
+
+					cell = row.createCell(9, CellType.STRING);
+					cell.setCellValue(list.get(i).getDiaChi());
+				}
+				FileOutputStream fis = new FileOutputStream(filePath);
 				workBook.write(fis);
-//				fis.close();
-			} catch (FileNotFoundException ex) {
-				JOptionPane.showMessageDialog(this, "In Thất bại");
-			}
-			catch (IOException ex) {
+				fis.close();
 
+				JOptionPane.showMessageDialog(this, "In thành công " + filePath);
+			} else {
+				JOptionPane.showMessageDialog(this, "In thất bại. Không chọn nơi lưu trữ.");
 			}
-			JOptionPane.showMessageDialog(this, "In thành công D://DanhSachNhanVien.xlxs");
 		} catch (Exception e) {
 			e.printStackTrace();
 			JOptionPane.showMessageDialog(this, "Lỗi in file");
 		}
 	}
+	private void  phimTat() {
+		 // Thiết lập phím tắt cho nút btnTimKiem
+        javax.swing.InputMap inputMap = btnTimKiem.getInputMap(javax.swing.JComponent.WHEN_IN_FOCUSED_WINDOW);
+        javax.swing.ActionMap actionMap = btnTimKiem.getActionMap();
 
+        javax.swing.KeyStroke enterKey = javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0);
+        inputMap.put(enterKey, "performClick");
 
+        actionMap.put("performClick", new javax.swing.AbstractAction() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTimKiem.doClick();
+            }
+        });
+	}
 	private void txtTenActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtTenActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_txtTenActionPerformed

@@ -112,8 +112,8 @@ public class KhachHang_DAO implements IKhachHang {
 
 	@Override
 	public boolean addKhachHang(KhachHang kh) {
-		TAB_KhachHang makh12 = new TAB_KhachHang();
-		String maKH = makh12.phatSinhMaKhachHang1();
+		TAB_KhachHang maKHTD = new TAB_KhachHang();
+		String maKH = maKHTD.phatSinhMaKhachHang1();
 		boolean result = false;
 		String query = "INSERT INTO KhachHang(KhachHangID,HoTen,SoDienThoai,NgaySinh,GioiTinh,Email,MaSoThue,DiaChi,LoaiKhachHang) VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
