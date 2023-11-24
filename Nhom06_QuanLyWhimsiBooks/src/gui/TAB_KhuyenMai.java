@@ -47,6 +47,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	private Calendar currentDate = Calendar.getInstance();
 	private TableRowSorter<DefaultTableModel> sorter;
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	boolean evt_selectVoucher = false;
+	boolean evt_selectSave = false;
     /**
      * Creates new form TAB_KhuyenMai
      */
@@ -82,12 +84,14 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         txtMaKM = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        radVoucher = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtTenKM = new javax.swing.JTextField();
         jPanel8 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        lblSoLuong = new javax.swing.JLabel();
         txtSoLuongApDung = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
@@ -104,12 +108,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         txtNgayKetThuc = new com.toedter.calendar.JDateChooser();
         btnKhuyenMaiTao = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
         btnLuu = new javax.swing.JButton();
-        jPanel6 = new javax.swing.JPanel();
+        filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         btnHuy = new javax.swing.JButton();
-        jPanel22 = new javax.swing.JPanel();
-        tbLoi = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         titleSelectKhuyenMai = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
@@ -178,24 +179,18 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jLabel2.setText("Mã khuyến mãi:");
         jLabel2.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel10.add(jLabel2);
-
-        txtMaKM.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtMaKMActionPerformed(evt);
-            }
-        });
         jPanel10.add(txtMaKM);
 
-        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
-        jPanel21.setLayout(jPanel21Layout);
-        jPanel21Layout.setHorizontalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel21Layout.setVerticalGroup(
-            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 33, Short.MAX_VALUE)
-        );
+        jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel21.add(filler11);
+
+        radVoucher.setText("Voucher/Mã giảm giá");
+        radVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                radVoucherMouseClicked(evt);
+            }
+        });
+        jPanel21.add(radVoucher);
 
         jPanel10.add(jPanel21);
 
@@ -214,9 +209,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel4.setText("Số lượng áp dụng:");
-        jLabel4.setPreferredSize(new java.awt.Dimension(110, 16));
-        jPanel13.add(jLabel4);
+        lblSoLuong.setText("Số lượng áp dụng:");
+        lblSoLuong.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel13.add(lblSoLuong);
         jPanel13.add(txtSoLuongApDung);
 
         jPanel8.add(jPanel13);
@@ -233,6 +228,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel3.add(NhapMa);
 
+        hinhThuc.setMinimumSize(new java.awt.Dimension(298, 120));
         hinhThuc.setPreferredSize(new java.awt.Dimension(425, 160));
         hinhThuc.setLayout(new java.awt.GridLayout(1, 0, 10, 0));
 
@@ -264,52 +260,42 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel3.add(hinhThuc);
 
-        btnKhuyenMaiTao.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 1, 10, 1));
+        btnKhuyenMaiTao.setBorder(javax.swing.BorderFactory.createEmptyBorder(6, 1, 6, 1));
         btnKhuyenMaiTao.setPreferredSize(new java.awt.Dimension(0, 60));
-        btnKhuyenMaiTao.setLayout(new java.awt.GridLayout(1, 0, 18, 0));
+        btnKhuyenMaiTao.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
 
-        jPanel5.setLayout(new java.awt.GridLayout(1, 0));
-
-        btnLuu.setBackground(new java.awt.Color(15, 145, 239));
+        btnLuu.setBackground(new java.awt.Color(85, 182, 83));
         btnLuu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLuu.setForeground(new java.awt.Color(255, 255, 255));
-        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-luuKM.png"))); // NOI18N
-        btnLuu.setText("Thêm");
+        btnLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/km_save.png"))); // NOI18N
         btnLuu.setIconTextGap(25);
+        btnLuu.setMaximumSize(new java.awt.Dimension(160, 40));
+        btnLuu.setMinimumSize(new java.awt.Dimension(160, 40));
+        btnLuu.setPreferredSize(new java.awt.Dimension(160, 40));
         btnLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLuuActionPerformed(evt);
             }
         });
-        jPanel5.add(btnLuu);
-
-        btnKhuyenMaiTao.add(jPanel5);
-
-        jPanel6.setLayout(new java.awt.GridLayout(1, 0));
+        btnKhuyenMaiTao.add(btnLuu);
+        btnKhuyenMaiTao.add(filler9);
 
         btnHuy.setBackground(new java.awt.Color(239, 162, 162));
         btnHuy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnHuy.setForeground(new java.awt.Color(255, 255, 255));
         btnHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-huyKM.png"))); // NOI18N
-        btnHuy.setText("Hủy bỏ");
         btnHuy.setIconTextGap(25);
+        btnHuy.setMaximumSize(new java.awt.Dimension(160, 40));
+        btnHuy.setMinimumSize(new java.awt.Dimension(160, 40));
+        btnHuy.setPreferredSize(new java.awt.Dimension(160, 40));
         btnHuy.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHuyActionPerformed(evt);
             }
         });
-        jPanel6.add(btnHuy);
-
-        btnKhuyenMaiTao.add(jPanel6);
+        btnKhuyenMaiTao.add(btnHuy);
 
         jPanel3.add(btnKhuyenMaiTao);
-
-        jPanel22.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT));
-
-        tbLoi.setText("    ");
-        jPanel22.add(tbLoi);
-
-        jPanel3.add(jPanel22);
 
         jPanel1.add(jPanel3);
 
@@ -363,12 +349,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         titleSelectKhuyenMai.add(jPanel14);
 
         jPanel12.setLayout(new java.awt.BorderLayout(10, 0));
-
-        TimMaSanPham.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TimMaSanPhamActionPerformed(evt);
-            }
-        });
         jPanel12.add(TimMaSanPham, java.awt.BorderLayout.CENTER);
 
         btnTimKiem.setBackground(new java.awt.Color(15, 145, 239));
@@ -501,6 +481,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         add(pnlALL, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    // -------------------------------------------------------------
+    
     public  void Huy() {
     	txtTenKM.setText("");
     	txtHinhThuc.setSelectedIndex(0);
@@ -528,7 +510,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			return "KM" + "001";
 		}
 	}
-    // Lấy các giá trị có trong bảng
+    
     // KiemTraDieuKienNhap
     public boolean kiemTraNhap() {
     	String maKM = txtMaKM.getText();
@@ -574,9 +556,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	}
     	return true;
     }
+    
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
     	try {
-        	if(kiemTraNhap()) {
         		String maKM = txtMaKM.getText();
             	String tenKM = txtTenKM.getText();
             	String soLuongApDung = txtSoLuongApDung.getText();
@@ -597,7 +579,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         			Huy();
         			loadDataKM();
         		}
-        	}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -649,29 +630,14 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     }
     
     private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemActionPerformed
-//    	danhSachSp = new ArrayList<>();
-//    	danhSachSp = sanPham_BUS.laySanPhamChoKM();
     	String txtTimSp = TimMaSanPham.getText();
-//        if(kiemTraTimMaSP(txtTimSp)) {
-//        	for(int i = 0; i < danhSachSp.size(); i++) {
-//        		if(danhSachSp.get(i).getSanPhamID() == Integer.valueOf(txtTimSp)) {
-//        			tableModelSP.setValueAt(true, i, 0);
-//        		}
-//        	}
-//        }
-        
         for (int i = 0; i < tableModelSP.getRowCount(); i++) {
         	int j = 1;
         	if (((int)tableModelSP.getValueAt(i, j) + "").equalsIgnoreCase(txtTimSp)) {
         		tableModelSP.setValueAt(true, i, 0);
         	}
         }
-        
     }//GEN-LAST:event_btnTimKiemActionPerformed
-
-    private void TimMaSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TimMaSanPhamActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TimMaSanPhamActionPerformed
 
     private void loadDuLieuThuongHieu() {
     	ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
@@ -706,10 +672,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	}
     }//GEN-LAST:event_comboboxApDungItemStateChanged
 
-    private void txtMaKMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKMActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtMaKMActionPerformed
-
     private void tableKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKMMouseClicked
          int selectedRow = tableKM.getSelectedRow();
          int selectedColumn = tableKM.getSelectedColumn();
@@ -722,6 +684,20 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
              gui_XemChiTietKhuyeMai.setVisible(true);
          }
     }//GEN-LAST:event_tableKMMouseClicked
+
+    private void radVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radVoucherMouseClicked
+        // TODO add your handling code here:
+       if(radVoucher.isSelected()) {
+    	   txtMaKM.setEditable(false);
+    	   lblSoLuong.setText("Số lượng Voucher: ");
+    	   evt_selectVoucher = true;
+       }
+       else {
+    	   txtMaKM.setEditable(true);
+    	   lblSoLuong.setText("Số lượng áp dụng: ");
+    	   evt_selectVoucher = false;
+       }
+    }//GEN-LAST:event_radVoucherMouseClicked
     
     // Load date
     private void loadDataKM() {
@@ -768,6 +744,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> comboboxApDung;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
+    private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
@@ -775,6 +752,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler8;
+    private javax.swing.Box.Filler filler9;
     private javax.swing.JPanel hinhThuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -782,7 +760,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -802,21 +779,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
-    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JLabel lblSoLuong;
     private javax.swing.JPanel pnlALL;
+    private javax.swing.JCheckBox radVoucher;
     private javax.swing.JTable tableChonSP;
     private javax.swing.JTable tableKM;
     private javax.swing.JPanel tableSelectKhuyenMai;
-    private javax.swing.JLabel tbLoi;
     private javax.swing.JPanel title;
     private javax.swing.JPanel titleSelectKhuyenMai;
     private javax.swing.JTextField txtDonHangTu;
