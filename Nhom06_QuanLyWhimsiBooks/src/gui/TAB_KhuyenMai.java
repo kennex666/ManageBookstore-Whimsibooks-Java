@@ -13,6 +13,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
@@ -546,6 +548,20 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		}
 	}
     
+    private String VoucherCode() {
+    	String voucherCode;
+    	String nameRequired = "Voucher_";
+    	Set<String> generatedCodes = new HashSet<>();
+    	
+    	for(int i = 0 ; i < danhSachKM.size(); i++) {
+    		generatedCodes.add(danhSachKM.get(i).getCodeKhuyenMai());
+    	}
+    	
+    	voucherCode = utilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
+    	
+    	return voucherCode;
+    }
+    
     // KiemTraDieuKienNhap
     
     private boolean checkValue() {
@@ -612,8 +628,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	if(evt_selectVoucher == true) {
             		try {
             			boolean check = false;
-            			for(int i = 0; i < Integer.valueOf(soLuongApDung); i++) {
-            				KhuyenMai khuyenMai = new KhuyenMai(phatSinhMaKhuyenMai() ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),1, 0);
+            			for(int i = 0; i < soLuongApDung; i++) {
+            				KhuyenMai khuyenMai = new KhuyenMai(VoucherCode() ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),1, 0);
             				if(khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
             					check = true;
             				}
