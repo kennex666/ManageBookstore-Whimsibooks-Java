@@ -71,6 +71,4 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	public ChiTietKhuyenMai_DAO() {
 		conn = ConnectDB.getConnection();
 	}
-	
-	
 }
