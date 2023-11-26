@@ -1,15 +1,27 @@
 package bus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import dao.KhuyenMai_DAO;
 import entities.KhuyenMai;
+import entities.NhaCungCap;
 import entities.SanPham;
 import interfaces.IKhuyenMai;
 
@@ -152,5 +164,83 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
+	
+	// Xuat file
+	
+	public boolean xuatFile(ArrayList<KhuyenMai> list) {
+	    JFileChooser excelFileChooser = new JFileChooser("D:\\");
+	    excelFileChooser.setDialogTitle("Save Excel File");
+	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
+	    excelFileChooser.setFileFilter(fnef);
 
+	    int excelChooser = excelFileChooser.showSaveDialog(null);
+
+	    if (excelChooser == JFileChooser.APPROVE_OPTION) {
+	        File excelFile = excelFileChooser.getSelectedFile();
+
+	        // Kiểm tra nếu tên file không kết thúc bằng ".xlsx", thêm ".xlsx" vào
+	        if (!excelFile.getName().toLowerCase().endsWith(".xlsx")) {
+	            excelFile = new File(excelFile.getParentFile(), excelFile.getName() + ".xlsx");
+	        }
+
+	        // Kiểm tra xem file đã tồn tại chưa
+	        if (excelFile.exists()) {
+	            int result = JOptionPane.showConfirmDialog(null,
+	                    "File đã tồn tại. Bạn có muốn ghi đè lên file hiện tại không?", "Ghi đè",
+	                    JOptionPane.YES_NO_OPTION);
+	            if (result != JOptionPane.YES_OPTION) {
+	                // Người dùng không muốn ghi đè, trả về false
+	                return false;
+	            }
+	        }
+
+	        try {
+	            FileOutputStream fileOut = new FileOutputStream(excelFile);
+	            XSSFWorkbook workbook = new XSSFWorkbook();
+	            XSSFSheet sheet = workbook.createSheet("Sheet1");
+
+	            int rowNum = 1;
+	            String[] title = {
+	                    "Mã giảm giá", "Ngày tạo", "Ngày kích hoạt", "Ngày hết hạn ", "Hình thức giảm", "Đơn hàng từ" ,"Mức giảm giá"
+	                };
+                Row head = sheet.createRow(0);
+                head.createCell(0).setCellValue(title[0]);
+                head.createCell(1).setCellValue(title[1]);
+                head.createCell(2).setCellValue(title[2]);
+                head.createCell(3).setCellValue(title[3]);
+                head.createCell(4).setCellValue(title[4]);
+                head.createCell(5).setCellValue(title[5]);
+                head.createCell(6).setCellValue(title[6]);
+                
+	            for (KhuyenMai km : list) {
+	                Row row = sheet.createRow(rowNum++);
+	                row.createCell(0).setCellValue(km.getCodeKhuyenMai());
+	                row.createCell(1).setCellValue(utilities.GetToDay.today());
+	                row.createCell(2).setCellValue(km.getNgayKhuyenMai()+"");
+	                row.createCell(3).setCellValue(km.getNgayHetHanKM()+"");
+	                row.createCell(4).setCellValue(km.getLoaiKhuyenMai());
+	                row.createCell(5).setCellValue(km.getDonHangTu());
+	                row.createCell(6).setCellValue(km.getGiaTri());
+	            }
+
+	            workbook.write(fileOut);
+	            fileOut.close();
+	            
+	            // Thông báo thành công
+	            JOptionPane.showMessageDialog(null, "Xuất file thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+	            return true;
+	            
+	        } catch (FileNotFoundException e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi: File không tìm thấy", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi khi ghi file", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    // Người dùng đã hủy hoặc có lỗi, trả về false
+	    return false;
+	}
 }

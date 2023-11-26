@@ -10,8 +10,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
+import bus.KhuyenMai_BUS;
 import entities.KhuyenMai;
 
 /**
@@ -21,25 +24,24 @@ import entities.KhuyenMai;
 public class Form_DanhSachVoucher extends javax.swing.JFrame {
 	private ArrayList<KhuyenMai> listVoucher;
 	private DefaultTableModel tableModelVoucher;
-	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-	private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-	private DecimalFormat fmt = new DecimalFormat("###,###");
+	private KhuyenMai_BUS khuyenMai_BUS;
+	private boolean checkImport = false;
+
     /**
      * Creates new form Form_DanhSachVoucher
      */
     public Form_DanhSachVoucher(ArrayList<KhuyenMai> listVoucher) {
-        initComponents();
         this.listVoucher = listVoucher;
+        initComponents();
+        loadVoucher();
+        khuyenMai_BUS = new KhuyenMai_BUS();
+        this.setLocationRelativeTo(null);
+      	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
-    
-	private String today() {
-		Date ngayHienTai = new Date();
-		return sdf.format(ngayHienTai);
-	}
     
     private void loadVoucher() {
     	for(KhuyenMai km : listVoucher) {
-    		tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(),today(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri()});
+    		tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(),utilities.GetToDay.today(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri(), (km.getSoLuotDaApDung() == 0) ? "Chưa sử dụng" : "Đã sử dụng"});
     	}
     }
     /**
@@ -59,17 +61,22 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableVoucher = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        importVoucher = new javax.swing.JButton();
         filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
-        jButton2 = new javax.swing.JButton();
+        back = new javax.swing.JButton();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1120, 600));
-        setMinimumSize(new java.awt.Dimension(1120, 600));
-        setPreferredSize(new java.awt.Dimension(1120, 600));
+        setMaximumSize(new java.awt.Dimension(1200, 600));
+        setMinimumSize(new java.awt.Dimension(1200, 600));
+        setPreferredSize(new java.awt.Dimension(1200, 600));
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         ALL.setLayout(new java.awt.BorderLayout());
         ALL.add(jPanel1, java.awt.BorderLayout.PAGE_START);
@@ -100,6 +107,11 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableVoucher.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableVoucherMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tableVoucher);
 
         jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
@@ -109,14 +121,24 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(285, 58));
         jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 14));
 
-        jButton1.setText("Import");
-        jButton1.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel2.add(jButton1);
+        importVoucher.setText("Import");
+        importVoucher.setPreferredSize(new java.awt.Dimension(120, 30));
+        importVoucher.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                importVoucherActionPerformed(evt);
+            }
+        });
+        jPanel2.add(importVoucher);
         jPanel2.add(filler2);
 
-        jButton2.setText("Trở về");
-        jButton2.setPreferredSize(new java.awt.Dimension(120, 30));
-        jPanel2.add(jButton2);
+        back.setText("Trở về");
+        back.setPreferredSize(new java.awt.Dimension(120, 30));
+        back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backActionPerformed(evt);
+            }
+        });
+        jPanel2.add(back);
         jPanel2.add(filler1);
 
         ALL.add(jPanel2, java.awt.BorderLayout.PAGE_END);
@@ -131,13 +153,47 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void importVoucherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_importVoucherActionPerformed
+        // TODO add your handling code here:
+    	if(khuyenMai_BUS.xuatFile(listVoucher)) {
+    		importVoucher.setEnabled(false);
+    		checkImport = true;
+    	}
+    }//GEN-LAST:event_importVoucherActionPerformed
+
+    private void tableVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVoucherMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableVoucherMouseClicked
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        if(checkImport) {
+        	evt.getWindow().dispose();
+        }
+        else {
+        	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        	JOptionPane.showMessageDialog(this, "Bạn phải import danh sách voucher trước");
+        }
+    }//GEN-LAST:event_formWindowClosing
+
+    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
+        // TODO add your handling code here:
+        if(checkImport) {
+        	this.setVisible(false);
+        	this.dispose();
+        }
+        else {
+        	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        	JOptionPane.showMessageDialog(this, "Bạn phải import danh sách voucher trước");
+        }
+    }//GEN-LAST:event_backActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel ALL;
+    private javax.swing.JButton back;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton importVoucher;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
