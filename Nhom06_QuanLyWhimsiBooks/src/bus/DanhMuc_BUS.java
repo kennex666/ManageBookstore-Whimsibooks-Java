@@ -25,7 +25,7 @@ public class DanhMuc_BUS implements IDanhMuc{
 		return danhMuc_DAO.getAllDanhMuc();
 	}
 	@Override
-	public ArrayList<DanhMuc> getDanhMucTheoID(String x) {
+	public ArrayList<DanhMuc> getDanhMucTheoID(int x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

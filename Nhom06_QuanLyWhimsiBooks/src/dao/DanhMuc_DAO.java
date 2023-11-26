@@ -69,7 +69,7 @@ public class DanhMuc_DAO implements IDanhMuc{
 		return list;
 	}
 	@Override
-	public ArrayList<DanhMuc> getDanhMucTheoID(String x) {
+	public ArrayList<DanhMuc> getDanhMucTheoID(int x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

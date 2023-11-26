@@ -230,8 +230,9 @@ public class SanPham_DAO implements ISanPham{
 				
 			String sql = "UPDATE SanPham "
 					+ "SET  TenSanPham = ?, NgayNhap  = ?, GiaNhap = ?, Thue = ?, LoaiDoiTra = ?,"
-					+ "Barcode = ?, ImgPath = ?, TinhTrang = ?, SoLuongTon = ?, NamSanXuat = ?, LoaiSanPham = ?,"
-					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, SoTrang = ?, LoaiBia = ? WHERE SanPhamID = ?";
+					+ "Barcode = ?, SoLuongTon = ?, NamSanXuat = ?,"
+					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, "
+                                        + "SoTrang = ?, LoaiBia = ? WHERE SanPhamID = ?";
 
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -241,18 +242,15 @@ public class SanPham_DAO implements ISanPham{
 				pstm.setDouble(4, sp.getThue());
 				pstm.setString(5, sp.getLoaiDoiTra());
 				pstm.setString(6, sp.getBarcode());
-				pstm.setString(7, sp.getImgPath());
-				pstm.setString(8, sp.getTinhTrang());
-				pstm.setInt(9, sp.getSoLuongTon());
-				pstm.setInt(10, sp.getNamSanXuat());
-				pstm.setString(11,  sp.getLoaiSanPham());
-				pstm.setString(12, sp.getDonViDoLuong());
-				pstm.setString(13, sp.getKichThuoc());
-				pstm.setString(14, sp.getXuatXu());
-				pstm.setString(15, sp.getNgonNgu());
-				pstm.setInt(16, sp.getSoTrang());
-				pstm.setString(17, sp.getLoaiBia());
-				pstm.setInt(18, id);
+				pstm.setInt(7, sp.getSoLuongTon());
+				pstm.setInt(8, sp.getNamSanXuat());
+				pstm.setString(9, sp.getDonViDoLuong());
+				pstm.setString(10, sp.getKichThuoc());
+				pstm.setString(11, sp.getXuatXu());
+				pstm.setString(12, sp.getNgonNgu());
+				pstm.setInt(13, sp.getSoTrang());
+				pstm.setString(14, sp.getLoaiBia());
+				pstm.setInt(15, id);
 				return(pstm.executeUpdate()>0)?true:false;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -594,6 +592,32 @@ public class SanPham_DAO implements ISanPham{
             e.printStackTrace();
         }
 	return "";
+    }
+
+    @Override
+    public boolean editTrangThaiSanPham(SanPham sp) {
+        int id = sp.getSanPhamID();
+		try {			
+				
+			String sql = "UPDATE SanPham "
+					+ "SET TinhTrang = ? WHERE SanPhamID = ?";
+
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);		
+				pstm.setString(1, sp.getTinhTrang());
+                                pstm.setInt(2, id);
+				return(pstm.executeUpdate()>0)?true:false;
+			} catch (Exception e) {
+				e.printStackTrace();
+//				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi");
+		}
+		
+		// TODO Auto-generated method stub
+		return false;
     }
 
 

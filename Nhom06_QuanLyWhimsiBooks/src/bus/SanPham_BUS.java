@@ -132,4 +132,9 @@ public class SanPham_BUS implements ISanPham{
         return sanPham_DAO.getNameNhaCungCapByID(ID);
     }
 
+    @Override
+    public boolean editTrangThaiSanPham(SanPham sp) {
+        return sanPham_DAO.editTrangThaiSanPham(sp);
+    }
+
 }

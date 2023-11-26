@@ -14,6 +14,7 @@ public interface ISanPham {
 	public ArrayList<SanPham> getDanhSachSanPham();
 	public ArrayList<SanPham> searchSanPham(String id);
 	public boolean addSanPham(SanPham sp);
+        public boolean editTrangThaiSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
 	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);

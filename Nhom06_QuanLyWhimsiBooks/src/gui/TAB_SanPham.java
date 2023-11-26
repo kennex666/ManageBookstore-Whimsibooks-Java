@@ -7,11 +7,13 @@ package gui;
 import bus.DanhMuc_BUS;
 import bus.NhaXuatBan_BUS;
 import bus.SanPham_BUS;
+import bus.ThuongHieu_BUS;
 import connectDB.ConnectDB;
 import entities.DanhMuc;
 import entities.NhaXuatBan;
 import entities.SanPham;
 import entities.TacGia;
+import entities.ThuongHieu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -66,6 +68,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
         {
             this.jComboBox_NhaXuatBan.addItem(nhaXuatBan.getTenNhaXuatBan().toString());
         }
+        ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
+        ArrayList<ThuongHieu> list_ThuongHieu = thuongHieu_BUS.getAllThuongHieu();
+        jComboBox_ThuongHieu.addItem("Tất cả");
+        for(ThuongHieu thuongHieu : list_ThuongHieu)
+        {
+            this.jComboBox_ThuongHieu.addItem(thuongHieu.getTenThuongHieu().toString());
+        }
 //       
             jPanel_Empty1.setBackground(new Color(242, 242, 242));
             jPanel_Empty2.setBackground(new Color(242, 242, 242));
@@ -76,18 +85,18 @@ public class TAB_SanPham extends javax.swing.JPanel {
 //            jPanel_Empty1.setPreferredSize(new Dimension(400, 10));
 //            jPanel_Empty2.setPreferredSize(new Dimension(400, 10));
             
-            jPanel_Empty1.setMaximumSize(new Dimension(400, 240));
-            jPanel_Empty2.setMaximumSize(new Dimension(400, 240));
+            jPanel_Empty1.setMaximumSize(new Dimension(405, 250));
+            jPanel_Empty2.setMaximumSize(new Dimension(405, 250));
             
-            jPanel_Empty3.setMaximumSize(new Dimension(400, 200));
-            jPanel_Empty4.setMaximumSize(new Dimension(400, 200));
+            jPanel_Empty3.setMaximumSize(new Dimension(411, 190));
+            jPanel_Empty4.setMaximumSize(new Dimension(411, 190));
         
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         list_SanPham = sanPham_BUS.getDanhSachSanPham();
                     box_SP.removeAll();
                     box_SPK.removeAll();
-        int i = 500;
-        int j = 500;
+        int i = 100;
+        int j = 100;
         for(SanPham sanPham : list_SanPham)
         {        
             if(sanPham.getLoaiSanPham().equals("SACH"))
@@ -100,7 +109,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 box_SP.add(jPanel_Empty1);
                 box_SP.add(jPanel_Empty2);
             
-                jPanel_List_SanPham.setPreferredSize(new Dimension(500, i += 210));
+                jPanel_List_SanPham.setPreferredSize(new Dimension(500, i += 250));
                 jPanel_List_SanPham.add(box_SP);
                 ++dem_sach;
 
@@ -155,7 +164,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 box_SPK.add(jPanel_Empty3);
                 box_SPK.add(jPanel_Empty4);
             
-                jPanel_List_SanPham1.setPreferredSize(new Dimension(500, j += 210));
+                jPanel_List_SanPham1.setPreferredSize(new Dimension(500, j += 190));
                 jPanel_List_SanPham1.add(box_SPK);
                 ++dem_spk;
 
@@ -212,9 +221,10 @@ public class TAB_SanPham extends javax.swing.JPanel {
          // TODO add your handling code here:
         this.jPanel_List_SanPham.removeAll();
         this.jPanel_List_SanPham1.removeAll();
+        
         jComboBox_DanhMuc.removeAllItems();
         jComboBox_NhaXuatBan.removeAllItems();
-        jComboBox_ThuongHieu.removeAll();
+        jComboBox_ThuongHieu.removeAllItems();
         dem_sach = 0;
         dem_spk = 0;
         
@@ -259,7 +269,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel_List_SanPham = new javax.swing.JPanel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(32767, 32767));
-        jPanel_Sach1 = new javax.swing.JPanel();
+        jPanel_SanPhamKhac = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jButton_Them_SPK = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -493,7 +503,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         jButton_TimKiem.setBackground(new java.awt.Color(15, 145, 239));
         jButton_TimKiem.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_TimKiem.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/icon-search.png")), 20 , 20));
+        jButton_TimKiem.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20 , 20));
         jButton_TimKiem.setFocusable(false);
         jButton_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -590,6 +600,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(16, 20));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(50, 50));
 
+        jPanel_List_SanPham.setAlignmentX(0.5F);
         jPanel_List_SanPham.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jPanel_List_SanPham.setMinimumSize(new java.awt.Dimension(500, 500));
         jPanel_List_SanPham.setName(""); // NOI18N
@@ -604,9 +615,9 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Sách", jPanel_Sach);
 
-        jPanel_Sach1.setMinimumSize(new java.awt.Dimension(16, 500));
-        jPanel_Sach1.setPreferredSize(new java.awt.Dimension(1280, 500));
-        jPanel_Sach1.setLayout(new java.awt.BorderLayout());
+        jPanel_SanPhamKhac.setMinimumSize(new java.awt.Dimension(16, 500));
+        jPanel_SanPhamKhac.setPreferredSize(new java.awt.Dimension(1280, 500));
+        jPanel_SanPhamKhac.setLayout(new java.awt.BorderLayout());
 
         jPanel7.setAutoscrolls(true);
         jPanel7.setFocusable(false);
@@ -707,8 +718,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jLabel8.setText("Thương hiệu");
         jLabel8.setPreferredSize(new java.awt.Dimension(85, 22));
 
-        jComboBox_ThuongHieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-
         javax.swing.GroupLayout jPanel17Layout = new javax.swing.GroupLayout(jPanel17);
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
@@ -766,7 +775,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         jButton_TimKiem_SPK.setBackground(new java.awt.Color(15, 145, 239));
         jButton_TimKiem_SPK.setForeground(new java.awt.Color(255, 255, 255));
-        jButton_TimKiem_SPK.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/icon-search.png")), 20 , 20));
+        jButton_TimKiem_SPK.setIcon(ImageProcessing.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-search.png")), 20 , 20));
         jButton_TimKiem_SPK.setFocusable(false);
         jButton_TimKiem_SPK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -856,7 +865,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel_Sach1.add(jPanel7, java.awt.BorderLayout.PAGE_START);
+        jPanel_SanPhamKhac.add(jPanel7, java.awt.BorderLayout.PAGE_START);
 
         jScrollPane2.setBackground(new java.awt.Color(255, 204, 204));
         jScrollPane2.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
@@ -870,12 +879,12 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel_List_SanPham1.setLayout(new javax.swing.BoxLayout(jPanel_List_SanPham1, javax.swing.BoxLayout.Y_AXIS));
         jScrollPane2.setViewportView(jPanel_List_SanPham1);
 
-        jPanel_Sach1.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        jPanel_SanPhamKhac.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         filler2.setBackground(new java.awt.Color(242, 242, 242));
-        jPanel_Sach1.add(filler2, java.awt.BorderLayout.LINE_END);
+        jPanel_SanPhamKhac.add(filler2, java.awt.BorderLayout.LINE_END);
 
-        jTabbedPane1.addTab("Sản phẩm khác", jPanel_Sach1);
+        jTabbedPane1.addTab("Sản phẩm khác", jPanel_SanPhamKhac);
 
         add(jTabbedPane1, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
@@ -1016,7 +1025,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel_List_SanPham;
     private javax.swing.JPanel jPanel_List_SanPham1;
     private javax.swing.JPanel jPanel_Sach;
-    private javax.swing.JPanel jPanel_Sach1;
+    private javax.swing.JPanel jPanel_SanPhamKhac;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;

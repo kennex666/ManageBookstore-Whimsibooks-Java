@@ -27,9 +27,11 @@ import javax.swing.ImageIcon;
 import utilities.ImageProcessing;
 import java.sql.Date;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,10 +44,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
      */
     public TAB_ThemSanPhamKhac() {
         initComponents();
-//        ImageProcessing.scaleImageFitToLabel(
-//                imageLbl, 
-//                new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")
-//                ));
+        this.txtNgay.setDate(java.util.Calendar.getInstance().getTime());
     }
 
     /**
@@ -134,6 +133,8 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jButton_Huy = new javax.swing.JButton();
         filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel3 = new javax.swing.JPanel();
+        jLabel_Warning = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(20, 15), new java.awt.Dimension(0, 0));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -160,7 +161,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
+            .addGap(0, 51, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel5);
@@ -196,7 +197,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         jLabel_Img.setBackground(new java.awt.Color(255, 204, 204));
         jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel_Img.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jLabel_Img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel_Img.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel_Img.setMaximumSize(new java.awt.Dimension(50, 190));
         jLabel_Img.setMinimumSize(new java.awt.Dimension(50, 190));
@@ -252,8 +253,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel11.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel44.add(jLabel11, java.awt.BorderLayout.CENTER);
 
-        jTextField_TenSanPham.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_TenSanPham.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_TenSanPham.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_TenSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_TenSanPhamMouseClicked(evt);
+            }
+        });
         jTextField_TenSanPham.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_TenSanPhamActionPerformed(evt);
@@ -272,8 +278,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_Barcode.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel32.add(jLabel_Barcode, java.awt.BorderLayout.CENTER);
 
-        jTextField_Barcode.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_Barcode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_Barcode.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_Barcode.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_BarcodeMouseClicked(evt);
+            }
+        });
         jTextField_Barcode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_BarcodeActionPerformed(evt);
@@ -291,8 +302,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_SoLuongTon.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel45.add(jLabel_SoLuongTon, java.awt.BorderLayout.CENTER);
 
-        jTextField_SoLuongTon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_SoLuongTon.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_SoLuongTon.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_SoLuongTon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_SoLuongTonMouseClicked(evt);
+            }
+        });
         jTextField_SoLuongTon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_SoLuongTonActionPerformed(evt);
@@ -317,8 +333,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_NhaCungCap.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel33.add(jLabel_NhaCungCap, java.awt.BorderLayout.CENTER);
 
-        jTextField_NhaCungCap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_NhaCungCap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_NhaCungCap.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_NhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_NhaCungCapMouseClicked(evt);
+            }
+        });
         jTextField_NhaCungCap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_NhaCungCapActionPerformed(evt);
@@ -336,8 +357,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_GiaNhap.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel34.add(jLabel_GiaNhap, java.awt.BorderLayout.CENTER);
 
-        jTextField_GiaNhap.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_GiaNhap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_GiaNhap.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_GiaNhap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_GiaNhapMouseClicked(evt);
+            }
+        });
         jTextField_GiaNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_GiaNhapActionPerformed(evt);
@@ -355,8 +381,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_TacGia.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel55.add(jLabel_TacGia, java.awt.BorderLayout.CENTER);
 
-        jTextField_ThuongHieu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_ThuongHieu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_ThuongHieu.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_ThuongHieu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_ThuongHieuMouseClicked(evt);
+            }
+        });
         jPanel55.add(jTextField_ThuongHieu, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel55);
@@ -385,6 +416,11 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel39.add(jLabel_NgayNhap1, java.awt.BorderLayout.CENTER);
 
         txtNgay.setPreferredSize(new java.awt.Dimension(88, 35));
+        txtNgay.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNgayMouseClicked(evt);
+            }
+        });
         jPanel39.add(txtNgay, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel39);
@@ -404,7 +440,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_NamSanXuat.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel46.add(jLabel_NamSanXuat, java.awt.BorderLayout.CENTER);
 
-        jTextField1_NamSanXuat.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField1_NamSanXuat.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField1_NamSanXuat.setPreferredSize(new java.awt.Dimension(71, 35));
         jTextField1_NamSanXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -423,8 +459,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_Thue1.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel38.add(jLabel_Thue1, java.awt.BorderLayout.CENTER);
 
-        jTextField_Thue.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_Thue.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_Thue.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_Thue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_ThueMouseClicked(evt);
+            }
+        });
         jTextField_Thue.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField_ThueActionPerformed(evt);
@@ -442,7 +483,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jLabel_XuatXu.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel50.add(jLabel_XuatXu, java.awt.BorderLayout.CENTER);
 
-        jTextField_XuatXu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_XuatXu.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTextField_XuatXu.setPreferredSize(new java.awt.Dimension(71, 35));
         jTextField_XuatXu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -513,17 +554,12 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setPreferredSize(new java.awt.Dimension(1119, 100));
+        jPanel3.setLayout(new java.awt.BorderLayout());
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 766, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 36, Short.MAX_VALUE)
-        );
+        jLabel_Warning.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        jLabel_Warning.setForeground(java.awt.Color.red);
+        jPanel3.add(jLabel_Warning, java.awt.BorderLayout.CENTER);
+        jPanel3.add(filler2, java.awt.BorderLayout.LINE_START);
 
         getContentPane().add(jPanel3);
 
@@ -583,9 +619,115 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_ThueActionPerformed
 
+    public boolean check_empty()
+    {
+
+        if(this.jTextField_TenSanPham.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập tên của sản phẩm!");
+            jTextField_TenSanPham.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_TenSanPham.setToolTipText("Tên của sản phẩm");
+            return false;
+        }
+        if(this.jTextField_Barcode.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập barcode của sản phẩm!");
+            jTextField_Barcode.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_Barcode.setToolTipText("Barcode của sản phẩm");
+            return false;
+        }
+        if(this.jTextField_SoLuongTon.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập số lượng của sản phẩm!");
+            jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_SoLuongTon.setToolTipText("Số lượng tồn của sản phẩm");
+            return false;
+        }
+        try {
+            int soLuongTon = Integer.parseInt(this.jTextField_SoLuongTon.getText());
+            if(soLuongTon < 0)
+            {
+                jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
+                this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
+                return false;
+            }
+        } catch (Exception e) {
+            jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
+            return false;
+        }
+        if(this.jTextField_NhaCungCap.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập tên nhà cung cấp!");
+            jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_NhaCungCap.setToolTipText("Tên của nhà cung cấp");
+            return false;
+        }
+        if(this.jTextField_GiaNhap.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập giá nhập hàng của sản phẩm!");
+            jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_GiaNhap.setToolTipText("Giá nhập của sản phẩm");
+            return false;
+        }
+         try {
+            double giaNhap = Double.parseDouble(this.jTextField_GiaNhap.getText());
+            if(giaNhap < 0)
+            {
+                jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
+                this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
+                return false;
+            }
+        } catch (Exception e) {
+            jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
+            return false;
+        }
+        if(this.jTextField_ThuongHieu.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập thương hiệu hàng của sản phẩm!");
+            jTextField_ThuongHieu.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_ThuongHieu.setToolTipText("Giá nhập của sản phẩm");
+            return false;
+        }
+        if(this.jTextField_Thue.getText().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy nhập thêm thuế của sản phẩm!");
+            jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jTextField_Thue.setToolTipText("Thuế của sản phẩm");
+            return false;
+        }
+        try {
+            double thue = Double.parseDouble(this.jTextField_Thue.getText());
+            if(thue < 0)
+            {
+                jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
+                this.jLabel_Warning.setText("Thuế của sản phẩm phải là số thực > 0!");
+                return false;
+            }
+        } catch (Exception e) {
+            jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.jLabel_Warning.setText("Thuế của sản phẩm phải là số thực > 0!");
+            return false;
+        }
+
+        if(this.txtNgay.getDate().toString().equals(""))
+        {
+            this.jLabel_Warning.setText("Hãy bổ sung ngày nhập");
+            txtNgay.setBorder(BorderFactory.createLineBorder(Color.red));
+            this.txtNgay.setToolTipText("Tên của sản phẩm");
+            return false;
+        }
+        
+        
+        return true;
+    }
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
         try {                                            
-            
+            if(!check_empty())
+            {
+                return;
+            }
             SanPham sanPham = getNewSanPham();
             sanPham.setTinhTrang("CON_HANG");
             sanPham.setLoaiSanPham("SAN_PHAM_KHAC");
@@ -608,11 +750,82 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
     private void jButton_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SuaActionPerformed
         // TODO add your handling code here:
+        try {
+            if(!check_empty())
+            {
+                return;
+            }       
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        try {
+            ConnectDB.getInstance().connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
+        if(decided == 0)
+        {
+            SanPham sanPham = getNewSanPham();
+            sanPham.setSanPhamID(ID);
+            sanPham_BUS.editSanPham(sanPham);
+            this.setVisible(false);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_jButton_SuaActionPerformed
 
     private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
         // TODO add your handling code here:
+        this.setVisible(false);
     }//GEN-LAST:event_jButton_HuyActionPerformed
+
+    private void jTextField_TenSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_TenSanPhamMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_TenSanPham.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_TenSanPhamMouseClicked
+
+    private void jTextField_BarcodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_BarcodeMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_Barcode.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_BarcodeMouseClicked
+
+    private void jTextField_SoLuongTonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_SoLuongTonMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_SoLuongTonMouseClicked
+
+    private void jTextField_NhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_NhaCungCapMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_NhaCungCapMouseClicked
+
+    private void jTextField_GiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_GiaNhapMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_GiaNhapMouseClicked
+
+    private void jTextField_ThuongHieuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_ThuongHieuMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_ThuongHieu.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_ThuongHieuMouseClicked
+
+    private void txtNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNgayMouseClicked
+        // TODO add your handling code here:
+        this.txtNgay.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_txtNgayMouseClicked
+
+    private void jTextField_ThueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_ThueMouseClicked
+        // TODO add your handling code here:
+        this.jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.black));
+        this.jLabel_Warning.setText("");
+    }//GEN-LAST:event_jTextField_ThueMouseClicked
     
     public SanPham getNewSanPham()
     {
@@ -622,10 +835,20 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText());
         
         double thue = Double.parseDouble(jTextField_Thue.getText());
-        int namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText());
+        int namSanXuat;
+        try {
+            namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText());
+        } catch (Exception e) {
+            namSanXuat = 1;
+        }
         String tenNhaCungCap = jTextField_NhaCungCap.getText();
         String tenThuongHieu = jTextField_ThuongHieu.getText();
-        String xuatXu = jTextField_XuatXu.getText();
+        String xuatXu;
+        try {
+            xuatXu = jTextField_XuatXu.getText();
+        } catch (Exception e) {
+            xuatXu = "";
+        }
         String loaiDoiTra = jComboBox_LoaiDoiTra.getSelectedItem().toString();
         
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
@@ -633,8 +856,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         Date DATE = Date.valueOf(date);
        
         
-        String filePath = this.file.getPath();
-        String partialPath = filePath.substring(filePath.indexOf("img\\products"));
+        String partialPath;
+         try {
+            String filePath = this.file.getPath();
+            partialPath = filePath.substring(filePath.indexOf("img\\products"));
+        } catch (Exception e) {
+            partialPath = "";
+        }
         
 
         ThuongHieu th = new ThuongHieu();
@@ -698,31 +926,27 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         ConnectDB.getInstance().connect();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ID = x.getSanPhamID();
-        ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
+        try {
+            ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
 
-        Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-        imageIcon = new ImageIcon(newimg); 
-        this.jLabel_Img.setIcon(imageIcon);
+            Image image = imageIcon.getImage(); // transform it 
+            Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            imageIcon = new ImageIcon(newimg); 
+            this.jLabel_Img.setIcon(imageIcon);
+        } catch (Exception e) {
+            this.jLabel_Img.setText("NO IMAGE");
+        }
         
         this.jTextField_TenSanPham.setText(x.getTenSanPham());
         this.jTextField_SoLuongTon.setText(x.getSoLuongTon() + "");
-        this.jTextField_ThuongHieu.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
+        this.jTextField_ThuongHieu.setText(sanPham_BUS.getNameThuongHieuByID(x.getThuongHieu().getThuongHieuID()));
      
         this.jTextField_Barcode.setText(x.getBarcode());
         this.jTextField_NhaCungCap.setText(x.getNhaCungCap().getTenNhaCungCap());
         this.jTextField_GiaNhap.setText(x.getGiaNhap() + "");
         this.jTextField_Thue.setText(x.getThue() + "");
         this.jTextField1_NamSanXuat.setText(x.getNamSanXuat() + "");
-        if(x.getLoaiSanPham().equals("SACH"))
-        {
-            
-        }
-        else if(x.getLoaiSanPham().equals("SACH"))
-        {
-            
-        }
-
+       
         this.jTextField_XuatXu.setText(x.getXuatXu());
         this.jTextField_NhaCungCap.setText(sanPham_BUS.getNameNhaCungCapByID(x.getNhaCungCap().getNhaCungCapID()));
 
@@ -769,6 +993,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler16;
     private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler19;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
@@ -804,6 +1029,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_SoTrang2;
     private javax.swing.JLabel jLabel_TacGia;
     private javax.swing.JLabel jLabel_Thue1;
+    private javax.swing.JLabel jLabel_Warning;
     private javax.swing.JLabel jLabel_XuatXu;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel14;

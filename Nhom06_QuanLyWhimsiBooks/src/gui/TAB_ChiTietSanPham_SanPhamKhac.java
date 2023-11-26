@@ -71,12 +71,12 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 0));
+        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 15), new java.awt.Dimension(0, 0));
         jPanel_Component_SanPham = new javax.swing.JPanel();
         jPanel_Box_Left = new javax.swing.JPanel();
         jLabel_Img = new javax.swing.JLabel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 5), new java.awt.Dimension(0, 0));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(0, 0));
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(20, 5), new java.awt.Dimension(0, 0));
         jPanel_Info_SanPham1 = new javax.swing.JPanel();
         jPanel159 = new javax.swing.JPanel();
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
@@ -98,10 +98,12 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
         jButton_NgungBan = new javax.swing.JButton();
         filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(2, 2), new java.awt.Dimension(10, 10));
         filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
+        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 32767));
 
-        setMaximumSize(new java.awt.Dimension(400, 180));
-        setMinimumSize(new java.awt.Dimension(400, 180));
-        setPreferredSize(new java.awt.Dimension(450, 180));
+        setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        setMaximumSize(new java.awt.Dimension(411, 190));
+        setMinimumSize(new java.awt.Dimension(411, 190));
+        setPreferredSize(new java.awt.Dimension(411, 190));
         setLayout(new java.awt.BorderLayout());
 
         filler16.setBackground(new java.awt.Color(242, 242, 242));
@@ -120,6 +122,8 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
         jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel_Img.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel_Img.setMaximumSize(new java.awt.Dimension(150, 305));
+        jLabel_Img.setMinimumSize(new java.awt.Dimension(150, 305));
         jLabel_Img.setPreferredSize(new java.awt.Dimension(150, 305));
         jPanel_Box_Left.add(jLabel_Img, java.awt.BorderLayout.CENTER);
         jPanel_Box_Left.add(filler11, java.awt.BorderLayout.LINE_END);
@@ -127,9 +131,10 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
 
         jPanel_Component_SanPham.add(jPanel_Box_Left);
 
-        jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel_Info_SanPham1.setLayout(new javax.swing.BoxLayout(jPanel_Info_SanPham1, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel159.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         jPanel159.setMaximumSize(new java.awt.Dimension(305, 217));
         jPanel159.setPreferredSize(new java.awt.Dimension(305, 217));
         jPanel159.setLayout(new javax.swing.BoxLayout(jPanel159, javax.swing.BoxLayout.Y_AXIS));
@@ -142,6 +147,9 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
         jLabel_TenSanPham.setText("Field_TenSanPham");
         jLabel_TenSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel_TenSanPham.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel_TenSanPham.setMaximumSize(new java.awt.Dimension(180, 21));
+        jLabel_TenSanPham.setMinimumSize(new java.awt.Dimension(180, 21));
+        jLabel_TenSanPham.setPreferredSize(new java.awt.Dimension(180, 21));
         jPanel_TenSanPham.add(jLabel_TenSanPham);
 
         jPanel159.add(jPanel_TenSanPham);
@@ -219,6 +227,7 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
         jPanel_Component_SanPham.add(filler19);
 
         add(jPanel_Component_SanPham, java.awt.BorderLayout.CENTER);
+        add(filler3, java.awt.BorderLayout.PAGE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -246,6 +255,7 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
             }
                 
             x.setTinhTrang("NGUNG_KINH_DOANH");
+            sanPham_BUS.editTrangThaiSanPham(x);
             return;
         }
         
@@ -258,7 +268,7 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
             }
            
             x.setTinhTrang("CON_HANG");
-            return;
+            sanPham_BUS.editTrangThaiSanPham(x);
         }
        
     }//GEN-LAST:event_btnNgungKDActionPerformed
@@ -273,6 +283,7 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler18;
     private javax.swing.Box.Filler filler19;
     private javax.swing.Box.Filler filler2;
+    private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler7;
     private javax.swing.Box.Filler filler9;

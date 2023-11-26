@@ -77,7 +77,7 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
         jPanel_Component_SanPham = new javax.swing.JPanel();
         jPanel_Box_Left = new javax.swing.JPanel();
         jLabel_Img = new javax.swing.JLabel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(0, 0));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 10), new java.awt.Dimension(0, 0));
         filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 7), new java.awt.Dimension(0, 0));
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 5), new java.awt.Dimension(0, 0));
@@ -112,17 +112,21 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
         filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setMaximumSize(new java.awt.Dimension(400, 250));
-        setPreferredSize(new java.awt.Dimension(450, 235));
+        setMaximumSize(new java.awt.Dimension(412, 235));
+        setMinimumSize(new java.awt.Dimension(412, 235));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(412, 235));
         setLayout(new java.awt.BorderLayout());
         add(filler16, java.awt.BorderLayout.PAGE_START);
 
-        jPanel_Component_SanPham.setMaximumSize(new java.awt.Dimension(455, 354));
-        jPanel_Component_SanPham.setMinimumSize(new java.awt.Dimension(400, 250));
-        jPanel_Component_SanPham.setPreferredSize(new java.awt.Dimension(400, 250));
+        jPanel_Component_SanPham.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_Component_SanPham.setMaximumSize(new java.awt.Dimension(405, 250));
+        jPanel_Component_SanPham.setMinimumSize(new java.awt.Dimension(405, 250));
+        jPanel_Component_SanPham.setPreferredSize(new java.awt.Dimension(405, 250));
         jPanel_Component_SanPham.setLayout(new javax.swing.BoxLayout(jPanel_Component_SanPham, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel_Box_Left.setMaximumSize(new java.awt.Dimension(231, 237));
+        jPanel_Box_Left.setMaximumSize(new java.awt.Dimension(175, 225));
+        jPanel_Box_Left.setMinimumSize(new java.awt.Dimension(175, 225));
         jPanel_Box_Left.setPreferredSize(new java.awt.Dimension(175, 225));
         jPanel_Box_Left.setLayout(new java.awt.BorderLayout());
 
@@ -139,11 +143,15 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
 
         jPanel_Component_SanPham.add(jPanel_Box_Left);
 
-        jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel_Info_SanPham1.setMaximumSize(new java.awt.Dimension(230, 214));
+        jPanel_Info_SanPham1.setMinimumSize(new java.awt.Dimension(230, 214));
+        jPanel_Info_SanPham1.setPreferredSize(new java.awt.Dimension(230, 210));
         jPanel_Info_SanPham1.setLayout(new javax.swing.BoxLayout(jPanel_Info_SanPham1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel159.setMaximumSize(new java.awt.Dimension(305, 217));
-        jPanel159.setPreferredSize(new java.awt.Dimension(305, 217));
+        jPanel159.setMaximumSize(new java.awt.Dimension(230, 205));
+        jPanel159.setMinimumSize(new java.awt.Dimension(230, 205));
+        jPanel159.setPreferredSize(new java.awt.Dimension(230, 205));
         jPanel159.setLayout(new javax.swing.BoxLayout(jPanel159, javax.swing.BoxLayout.Y_AXIS));
         jPanel159.add(filler10);
 
@@ -154,6 +162,9 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
         jLabel_TenSanPham.setText("Field_TenSanPham");
         jLabel_TenSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jLabel_TenSanPham.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel_TenSanPham.setMaximumSize(new java.awt.Dimension(215, 21));
+        jLabel_TenSanPham.setMinimumSize(new java.awt.Dimension(215, 21));
+        jLabel_TenSanPham.setPreferredSize(new java.awt.Dimension(215, 21));
         jPanel_TenSanPham1.add(jLabel_TenSanPham);
 
         jPanel159.add(jPanel_TenSanPham1);
@@ -286,6 +297,7 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
             }
                 
             x.setTinhTrang("NGUNG_KINH_DOANH");
+            sanPham_BUS.editTrangThaiSanPham(x);
             return;
         }
         
@@ -298,7 +310,7 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
             }
            
             x.setTinhTrang("CON_HANG");
-            return;
+            sanPham_BUS.editTrangThaiSanPham(x);
         }
        
     }//GEN-LAST:event_btnNgungKDActionPerformed
