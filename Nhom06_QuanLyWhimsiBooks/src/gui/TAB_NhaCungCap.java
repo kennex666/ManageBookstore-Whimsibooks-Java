@@ -487,7 +487,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyNCCActionPerformed
     
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
-    	 JFileChooser excelFileChooser = new JFileChooser("D:\\");
+    	 	JFileChooser excelFileChooser = new JFileChooser("D:\\");
     	    excelFileChooser.setDialogTitle("Save Excel File");
     	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
     	    excelFileChooser.setFileFilter(fnef);

@@ -55,7 +55,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 	private boolean evt_selectVoucher = false;
 	private boolean evt_selectSave = false;
-	private Form_DanhSachVoucher danhSachVoucher;
     /**
      * Creates new form TAB_KhuyenMai
      */
@@ -64,7 +63,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         khuyenMai_BUS = new KhuyenMai_BUS();
         sanPham_BUS = new SanPham_BUS();
         chiTietKhuyenMai_BUS = new ChiTietKhuyenMai_BUS();
-        danhSachVoucher = new Form_DanhSachVoucher();
         loadDataKM();
         loadDataSP();
     	loadDuLieuThuongHieu();
@@ -539,15 +537,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableChonSPMouseClicked
     
-    private String phatSinhMaKhuyenMai() {
-		try {
-			String maKhuyenMai = "KM" + String.format("%03d", khuyenMai_BUS.layMaNCCCuoiCung() + 1);
-			return maKhuyenMai;
-		} catch (NullPointerException e) {
-			return "KM" + "001";
-		}
-	}
-    
     private String VoucherCode() {
     	String voucherCode;
     	String nameRequired = "Voucher_";
@@ -576,6 +565,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
     	java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
     	ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+    	
     	if(evt_selectVoucher == false) {
 	    	if(!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6}$"))) {
 	    		new utilities.ShowMessageError().showError(this, txtMaKM, "Mã khuyến mãi không đúng định dạng (có 6 ký tự ví dụ: Abc_123)", "Thông báo");
@@ -591,22 +581,27 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     		new utilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng", "Thông báo");
     		return false;
     	}
+    	
     	if(!(soLuongApDung > 0)){
     		new utilities.ShowMessageError().showErrorNoTextFile(this, "Số lượng > 0", "Thông báo");  		
     		return false;
     	}
+    	
     	if(!(donHangTu.length() > 0 && Integer.valueOf(donHangTu) > 0)){
     		new utilities.ShowMessageError().showError(this, txtDonHangTu,"Đơn hàng > 0", "Thông báo");
     		return false;
     	}
+    	
     	if(!(mucGiam.length() > 0 && Integer.valueOf(mucGiam) > 0)){
     		new utilities.ShowMessageError().showError(this, txtMucGiamGia,"Mức giảm > 0", "Thông báo");
     		return false;
     	}
+    	
     	if(ngayBatDau.after(ngayKetThuc)){
     		new utilities.ShowMessageError().showErrorNoTextFile(this, "Ngày bắt đầu phải trước ngày kết thúc", "Thông báo");
     		return false;
     	}
+    	
     	return true;
     }
     
@@ -614,6 +609,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
     	try {
     		if(checkValue()) {
+    			boolean check = false;
+    			ArrayList<KhuyenMai> listVoucher = new ArrayList<KhuyenMai>();
         		String maKM = txtMaKM.getText();
             	String tenKM = txtTenKM.getText();
             	int soLuongApDung = (int) spSoLuongApDung.getValue();
@@ -627,11 +624,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	
             	if(evt_selectVoucher == true) {
             		try {
-            			boolean check = false;
             			for(int i = 0; i < soLuongApDung; i++) {
             				KhuyenMai khuyenMai = new KhuyenMai(VoucherCode() ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),1, 0);
             				if(khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
             					check = true;
+            					listVoucher.add(khuyenMai);
             				}
             				else {
             					check = false;
@@ -660,6 +657,10 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 						JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
 					}
         		}
+                if(check == true) {
+                	Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
+                	danhSachVoucher.setVisible(true);
+                }
     		}
 		} catch (Exception e) {
 			e.printStackTrace();

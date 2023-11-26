@@ -1,24 +1,47 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package gui;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+
 import javax.swing.table.DefaultTableModel;
+
+import entities.KhuyenMai;
 
 /**
  *
  * @author NguyenThanhLuan
  */
-public class Form_DanhSachVoucher extends javax.swing.JPanel {
-
+public class Form_DanhSachVoucher extends javax.swing.JFrame {
+	private ArrayList<KhuyenMai> listVoucher;
+	private DefaultTableModel tableModelVoucher;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+	private DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+	private DecimalFormat fmt = new DecimalFormat("###,###");
     /**
      * Creates new form Form_DanhSachVoucher
      */
-    public Form_DanhSachVoucher() {
+    public Form_DanhSachVoucher(ArrayList<KhuyenMai> listVoucher) {
         initComponents();
+        this.listVoucher = listVoucher;
     }
-
+    
+	private String today() {
+		Date ngayHienTai = new Date();
+		return sdf.format(ngayHienTai);
+	}
+    
+    private void loadVoucher() {
+    	for(KhuyenMai km : listVoucher) {
+    		tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(),today(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri()});
+    	}
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,114 +51,101 @@ public class Form_DanhSachVoucher extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        pnlVoucher = new javax.swing.JPanel();
-        titleSelectKhuyenMai = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        filler3 = new javax.swing.Box.Filler(new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(5, 32767));
-        comboboxApDung = new javax.swing.JComboBox<>();
-        jPanel16 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
-        TimMaSanPham = new javax.swing.JTextField();
-        btnTimKiem = new javax.swing.JButton();
-        tableSelectKhuyenMai = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableChonSP = new javax.swing.JTable();
+        ALL = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tableVoucher = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jButton2 = new javax.swing.JButton();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+        jPanel3 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
 
-        setLayout(new java.awt.BorderLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(1120, 600));
+        setMinimumSize(new java.awt.Dimension(1120, 600));
+        setPreferredSize(new java.awt.Dimension(1120, 600));
 
-        pnlVoucher.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 1, 1, 1));
-        pnlVoucher.setPreferredSize(new java.awt.Dimension(602, 310));
-        pnlVoucher.setLayout(new java.awt.BorderLayout());
+        ALL.setLayout(new java.awt.BorderLayout());
+        ALL.add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
-        titleSelectKhuyenMai.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 8, 1, 8));
-        titleSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(602, 72));
-        titleSelectKhuyenMai.setLayout(new java.awt.GridLayout(2, 2, 0, 8));
+        jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 10));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jPanel17.setLayout(new javax.swing.BoxLayout(jPanel17, javax.swing.BoxLayout.LINE_AXIS));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(15, 145, 239));
+        jLabel1.setText("Danh sách voucher");
+        jPanel5.add(jLabel1);
 
-        jLabel10.setText("Áp dụng theo thương hiệu: ");
-        jPanel17.add(jLabel10);
-        jPanel17.add(filler3);
+        jPanel4.add(jPanel5, java.awt.BorderLayout.NORTH);
 
-        comboboxApDung.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        comboboxApDung.setFocusable(false);
-        jPanel17.add(comboboxApDung);
-
-        titleSelectKhuyenMai.add(jPanel17);
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 250, Short.MAX_VALUE)
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 31, Short.MAX_VALUE)
-        );
-
-        titleSelectKhuyenMai.add(jPanel16);
-
-        jPanel14.setLayout(new javax.swing.BoxLayout(jPanel14, javax.swing.BoxLayout.LINE_AXIS));
-        titleSelectKhuyenMai.add(jPanel14);
-
-        jPanel12.setLayout(new java.awt.BorderLayout(10, 0));
-        jPanel12.add(TimMaSanPham, java.awt.BorderLayout.CENTER);
-
-        btnTimKiem.setBackground(new java.awt.Color(15, 145, 239));
-        btnTimKiem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-addKM.png"))); // NOI18N
-        btnTimKiem.setPreferredSize(new java.awt.Dimension(80, 23));
-        jPanel12.add(btnTimKiem, java.awt.BorderLayout.EAST);
-
-        titleSelectKhuyenMai.add(jPanel12);
-
-        pnlVoucher.add(titleSelectKhuyenMai, java.awt.BorderLayout.PAGE_START);
-
-        tableSelectKhuyenMai.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
-        tableSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(870, 200));
-        tableSelectKhuyenMai.setLayout(new java.awt.BorderLayout());
-
-        tableChonSP.setModel(new DefaultTableModel(
+        tableVoucher.setModel(tableModelVoucher = new DefaultTableModel(
             new Object [][] {
+
             },
             new String [] {
-                "Chọn", "Mã sản phẩm", "Tên sản phẩm"
+                "Mã giảm giá", "Ngày tạo", "Ngày kích hoạt", "Ngày hết hạn ", "Hình thức giảm","Đon hàng từ" ,"Mức giảm giá", "Trạng thái"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, true, true, false
             };
 
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tableChonSP);
+        jScrollPane1.setViewportView(tableVoucher);
 
-        tableSelectKhuyenMai.add(jScrollPane2, java.awt.BorderLayout.PAGE_START);
+        jPanel4.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-        pnlVoucher.add(tableSelectKhuyenMai, java.awt.BorderLayout.CENTER);
+        ALL.add(jPanel4, java.awt.BorderLayout.CENTER);
 
-        add(pnlVoucher, java.awt.BorderLayout.CENTER);
+        jPanel2.setPreferredSize(new java.awt.Dimension(285, 58));
+        jPanel2.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 14));
+
+        jButton1.setText("Import");
+        jButton1.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel2.add(jButton1);
+        jPanel2.add(filler2);
+
+        jButton2.setText("Trở về");
+        jButton2.setPreferredSize(new java.awt.Dimension(120, 30));
+        jPanel2.add(jButton2);
+        jPanel2.add(filler1);
+
+        ALL.add(jPanel2, java.awt.BorderLayout.PAGE_END);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/icon-voucher.png"))); // NOI18N
+        jPanel3.add(jLabel3);
+
+        ALL.add(jPanel3, java.awt.BorderLayout.LINE_START);
+
+        getContentPane().add(ALL, java.awt.BorderLayout.CENTER);
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField TimMaSanPham;
-    private javax.swing.JButton btnTimKiem;
-    private javax.swing.JComboBox<String> comboboxApDung;
-    private javax.swing.Box.Filler filler3;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JPanel pnlVoucher;
-    private javax.swing.JTable tableChonSP;
-    private javax.swing.JPanel tableSelectKhuyenMai;
-    private javax.swing.JPanel titleSelectKhuyenMai;
+    private javax.swing.JPanel ALL;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tableVoucher;
     // End of variables declaration//GEN-END:variables
 }
