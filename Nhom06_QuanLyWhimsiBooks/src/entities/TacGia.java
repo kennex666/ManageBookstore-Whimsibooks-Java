@@ -37,6 +37,9 @@ public class TacGia {
 		setTenTacGia(tenTacGia);
 	}
 	
+        public TacGia(int tacGiaID) {
+            setTacGiaID(tacGiaID);
+	}
 	
 	
 	@Override
@@ -52,8 +55,10 @@ public class TacGia {
 		if (getClass() != obj.getClass())
 			return false;
 		TacGia other = (TacGia) obj;
-		return tacGiaID == other.tacGiaID;
+	
+                return tacGiaID == other.tacGiaID;
 	}
+
 	public TacGia() {
 		super();
 	}

@@ -97,12 +97,6 @@ public class SanPham_DAO implements ISanPham{
 			
 			//query = "SELECT * FROM SanPham";
 			
-			TacGia tg = new TacGia();
-			NhaCungCap ncc = new NhaCungCap();
-			TheLoai tl = new TheLoai();
-			NhaXuatBan nxb = new NhaXuatBan();
-			DanhMuc dm = new DanhMuc();
-			ThuongHieu th = new ThuongHieu();
 			
 			ResultSet rs = stm.executeQuery(query);
 			
@@ -134,12 +128,13 @@ public class SanPham_DAO implements ISanPham{
 					int danhmucid = rs.getInt("danhmucid"); 
 					String nhacungcapid = rs.getString("nhacungcapid");
 					
-					tg.setTacGiaID(tacgiaid);
-					tl.setTheLoaiID(theloaiid);
-					nxb.setNhaXuatBanID(nhaxuatbanid);
-					th.setThuongHieuID(thuonghieuid);
-					dm.setDanhMucID(danhmucid);
-					ncc.setNhaCungCapID(nhacungcapid);
+                                        
+                                        TacGia tg = new TacGia(tacgiaid);
+                                        NhaCungCap ncc = new NhaCungCap(nhacungcapid);
+                                        TheLoai tl = new TheLoai(theloaiid);
+                                        NhaXuatBan nxb = new NhaXuatBan(nhaxuatbanid);
+                                        DanhMuc dm = new DanhMuc(danhmucid);
+                                        ThuongHieu th = new ThuongHieu(thuonghieuid);
 					
 					
 //					tg.setTacGiaID(1);
@@ -477,13 +472,13 @@ public class SanPham_DAO implements ISanPham{
     @Override
     public int getIdDanhMucByName(String name) {
        try {
-                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
+                String query = "SELECT DanhMucID FROM DanhMuc WHERE TenDanhMuc = ?";
                 PreparedStatement pstm = conn.prepareStatement(query);
 		pstm.setString(1, name);
                 ResultSet rs = pstm.executeQuery();
                 while(rs.next())
                 {
-                    int id = rs.getInt("NhaXuatBanID");
+                    int id = rs.getInt("DanhMucID");
                     return id;
                 }
                 

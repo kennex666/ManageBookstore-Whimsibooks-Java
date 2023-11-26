@@ -22,7 +22,11 @@ public class NhaXuatBan {
 		this.setLinhVucXuatBan(linhVucXuatBan);
 		this.setQuocGia(quocGia);
 	}
-	public NhaXuatBan() {
+	public NhaXuatBan(int nhaXuatBanID) {
+		super();
+		this.setNhaXuatBanID(nhaXuatBanID);
+	}
+        public NhaXuatBan() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

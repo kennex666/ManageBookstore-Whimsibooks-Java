@@ -259,6 +259,8 @@ public class SanPham {
 		setDanhMuc(danhMuc);
 		setNhaCungCap(nhaCungCap);
 	}
+        
+        
 	public SanPham() {
 		super();
 		long millis = System.currentTimeMillis();

@@ -35,12 +35,12 @@ import javax.swing.JLabel;
  *
  * @author ASUS
  */
-public class TAB_ThemSanPham extends javax.swing.JFrame {
+public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
     /**
      * Creates new form TAB_ThemSanPham
      */
-    public TAB_ThemSanPham() {
+    public TAB_ThemSanPhamKhac() {
         initComponents();
 //        ImageProcessing.scaleImageFitToLabel(
 //                imageLbl, 
@@ -67,8 +67,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel18 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
-        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 20), new java.awt.Dimension(10, 10));
-        filler27 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 10), new java.awt.Dimension(10, 10));
+        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 20), new java.awt.Dimension(10, 10));
         filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 10), new java.awt.Dimension(10, 10));
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 10), new java.awt.Dimension(0, 0));
         jLabel_Img = new javax.swing.JLabel();
@@ -90,6 +89,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jTextField_SoLuongTon = new javax.swing.JTextField();
         filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel22 = new javax.swing.JPanel();
+        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
         jPanel33 = new javax.swing.JPanel();
         jLabel_NhaCungCap = new javax.swing.JLabel();
         jTextField_NhaCungCap = new javax.swing.JTextField();
@@ -100,21 +100,18 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
         jPanel55 = new javax.swing.JPanel();
         jLabel_TacGia = new javax.swing.JLabel();
-        jTextField_TacGia = new javax.swing.JTextField();
+        jTextField_ThuongHieu = new javax.swing.JTextField();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel56 = new javax.swing.JPanel();
-        jLabel_SoLuongTon2 = new javax.swing.JLabel();
-        jTextField_TheLoai = new javax.swing.JTextField();
-        filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel59 = new javax.swing.JPanel();
-        jLabel_SoLuongTon5 = new javax.swing.JLabel();
-        jTextField_DanhMuc = new javax.swing.JTextField();
-        filler15 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel57 = new javax.swing.JPanel();
-        jLabel_SoLuongTon3 = new javax.swing.JLabel();
-        jTextField_NhaXuatBan = new javax.swing.JTextField();
+        jPanel58 = new javax.swing.JPanel();
+        jLabel_SoTrang2 = new javax.swing.JLabel();
+        jComboBox_LoaiDoiTra = new javax.swing.JComboBox<>();
+        filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
+        jPanel39 = new javax.swing.JPanel();
+        jLabel_NgayNhap1 = new javax.swing.JLabel();
+        txtNgay = new com.toedter.calendar.JDateChooser();
         filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel23 = new javax.swing.JPanel();
+        filler46 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
         jPanel46 = new javax.swing.JPanel();
         jLabel_NamSanXuat = new javax.swing.JLabel();
         jTextField1_NamSanXuat = new javax.swing.JTextField();
@@ -122,53 +119,25 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel38 = new javax.swing.JPanel();
         jLabel_Thue1 = new javax.swing.JLabel();
         jTextField_Thue = new javax.swing.JTextField();
-        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel49 = new javax.swing.JPanel();
-        jLabel_KichThuoc = new javax.swing.JLabel();
-        jTextField_KichThuoc = new javax.swing.JTextField();
         filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
         jPanel50 = new javax.swing.JPanel();
         jLabel_XuatXu = new javax.swing.JLabel();
         jTextField_XuatXu = new javax.swing.JTextField();
-        filler20 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel51 = new javax.swing.JPanel();
-        jLabel_NgonNgu = new javax.swing.JLabel();
-        jTextField_NgonNgu = new javax.swing.JTextField();
         filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel37 = new javax.swing.JPanel();
-        jLabel_NgayNhap = new javax.swing.JLabel();
-        txtNgay = new com.toedter.calendar.JDateChooser();
-        filler36 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 50), new java.awt.Dimension(10, 10));
-        jPanel25 = new javax.swing.JPanel();
-        jPanel52 = new javax.swing.JPanel();
-        jLabel_SoTrang = new javax.swing.JLabel();
-        jTextField_SoTrang = new javax.swing.JTextField();
-        filler38 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel53 = new javax.swing.JPanel();
-        jLabel_LoaiBia = new javax.swing.JLabel();
-        jTextField_LoaiBia = new javax.swing.JTextField();
-        filler44 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel60 = new javax.swing.JPanel();
-        jLabel_DonViDoLuong1 = new javax.swing.JLabel();
-        jTextField_DonViDoLuong = new javax.swing.JTextField();
-        filler24 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel54 = new javax.swing.JPanel();
-        jLabel_SoTrang1 = new javax.swing.JLabel();
-        jComboBox_LoaiDoiTra = new javax.swing.JComboBox<>();
-        filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel8 = new javax.swing.JPanel();
-        filler35 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 40), new java.awt.Dimension(10, 10));
+        jPanel26 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        filler40 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 40), new java.awt.Dimension(10, 10));
         jButton_Luu = new javax.swing.JButton();
-        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jButton_Sua = new javax.swing.JButton();
-        filler42 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        filler45 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jButton_Huy = new javax.swing.JButton();
         filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -187,11 +156,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 832, Short.MAX_VALUE)
+            .addGap(0, 593, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 64, Short.MAX_VALUE)
+            .addGap(0, 52, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel5);
@@ -208,7 +177,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMaximumSize(new java.awt.Dimension(300, 300));
-        jPanel18.setPreferredSize(new java.awt.Dimension(320, 250));
+        jPanel18.setPreferredSize(new java.awt.Dimension(250, 200));
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel2.setText("Hình ảnh");
@@ -222,7 +191,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel6.setRequestFocusEnabled(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
         jPanel6.add(filler28, java.awt.BorderLayout.LINE_END);
-        jPanel6.add(filler27, java.awt.BorderLayout.PAGE_START);
         jPanel6.add(filler29, java.awt.BorderLayout.LINE_START);
         jPanel6.add(filler1, java.awt.BorderLayout.PAGE_END);
 
@@ -241,21 +209,21 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
         jPanel19.setMinimumSize(new java.awt.Dimension(82, 20));
-        jPanel19.setPreferredSize(new java.awt.Dimension(304, 50));
+        jPanel19.setPreferredSize(new java.awt.Dimension(304, 30));
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.X_AXIS));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setPreferredSize(new java.awt.Dimension(135, 30));
+        jPanel7.setPreferredSize(new java.awt.Dimension(135, 20));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 115, Short.MAX_VALUE)
+            .addGap(0, 116, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
+            .addGap(0, 30, Short.MAX_VALUE)
         );
 
         jPanel19.add(jPanel7);
@@ -340,6 +308,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
         jPanel22.setPreferredSize(new java.awt.Dimension(300, 780));
         jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.Y_AXIS));
+        jPanel22.add(filler17);
 
         jPanel33.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel33.setLayout(new java.awt.BorderLayout());
@@ -382,67 +351,43 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel55.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel55.setLayout(new java.awt.BorderLayout());
 
-        jLabel_TacGia.setText("Tác giả");
+        jLabel_TacGia.setText("Thương hiệu");
         jLabel_TacGia.setPreferredSize(new java.awt.Dimension(74, 10));
         jPanel55.add(jLabel_TacGia, java.awt.BorderLayout.CENTER);
 
-        jTextField_TacGia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_TacGia.setPreferredSize(new java.awt.Dimension(71, 35));
-        jPanel55.add(jTextField_TacGia, java.awt.BorderLayout.PAGE_END);
+        jTextField_ThuongHieu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jTextField_ThuongHieu.setPreferredSize(new java.awt.Dimension(71, 35));
+        jPanel55.add(jTextField_ThuongHieu, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel55);
         jPanel22.add(filler11);
 
-        jPanel56.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel56.setLayout(new java.awt.BorderLayout());
+        jPanel58.setPreferredSize(new java.awt.Dimension(0, 60));
+        jPanel58.setLayout(new java.awt.BorderLayout());
 
-        jLabel_SoLuongTon2.setText("Thể loại");
-        jLabel_SoLuongTon2.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel56.add(jLabel_SoLuongTon2, java.awt.BorderLayout.CENTER);
+        jLabel_SoTrang2.setText("Loại đổi trả");
+        jLabel_SoTrang2.setPreferredSize(new java.awt.Dimension(74, 10));
+        jPanel58.add(jLabel_SoTrang2, java.awt.BorderLayout.CENTER);
 
-        jTextField_TheLoai.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_TheLoai.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_TheLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_TheLoaiActionPerformed(evt);
-            }
-        });
-        jPanel56.add(jTextField_TheLoai, java.awt.BorderLayout.PAGE_END);
+        jComboBox_LoaiDoiTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Được đổi trả", "Không được đổi" }));
+        jComboBox_LoaiDoiTra.setMinimumSize(new java.awt.Dimension(72, 35));
+        jComboBox_LoaiDoiTra.setPreferredSize(new java.awt.Dimension(119, 35));
+        jPanel58.add(jComboBox_LoaiDoiTra, java.awt.BorderLayout.PAGE_END);
 
-        jPanel22.add(jPanel56);
-        jPanel22.add(filler10);
+        jPanel22.add(jPanel58);
+        jPanel22.add(filler22);
 
-        jPanel59.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel59.setLayout(new java.awt.BorderLayout());
+        jPanel39.setPreferredSize(new java.awt.Dimension(0, 60));
+        jPanel39.setLayout(new java.awt.BorderLayout());
 
-        jLabel_SoLuongTon5.setText("Danh mục");
-        jLabel_SoLuongTon5.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel59.add(jLabel_SoLuongTon5, java.awt.BorderLayout.CENTER);
+        jLabel_NgayNhap1.setText("Ngày nhập");
+        jLabel_NgayNhap1.setPreferredSize(new java.awt.Dimension(74, 10));
+        jPanel39.add(jLabel_NgayNhap1, java.awt.BorderLayout.CENTER);
 
-        jTextField_DanhMuc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_DanhMuc.setPreferredSize(new java.awt.Dimension(71, 35));
-        jPanel59.add(jTextField_DanhMuc, java.awt.BorderLayout.PAGE_END);
+        txtNgay.setPreferredSize(new java.awt.Dimension(88, 35));
+        jPanel39.add(txtNgay, java.awt.BorderLayout.PAGE_END);
 
-        jPanel22.add(jPanel59);
-        jPanel22.add(filler15);
-
-        jPanel57.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel57.setLayout(new java.awt.BorderLayout());
-
-        jLabel_SoLuongTon3.setText("Nhà xuất bản");
-        jLabel_SoLuongTon3.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel57.add(jLabel_SoLuongTon3, java.awt.BorderLayout.CENTER);
-
-        jTextField_NhaXuatBan.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_NhaXuatBan.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_NhaXuatBan.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NhaXuatBanActionPerformed(evt);
-            }
-        });
-        jPanel57.add(jTextField_NhaXuatBan, java.awt.BorderLayout.PAGE_END);
-
-        jPanel22.add(jPanel57);
+        jPanel22.add(jPanel39);
 
         jPanel9.add(jPanel22);
         jPanel9.add(filler32);
@@ -450,6 +395,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
         jPanel23.setPreferredSize(new java.awt.Dimension(300, 780));
         jPanel23.setLayout(new javax.swing.BoxLayout(jPanel23, javax.swing.BoxLayout.Y_AXIS));
+        jPanel23.add(filler46);
 
         jPanel46.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel46.setLayout(new java.awt.BorderLayout());
@@ -487,25 +433,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel38.add(jTextField_Thue, java.awt.BorderLayout.PAGE_END);
 
         jPanel23.add(jPanel38);
-        jPanel23.add(filler18);
-
-        jPanel49.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel49.setLayout(new java.awt.BorderLayout());
-
-        jLabel_KichThuoc.setText("Kích thước");
-        jLabel_KichThuoc.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel49.add(jLabel_KichThuoc, java.awt.BorderLayout.CENTER);
-
-        jTextField_KichThuoc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_KichThuoc.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_KichThuoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_KichThuocActionPerformed(evt);
-            }
-        });
-        jPanel49.add(jTextField_KichThuoc, java.awt.BorderLayout.PAGE_END);
-
-        jPanel23.add(jPanel49);
         jPanel23.add(filler19);
 
         jPanel50.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -525,123 +452,17 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel50.add(jTextField_XuatXu, java.awt.BorderLayout.PAGE_END);
 
         jPanel23.add(jPanel50);
-        jPanel23.add(filler20);
-
-        jPanel51.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel51.setLayout(new java.awt.BorderLayout());
-
-        jLabel_NgonNgu.setText("Ngôn ngữ");
-        jLabel_NgonNgu.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel51.add(jLabel_NgonNgu, java.awt.BorderLayout.CENTER);
-
-        jTextField_NgonNgu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_NgonNgu.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_NgonNgu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NgonNguActionPerformed(evt);
-            }
-        });
-        jPanel51.add(jTextField_NgonNgu, java.awt.BorderLayout.PAGE_END);
-
-        jPanel23.add(jPanel51);
         jPanel23.add(filler21);
 
-        jPanel37.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel37.setLayout(new java.awt.BorderLayout());
+        jPanel26.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel26.setPreferredSize(new java.awt.Dimension(200, 150));
+        jPanel26.setLayout(new javax.swing.BoxLayout(jPanel26, javax.swing.BoxLayout.Y_AXIS));
 
-        jLabel_NgayNhap.setText("Ngày nhập");
-        jLabel_NgayNhap.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel37.add(jLabel_NgayNhap, java.awt.BorderLayout.CENTER);
-
-        txtNgay.setPreferredSize(new java.awt.Dimension(88, 35));
-        jPanel37.add(txtNgay, java.awt.BorderLayout.PAGE_END);
-
-        jPanel23.add(jPanel37);
-
-        jPanel9.add(jPanel23);
-        jPanel9.add(filler36);
-
-        jPanel25.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel25.setPreferredSize(new java.awt.Dimension(300, 780));
-        jPanel25.setLayout(new javax.swing.BoxLayout(jPanel25, javax.swing.BoxLayout.Y_AXIS));
-
-        jPanel52.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel52.setLayout(new java.awt.BorderLayout());
-
-        jLabel_SoTrang.setText("Số trang");
-        jLabel_SoTrang.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel52.add(jLabel_SoTrang, java.awt.BorderLayout.CENTER);
-
-        jTextField_SoTrang.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_SoTrang.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_SoTrang.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_SoTrangActionPerformed(evt);
-            }
-        });
-        jPanel52.add(jTextField_SoTrang, java.awt.BorderLayout.PAGE_END);
-
-        jPanel25.add(jPanel52);
-        jPanel25.add(filler38);
-
-        jPanel53.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel53.setLayout(new java.awt.BorderLayout());
-
-        jLabel_LoaiBia.setText("Loại bìa");
-        jLabel_LoaiBia.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel53.add(jLabel_LoaiBia, java.awt.BorderLayout.CENTER);
-
-        jTextField_LoaiBia.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_LoaiBia.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_LoaiBia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_LoaiBiaActionPerformed(evt);
-            }
-        });
-        jPanel53.add(jTextField_LoaiBia, java.awt.BorderLayout.PAGE_END);
-
-        jPanel25.add(jPanel53);
-        jPanel25.add(filler44);
-
-        jPanel60.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel60.setLayout(new java.awt.BorderLayout());
-
-        jLabel_DonViDoLuong1.setText("Đơn vị đo lường");
-        jLabel_DonViDoLuong1.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel60.add(jLabel_DonViDoLuong1, java.awt.BorderLayout.CENTER);
-
-        jTextField_DonViDoLuong.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jTextField_DonViDoLuong.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_DonViDoLuong.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_DonViDoLuongActionPerformed(evt);
-            }
-        });
-        jPanel60.add(jTextField_DonViDoLuong, java.awt.BorderLayout.PAGE_END);
-
-        jPanel25.add(jPanel60);
-        jPanel25.add(filler24);
-
-        jPanel54.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel54.setLayout(new java.awt.BorderLayout());
-
-        jLabel_SoTrang1.setText("Loại đổi trả");
-        jLabel_SoTrang1.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel54.add(jLabel_SoTrang1, java.awt.BorderLayout.CENTER);
-
-        jComboBox_LoaiDoiTra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Được đổi trả", "Không được đổi" }));
-        jComboBox_LoaiDoiTra.setMinimumSize(new java.awt.Dimension(72, 35));
-        jComboBox_LoaiDoiTra.setPreferredSize(new java.awt.Dimension(119, 35));
-        jPanel54.add(jComboBox_LoaiDoiTra, java.awt.BorderLayout.PAGE_END);
-
-        jPanel25.add(jPanel54);
-        jPanel25.add(filler26);
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel8.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        jPanel8.setPreferredSize(new java.awt.Dimension(0, 155));
-        jPanel8.setLayout(new javax.swing.BoxLayout(jPanel8, javax.swing.BoxLayout.Y_AXIS));
-        jPanel8.add(filler35);
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel10.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
+        jPanel10.setPreferredSize(new java.awt.Dimension(0, 100));
+        jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.Y_AXIS));
+        jPanel10.add(filler40);
 
         jButton_Luu.setBackground(new java.awt.Color(15, 145, 239));
         jButton_Luu.setForeground(new java.awt.Color(255, 255, 255));
@@ -653,8 +474,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 jButton_LuuActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton_Luu);
-        jPanel8.add(filler41);
+        jPanel10.add(jButton_Luu);
+        jPanel10.add(filler43);
 
         jButton_Sua.setBackground(new java.awt.Color(15, 145, 239));
         jButton_Sua.setForeground(new java.awt.Color(255, 255, 255));
@@ -666,8 +487,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 jButton_SuaActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton_Sua);
-        jPanel8.add(filler42);
+        jPanel10.add(jButton_Sua);
+        jPanel10.add(filler45);
 
         jButton_Huy.setBackground(new java.awt.Color(15, 145, 239));
         jButton_Huy.setForeground(new java.awt.Color(255, 255, 255));
@@ -679,11 +500,13 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 jButton_HuyActionPerformed(evt);
             }
         });
-        jPanel8.add(jButton_Huy);
+        jPanel10.add(jButton_Huy);
 
-        jPanel25.add(jPanel8);
+        jPanel26.add(jPanel10);
 
-        jPanel9.add(jPanel25);
+        jPanel23.add(jPanel26);
+
+        jPanel9.add(jPanel23);
         jPanel9.add(filler34);
 
         getContentPane().add(jPanel9);
@@ -695,11 +518,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1005, Short.MAX_VALUE)
+            .addGap(0, 766, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 52, Short.MAX_VALUE)
+            .addGap(0, 36, Short.MAX_VALUE)
         );
 
         getContentPane().add(jPanel3);
@@ -731,25 +554,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1_NamSanXuatActionPerformed
 
-    private void jTextField_KichThuocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_KichThuocActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_KichThuocActionPerformed
-
     private void jTextField_XuatXuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_XuatXuActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_XuatXuActionPerformed
-
-    private void jTextField_NgonNguActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NgonNguActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_NgonNguActionPerformed
-
-    private void jTextField_SoTrangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_SoTrangActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_SoTrangActionPerformed
-
-    private void jTextField_LoaiBiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_LoaiBiaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_LoaiBiaActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
@@ -764,7 +571,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             e.printStackTrace();
         }
         
-        Image newimg = img.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way        
+        Image newimg = img.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way        
         ImageIcon icon = new ImageIcon(newimg); 
         jLabel_Img.setIcon(icon);
 
@@ -772,67 +579,40 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jTextField_TheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TheLoaiActionPerformed
+    private void jTextField_ThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ThueActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_TheLoaiActionPerformed
-
-    private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton_HuyActionPerformed
-
-    private void jButton_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SuaActionPerformed
-        // TODO add your handling code here:
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        try {
-            ConnectDB.getInstance().connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        
-        SanPham sanPham = getNewSanPham();
-        sanPham.setSanPhamID(ID);
-        sanPham_BUS.editSanPham(sanPham);
-        
-    }//GEN-LAST:event_jButton_SuaActionPerformed
+    }//GEN-LAST:event_jTextField_ThueActionPerformed
 
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
-        
         try {                                            
             
             SanPham sanPham = getNewSanPham();
             sanPham.setTinhTrang("CON_HANG");
-            sanPham.setLoaiSanPham("SACH");
-            sanPham.setThuongHieu(new ThuongHieu(1, ""));
+            sanPham.setLoaiSanPham("SAN_PHAM_KHAC");
             SanPham_BUS sanPham_BUS = new SanPham_BUS();
             try {
                 ConnectDB.getInstance().connect();
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            System.out.println(sanPham);
             sanPham_BUS.addSanPham(sanPham);
-            
+     
             this.setVisible(false);
             
             
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
     }//GEN-LAST:event_jButton_LuuActionPerformed
 
-    private void jTextField_ThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ThueActionPerformed
+    private void jButton_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SuaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_ThueActionPerformed
+    }//GEN-LAST:event_jButton_SuaActionPerformed
 
-    private void jTextField_NhaXuatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NhaXuatBanActionPerformed
+    private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_NhaXuatBanActionPerformed
-
-    private void jTextField_DonViDoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_DonViDoLuongActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_DonViDoLuongActionPerformed
+    }//GEN-LAST:event_jButton_HuyActionPerformed
     
     public SanPham getNewSanPham()
     {
@@ -843,13 +623,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         
         double thue = Double.parseDouble(jTextField_Thue.getText());
         int namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText());
-        
-        String donViDoLuong = jTextField_DonViDoLuong.getText();
-        String kichThuoc = jTextField_KichThuoc.getText();
+        String tenNhaCungCap = jTextField_NhaCungCap.getText();
+        String tenThuongHieu = jTextField_ThuongHieu.getText();
         String xuatXu = jTextField_XuatXu.getText();
-        String ngonNgu = jTextField_NgonNgu.getText();
-        int soTrang = Integer.parseInt(jTextField_SoTrang.getText());
-        String loaiBia = jTextField_LoaiBia.getText();
         String loaiDoiTra = jComboBox_LoaiDoiTra.getSelectedItem().toString();
         
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
@@ -860,32 +636,14 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         String filePath = this.file.getPath();
         String partialPath = filePath.substring(filePath.indexOf("img\\products"));
         
-        
-        
- 
-        
-        NhaCungCap ncc = new NhaCungCap();
-        TheLoai tl = new TheLoai();
-        NhaXuatBan nxb = new NhaXuatBan();
-        DanhMuc dm = new DanhMuc();
-        TacGia tg = new TacGia();
-        ThuongHieu th = new ThuongHieu();
-        
-        String tenTacGia = jTextField_TacGia.getText();
-        String tenNhaCungCap = jTextField_NhaCungCap.getText();
-        String tenTheLoai = jTextField_TheLoai.getText();
-        String tenNhaXuatBan = jTextField_NhaXuatBan.getText();
-        String tenDanhMuc = jTextField_DanhMuc.getText();
 
+        ThuongHieu th = new ThuongHieu();
+        NhaCungCap ncc = new NhaCungCap();
 
        
         try {
+            th.setTenThuongHieu(tenThuongHieu);
             ncc.setTenNhaCungCap(tenNhaCungCap);
-            tl.setTenTheLoai(tenTheLoai);
-            nxb.setTenNhaXuatBan(tenNhaXuatBan);
-            dm.setTenDanhMuc(tenDanhMuc);
-            tg.setTenTacGia(tenTacGia);
-
         } catch (Exception e) {
            
             e.printStackTrace();
@@ -898,17 +656,10 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
+
+        th.setThuongHieuID(sanPham_BUS.getIdThuongHieuByName(th.getTenThuongHieu()));
         ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
-        
-        tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
-
-        nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
-        
-        dm.setDanhMucID(sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc()));
-
-        tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
-
 
         SanPham sanPham = new SanPham();
         try {
@@ -916,34 +667,23 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setSoLuongTon(soLuongTon);
             sanPham.setBarcode(barcode);
             sanPham.setGiaNhap(giaNhap);
-//            if (tinhTrang.equalsIgnoreCase("Còn hàng")) {
-//            	tinhTrang = "CON_HANG";
-//            	
-//            } else if (tinhTrang.equalsIgnoreCase("Hết hàng")) {
-//            	tinhTrang = "HET_HANG";
-//            }else {
-//            	tinhTrang = "NGUNG_KINH_DOANH";
-//            }
-//            sanPham.setTinhTrang(tinhTrang);
             sanPham.setThue(thue);
             sanPham.setNamSanXuat(namSanXuat);
-            sanPham.setDonViDoLuong(donViDoLuong);
-            sanPham.setKichThuoc(kichThuoc);
             sanPham.setXuatXu(xuatXu);
-            sanPham.setNgonNgu(ngonNgu);
-            sanPham.setSoTrang(soTrang);
-            sanPham.setLoaiBia(loaiBia);
             sanPham.setLoaiDoiTra(loaiDoiTra.equalsIgnoreCase("Được đổi trả") ? "DUOC_DOI_TRA" : "KHONG_DOI_TRA");
             sanPham.setNgayNhap(DATE);
             sanPham.setImgPath(partialPath);
-            
-            sanPham.setTacGia(tg);
-            sanPham.setTheLoai(tl);
-            sanPham.setNhaCungCap(ncc);
-            sanPham.setDanhMuc(dm);
-            sanPham.setNhaXuatBan(nxb);
             sanPham.setThuongHieu(th);
-            
+            sanPham.setTacGia(new TacGia(1));
+            sanPham.setTheLoai(new TheLoai(1));
+            sanPham.setDanhMuc(new DanhMuc(1));
+            sanPham.setNhaXuatBan(new NhaXuatBan(1));
+            sanPham.setNhaCungCap(ncc);
+            sanPham.setKichThuoc("");
+            sanPham.setNgonNgu("");
+            sanPham.setSoTrang(1);
+            sanPham.setLoaiBia("");
+            sanPham.setDonViDoLuong("");
         } catch (Exception ex) {
            
             ex.printStackTrace();
@@ -967,13 +707,12 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         
         this.jTextField_TenSanPham.setText(x.getTenSanPham());
         this.jTextField_SoLuongTon.setText(x.getSoLuongTon() + "");
-        this.jTextField_TacGia.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
+        this.jTextField_ThuongHieu.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
      
         this.jTextField_Barcode.setText(x.getBarcode());
         this.jTextField_NhaCungCap.setText(x.getNhaCungCap().getTenNhaCungCap());
         this.jTextField_GiaNhap.setText(x.getGiaNhap() + "");
         this.jTextField_Thue.setText(x.getThue() + "");
-        this.jTextField_TheLoai.setText(x.getTheLoai().getTenTheLoai());
         this.jTextField1_NamSanXuat.setText(x.getNamSanXuat() + "");
         if(x.getLoaiSanPham().equals("SACH"))
         {
@@ -983,17 +722,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         {
             
         }
-        this.jTextField_DonViDoLuong.setText(x.getDonViDoLuong());
-        this.jTextField_KichThuoc.setText(x.getKichThuoc());
+
         this.jTextField_XuatXu.setText(x.getXuatXu());
-        this.jTextField_NgonNgu.setText(x.getNgonNgu());
-        this.jTextField_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
-        this.jTextField_DanhMuc.setText(sanPham_BUS.getNameDanhMucByID(x.getDanhMuc().getDanhMucID()));
-        this.jTextField_TheLoai.setText(sanPham_BUS.getNameTheLoaiByID(x.getTheLoai().getTheLoaiID()));
         this.jTextField_NhaCungCap.setText(sanPham_BUS.getNameNhaCungCapByID(x.getNhaCungCap().getNhaCungCapID()));
 
-        this.jTextField_SoTrang.setText(x.getSoTrang()+"");
-        this.jTextField_LoaiBia.setText(x.getLoaiBia());
+
         if(x.getLoaiDoiTra().equals("DUOC_DOI_TRA"))
         {
             this.jComboBox_LoaiDoiTra.setSelectedIndex(0);
@@ -1030,21 +763,16 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private File file;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler10;
     private javax.swing.Box.Filler filler11;
     private javax.swing.Box.Filler filler13;
     private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler15;
     private javax.swing.Box.Filler filler16;
-    private javax.swing.Box.Filler filler18;
+    private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler19;
-    private javax.swing.Box.Filler filler20;
     private javax.swing.Box.Filler filler21;
+    private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
-    private javax.swing.Box.Filler filler24;
     private javax.swing.Box.Filler filler25;
-    private javax.swing.Box.Filler filler26;
-    private javax.swing.Box.Filler filler27;
     private javax.swing.Box.Filler filler28;
     private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler30;
@@ -1052,13 +780,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler32;
     private javax.swing.Box.Filler filler33;
     private javax.swing.Box.Filler filler34;
-    private javax.swing.Box.Filler filler35;
-    private javax.swing.Box.Filler filler36;
     private javax.swing.Box.Filler filler37;
-    private javax.swing.Box.Filler filler38;
-    private javax.swing.Box.Filler filler41;
-    private javax.swing.Box.Filler filler42;
-    private javax.swing.Box.Filler filler44;
+    private javax.swing.Box.Filler filler40;
+    private javax.swing.Box.Filler filler43;
+    private javax.swing.Box.Filler filler45;
+    private javax.swing.Box.Filler filler46;
     private javax.swing.Box.Filler filler7;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_Huy;
@@ -1069,72 +795,48 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel_Barcode;
-    private javax.swing.JLabel jLabel_DonViDoLuong1;
     private javax.swing.JLabel jLabel_GiaNhap;
     private javax.swing.JLabel jLabel_Img;
-    private javax.swing.JLabel jLabel_KichThuoc;
-    private javax.swing.JLabel jLabel_LoaiBia;
     private javax.swing.JLabel jLabel_NamSanXuat;
-    private javax.swing.JLabel jLabel_NgayNhap;
-    private javax.swing.JLabel jLabel_NgonNgu;
+    private javax.swing.JLabel jLabel_NgayNhap1;
     private javax.swing.JLabel jLabel_NhaCungCap;
     private javax.swing.JLabel jLabel_SoLuongTon;
-    private javax.swing.JLabel jLabel_SoLuongTon2;
-    private javax.swing.JLabel jLabel_SoLuongTon3;
-    private javax.swing.JLabel jLabel_SoLuongTon5;
-    private javax.swing.JLabel jLabel_SoTrang;
-    private javax.swing.JLabel jLabel_SoTrang1;
+    private javax.swing.JLabel jLabel_SoTrang2;
     private javax.swing.JLabel jLabel_TacGia;
     private javax.swing.JLabel jLabel_Thue1;
     private javax.swing.JLabel jLabel_XuatXu;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel25;
+    private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel32;
     private javax.swing.JPanel jPanel33;
     private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel37;
     private javax.swing.JPanel jPanel38;
+    private javax.swing.JPanel jPanel39;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
-    private javax.swing.JPanel jPanel49;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel50;
-    private javax.swing.JPanel jPanel51;
-    private javax.swing.JPanel jPanel52;
-    private javax.swing.JPanel jPanel53;
-    private javax.swing.JPanel jPanel54;
     private javax.swing.JPanel jPanel55;
-    private javax.swing.JPanel jPanel56;
-    private javax.swing.JPanel jPanel57;
-    private javax.swing.JPanel jPanel59;
+    private javax.swing.JPanel jPanel58;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTextField jTextField1_NamSanXuat;
     private javax.swing.JTextField jTextField_Barcode;
-    private javax.swing.JTextField jTextField_DanhMuc;
-    private javax.swing.JTextField jTextField_DonViDoLuong;
     private javax.swing.JTextField jTextField_GiaNhap;
-    private javax.swing.JTextField jTextField_KichThuoc;
-    private javax.swing.JTextField jTextField_LoaiBia;
-    private javax.swing.JTextField jTextField_NgonNgu;
     private javax.swing.JTextField jTextField_NhaCungCap;
-    private javax.swing.JTextField jTextField_NhaXuatBan;
     private javax.swing.JTextField jTextField_SoLuongTon;
-    private javax.swing.JTextField jTextField_SoTrang;
-    private javax.swing.JTextField jTextField_TacGia;
     private javax.swing.JTextField jTextField_TenSanPham;
-    private javax.swing.JTextField jTextField_TheLoai;
     private javax.swing.JTextField jTextField_Thue;
+    private javax.swing.JTextField jTextField_ThuongHieu;
     private javax.swing.JTextField jTextField_XuatXu;
     private com.toedter.calendar.JDateChooser txtNgay;
     // End of variables declaration//GEN-END:variables
