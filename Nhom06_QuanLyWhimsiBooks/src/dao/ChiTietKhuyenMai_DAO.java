@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -38,6 +39,42 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
+					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
+					list.add(chiTietKhuyenMai);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public Date getNgayTao(String maKM) {
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
+			ResultSet rs = stm.executeQuery(query);	
+	        if (rs.next()) {
+	            return rs.getDate("NgayTao");
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {

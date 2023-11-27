@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import bus.ChiTietKhuyenMai_BUS;
 import bus.DanhMuc_BUS;
 import bus.KhuyenMai_BUS;
 import bus.SanPham_BUS;
@@ -25,7 +26,9 @@ public class MainMenuTest {
 //		KhuyenMai_DAO a = new KhuyenMai_DAO();
 //		System.out.println(a.TimKiemKhuyenMaiTheoDieuKien("Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+0+"%' and LoaiGiamGia = 'Percentage'"));
 		
-		KhuyenMai_BUS bus = new KhuyenMai_BUS();
-		System.out.println(bus.TimKiemTheoDieuKien("", "Giá trị"));
+//		KhuyenMai_BUS bus = new KhuyenMai_BUS();
+//		System.out.println(bus.TimKiemTheoDieuKien("", "Giá trị"));
+		ChiTietKhuyenMai_BUS bus = new ChiTietKhuyenMai_BUS();
+		System.out.println(bus.laySanPhamKMTheoMa("AAA"));
 	}
 }

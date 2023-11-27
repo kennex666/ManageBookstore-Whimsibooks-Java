@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.swing.DefaultCellEditor;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,6 +37,8 @@ import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
 import entities.ThuongHieu;
+import utilities.ButtonRender;
+import utilities.ImageProcessing;
 
 /**
  *
@@ -67,6 +70,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         loadDataSP();
     	loadDuLieuThuongHieu();
         currentDate = Calendar.getInstance();
+		tableKM.getColumn("Chi tiết").setCellRenderer(new ButtonRender(ImageProcessing
+				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 10, 10)));
+		System.out.println(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")));
     }
 
     /**
@@ -93,7 +99,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         radVoucher = new javax.swing.JCheckBox();
         jPanel9 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        tenKhuyenMai = new javax.swing.JLabel();
         txtTenKM = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -208,9 +214,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel9.setLayout(new javax.swing.BoxLayout(jPanel9, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel3.setText("Tên khuyến mãi:");
-        jLabel3.setPreferredSize(new java.awt.Dimension(110, 16));
-        jPanel9.add(jLabel3);
+        tenKhuyenMai.setText("Tên khuyến mãi:");
+        tenKhuyenMai.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel9.add(tenKhuyenMai);
         jPanel9.add(txtTenKM);
 
         jPanel5.setMinimumSize(new java.awt.Dimension(100, 34));
@@ -489,20 +495,55 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
         jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
 
-        tableKM.setModel(tableModel = new DefaultTableModel(
+        tableKM.setModel(tableModel = new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc","DonHangTu","SoLuongKhuyenMai","SoLuotDaApDung","Xem sản phẩm"
+                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn giá từ", "Số lượng", "Đã áp dụng", "Chi tiết"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        if(tableKM.getColumnModel().getColumnCount() > 0) {
+            tableKM.getColumnModel().getColumn(0).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("STT");
+            tableKM.getColumnModel().getColumn(1).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Mã khuyễn mãi");
+            tableKM.getColumnModel().getColumn(2).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Tên khuyến mãi");
+            tableKM.getColumnModel().getColumn(3).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Loại khuyến mãi");
+            tableKM.getColumnModel().getColumn(4).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Giá trị");
+            tableKM.getColumnModel().getColumn(5).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Ngày bắt đầu");
+            tableKM.getColumnModel().getColumn(6).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Ngày kết thúc");
+            tableKM.getColumnModel().getColumn(7).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Đơn giá từ");
+            tableKM.getColumnModel().getColumn(8).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Số lượng khuyến mãi");
+            tableKM.getColumnModel().getColumn(9).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Số lượng đã áp dụng");
+            tableKM.getColumnModel().getColumn(10).setResizable(false);
+            tableKM.getColumnModel().getColumn(0).setHeaderValue("Chi tiết");
+        }
         tableKM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableKMMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(tableKM);
+        if (tableKM.getColumnModel().getColumnCount() > 0) {
+            tableKM.getColumnModel().getColumn(1).setPreferredWidth(30);
+        }
 
         jPanel11.add(jScrollPane3);
 
@@ -760,8 +801,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
          int selectedColumn = tableKM.getSelectedColumn();
          
          if (selectedColumn == tableKM.getColumnCount() - 1) {
-             // Tạo và hiển thị màn hình mới (giả sử gui_XemChiTietKhuyeMai là một JFrame)
-             GUI_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new GUI_XemChiTietKhuyeMai();
+        	 
+        	 String maKM = (String) tableKM.getValueAt(selectedRow, 1);
+        	 
+             Form_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new Form_XemChiTietKhuyeMai(maKM);
+             
              gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
              gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
              gui_XemChiTietKhuyeMai.setVisible(true);
@@ -776,6 +820,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	       	   txtMaKM.setEditable(false);
 	       	   evt_selectVoucher = true;
 	       	   lblSoLuong.setText("Số lượng Voucher: ");
+	       	   tenKhuyenMai.setText("Tên sự kiện: ");
 	       	   comboboxApDung.setEnabled(false);
 	       	   lblApDung.setEnabled(false);
 	       	   checkBoxSelectChoTatCa.setEnabled(false);
@@ -795,6 +840,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	  txtMaKM.setEditable(true);
     	  evt_selectVoucher = false;
     	  lblSoLuong.setText("Số lượng áp dụng: ");
+    	  tenKhuyenMai.setText("Tên khuyến mãi :");
     	  comboboxApDung.setEnabled(true);
     	  lblApDung.setEnabled(true);
     	  checkBoxSelectChoTatCa.setEnabled(true);
@@ -865,7 +911,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -902,6 +947,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JTable tableChonSP;
     private javax.swing.JTable tableKM;
     private javax.swing.JPanel tableSelectKhuyenMai;
+    private javax.swing.JLabel tenKhuyenMai;
     private javax.swing.JPanel title;
     private javax.swing.JPanel titleSelectKhuyenMai;
     private javax.swing.JTextField txtDonHangTu;
