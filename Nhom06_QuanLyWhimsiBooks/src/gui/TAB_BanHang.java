@@ -95,7 +95,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-increase.png")), 15, 15)));
 		tblChiTietHoaDon.getColumn("Xoá").setCellRenderer(new ButtonRender(ImageProcessing
 				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 12, 15)));
-
 		tblChiTietHoaDon.addMouseListener(this);
 
 		// Placeholder text

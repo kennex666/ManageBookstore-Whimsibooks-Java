@@ -70,9 +70,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         loadDataSP();
     	loadDuLieuThuongHieu();
         currentDate = Calendar.getInstance();
-		tableKM.getColumn("Chi tiết").setCellRenderer(new ButtonRender(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 10, 10)));
-		System.out.println(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")));
+        tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
     }
 
     /**
@@ -157,7 +155,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         ComboboxTimTheoMucGiam = new javax.swing.JComboBox<>();
         filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 0), new java.awt.Dimension(30, 32767));
         jPanel11 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane1 = new javax.swing.JScrollPane();
         tableKM = new javax.swing.JTable();
 
         setLayout(new java.awt.BorderLayout());
@@ -493,59 +491,39 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel2.add(jPanel19, java.awt.BorderLayout.PAGE_START);
 
         jPanel11.setBorder(javax.swing.BorderFactory.createEmptyBorder(4, 4, 4, 4));
-        jPanel11.setLayout(new javax.swing.BoxLayout(jPanel11, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel11.setLayout(new java.awt.BorderLayout());
 
         tableKM.setModel(tableModel = new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "STT", "Mã khuyễn mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn giá từ", "Số lượng", "Đã áp dụng", "Chi tiết"
+                "STT", "Mã khuyến mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn giá từ", "Số lượng", "Đã áp dụng", "Chi tiết"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false, true
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        if(tableKM.getColumnModel().getColumnCount() > 0) {
-            tableKM.getColumnModel().getColumn(0).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("STT");
-            tableKM.getColumnModel().getColumn(1).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Mã khuyễn mãi");
-            tableKM.getColumnModel().getColumn(2).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Tên khuyến mãi");
-            tableKM.getColumnModel().getColumn(3).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Loại khuyến mãi");
-            tableKM.getColumnModel().getColumn(4).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Giá trị");
-            tableKM.getColumnModel().getColumn(5).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Ngày bắt đầu");
-            tableKM.getColumnModel().getColumn(6).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Ngày kết thúc");
-            tableKM.getColumnModel().getColumn(7).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Đơn giá từ");
-            tableKM.getColumnModel().getColumn(8).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Số lượng khuyến mãi");
-            tableKM.getColumnModel().getColumn(9).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Số lượng đã áp dụng");
-            tableKM.getColumnModel().getColumn(10).setResizable(false);
-            tableKM.getColumnModel().getColumn(0).setHeaderValue("Chi tiết");
-        }
         tableKM.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableKMMouseClicked(evt);
             }
         });
-        jScrollPane3.setViewportView(tableKM);
-        if (tableKM.getColumnModel().getColumnCount() > 0) {
-            tableKM.getColumnModel().getColumn(1).setPreferredWidth(30);
-        }
+        jScrollPane1.setViewportView(tableKM);
 
-        jPanel11.add(jScrollPane3);
+        jPanel11.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
         jPanel2.add(jPanel11, java.awt.BorderLayout.CENTER);
 
@@ -795,22 +773,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         	}
     	}
     }//GEN-LAST:event_comboboxApDungItemStateChanged
-
-    private void tableKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKMMouseClicked
-         int selectedRow = tableKM.getSelectedRow();
-         int selectedColumn = tableKM.getSelectedColumn();
-         
-         if (selectedColumn == tableKM.getColumnCount() - 1) {
-        	 
-        	 String maKM = (String) tableKM.getValueAt(selectedRow, 1);
-        	 
-             Form_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new Form_XemChiTietKhuyeMai(maKM);
-             
-             gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
-             gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-             gui_XemChiTietKhuyeMai.setVisible(true);
-         }
-    }//GEN-LAST:event_tableKMMouseClicked
     
     private void radVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_radVoucherMouseClicked
         // TODO add your handling code here:
@@ -851,6 +813,23 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
       }
     
     }//GEN-LAST:event_radVoucherMouseClicked
+
+    private void tableKMMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableKMMouseClicked
+        // TODO add your handling code here:
+    	  int selectedRow = tableKM.getSelectedRow();
+          int selectedColumn = tableKM.getSelectedColumn();
+          
+          if (selectedColumn == tableKM.getColumnCount() - 1) {
+         	 
+         	 String maKM = (String) tableKM.getValueAt(selectedRow, 1);
+         	 
+              Form_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new Form_XemChiTietKhuyeMai(maKM);
+              
+              gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
+              gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+              gui_XemChiTietKhuyeMai.setVisible(true);
+          }
+    }//GEN-LAST:event_tableKMMouseClicked
     
     // Load date
     private void loadDataKM() {
@@ -935,8 +914,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblApDung;
     private javax.swing.JLabel lblSoLuong;
     private javax.swing.JPanel pnlALL;
