@@ -91,7 +91,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel3 = new javax.swing.JPanel();
         NhapMa = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        lblMaKhuyenMai = new javax.swing.JLabel();
         txtMaKM = new javax.swing.JTextField();
         jPanel21 = new javax.swing.JPanel();
         filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
@@ -190,9 +190,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel2.setText("Mã khuyến mãi:");
-        jLabel2.setPreferredSize(new java.awt.Dimension(110, 16));
-        jPanel10.add(jLabel2);
+        lblMaKhuyenMai.setText("Mã khuyến mãi:");
+        lblMaKhuyenMai.setPreferredSize(new java.awt.Dimension(110, 16));
+        jPanel10.add(lblMaKhuyenMai);
         jPanel10.add(txtMaKM);
 
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
@@ -542,6 +542,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	txtHinhThuc.setSelectedIndex(0);
     	spSoLuongApDung.setValue(1);;
     	txtMucGiamGia.setText("");
+    	txtDonHangTu.setText("");
     	txtNgayBatDau.setDate(currentDate.getTime());
     	Calendar currentDateToMoth = (Calendar) currentDate.clone();
     	currentDateToMoth.add(Calendar.MONTH, 1);
@@ -624,66 +625,82 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	return true;
     }
     
+    private boolean checkTenSuKien(String tenSuKien) {
+    	for(KhuyenMai km : danhSachKM) {
+    		if(km.getCodeKhuyenMai().equals(tenSuKien))
+    			return true;
+    	}
+
+    	return false;
+    }
+    
     // Nhấn Lưu
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
-    	try {
-    		if(checkValue()) {
-    			boolean check = false;
-    			ArrayList<KhuyenMai> listVoucher = new ArrayList<KhuyenMai>();
-        		String maKM = txtMaKM.getText();
-            	String tenKM = txtTenKM.getText();
-            	int soLuongApDung = (int) spSoLuongApDung.getValue();
-            	String donHangTu = txtDonHangTu.getText();
-            	String hinhThuc = txtHinhThuc.getSelectedItem().toString();
-            	String mucGiam = txtMucGiamGia.getText();
-            	java.util.Date ngayBatDauUtil =  txtNgayBatDau.getDate();
-            	java.util.Date ngayKetThucUtil  = txtNgayKetThuc.getDate();
-            	java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
-            	java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
-            	
-            	if(evt_selectVoucher == true) {
-            		try {
-            			for(int i = 0; i < soLuongApDung; i++) {
-            				KhuyenMai khuyenMai = new KhuyenMai(VoucherCode() ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),1, 0);
-            				if(khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
-            					check = true;
-            					listVoucher.add(khuyenMai);
-            				}
-            				else {
-            					check = false;
-            					break;
-            				}
-            			}
-            			if(check) {
-                        	JOptionPane.showMessageDialog(this, "Thêm voucher/mã khuyễn mãi thành công");
-                			Huy();
-                			loadDataKM();
-            			}
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm voucher");
-					}
-            	}
-                if (evt_selectVoucher == false) {
-                	try {
-                		ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
-                    	KhuyenMai khuyenMai = new KhuyenMai(maKM ,tenKM ,hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu),Integer.valueOf(soLuongApDung), 0);
-            			if(khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
-                        	JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
-                			Huy();
-                			loadDataKM();
-            			}
-					} catch (Exception e) {
-						JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
-					}
-        		}
-                if(check == true) {
-                	Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
-                	danhSachVoucher.setVisible(true);
+    	 String maKM = txtMaKM.getText();
+         String tenKM = txtTenKM.getText();
+         int soLuongApDung = (int) spSoLuongApDung.getValue();
+         String donHangTu = txtDonHangTu.getText();
+         String hinhThuc = txtHinhThuc.getSelectedItem().toString();
+         String mucGiam = txtMucGiamGia.getText();
+         java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
+         java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
+         java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
+         java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
+        try {
+            if (checkValue()) {
+                if (evt_selectVoucher) {
+                    boolean check = false;
+                    ArrayList<KhuyenMai> listVoucher = new ArrayList<>();
+
+                    if (checkTenSuKien(tenKM) && JOptionPane.showConfirmDialog(null, "Sự kiện đã tồn tại, bạn có muốn thêm voucher", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    	for (int i = 0; i < soLuongApDung; i++) {
+                    		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
+                    		if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
+                    			check = true;
+                    			listVoucher.add(khuyenMai);
+                    		} else {
+                    			check = false;
+                    			break;
+                    		}
+                    	}
+                    } else {
+                    	for (int i = 0; i < soLuongApDung; i++) {
+                    		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
+                    		if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
+                    			check = true;
+                    			listVoucher.add(khuyenMai);
+                    		} else {
+                    			check = false;
+                    			break;
+                    		}
+                    	}
+                    }
+                    if (check) {
+                        Huy();
+                        loadDataKM();
+                        JOptionPane.showMessageDialog(this, "Thêm voucher/mã khuyễn mãi thành công");
+                        Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
+                        danhSachVoucher.setVisible(true);
+                    }
                 }
-    		}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+
+                if (!evt_selectVoucher) {
+                    ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                    KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
+
+                    if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
+                        JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
+                        Huy();
+                        loadDataKM();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
+                    }
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnLuuActionPerformed
    
     private void checkBoxSelectChoTatCaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_checkBoxSelectChoTatCaMouseClicked
@@ -779,7 +796,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
       if(radVoucher.isSelected()) {
     	  int check = JOptionPane.showConfirmDialog(this, "Bạn có muốn tạo Voucher/Mã giảm giá", "Thông báo", JOptionPane.YES_NO_OPTION);
     	  if( check == JOptionPane.YES_OPTION) {
-	       	   txtMaKM.setEditable(false);
+	       	   txtMaKM.setVisible(false);
+	       	   lblMaKhuyenMai.setVisible(false);
+	       	   filler11.setVisible(false);
 	       	   evt_selectVoucher = true;
 	       	   lblSoLuong.setText("Số lượng Voucher: ");
 	       	   tenKhuyenMai.setText("Tên sự kiện: ");
@@ -799,7 +818,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     	  }
       }
       else {
-    	  txtMaKM.setEditable(true);
+    	  txtMaKM. setVisible(true);
+    	  lblMaKhuyenMai.setVisible(true);
+    	  filler11.setVisible(true);
     	  evt_selectVoucher = false;
     	  lblSoLuong.setText("Số lượng áp dụng: ");
     	  tenKhuyenMai.setText("Tên khuyến mãi :");
@@ -889,7 +910,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -917,6 +937,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblApDung;
+    private javax.swing.JLabel lblMaKhuyenMai;
     private javax.swing.JLabel lblSoLuong;
     private javax.swing.JPanel pnlALL;
     private javax.swing.JPanel pnl_InSp;

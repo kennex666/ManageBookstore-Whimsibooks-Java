@@ -143,7 +143,7 @@
 
                           <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout"/>
                           <SubComponents>
-                            <Component class="javax.swing.JLabel" name="jLabel2">
+                            <Component class="javax.swing.JLabel" name="lblMaKhuyenMai">
                               <Properties>
                                 <Property name="text" type="java.lang.String" value="M&#xe3; khuy&#x1ebf;n m&#xe3;i:"/>
                                 <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
