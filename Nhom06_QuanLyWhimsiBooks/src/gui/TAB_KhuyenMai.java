@@ -843,12 +843,22 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
           if (selectedColumn == tableKM.getColumnCount() - 1) {
          	 
          	 String maKM = (String) tableKM.getValueAt(selectedRow, 1);
+         	 String tenKM = (String) tableKM.getValueAt(selectedRow, 2);
          	 
-              Form_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new Form_XemChiTietKhuyeMai(maKM);
-              
-              gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
-              gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-              gui_XemChiTietKhuyeMai.setVisible(true);
+         	 if(maKM.trim().contains("Voucher_")) {
+         		Form_XemChiTietVoucher form_XemChiTietVoucher = new Form_XemChiTietVoucher(tenKM);
+                
+         		form_XemChiTietVoucher.setLocationRelativeTo(null);
+         		form_XemChiTietVoucher.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+         		form_XemChiTietVoucher.setVisible(true);
+         	 }
+         	 else {
+                 Form_XemChiTietKhuyeMai gui_XemChiTietKhuyeMai = new Form_XemChiTietKhuyeMai(maKM);
+                 
+                 gui_XemChiTietKhuyeMai.setLocationRelativeTo(null);
+                 gui_XemChiTietKhuyeMai.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                 gui_XemChiTietKhuyeMai.setVisible(true);
+         	 }
           }
     }//GEN-LAST:event_tableKMMouseClicked
     

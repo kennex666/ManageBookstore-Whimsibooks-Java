@@ -46,6 +46,11 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return list;
 	}
 	
+	public ArrayList<KhuyenMai> getVoucher(String tenSK) {
+		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
+		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
+	}
+	
     public ArrayList<SanPham> laySanPhamDuocChon(JTable table) {
     	ArrayList<SanPham> dsSanPhamDuocChon = new ArrayList<SanPham>();
     	int rowCount = table.getRowCount();
