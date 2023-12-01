@@ -17,6 +17,8 @@ import entities.ThuongHieu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -24,7 +26,10 @@ import java.util.logging.Logger;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 import utilities.ImageProcessing;
 
 /**
@@ -46,6 +51,25 @@ public class TAB_SanPham extends javax.swing.JPanel {
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         loadSanPham(list_SanPham);
+         
+//        this.jPanel_CBB_TenSanPham.removeAll();
+//        comboBox = new JComboBox<String>();
+//        this.jPanel_CBB_TenSanPham.add(comboBox);
+//        this.jTextField_TenSanPham.addCaretListener(new TextFieldCaretListener());
+//        
+//        comboBox.removeAll();
+//        
+//        comboBox.addActionListener(new ActionListener() {
+//        public void actionPerformed(ActionEvent arg0) {
+//        try {
+//            jTextField_TenSanPham.setText(comboBox.getSelectedItem().toString());
+//            comboBox.removeAllItems();
+//            comboBox.hidePopup();
+//            jPanel_CBB_TenSanPham.removeAll();
+//            } catch (Exception e) {
+//            }
+//        }
+//        });
         
     }
     int dem_sach = 0;
@@ -85,8 +109,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
 //            jPanel_Empty1.setPreferredSize(new Dimension(400, 10));
 //            jPanel_Empty2.setPreferredSize(new Dimension(400, 10));
             
-            jPanel_Empty1.setMaximumSize(new Dimension(405, 250));
-            jPanel_Empty2.setMaximumSize(new Dimension(405, 250));
+            jPanel_Empty1.setMaximumSize(new Dimension(410, 235));
+            jPanel_Empty2.setMaximumSize(new Dimension(410, 235));
             
             jPanel_Empty3.setMaximumSize(new Dimension(411, 190));
             jPanel_Empty4.setMaximumSize(new Dimension(411, 190));
@@ -350,7 +374,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_TimKiem)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -383,7 +407,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox_SapXepTheo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -413,7 +437,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jComboBox_DanhMuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -448,7 +472,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jComboBox_NhaXuatBan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -484,7 +508,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
                     .addComponent(jComboBox_TrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -515,11 +539,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 97, Short.MAX_VALUE)
             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(jButton_TimKiem, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel9Layout.setVerticalGroup(
@@ -550,11 +574,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 97, Short.MAX_VALUE)
             .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel12Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton_refresh, javax.swing.GroupLayout.DEFAULT_SIZE, 88, Short.MAX_VALUE)
+                    .addComponent(jButton_refresh, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel12Layout.setVerticalGroup(
@@ -579,7 +603,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addComponent(jButton_Import, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -600,7 +624,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jScrollPane1.setMinimumSize(new java.awt.Dimension(16, 20));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(50, 50));
 
-        jPanel_List_SanPham.setAlignmentX(0.5F);
         jPanel_List_SanPham.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
         jPanel_List_SanPham.setMinimumSize(new java.awt.Dimension(500, 500));
         jPanel_List_SanPham.setName(""); // NOI18N
@@ -665,7 +688,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_TimKiem1)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel14Layout.setVerticalGroup(
@@ -698,7 +721,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBox_SapXepTheo1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
@@ -725,7 +748,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel17Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(jComboBox_ThuongHieu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -756,7 +779,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel19Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
                     .addComponent(jComboBox_TrangThai_SPK, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -787,11 +810,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel20.setLayout(jPanel20Layout);
         jPanel20Layout.setHorizontalGroup(
             jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 99, Short.MAX_VALUE)
             .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel20Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton_TimKiem_SPK, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jButton_TimKiem_SPK, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel20Layout.setVerticalGroup(
@@ -822,11 +845,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jPanel21.setLayout(jPanel21Layout);
         jPanel21Layout.setHorizontalGroup(
             jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 120, Short.MAX_VALUE)
+            .addGap(0, 99, Short.MAX_VALUE)
             .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jButton_refresh_SPK, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
+                    .addComponent(jButton_refresh_SPK, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         jPanel21Layout.setVerticalGroup(
@@ -851,7 +874,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addGap(48, 48, 48)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
-            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, 1001, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -943,6 +966,37 @@ public class TAB_SanPham extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jButton_Them_SPKActionPerformed
 
+//    private class TextFieldCaretListener implements CaretListener
+//    {
+//        @Override
+//        public void caretUpdate(CaretEvent e) {
+//            try{
+//                comboBox.removeAllItems();
+//                comboBox.hidePopup();
+//                jPanel_CBB_TenSanPham.remove(comboBox);
+//                if(e.getMark() > 0)
+//                {
+//                    for(String string : arr)
+//                    {
+//                        if(string.toLowerCase().startsWith(jTextField_TenSanPham.getText().toLowerCase()))
+//                        {
+//                            jPanel_CBB_TenSanPham.add(comboBox);
+//                            comboBox.addItem(string);
+//                            comboBox.showPopup();
+//                        }
+//                    }
+//                }
+//            }catch(Exception e1)
+//            {
+//                
+//            }
+//            if(e.getMark() < 2)
+//            {
+//                jPanel_CBB_TenSanPham.remove(comboBox);
+//            }
+//        }
+//        
+//    }
     private void jTextField_TimKiem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TimKiem1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_TimKiem1ActionPerformed

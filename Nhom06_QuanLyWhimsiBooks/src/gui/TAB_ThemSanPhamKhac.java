@@ -4,7 +4,10 @@
  */
 package gui;
 
+import bus.NhaCungCap_BUS;
+import bus.NhaXuatBan_BUS;
 import bus.SanPham_BUS;
+import bus.ThuongHieu_BUS;
 import connectDB.ConnectDB;
 import dao.SanPham_DAO;
 import entities.DanhMuc;
@@ -15,7 +18,10 @@ import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
@@ -26,12 +32,16 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import utilities.ImageProcessing;
 import java.sql.Date;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 /**
  *
@@ -42,9 +52,65 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     /**
      * Creates new form TAB_ThemSanPham
      */
+    ArrayList<String> th_name;
+    ArrayList<String> ncc_name;
+
     public TAB_ThemSanPhamKhac() {
         initComponents();
+        ConnectDB.getInstance().connect();
+
         this.txtNgay.setDate(java.util.Calendar.getInstance().getTime());
+
+        th_name = new ArrayList<String>();
+        ncc_name = new ArrayList<String>();
+
+        NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
+        ArrayList<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
+        for (NhaCungCap ncc : list_NCC) {
+            ncc_name.add(ncc.getTenNhaCungCap());
+        }
+
+        ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
+        ArrayList<ThuongHieu> list_TH = thuongHieu_BUS.getAllThuongHieu();
+        for (ThuongHieu th : list_TH) {
+            th_name.add(th.getTenThuongHieu());
+        }
+
+        comboBox_NCC = new JComboBox<String>();
+        this.jPanel_CBB_NhaCungCap.removeAll();
+        this.jPanel_CBB_NhaCungCap.add(comboBox_NCC);
+        comboBox_NCC.setVisible(false);
+        this.jTextField_NhaCungCap.addCaretListener(new TextFieldCaretListener_NCC());
+        comboBox_NCC.removeAll();
+        comboBox_NCC.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem().toString());
+                    comboBox_NCC.removeAllItems();
+//               comboBox.hidePopup();
+                    jPanel_CBB_NhaCungCap.removeAll();
+                } catch (Exception e) {
+                }
+            }
+        });
+
+        comboBox_TH = new JComboBox<String>();
+        this.jPanel_CBB_ThuongHieu.removeAll();
+        this.jPanel_CBB_ThuongHieu.add(comboBox_TH);
+        comboBox_TH.setVisible(false);
+        this.jTextField_ThuongHieu.addCaretListener(new TextFieldCaretListener_TH());
+        comboBox_TH.removeAll();
+        comboBox_TH.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    jTextField_ThuongHieu.setText(comboBox_TH.getSelectedItem().toString());
+                    comboBox_TH.removeAllItems();
+//            comboBox.hidePopup();
+                    jPanel_CBB_ThuongHieu.removeAll();
+                } catch (Exception e) {
+                }
+            }
+        });
     }
 
     /**
@@ -68,56 +134,59 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel6 = new javax.swing.JPanel();
         filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 20), new java.awt.Dimension(10, 10));
         filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 10), new java.awt.Dimension(10, 10));
-        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 10), new java.awt.Dimension(0, 0));
         jLabel_Img = new javax.swing.JLabel();
         jPanel19 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
         filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 50), new java.awt.Dimension(10, 10));
-        filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(15, 15), new java.awt.Dimension(10, 10));
+        filler26 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 10));
         jPanel44 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         jTextField_TenSanPham = new javax.swing.JTextField();
-        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
+        filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 25), new java.awt.Dimension(10, 10));
         jPanel32 = new javax.swing.JPanel();
         jLabel_Barcode = new javax.swing.JLabel();
         jTextField_Barcode = new javax.swing.JTextField();
-        filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
+        filler23 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 25), new java.awt.Dimension(10, 10));
         jPanel45 = new javax.swing.JPanel();
         jLabel_SoLuongTon = new javax.swing.JLabel();
         jTextField_SoLuongTon = new javax.swing.JTextField();
-        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
-        jPanel22 = new javax.swing.JPanel();
-        filler17 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
-        jPanel33 = new javax.swing.JPanel();
-        jLabel_NhaCungCap = new javax.swing.JLabel();
-        jTextField_NhaCungCap = new javax.swing.JTextField();
-        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel34 = new javax.swing.JPanel();
-        jLabel_GiaNhap = new javax.swing.JLabel();
-        jTextField_GiaNhap = new javax.swing.JTextField();
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel55 = new javax.swing.JPanel();
-        jLabel_TacGia = new javax.swing.JLabel();
-        jTextField_ThuongHieu = new javax.swing.JTextField();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel58 = new javax.swing.JPanel();
-        jLabel_SoTrang2 = new javax.swing.JLabel();
-        jComboBox_LoaiDoiTra = new javax.swing.JComboBox<>();
-        filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
-        jPanel39 = new javax.swing.JPanel();
-        jLabel_NgayNhap1 = new javax.swing.JLabel();
-        txtNgay = new com.toedter.calendar.JDateChooser();
-        filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
-        jPanel23 = new javax.swing.JPanel();
-        filler46 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
-        jPanel46 = new javax.swing.JPanel();
-        jLabel_NamSanXuat = new javax.swing.JLabel();
-        jTextField1_NamSanXuat = new javax.swing.JTextField();
-        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
+        filler24 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 25), new java.awt.Dimension(10, 10));
         jPanel38 = new javax.swing.JPanel();
         jLabel_Thue1 = new javax.swing.JLabel();
         jTextField_Thue = new javax.swing.JTextField();
+        filler35 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
+        jPanel22 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jPanel34 = new javax.swing.JPanel();
+        jLabel_GiaNhap = new javax.swing.JLabel();
+        jTextField_GiaNhap = new javax.swing.JTextField();
+        filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 25), new java.awt.Dimension(10, 10));
+        jPanel33 = new javax.swing.JPanel();
+        jLabel_NhaCungCap = new javax.swing.JLabel();
+        jTextField_NhaCungCap = new javax.swing.JTextField();
+        jPanel_CBB_NhaCungCap = new javax.swing.JPanel();
+        jPanel55 = new javax.swing.JPanel();
+        jLabel_TacGia = new javax.swing.JLabel();
+        jTextField_ThuongHieu = new javax.swing.JTextField();
+        jPanel_CBB_ThuongHieu = new javax.swing.JPanel();
+        jPanel58 = new javax.swing.JPanel();
+        jLabel_SoTrang2 = new javax.swing.JLabel();
+        jComboBox_LoaiDoiTra = new javax.swing.JComboBox<>();
+        filler22 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 25), new java.awt.Dimension(10, 10));
+        jPanel39 = new javax.swing.JPanel();
+        jLabel_NgayNhap1 = new javax.swing.JLabel();
+        txtNgay = new com.toedter.calendar.JDateChooser();
+        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
+        jPanel1 = new javax.swing.JPanel();
+        filler32 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
+        jPanel23 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jPanel46 = new javax.swing.JPanel();
+        jLabel_NamSanXuat = new javax.swing.JLabel();
+        jTextField1_NamSanXuat = new javax.swing.JTextField();
         filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
         jPanel50 = new javax.swing.JPanel();
         jLabel_XuatXu = new javax.swing.JLabel();
@@ -125,12 +194,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         filler21 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 20), new java.awt.Dimension(10, 10));
         jPanel26 = new javax.swing.JPanel();
         jPanel10 = new javax.swing.JPanel();
-        filler40 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 40), new java.awt.Dimension(10, 10));
+        filler40 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
         jButton_Luu = new javax.swing.JButton();
         filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jButton_Sua = new javax.swing.JButton();
         filler45 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jButton_Huy = new javax.swing.JButton();
+        filler41 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 70), new java.awt.Dimension(10, 10));
         filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel3 = new javax.swing.JPanel();
         jLabel_Warning = new javax.swing.JLabel();
@@ -138,7 +208,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 680));
         getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.Y_AXIS));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -157,11 +227,11 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGap(0, 614, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 51, Short.MAX_VALUE)
+            .addGap(0, 54, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel5);
@@ -178,7 +248,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         jPanel18.setBackground(new java.awt.Color(255, 255, 255));
         jPanel18.setMaximumSize(new java.awt.Dimension(300, 300));
-        jPanel18.setPreferredSize(new java.awt.Dimension(250, 200));
+        jPanel18.setPreferredSize(new java.awt.Dimension(250, 175));
         jPanel18.setLayout(new javax.swing.BoxLayout(jPanel18, javax.swing.BoxLayout.Y_AXIS));
 
         jLabel2.setText("Hình ảnh");
@@ -188,12 +258,11 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setMaximumSize(new java.awt.Dimension(350, 300));
         jPanel6.setMinimumSize(new java.awt.Dimension(70, 150));
-        jPanel6.setPreferredSize(new java.awt.Dimension(300, 150));
+        jPanel6.setPreferredSize(new java.awt.Dimension(300, 165));
         jPanel6.setRequestFocusEnabled(false);
         jPanel6.setLayout(new java.awt.BorderLayout());
         jPanel6.add(filler28, java.awt.BorderLayout.LINE_END);
         jPanel6.add(filler29, java.awt.BorderLayout.LINE_START);
-        jPanel6.add(filler1, java.awt.BorderLayout.PAGE_END);
 
         jLabel_Img.setBackground(new java.awt.Color(255, 204, 204));
         jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -209,31 +278,32 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel14.add(jPanel18);
 
         jPanel19.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel19.setMinimumSize(new java.awt.Dimension(82, 20));
-        jPanel19.setPreferredSize(new java.awt.Dimension(304, 30));
+        jPanel19.setMinimumSize(new java.awt.Dimension(82, 30));
+        jPanel19.setPreferredSize(new java.awt.Dimension(304, 40));
         jPanel19.setLayout(new javax.swing.BoxLayout(jPanel19, javax.swing.BoxLayout.X_AXIS));
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel7.setPreferredSize(new java.awt.Dimension(135, 20));
+        jPanel7.setPreferredSize(new java.awt.Dimension(135, 45));
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 116, Short.MAX_VALUE)
+            .addGap(0, 110, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 40, Short.MAX_VALUE)
         );
 
         jPanel19.add(jPanel7);
 
-        jButton4.setBackground(new java.awt.Color(204, 204, 204));
+        jButton4.setBackground(new java.awt.Color(15, 145, 239));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Chọn");
         jButton4.setMaximumSize(new java.awt.Dimension(72, 30));
-        jButton4.setPreferredSize(new java.awt.Dimension(100, 50));
+        jButton4.setPreferredSize(new java.awt.Dimension(100, 25));
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -243,7 +313,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel19.add(filler30);
 
         jPanel14.add(jPanel19);
-        jPanel14.add(filler33);
+        jPanel14.add(filler26);
 
         jPanel44.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel44.setLayout(new java.awt.BorderLayout());
@@ -317,38 +387,50 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel45.add(jTextField_SoLuongTon, java.awt.BorderLayout.PAGE_END);
 
         jPanel14.add(jPanel45);
+        jPanel14.add(filler24);
+
+        jPanel38.setPreferredSize(new java.awt.Dimension(0, 60));
+        jPanel38.setLayout(new java.awt.BorderLayout());
+
+        jLabel_Thue1.setText("Thuế");
+        jLabel_Thue1.setPreferredSize(new java.awt.Dimension(74, 10));
+        jPanel38.add(jLabel_Thue1, java.awt.BorderLayout.CENTER);
+
+        jTextField_Thue.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextField_Thue.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_Thue.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_ThueMouseClicked(evt);
+            }
+        });
+        jTextField_Thue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_ThueActionPerformed(evt);
+            }
+        });
+        jPanel38.add(jTextField_Thue, java.awt.BorderLayout.PAGE_END);
+
+        jPanel14.add(jPanel38);
 
         jPanel9.add(jPanel14);
-        jPanel9.add(filler31);
+        jPanel9.add(filler35);
 
         jPanel22.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel22.setMaximumSize(new java.awt.Dimension(300, 780));
+        jPanel22.setMinimumSize(new java.awt.Dimension(120, 227));
         jPanel22.setPreferredSize(new java.awt.Dimension(300, 780));
         jPanel22.setLayout(new javax.swing.BoxLayout(jPanel22, javax.swing.BoxLayout.Y_AXIS));
-        jPanel22.add(filler17);
 
-        jPanel33.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel33.setLayout(new java.awt.BorderLayout());
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setPreferredSize(new java.awt.Dimension(223, 120));
+        jPanel4.setLayout(new java.awt.BorderLayout());
 
-        jLabel_NhaCungCap.setText("Nhà cung cấp");
-        jLabel_NhaCungCap.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel33.add(jLabel_NhaCungCap, java.awt.BorderLayout.CENTER);
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(15, 145, 239));
+        jLabel6.setText("Thông tin chung");
+        jPanel4.add(jLabel6, java.awt.BorderLayout.CENTER);
 
-        jTextField_NhaCungCap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextField_NhaCungCap.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_NhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField_NhaCungCapMouseClicked(evt);
-            }
-        });
-        jTextField_NhaCungCap.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_NhaCungCapActionPerformed(evt);
-            }
-        });
-        jPanel33.add(jTextField_NhaCungCap, java.awt.BorderLayout.PAGE_END);
-
-        jPanel22.add(jPanel33);
-        jPanel22.add(filler14);
+        jPanel22.add(jPanel4);
 
         jPanel34.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel34.setLayout(new java.awt.BorderLayout());
@@ -372,7 +454,37 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel34.add(jTextField_GiaNhap, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel34);
-        jPanel22.add(filler13);
+        jPanel22.add(filler14);
+
+        jPanel33.setPreferredSize(new java.awt.Dimension(0, 60));
+        jPanel33.setLayout(new java.awt.BorderLayout());
+
+        jLabel_NhaCungCap.setText("Nhà cung cấp");
+        jLabel_NhaCungCap.setPreferredSize(new java.awt.Dimension(74, 10));
+        jPanel33.add(jLabel_NhaCungCap, java.awt.BorderLayout.CENTER);
+
+        jTextField_NhaCungCap.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextField_NhaCungCap.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_NhaCungCap.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextField_NhaCungCapMouseClicked(evt);
+            }
+        });
+        jTextField_NhaCungCap.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_NhaCungCapActionPerformed(evt);
+            }
+        });
+        jPanel33.add(jTextField_NhaCungCap, java.awt.BorderLayout.PAGE_END);
+
+        jPanel22.add(jPanel33);
+
+        jPanel_CBB_NhaCungCap.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_CBB_NhaCungCap.setMaximumSize(new java.awt.Dimension(250, 0));
+        jPanel_CBB_NhaCungCap.setMinimumSize(new java.awt.Dimension(80, 0));
+        jPanel_CBB_NhaCungCap.setPreferredSize(new java.awt.Dimension(221, 25));
+        jPanel_CBB_NhaCungCap.setLayout(new javax.swing.BoxLayout(jPanel_CBB_NhaCungCap, javax.swing.BoxLayout.Y_AXIS));
+        jPanel22.add(jPanel_CBB_NhaCungCap);
 
         jPanel55.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel55.setLayout(new java.awt.BorderLayout());
@@ -391,7 +503,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel55.add(jTextField_ThuongHieu, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel55);
-        jPanel22.add(filler11);
+
+        jPanel_CBB_ThuongHieu.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_CBB_ThuongHieu.setMaximumSize(new java.awt.Dimension(250, 0));
+        jPanel_CBB_ThuongHieu.setMinimumSize(new java.awt.Dimension(80, 0));
+        jPanel_CBB_ThuongHieu.setPreferredSize(new java.awt.Dimension(221, 25));
+        jPanel_CBB_ThuongHieu.setLayout(new javax.swing.BoxLayout(jPanel_CBB_ThuongHieu, javax.swing.BoxLayout.Y_AXIS));
+        jPanel22.add(jPanel_CBB_ThuongHieu);
 
         jPanel58.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel58.setLayout(new java.awt.BorderLayout());
@@ -426,12 +544,41 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel22.add(jPanel39);
 
         jPanel9.add(jPanel22);
+        jPanel9.add(filler31);
+
+        jPanel1.setBackground(new java.awt.Color(15, 145, 239));
+        jPanel1.setPreferredSize(new java.awt.Dimension(3, 488));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 537, Short.MAX_VALUE)
+        );
+
+        jPanel9.add(jPanel1);
         jPanel9.add(filler32);
 
         jPanel23.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel23.setMaximumSize(new java.awt.Dimension(300, 780));
+        jPanel23.setMinimumSize(new java.awt.Dimension(120, 227));
         jPanel23.setPreferredSize(new java.awt.Dimension(300, 780));
         jPanel23.setLayout(new javax.swing.BoxLayout(jPanel23, javax.swing.BoxLayout.Y_AXIS));
-        jPanel23.add(filler46);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel8.setPreferredSize(new java.awt.Dimension(223, 120));
+        jPanel8.setLayout(new java.awt.BorderLayout());
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(15, 145, 239));
+        jLabel7.setText("Thông tin khác");
+        jPanel8.add(jLabel7, java.awt.BorderLayout.CENTER);
+
+        jPanel23.add(jPanel8);
 
         jPanel46.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel46.setLayout(new java.awt.BorderLayout());
@@ -450,30 +597,6 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel46.add(jTextField1_NamSanXuat, java.awt.BorderLayout.PAGE_END);
 
         jPanel23.add(jPanel46);
-        jPanel23.add(filler16);
-
-        jPanel38.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel38.setLayout(new java.awt.BorderLayout());
-
-        jLabel_Thue1.setText("Thuế");
-        jLabel_Thue1.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel38.add(jLabel_Thue1, java.awt.BorderLayout.CENTER);
-
-        jTextField_Thue.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextField_Thue.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_Thue.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField_ThueMouseClicked(evt);
-            }
-        });
-        jTextField_Thue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_ThueActionPerformed(evt);
-            }
-        });
-        jPanel38.add(jTextField_Thue, java.awt.BorderLayout.PAGE_END);
-
-        jPanel23.add(jPanel38);
         jPanel23.add(filler19);
 
         jPanel50.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -496,16 +619,17 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel23.add(filler21);
 
         jPanel26.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel26.setPreferredSize(new java.awt.Dimension(200, 150));
+        jPanel26.setPreferredSize(new java.awt.Dimension(200, 250));
         jPanel26.setLayout(new javax.swing.BoxLayout(jPanel26, javax.swing.BoxLayout.Y_AXIS));
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
         jPanel10.setMaximumSize(new java.awt.Dimension(2147483647, 2147483647));
-        jPanel10.setPreferredSize(new java.awt.Dimension(0, 100));
+        jPanel10.setPreferredSize(new java.awt.Dimension(0, 200));
         jPanel10.setLayout(new javax.swing.BoxLayout(jPanel10, javax.swing.BoxLayout.Y_AXIS));
         jPanel10.add(filler40);
 
         jButton_Luu.setBackground(new java.awt.Color(15, 145, 239));
+        jButton_Luu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton_Luu.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Luu.setText("Lưu");
         jButton_Luu.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -519,6 +643,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel10.add(filler43);
 
         jButton_Sua.setBackground(new java.awt.Color(15, 145, 239));
+        jButton_Sua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton_Sua.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Sua.setText("Sửa");
         jButton_Sua.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -532,6 +657,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel10.add(filler45);
 
         jButton_Huy.setBackground(new java.awt.Color(15, 145, 239));
+        jButton_Huy.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton_Huy.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Huy.setText("Hủy");
         jButton_Huy.setMaximumSize(new java.awt.Dimension(200, 23));
@@ -542,6 +668,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             }
         });
         jPanel10.add(jButton_Huy);
+        jPanel10.add(filler41);
 
         jPanel26.add(jPanel10);
 
@@ -606,38 +733,33 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
-        Image newimg = img.getScaledInstance(150, 150,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way        
-        ImageIcon icon = new ImageIcon(newimg); 
+
+        Image newimg = img.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way        
+        ImageIcon icon = new ImageIcon(newimg);
         jLabel_Img.setIcon(icon);
 
 
-        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jTextField_ThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ThueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_ThueActionPerformed
 
-    public boolean check_empty()
-    {
+    public boolean check_empty() {
 
-        if(this.jTextField_TenSanPham.getText().equals(""))
-        {
+        if (this.jTextField_TenSanPham.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên của sản phẩm!");
             jTextField_TenSanPham.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_TenSanPham.setToolTipText("Tên của sản phẩm");
             return false;
         }
-        if(this.jTextField_Barcode.getText().equals(""))
-        {
+        if (this.jTextField_Barcode.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập barcode của sản phẩm!");
             jTextField_Barcode.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_Barcode.setToolTipText("Barcode của sản phẩm");
             return false;
         }
-        if(this.jTextField_SoLuongTon.getText().equals(""))
-        {
+        if (this.jTextField_SoLuongTon.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập số lượng của sản phẩm!");
             jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_SoLuongTon.setToolTipText("Số lượng tồn của sản phẩm");
@@ -645,8 +767,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         }
         try {
             int soLuongTon = Integer.parseInt(this.jTextField_SoLuongTon.getText());
-            if(soLuongTon < 0)
-            {
+            if (soLuongTon < 0) {
                 jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
                 return false;
@@ -656,24 +777,21 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
             return false;
         }
-        if(this.jTextField_NhaCungCap.getText().equals(""))
-        {
+        if (this.jTextField_NhaCungCap.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên nhà cung cấp!");
             jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_NhaCungCap.setToolTipText("Tên của nhà cung cấp");
             return false;
         }
-        if(this.jTextField_GiaNhap.getText().equals(""))
-        {
+        if (this.jTextField_GiaNhap.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập giá nhập hàng của sản phẩm!");
             jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_GiaNhap.setToolTipText("Giá nhập của sản phẩm");
             return false;
         }
-         try {
+        try {
             double giaNhap = Double.parseDouble(this.jTextField_GiaNhap.getText());
-            if(giaNhap < 0)
-            {
+            if (giaNhap < 0) {
                 jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
                 return false;
@@ -683,15 +801,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
             return false;
         }
-        if(this.jTextField_ThuongHieu.getText().equals(""))
-        {
+        if (this.jTextField_ThuongHieu.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập thương hiệu hàng của sản phẩm!");
             jTextField_ThuongHieu.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_ThuongHieu.setToolTipText("Giá nhập của sản phẩm");
             return false;
         }
-        if(this.jTextField_Thue.getText().equals(""))
-        {
+        if (this.jTextField_Thue.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập thêm thuế của sản phẩm!");
             jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_Thue.setToolTipText("Thuế của sản phẩm");
@@ -699,8 +815,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         }
         try {
             double thue = Double.parseDouble(this.jTextField_Thue.getText());
-            if(thue < 0)
-            {
+            if (thue < 0) {
                 jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Thuế của sản phẩm phải là số thực > 0!");
                 return false;
@@ -711,21 +826,18 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             return false;
         }
 
-        if(this.txtNgay.getDate().toString().equals(""))
-        {
+        if (this.txtNgay.getDate().toString().equals("")) {
             this.jLabel_Warning.setText("Hãy bổ sung ngày nhập");
             txtNgay.setBorder(BorderFactory.createLineBorder(Color.red));
             this.txtNgay.setToolTipText("Tên của sản phẩm");
             return false;
         }
-        
-        
+
         return true;
     }
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
-        try {                                            
-            if(!check_empty())
-            {
+        try {
+            if (!check_empty()) {
                 return;
             }
             SanPham sanPham = getNewSanPham();
@@ -739,10 +851,9 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             }
             System.out.println(sanPham);
             sanPham_BUS.addSanPham(sanPham);
-     
+
             this.setVisible(false);
-            
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -751,24 +862,22 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private void jButton_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SuaActionPerformed
         // TODO add your handling code here:
         try {
-            if(!check_empty())
-            {
+            if (!check_empty()) {
                 return;
-            }       
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        try {
-            ConnectDB.getInstance().connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
-        if(decided == 0)
-        {
-            SanPham sanPham = getNewSanPham();
-            sanPham.setSanPhamID(ID);
-            sanPham_BUS.editSanPham(sanPham);
-            this.setVisible(false);
-        }
+            }
+            SanPham_BUS sanPham_BUS = new SanPham_BUS();
+            try {
+                ConnectDB.getInstance().connect();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
+            if (decided == 0) {
+                SanPham sanPham = getNewSanPham();
+                sanPham.setSanPhamID(ID);
+                sanPham_BUS.editSanPham(sanPham);
+                this.setVisible(false);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -801,6 +910,27 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
+
+        comboBox_NCC = new JComboBox<String>();
+        for (String string : ncc_name) {
+            comboBox_NCC.addItem(string);
+        }
+
+        this.jPanel_CBB_NhaCungCap.add(comboBox_NCC);
+        //comboBox_NCC.showPopup();
+        comboBox_NCC.setPopupVisible(true);
+        comboBox_NCC.removeAll();
+        comboBox_NCC.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem().toString());
+                    comboBox_NCC.removeAllItems();
+//            comboBox.hidePopup();
+                    jPanel_CBB_NhaCungCap.removeAll();
+                } catch (Exception e) {
+                }
+            }
+        });
     }//GEN-LAST:event_jTextField_NhaCungCapMouseClicked
 
     private void jTextField_GiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_GiaNhapMouseClicked
@@ -813,6 +943,27 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.jTextField_ThuongHieu.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
+
+        comboBox_TH = new JComboBox<String>();
+        for (String string : th_name) {
+            comboBox_TH.addItem(string);
+        }
+
+        this.jPanel_CBB_ThuongHieu.add(comboBox_TH);
+        //comboBox_NCC.showPopup();
+        comboBox_TH.setPopupVisible(true);
+        comboBox_TH.removeAll();
+        comboBox_TH.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent arg0) {
+                try {
+                    jTextField_ThuongHieu.setText(comboBox_TH.getSelectedItem().toString());
+                    comboBox_TH.removeAllItems();
+//            comboBox.hidePopup();
+                    jPanel_CBB_ThuongHieu.removeAll();
+                } catch (Exception e) {
+                }
+            }
+        });
     }//GEN-LAST:event_jTextField_ThuongHieuMouseClicked
 
     private void txtNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNgayMouseClicked
@@ -826,14 +977,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         this.jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_ThueMouseClicked
-    
-    public SanPham getNewSanPham()
-    {
+
+    public SanPham getNewSanPham() {
         String tenSanPham = jTextField_TenSanPham.getText();
         int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText());
         String barcode = jTextField_Barcode.getText();
         double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText());
-        
+
         double thue = Double.parseDouble(jTextField_Thue.getText());
         int namSanXuat;
         try {
@@ -850,34 +1000,31 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             xuatXu = "";
         }
         String loaiDoiTra = jComboBox_LoaiDoiTra.getSelectedItem().toString();
-        
+
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(txtNgay.getDate());
         Date DATE = Date.valueOf(date);
-       
-        
+
         String partialPath;
-         try {
+        try {
             String filePath = this.file.getPath();
             partialPath = filePath.substring(filePath.indexOf("img\\products"));
         } catch (Exception e) {
             partialPath = "";
         }
-        
 
         ThuongHieu th = new ThuongHieu();
         NhaCungCap ncc = new NhaCungCap();
 
-       
         try {
             th.setTenThuongHieu(tenThuongHieu);
             ncc.setTenNhaCungCap(tenNhaCungCap);
         } catch (Exception e) {
-           
+
             e.printStackTrace();
         }
-        
-        SanPham_BUS sanPham_BUS = new  SanPham_BUS();
+
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
 
         try {
             ConnectDB.getInstance().connect();
@@ -885,13 +1032,31 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-
         th.setThuongHieuID(sanPham_BUS.getIdThuongHieuByName(th.getTenThuongHieu()));
+
+        if (th.getThuongHieuID() == -1) {
+            int check = JOptionPane.showConfirmDialog(null, "Tên thương hiệu này vốn chưa có sẳn. Tạo mới?");
+            if (check == 0) {
+                ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
+                thuongHieu_BUS.addThuongHieu(th);
+                th.setThuongHieuID(sanPham_BUS.getIdThuongHieuByName(th.getTenThuongHieu()));
+            }
+        }
+
         ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
+        
+        if (ncc.getNhaCungCapID().equals("")) {
+            int check = JOptionPane.showConfirmDialog(null, "Nhà cung cấp này vốn chưa có sẳn. Tạo mới?");
+            if (check == 0) {
+                NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
+                nhaCungCap_BUS.addNhaCungCap(ncc);
+                ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
+            }
+        }
 
         SanPham sanPham = new SanPham();
         try {
-           sanPham.setTenSanPham(tenSanPham);
+            sanPham.setTenSanPham(tenSanPham);
             sanPham.setSoLuongTon(soLuongTon);
             sanPham.setBarcode(barcode);
             sanPham.setGiaNhap(giaNhap);
@@ -913,16 +1078,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             sanPham.setLoaiBia("");
             sanPham.setDonViDoLuong("");
         } catch (Exception ex) {
-           
+
             ex.printStackTrace();
         }
         return sanPham;
     }
-    
 
-    
-    public void setSanPhamSach(SanPham x)
-    {
+    public void setSanPhamSach(SanPham x) {
         ConnectDB.getInstance().connect();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ID = x.getSanPhamID();
@@ -930,86 +1092,144 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
 
             Image image = imageIcon.getImage(); // transform it 
-            Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-            imageIcon = new ImageIcon(newimg); 
+            Image newimg = image.getScaledInstance(150, 150, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            imageIcon = new ImageIcon(newimg);
             this.jLabel_Img.setIcon(imageIcon);
         } catch (Exception e) {
             this.jLabel_Img.setText("NO IMAGE");
         }
-        
+
         this.jTextField_TenSanPham.setText(x.getTenSanPham());
         this.jTextField_SoLuongTon.setText(x.getSoLuongTon() + "");
         this.jTextField_ThuongHieu.setText(sanPham_BUS.getNameThuongHieuByID(x.getThuongHieu().getThuongHieuID()));
-     
+
         this.jTextField_Barcode.setText(x.getBarcode());
         this.jTextField_NhaCungCap.setText(x.getNhaCungCap().getTenNhaCungCap());
         this.jTextField_GiaNhap.setText(x.getGiaNhap() + "");
         this.jTextField_Thue.setText(x.getThue() + "");
         this.jTextField1_NamSanXuat.setText(x.getNamSanXuat() + "");
-       
+
         this.jTextField_XuatXu.setText(x.getXuatXu());
         this.jTextField_NhaCungCap.setText(sanPham_BUS.getNameNhaCungCapByID(x.getNhaCungCap().getNhaCungCapID()));
 
-
-        if(x.getLoaiDoiTra().equals("DUOC_DOI_TRA"))
-        {
+        if (x.getLoaiDoiTra().equals("DUOC_DOI_TRA")) {
             this.jComboBox_LoaiDoiTra.setSelectedIndex(0);
         }
-        if(x.getLoaiDoiTra().equals("KHONG_DOI_TRA"))
-        {
+        if (x.getLoaiDoiTra().equals("KHONG_DOI_TRA")) {
             this.jComboBox_LoaiDoiTra.setSelectedIndex(1);
         }
         this.txtNgay.setDate(x.getNgayNhap());
-        
-         
-       
+        comboBox_NCC.removeAllItems();
+        jPanel_CBB_NhaCungCap.removeAll();
+        comboBox_TH.removeAllItems();
+        jPanel_CBB_ThuongHieu.removeAll();
+
     }
+
     /**
      * @param args the command line arguments
      */
-    
-    public void disVisibleForLuu()
-    {
-        this.jButton_Sua.setBackground(new Color(204,204,204));
+
+    public void disVisibleForLuu() {
+        this.jButton_Sua.setBackground(new Color(204, 204, 204));
         this.jButton_Sua.setEnabled(false);
-     
-    }
-    
-    public void disVisibleForSua()
-    {
-        this.jButton_Luu.setBackground(new Color(204,204,204));
-        this.jButton_Luu.setEnabled(false);
-     
+
     }
 
+    public void disVisibleForSua() {
+        this.jButton_Luu.setBackground(new Color(204, 204, 204));
+        this.jButton_Luu.setEnabled(false);
+
+    }
+
+    private javax.swing.JComboBox<String> comboBox_NCC;
+    private javax.swing.JComboBox<String> comboBox_TH;
+
+    private class TextFieldCaretListener_NCC implements CaretListener {
+
+        @Override
+        public void caretUpdate(CaretEvent e) {
+            try {
+                comboBox_NCC.removeAllItems();
+//                comboBox.hidePopup();
+                comboBox_NCC.setVisible(true);
+                jPanel_CBB_NhaCungCap.remove(comboBox_NCC);
+                if (e.getMark() > 0) {
+                    for (String string : ncc_name) {
+                        if (string.toLowerCase().startsWith(jTextField_NhaCungCap.getText().toLowerCase())) {
+                            jPanel_CBB_NhaCungCap.add(comboBox_NCC);
+                            comboBox_NCC.addItem(string);
+                            comboBox_NCC.setMinimumSize(new Dimension(200, 25));
+                            comboBox_NCC.showPopup();
+                        }
+                    }
+                }
+            } catch (Exception e1) {
+
+            }
+
+            if (e.getMark() < 2) {
+                jPanel_CBB_NhaCungCap.removeAll();
+            }
+
+        }
+
+    }
+
+    private class TextFieldCaretListener_TH implements CaretListener {
+
+        @Override
+        public void caretUpdate(CaretEvent e) {
+            try {
+                comboBox_TH.removeAllItems();
+//                comboBox.hidePopup();
+                comboBox_TH.setVisible(true);
+                jPanel_CBB_ThuongHieu.remove(comboBox_TH);
+                if (e.getMark() > 0) {
+                    for (String string : th_name) {
+                        if (string.toLowerCase().startsWith(jTextField_ThuongHieu.getText().toLowerCase())) {
+                            jPanel_CBB_ThuongHieu.add(comboBox_TH);
+                            comboBox_TH.addItem(string);
+                            comboBox_TH.showPopup();
+                        }
+                    }
+                }
+            } catch (Exception e1) {
+
+            }
+            if (e.getMark() < 2) {
+                jPanel_CBB_ThuongHieu.removeAll();
+            }
+
+        }
+
+    }
 
     private int ID;
     private File file;
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.Box.Filler filler1;
-    private javax.swing.Box.Filler filler11;
-    private javax.swing.Box.Filler filler13;
     private javax.swing.Box.Filler filler14;
-    private javax.swing.Box.Filler filler16;
-    private javax.swing.Box.Filler filler17;
     private javax.swing.Box.Filler filler19;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler21;
     private javax.swing.Box.Filler filler22;
     private javax.swing.Box.Filler filler23;
+    private javax.swing.Box.Filler filler24;
     private javax.swing.Box.Filler filler25;
+    private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler28;
     private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler30;
     private javax.swing.Box.Filler filler31;
     private javax.swing.Box.Filler filler32;
-    private javax.swing.Box.Filler filler33;
     private javax.swing.Box.Filler filler34;
+    private javax.swing.Box.Filler filler35;
     private javax.swing.Box.Filler filler37;
     private javax.swing.Box.Filler filler40;
+    private javax.swing.Box.Filler filler41;
     private javax.swing.Box.Filler filler43;
     private javax.swing.Box.Filler filler45;
-    private javax.swing.Box.Filler filler46;
     private javax.swing.Box.Filler filler7;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton_Huy;
@@ -1019,6 +1239,8 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel_Barcode;
     private javax.swing.JLabel jLabel_GiaNhap;
     private javax.swing.JLabel jLabel_Img;
@@ -1031,6 +1253,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Thue1;
     private javax.swing.JLabel jLabel_Warning;
     private javax.swing.JLabel jLabel_XuatXu;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel18;
@@ -1045,6 +1268,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel34;
     private javax.swing.JPanel jPanel38;
     private javax.swing.JPanel jPanel39;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel44;
     private javax.swing.JPanel jPanel45;
     private javax.swing.JPanel jPanel46;
@@ -1054,7 +1278,10 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel58;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JPanel jPanel_CBB_NhaCungCap;
+    private javax.swing.JPanel jPanel_CBB_ThuongHieu;
     private javax.swing.JTextField jTextField1_NamSanXuat;
     private javax.swing.JTextField jTextField_Barcode;
     private javax.swing.JTextField jTextField_GiaNhap;

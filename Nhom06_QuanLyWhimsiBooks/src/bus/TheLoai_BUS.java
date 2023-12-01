@@ -4,35 +4,37 @@
  */
 package bus;
 
-import dao.ThuongHieu_DAO;
-import entities.ThuongHieu;
-import interfaces.IThuongHieu;
+import dao.TheLoai_DAO;
+import entities.TheLoai;
+import interfaces.ITheLoai;
 import java.util.ArrayList;
 
 /**
  *
  * @author ASUS
  */
-public class ThuongHieu_BUS implements IThuongHieu{
+public class TheLoai_BUS implements ITheLoai{
+    TheLoai_DAO theLoai_DAO = new TheLoai_DAO();
 
-    private ThuongHieu_DAO thuongHieu_DAO = new ThuongHieu_DAO();
+    public TheLoai_BUS() {
+    }
     @Override
-    public ArrayList<ThuongHieu> getAllThuongHieu() {
-        return thuongHieu_DAO.getAllThuongHieu();
+    public ArrayList<TheLoai> getAllTheLoai() {
+        return theLoai_DAO.getAllTheLoai();
     }
 
     @Override
-    public ArrayList<ThuongHieu> getThuongHieuTheoID(int x) {
+    public ArrayList<TheLoai> getTheLoaiTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean addThuongHieu(ThuongHieu x) {
-        return thuongHieu_DAO.addThuongHieu(x);
+    public boolean addTheLoai(TheLoai x) {
+        return theLoai_DAO.addTheLoai(x);
     }
 
     @Override
-    public boolean editThuongHieu(ThuongHieu x) {
+    public boolean editTheLoai(TheLoai x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

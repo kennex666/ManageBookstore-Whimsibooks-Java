@@ -4,35 +4,40 @@
  */
 package bus;
 
-import dao.ThuongHieu_DAO;
-import entities.ThuongHieu;
-import interfaces.IThuongHieu;
+import dao.TacGia_DAO;
+import entities.TacGia;
+import interfaces.ITacGia;
 import java.util.ArrayList;
 
 /**
  *
  * @author ASUS
  */
-public class ThuongHieu_BUS implements IThuongHieu{
+public class TacGia_BUS implements ITacGia{
+    TacGia_DAO tacGia_DAO = new TacGia_DAO();
 
-    private ThuongHieu_DAO thuongHieu_DAO = new ThuongHieu_DAO();
     @Override
-    public ArrayList<ThuongHieu> getAllThuongHieu() {
-        return thuongHieu_DAO.getAllThuongHieu();
+    public String toString() {
+        return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+    @Override
+    public ArrayList<TacGia> getAllTacGia() {
+       return tacGia_DAO.getAllTacGia();
     }
 
     @Override
-    public ArrayList<ThuongHieu> getThuongHieuTheoID(int x) {
+    public ArrayList<TacGia> getTacGiaTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean addThuongHieu(ThuongHieu x) {
-        return thuongHieu_DAO.addThuongHieu(x);
+    public boolean addTacGia(TacGia x) {
+        return tacGia_DAO.addTacGia(x);
+                
     }
 
     @Override
-    public boolean editThuongHieu(ThuongHieu x) {
+    public boolean editTacGia(TacGia x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

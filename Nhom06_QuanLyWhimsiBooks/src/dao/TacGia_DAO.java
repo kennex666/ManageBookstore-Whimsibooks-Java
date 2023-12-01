@@ -6,8 +6,10 @@ package dao;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
-import entities.NhaXuatBan;
-import interfaces.INhaXuatBan;
+import entities.TacGia;
+import entities.ThuongHieu;
+import interfaces.ITacGia;
+import interfaces.IThuongHieu;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,39 +21,28 @@ import java.util.ArrayList;
  *
  * @author ASUS
  */
-public class NhaXuatBan_DAO implements INhaXuatBan{
-    private Connection conn;
+public class TacGia_DAO implements  ITacGia{
 
-    public NhaXuatBan_DAO() {
-        this.conn = ConnectDB.getConnection();
+    private Connection conn;
+   
+    public TacGia_DAO() {
+        conn = ConnectDB.getConnection();
     }
-    
-    
-    
+
     @Override
-    public ArrayList<NhaXuatBan> getAllNhaXuatBan() {
-       ArrayList<NhaXuatBan> list = new ArrayList<NhaXuatBan>();
-		
+    public ArrayList<TacGia> getAllTacGia() {
+       ArrayList<TacGia> list = new ArrayList<TacGia>();
 		try {
 			Statement stm = conn.createStatement();
 			
-			String query = "SELECT * FROM NhaXuatBan";
+			String query = "SELECT * FROM TacGia";
 			
 			ResultSet rs = stm.executeQuery(query);
 			
 			while (rs.next()) {
 				try {
-					NhaXuatBan nhaXuatBan = new NhaXuatBan(
-                                                rs.getInt("nhaxuatbanid"), 
-                                                rs.getString("tennhaxuatban"), 
-                                                rs.getString("diachi"), 
-                                                rs.getString("sodienthoai"), 
-                                                rs.getString("email"), 
-                                                rs.getString("website"), 
-                                                rs.getInt("namthanhlap"),
-                                                rs.getString("linhvucxuatban"), 
-                                                rs.getString("quocgia"));
-					list.add(nhaXuatBan);
+					TacGia tacGia = new TacGia(rs.getInt("tacGiaID"), rs.getString("tenTacGia"), rs.getString("quocTich"));
+					list.add(tacGia);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -69,18 +60,18 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
     }
 
     @Override
-    public ArrayList<NhaXuatBan> getNhaXuatBanTheoID(String x) {
+    public ArrayList<TacGia> getTacGiaTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public boolean addNhaXuatBan(NhaXuatBan x) {
-         String tenNXB = x.getTenNhaXuatBan();
+    public boolean addTacGia(TacGia x) {
+        String tenTG = x.getTenTacGia();
 
-        String insert = "INSERT INTO NhaXuatBan (TenNhaXuatBan) VALUES (?)";
+        String insert = "INSERT INTO TacGia (TenTacGia) VALUES (?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, tenNXB);
+            preparedStatement.setString(1, tenTG);
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -90,8 +81,10 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
     }
 
     @Override
-    public boolean editNhaXuatBan(NhaXuatBan x) {
+    public boolean editTacGia(TacGia x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-
+    
+    
+    
 }

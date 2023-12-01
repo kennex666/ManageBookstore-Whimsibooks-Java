@@ -113,9 +113,9 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMaximumSize(new java.awt.Dimension(412, 235));
-        setMinimumSize(new java.awt.Dimension(412, 235));
+        setMinimumSize(new java.awt.Dimension(410, 235));
         setName(""); // NOI18N
-        setPreferredSize(new java.awt.Dimension(412, 235));
+        setPreferredSize(new java.awt.Dimension(410, 235));
         setLayout(new java.awt.BorderLayout());
         add(filler16, java.awt.BorderLayout.PAGE_START);
 
