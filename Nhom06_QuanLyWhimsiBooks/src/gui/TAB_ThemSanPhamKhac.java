@@ -124,7 +124,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         filler37 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 50), new java.awt.Dimension(10, 10));
-        jLabel1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
@@ -217,9 +217,10 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel2.setLayout(new javax.swing.BoxLayout(jPanel2, javax.swing.BoxLayout.LINE_AXIS));
         jPanel2.add(filler37);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel1.setText("Thông tin sản phẩm");
-        jPanel2.add(jLabel1);
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(15, 145, 239));
+        jLabel3.setText("Thông tin sản phẩm");
+        jPanel2.add(jLabel3);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -227,11 +228,11 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 614, Short.MAX_VALUE)
+            .addGap(0, 552, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 54, Short.MAX_VALUE)
+            .addGap(0, 58, Short.MAX_VALUE)
         );
 
         jPanel2.add(jPanel5);
@@ -557,7 +558,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 537, Short.MAX_VALUE)
+            .addGap(0, 534, Short.MAX_VALUE)
         );
 
         jPanel9.add(jPanel1);
@@ -1236,9 +1237,9 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Luu;
     private javax.swing.JButton jButton_Sua;
     private javax.swing.JComboBox<String> jComboBox_LoaiDoiTra;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel_Barcode;

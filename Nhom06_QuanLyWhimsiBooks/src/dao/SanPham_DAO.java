@@ -232,7 +232,8 @@ public class SanPham_DAO implements ISanPham{
 					+ "SET  TenSanPham = ?, NgayNhap  = ?, GiaNhap = ?, Thue = ?, LoaiDoiTra = ?,"
 					+ "Barcode = ?, SoLuongTon = ?, NamSanXuat = ?,"
 					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, "
-                                        + "SoTrang = ?, LoaiBia = ? WHERE SanPhamID = ?";
+                                        + "SoTrang = ?, LoaiBia = ?, TacGiaID = ?, NhaXuatBanID = ?, NhaCungCapID = ?, DanhMucID = ?, ThuongHieuID = ? "
+                                        + " WHERE SanPhamID = ?";
 
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -250,7 +251,12 @@ public class SanPham_DAO implements ISanPham{
 				pstm.setString(12, sp.getNgonNgu());
 				pstm.setInt(13, sp.getSoTrang());
 				pstm.setString(14, sp.getLoaiBia());
-				pstm.setInt(15, id);
+                                pstm.setInt(15, sp.getTacGia().getTacGiaID());
+                                pstm.setInt(16, sp.getNhaXuatBan().getNhaXuatBanID());
+                                pstm.setString(17, sp.getNhaCungCap().getNhaCungCapID());
+                                pstm.setInt(18, sp.getDanhMuc().getDanhMucID());
+                                pstm.setInt(19, sp.getThuongHieu().getThuongHieuID());
+				pstm.setInt(20, id);
 				return(pstm.executeUpdate()>0)?true:false;
 			} catch (Exception e) {
 				e.printStackTrace();

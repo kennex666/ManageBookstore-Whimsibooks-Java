@@ -1759,6 +1759,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             nxb.setTenNhaXuatBan(tenNhaXuatBan);
             dm.setTenDanhMuc(tenDanhMuc);
             tg.setTenTacGia(tenTacGia);
+            
 
         } catch (Exception e) {
            
@@ -1816,7 +1817,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
             }
         }
-
+        th.setThuongHieuID(1);
 
         SanPham sanPham = new SanPham();
         try {
@@ -2131,8 +2132,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler24;
     private javax.swing.Box.Filler filler25;
     private javax.swing.Box.Filler filler26;
-    private javax.swing.Box.Filler filler28;
-    private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler30;
     private javax.swing.Box.Filler filler31;
@@ -2142,8 +2141,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler36;
     private javax.swing.Box.Filler filler37;
     private javax.swing.Box.Filler filler38;
-    private javax.swing.Box.Filler filler39;
-    private javax.swing.Box.Filler filler40;
     private javax.swing.Box.Filler filler41;
     private javax.swing.Box.Filler filler42;
     private javax.swing.Box.Filler filler43;
@@ -2157,16 +2154,12 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox_LoaiDoiTra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_Barcode;
     private javax.swing.JLabel jLabel_DonViDoLuong1;
     private javax.swing.JLabel jLabel_GiaNhap;
-    private javax.swing.JLabel jLabel_Img;
-    private javax.swing.JLabel jLabel_Img1;
     private javax.swing.JLabel jLabel_ImgChooser;
     private javax.swing.JLabel jLabel_KichThuoc;
     private javax.swing.JLabel jLabel_LoaiBia;
@@ -2185,16 +2178,10 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Warning;
     private javax.swing.JLabel jLabel_XuatXu;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
     private javax.swing.JPanel jPanel21;
@@ -2202,8 +2189,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel24;
     private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel27;
     private javax.swing.JPanel jPanel28;
     private javax.swing.JPanel jPanel29;
     private javax.swing.JPanel jPanel3;
@@ -2225,9 +2210,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel55;
     private javax.swing.JPanel jPanel56;
     private javax.swing.JPanel jPanel59;
-    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel60;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPanel_CBB_Barcode;

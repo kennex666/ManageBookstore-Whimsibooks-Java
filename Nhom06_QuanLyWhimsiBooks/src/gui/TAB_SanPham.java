@@ -20,6 +20,9 @@ import java.awt.GridBagConstraints;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -37,11 +40,10 @@ import utilities.ImageProcessing;
  * @author duong
  */
 public class TAB_SanPham extends javax.swing.JPanel {
-    
 
-    
     private final int COLUNM_BOX = 3;
     private GridBagConstraints gridBagConstraints;
+
     /**
      * Creates new form TAB_SanPham
      */
@@ -51,7 +53,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         loadSanPham(list_SanPham);
-         
+
 //        this.jPanel_CBB_TenSanPham.removeAll();
 //        comboBox = new JComboBox<String>();
 //        this.jPanel_CBB_TenSanPham.add(comboBox);
@@ -70,105 +72,97 @@ public class TAB_SanPham extends javax.swing.JPanel {
 //            }
 //        }
 //        });
-        
     }
     int dem_sach = 0;
     int dem_spk = 0;
-    public void loadSanPham(ArrayList<SanPham> list_SanPham)
-    {
- 
-        
+
+    public void loadSanPham(ArrayList<SanPham> list_SanPham) {
+
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
         ArrayList<DanhMuc> list_danhMuc = new DanhMuc_BUS().getAllDanhMuc();
         jComboBox_DanhMuc.addItem("Tất cả");
-        for(DanhMuc dm : list_danhMuc)
-        {
+        for (DanhMuc dm : list_danhMuc) {
             this.jComboBox_DanhMuc.addItem(dm.getTenDanhMuc().toString());
         }
         NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
         ArrayList<NhaXuatBan> list_nhaXuatBan = nhaXuatBan_BUS.getAllNhaXuatBan();
         jComboBox_NhaXuatBan.addItem("Tất cả");
-        for(NhaXuatBan nhaXuatBan : list_nhaXuatBan)
-        {
+        for (NhaXuatBan nhaXuatBan : list_nhaXuatBan) {
             this.jComboBox_NhaXuatBan.addItem(nhaXuatBan.getTenNhaXuatBan().toString());
         }
         ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
         ArrayList<ThuongHieu> list_ThuongHieu = thuongHieu_BUS.getAllThuongHieu();
         jComboBox_ThuongHieu.addItem("Tất cả");
-        for(ThuongHieu thuongHieu : list_ThuongHieu)
-        {
+        for (ThuongHieu thuongHieu : list_ThuongHieu) {
             this.jComboBox_ThuongHieu.addItem(thuongHieu.getTenThuongHieu().toString());
         }
+        jComboBox_TrangThai.setSelectedIndex(0);
+        jComboBox_SapXepTheo.setSelectedIndex(0);
+        jComboBox_SapXepTheo1.setSelectedIndex(0);
+        jComboBox_TrangThai_SPK.setSelectedIndex(0);
 //       
-            jPanel_Empty1.setBackground(new Color(242, 242, 242));
-            jPanel_Empty2.setBackground(new Color(242, 242, 242));
-            
-            jPanel_Empty3.setBackground(new Color(242, 242, 242));
-            jPanel_Empty4.setBackground(new Color(242, 242, 242));
+        jPanel_Empty1.setBackground(new Color(242, 242, 242));
+        jPanel_Empty2.setBackground(new Color(242, 242, 242));
+
+        jPanel_Empty3.setBackground(new Color(242, 242, 242));
+        jPanel_Empty4.setBackground(new Color(242, 242, 242));
 
 //            jPanel_Empty1.setPreferredSize(new Dimension(400, 10));
 //            jPanel_Empty2.setPreferredSize(new Dimension(400, 10));
-            
-            jPanel_Empty1.setMaximumSize(new Dimension(410, 235));
-            jPanel_Empty2.setMaximumSize(new Dimension(410, 235));
-            
-            jPanel_Empty3.setMaximumSize(new Dimension(411, 190));
-            jPanel_Empty4.setMaximumSize(new Dimension(411, 190));
-        
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        list_SanPham = sanPham_BUS.getDanhSachSanPham();
-                    box_SP.removeAll();
-                    box_SPK.removeAll();
+        jPanel_Empty1.setMaximumSize(new Dimension(410, 235));
+        jPanel_Empty2.setMaximumSize(new Dimension(410, 235));
+
+        jPanel_Empty3.setMaximumSize(new Dimension(411, 190));
+        jPanel_Empty4.setMaximumSize(new Dimension(411, 190));
+
+        box_SP.removeAll();
+        box_SPK.removeAll();
         int i = 100;
         int j = 100;
-        for(SanPham sanPham : list_SanPham)
-        {        
-            if(sanPham.getLoaiSanPham().equals("SACH"))
-            {
+
+        for (SanPham sanPham : list_SanPham) {
+            if (sanPham.getLoaiSanPham().equals("SACH")) {
                 TAB_ChiTietSanPham_Sach jPanel_New_SanPham = new TAB_ChiTietSanPham_Sach(sanPham);
-                if (dem_sach  == 0){
-                box_SP.add(jPanel_New_SanPham);
-                jPanel_Empty1.setVisible(true);
-                jPanel_Empty2.setVisible(true);
-                box_SP.add(jPanel_Empty1);
-                box_SP.add(jPanel_Empty2);
-            
-                jPanel_List_SanPham.setPreferredSize(new Dimension(500, i += 250));
-                jPanel_List_SanPham.add(box_SP);
-                ++dem_sach;
+                if (dem_sach == 0) {
+                    box_SP.add(jPanel_New_SanPham);
+                    jPanel_Empty1.setVisible(true);
+                    jPanel_Empty2.setVisible(true);
+                    box_SP.add(jPanel_Empty1);
+                    box_SP.add(jPanel_Empty2);
 
-                }else{
-                    if (dem_sach == 2){
+                    jPanel_List_SanPham.setPreferredSize(new Dimension(500, i += 250));
+                    jPanel_List_SanPham.add(box_SP);
+                    ++dem_sach;
 
-                //                box = new Box(BoxLayout.X_AXIS);
-                //box.remove(jPanel_Empty1);
-                jPanel_Empty1.setVisible(false);
-                box_SP.add(jPanel_New_SanPham);
+                } else {
+                    if (dem_sach == 2) {
 
+                        //                box = new Box(BoxLayout.X_AXIS);
+                        //box.remove(jPanel_Empty1);
+                        jPanel_Empty1.setVisible(false);
+                        box_SP.add(jPanel_New_SanPham);
 
-                //box.add(jPanel_New_SanPham);
+                        //box.add(jPanel_New_SanPham);
+                        box_SP = new Box(BoxLayout.X_AXIS);
+                        Row_Sach++;
+                        jPanel_List_SanPham.add(box_SP);
+                        dem_sach = 0;
 
-                box_SP = new Box(BoxLayout.X_AXIS);
-                Row_Sach++;
-                jPanel_List_SanPham.add(box_SP);
-                dem_sach = 0;
-
-               
-                    }else if(dem_sach == 1){
+                    } else if (dem_sach == 1) {
 
 //                box.remove(jPanel_Empty1);
 //                box.remove(jPanel_Empty2);
-                jPanel_Empty1.setVisible(false);
-                jPanel_Empty2.setVisible(false);
-                
-                box_SP.add(jPanel_New_SanPham);
+                        jPanel_Empty1.setVisible(false);
+                        jPanel_Empty2.setVisible(false);
 
-                jPanel_Empty1.setVisible(true);
-                box_SP.add(jPanel_Empty1);
+                        box_SP.add(jPanel_New_SanPham);
 
-                jPanel_List_SanPham.add(box_SP);
-                
-                ++dem_sach;
+                        jPanel_Empty1.setVisible(true);
+                        box_SP.add(jPanel_Empty1);
+
+                        jPanel_List_SanPham.add(box_SP);
+
+                        ++dem_sach;
 
                     }
                 }
@@ -176,61 +170,56 @@ public class TAB_SanPham extends javax.swing.JPanel {
         }
         this.revalidate();
 
-        for(SanPham sanPham : list_SanPham)
-        {        
-            if(sanPham.getLoaiSanPham().equals("SAN_PHAM_KHAC"))
-            {
+        for (SanPham sanPham : list_SanPham) {
+            if (sanPham.getLoaiSanPham().equals("SAN_PHAM_KHAC")) {
                 TAB_ChiTietSanPham_SanPhamKhac jPanel_New_SanPhamKhac = new TAB_ChiTietSanPham_SanPhamKhac(sanPham);
-                if (dem_spk  == 0){
-                box_SPK.add(jPanel_New_SanPhamKhac);
-                jPanel_Empty3.setVisible(true);
-                jPanel_Empty4.setVisible(true);
-                box_SPK.add(jPanel_Empty3);
-                box_SPK.add(jPanel_Empty4);
-            
-                jPanel_List_SanPham1.setPreferredSize(new Dimension(500, j += 190));
-                jPanel_List_SanPham1.add(box_SPK);
-                ++dem_spk;
+                if (dem_spk == 0) {
+                    box_SPK.add(jPanel_New_SanPhamKhac);
+                    jPanel_Empty3.setVisible(true);
+                    jPanel_Empty4.setVisible(true);
+                    box_SPK.add(jPanel_Empty3);
+                    box_SPK.add(jPanel_Empty4);
 
-                }else{
-                if (dem_spk == 2){
+                    jPanel_List_SanPham1.setPreferredSize(new Dimension(500, j += 190));
+                    jPanel_List_SanPham1.add(box_SPK);
+                    ++dem_spk;
 
-                //                box = new Box(BoxLayout.X_AXIS);
-                //box.remove(jPanel_Empty1);
-                jPanel_Empty3.setVisible(false);
-                box_SPK.add(jPanel_New_SanPhamKhac);
+                } else {
+                    if (dem_spk == 2) {
 
+                        //                box = new Box(BoxLayout.X_AXIS);
+                        //box.remove(jPanel_Empty1);
+                        jPanel_Empty3.setVisible(false);
+                        box_SPK.add(jPanel_New_SanPhamKhac);
 
-                //box.add(jPanel_New_SanPham);
+                        //box.add(jPanel_New_SanPham);
+                        box_SPK = new Box(BoxLayout.X_AXIS);
+                        Row_SPK++;
+                        jPanel_List_SanPham1.add(box_SPK);
+                        dem_spk = 0;
 
-                box_SPK = new Box(BoxLayout.X_AXIS);
-                Row_SPK++;
-                jPanel_List_SanPham1.add(box_SPK);
-                dem_spk = 0;
-
-               
-                }else if(dem_spk == 1){
+                    } else if (dem_spk == 1) {
 
 //                box.remove(jPanel_Empty1);
 //                box.remove(jPanel_Empty2);
-                jPanel_Empty3.setVisible(false);
-                jPanel_Empty4.setVisible(false);
-                
-                box_SPK.add(jPanel_New_SanPhamKhac);
+                        jPanel_Empty3.setVisible(false);
+                        jPanel_Empty4.setVisible(false);
 
-                jPanel_Empty3.setVisible(true);
-                box_SPK.add(jPanel_Empty3);
+                        box_SPK.add(jPanel_New_SanPhamKhac);
 
-                jPanel_List_SanPham1.add(box_SPK);
-                
-                ++dem_spk;
+                        jPanel_Empty3.setVisible(true);
+                        box_SPK.add(jPanel_Empty3);
+
+                        jPanel_List_SanPham1.add(box_SPK);
+
+                        ++dem_spk;
 
                     }
                 }
             }
         }
         this.revalidate();
-        
+
     }
 
     /**
@@ -239,24 +228,23 @@ public class TAB_SanPham extends javax.swing.JPanel {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
-    
-    public void refresh()
-    {
-         // TODO add your handling code here:
+
+    public void refresh() {
+        // TODO add your handling code here:
         this.jPanel_List_SanPham.removeAll();
         this.jPanel_List_SanPham1.removeAll();
-        
+
         jComboBox_DanhMuc.removeAllItems();
         jComboBox_NhaXuatBan.removeAllItems();
         jComboBox_ThuongHieu.removeAllItems();
         dem_sach = 0;
         dem_spk = 0;
-        
+
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         this.jTextField_TimKiem.setText("");
         this.jTextField_TimKiem1.setText("");
-        
+
         //this.revalidate();
         this.repaint();
 //
@@ -913,7 +901,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton_refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_refreshActionPerformed
-         this.refresh();
+        this.refresh();
     }//GEN-LAST:event_jButton_refreshActionPerformed
 
     private void jButton_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TimKiemActionPerformed
@@ -922,20 +910,65 @@ public class TAB_SanPham extends javax.swing.JPanel {
         String timKiem_DanhMuc = this.jComboBox_DanhMuc.getSelectedItem().toString();
         String timKiem_NhaXuatBan = this.jComboBox_NhaXuatBan.getSelectedItem().toString();
         String timKiem_TrangThai = this.jComboBox_TrangThai.getSelectedItem().toString();
-        
+
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         int tacGiaID = sanPham_BUS.getIdTacGiaByName(timKiem_Ten.toString());
+        int theLoaiID = sanPham_BUS.getIdTheloaiByName(timKiem_Ten.toString());
         int danhMucID = sanPham_BUS.getIdDanhMucByName(timKiem_DanhMuc.toString());
         int nhaXuatBanID = sanPham_BUS.getIdNhaXuatBanByName(timKiem_NhaXuatBan.toString());
-         
-        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "'%" + timKiem_Ten + "%'"
-                + "OR tacGiaID = " + tacGiaID
-                + "AND danhMucID = " + danhMucID
-                + "AND nhaXuatBanID = " + nhaXuatBanID
-                + "AND trangThai LIKE " + "'%" + timKiem_TrangThai + "%'"; 
-        System.out.println(query1);
-        
+
+        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%' OR TacGiaID = " + tacGiaID + " OR TheLoaiID = " + theLoaiID;
+
+        if (danhMucID != -1) {
+            query1 += " AND DanhMucID = " + danhMucID;
+        }
+        if (nhaXuatBanID != -1) {
+            query1 += " AND NhaXuatBanID = " + nhaXuatBanID;;
+        }
+
+        if (timKiem_TrangThai.equals("Còn bán")) {
+            query1 += " AND TinhTrang = " + "'CON_HANG'";
+        } else if (timKiem_TrangThai.equals("Ngưng bán")) {
+            query1 += " AND TinhTrang = " + "'NGUNG_KINH_DOANH'";
+        }
+
+        this.jPanel_List_SanPham.removeAll();
+
+        jComboBox_DanhMuc.removeAllItems();
+        jComboBox_NhaXuatBan.removeAllItems();
+
+        dem_sach = 0;
+        dem_spk = 0;
+
+        this.jTextField_TimKiem.setText("");
+        this.jTextField_TimKiem1.setText("");
+
+        this.revalidate();
+        this.repaint();
+
+        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
+        if (timKiem_SapXep.equals("Giá cao nhất")) {
+            Collections.sort(list, new Comparator<SanPham>() {
+                @Override
+                public int compare(SanPham sp1, SanPham sp2) {
+                    if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
+                        return 1;
+                    } else {
+                        if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                            return 0;
+                        } else {
+                            return -1;
+                        }
+                    }
+                }
+            });
+        }
+
+        loadSanPham(list);
+
+
     }//GEN-LAST:event_jButton_TimKiemActionPerformed
+
 
     private void jComboBox_DanhMucActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_DanhMucActionPerformed
         // TODO add your handling code here:
@@ -963,7 +996,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         taB_ThemSanPhamKhac.setLocationRelativeTo(null);
         taB_ThemSanPhamKhac.setVisible(true);
         taB_ThemSanPhamKhac.disVisibleForLuu();
-        
+
     }//GEN-LAST:event_jButton_Them_SPKActionPerformed
 
 //    private class TextFieldCaretListener implements CaretListener
@@ -1006,7 +1039,55 @@ public class TAB_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox_SapXepTheo1ActionPerformed
 
     private void jButton_TimKiem_SPKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_TimKiem_SPKActionPerformed
-        // TODO add your handling code here:
+        String timKiem_Ten = this.jTextField_TimKiem1.getText();
+        String timKiem_SapXep = this.jComboBox_SapXepTheo1.getSelectedItem().toString();
+        String timKiem_ThuongHieu = this.jComboBox_ThuongHieu.getSelectedItem().toString();
+        String timKiem_TrangThai = this.jComboBox_TrangThai_SPK.getSelectedItem().toString();
+
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        int thuongHieuID = sanPham_BUS.getIdThuongHieuByName(timKiem_ThuongHieu.toString());
+
+        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
+
+        if (thuongHieuID != -1) {
+            query1 += " AND ThuongHieuID = " + thuongHieuID;
+        }
+
+        if (timKiem_TrangThai.equals("Còn bán")) {
+            query1 += " AND TinhTrang = " + "'CON_HANG'";
+        } else if (timKiem_TrangThai.equals("Ngưng bán")) {
+            query1 += " AND TinhTrang = " + "'NGUNG_KINH_DOANH'";
+        }
+
+        this.jPanel_List_SanPham1.removeAll();
+        jComboBox_ThuongHieu.removeAllItems();
+        dem_sach = 0;
+        dem_spk = 0;
+
+        this.jTextField_TimKiem1.setText("");
+
+        this.revalidate();
+        this.repaint();
+
+        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
+        if (timKiem_SapXep.equals("Giá cao nhất")) {
+            Collections.sort(list, new Comparator<SanPham>() {
+                @Override
+                public int compare(SanPham sp1, SanPham sp2) {
+                    if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
+                        return 1;
+                    } else {
+                        if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                            return 0;
+                        } else {
+                            return -1;
+                        }
+                    }
+                }
+            });
+        }
+        loadSanPham(list);
+
     }//GEN-LAST:event_jButton_TimKiem_SPKActionPerformed
 
     private void jButton_refresh_SPKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_refresh_SPKActionPerformed
@@ -1022,16 +1103,16 @@ public class TAB_SanPham extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_TrangThaiActionPerformed
 
-        Box box_SP = new Box(BoxLayout.X_AXIS);
-        Box box_SPK = new Box(BoxLayout.X_AXIS);
-        int Row_Sach = 0;
-        int Row_SPK = 0;
-        JPanel jPanel_Empty1 = new JPanel(); 
-        JPanel jPanel_Empty2 = new JPanel(); 
-        JPanel jPanel_Empty3 = new JPanel(); 
-        JPanel jPanel_Empty4 = new JPanel();
-        
-        
+    Box box_SP = new Box(BoxLayout.X_AXIS);
+    Box box_SPK = new Box(BoxLayout.X_AXIS);
+    int Row_Sach = 0;
+    int Row_SPK = 0;
+    JPanel jPanel_Empty1 = new JPanel();
+    JPanel jPanel_Empty2 = new JPanel();
+    JPanel jPanel_Empty3 = new JPanel();
+    JPanel jPanel_Empty4 = new JPanel();
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
