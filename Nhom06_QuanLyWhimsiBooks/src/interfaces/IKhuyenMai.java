@@ -20,5 +20,6 @@ public interface IKhuyenMai {
     public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params);
     public ArrayList<KhuyenMai> getKhuyenMaiByName(String name);
     public boolean deleteKhuyenMai(String codeKhuyenMai);
+    public int getSoLuongChuaSD(Object[] params);
 }
 	

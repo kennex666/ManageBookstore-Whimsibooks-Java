@@ -27,7 +27,7 @@ public class MainMenuTest {
 //		System.out.println(a.TimKiemKhuyenMaiTheoDieuKien("Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+0+"%' and LoaiGiamGia = 'Percentage'"));
 		
 		KhuyenMai_BUS bus = new KhuyenMai_BUS();
-		System.out.println(bus.getDanhSachKhuyenMaiNangCao(new Object[] {null , null ,120, null, null, null}));
+		System.out.println(bus.getSoLuongChuaSD(new Object[] {"Khong A", null}));
 		
 //		ChiTietKhuyenMai_BUS bus = new ChiTietKhuyenMai_BUS();
 //		System.out.println(bus.laySanPhamKMTheoMa("AAA"));

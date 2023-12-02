@@ -383,6 +383,38 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		}
 		return list;
 	}
+	
+	public int getSoLuongChuaSD(Object[] params) {
+	    String addWhere = "";
+
+	    if (params[0] != null) {
+	        addWhere = addWhere.concat(" and TenKhuyenMai = ?");
+	    }
+	    if (params[1] != null) {
+	        addWhere = addWhere.concat(" and CodeKhuyenMai = ?");
+	    }
+
+	    String query = "SELECT COUNT(*) FROM KhuyenMai WHERE SoLuotDaApDung = 0 " + addWhere;
+
+	    try {
+	        PreparedStatement ps = conn.prepareStatement(query);
+
+	        if (params[0] != null) {
+	            ps.setString(1, params[0].toString());
+	        }
+
+	        if (params[1] != null) {
+	            ps.setString(2, params[1].toString());
+	        }
+
+	        ResultSet rs = ps.executeQuery();
+	        rs.next();
+	        return rs.getInt(1);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return 0;
+	    }
+	}
 
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();

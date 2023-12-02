@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -273,6 +275,80 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return khuyenMai_DAO.deleteKhuyenMai(codeKhuyenMai);
 	}
 
+	//type ,String tenKM, int soLuong, double donGiaTu, String hinhThuc, double mucGiam, Date ngayBatDau, Date ngayKetThuc
+	private String VoucherCode() {
+		String voucherCode;
+		String nameRequired = "Voucher_";
+		Set<String> generatedCodes = new HashSet<>();
 
+		for (int i = 0; i < getAllKhuyenMai().size(); i++) {
+			generatedCodes.add(getAllKhuyenMai().get(i).getCodeKhuyenMai());
+		}
+
+		voucherCode = utilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
+
+		return voucherCode;
+	}
+	
+	public boolean update(Object[] obj) {
+		ArrayList<KhuyenMai> list = getKhuyenMaiByName(obj[9].toString());
+		
+		String typeUpdate = (String) obj[0];	
+		String maKhuyenMai = String.valueOf(obj[1]);
+		String tenKM = String.valueOf(obj[2]);
+		int countNew = Integer.valueOf(obj[3].toString());
+		double donHangTu = Double.valueOf(obj[4].toString());
+		String hinhThuc = String.valueOf(obj[5]);
+		double mucGiam = Double.valueOf(obj[6].toString());
+		Date ngayBatDau = Date.valueOf(obj[7].toString());
+		Date ngayKetThuc = Date.valueOf(obj[8].toString()) ;
+		int Count = list.size();
+		int countOld = getSoLuongChuaSD(new Object[] {tenKM, null});
+		
+		boolean checkConfirm = false;
+		
+		try {
+			// Update Voucher
+			if(typeUpdate.equals("Voucher")) {
+				for(KhuyenMai km : list) {
+					KhuyenMai khuyenMai = new KhuyenMai(km.getCodeKhuyenMai(), tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, km.getSoLuotDaApDung());
+					editKhuyenMai(khuyenMai);
+					System.out.println(khuyenMai);
+				}
+				// số lượng không thay đổi
+				if(countNew == countOld) {
+					return true;
+				}
+				// Tăng số lượng
+				if(countNew > countOld) {
+					int SLTang = countNew - countOld;
+					for (int i = 0; i < SLTang; i++) {
+                		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
+                		addKhuyenMai(khuyenMai);
+                	}
+				}
+				// Giảm số lượng
+				if(countNew < countOld) {
+					int SLGiam = countOld - countNew;
+					ArrayList<KhuyenMai> listChuaSD = getKhuyenMaiByName(obj[9].toString());
+					for(int i = 0; i < listChuaSD.size(); i++) {
+						if(listChuaSD.get(i).getSoLuotDaApDung() == 0)
+							deleteKhuyenMai(listChuaSD.get(i).getCodeKhuyenMai());
+					}
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public int getSoLuongChuaSD(Object[] params) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getSoLuongChuaSD(params);
+	}
 
 }
