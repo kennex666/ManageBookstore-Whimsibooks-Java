@@ -1,4 +1,3 @@
-
 package gui;
 
 import bus.ChiTietHoaDon_BUS;
@@ -40,489 +39,520 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import utilities.*;
+import static utilities.TAB_HoaDon_EditorMode.BAN_HANG;
+import static utilities.TAB_HoaDon_EditorMode.TRA_HANG;
+import static utilities.TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON;
 
 /**
  *
  * @author duong
  */
 public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
-        private JTextField lastClicked;
-	private SanPham_BUS sanPham_BUS;
-	private NhanVien_BUS nhanVien_BUS;
-	private KhachHang_BUS khachHang_BUS;
-	private KhuyenMai_BUS khuyenMai_BUS;
-	private HoaDon_BUS hoaDon_BUS;
-	private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
 
-	private HoaDon hoaDon;
-	private HoaDonTra hoaDonTra;
-	private NhanVien nhanVien;
-	private KhachHang khachHang;
-	private KhuyenMai khuyenMai;
+    private JTextField lastClicked;
+    private SanPham_BUS sanPham_BUS;
+    private NhanVien_BUS nhanVien_BUS;
+    private KhachHang_BUS khachHang_BUS;
+    private KhuyenMai_BUS khuyenMai_BUS;
+    private HoaDon_BUS hoaDon_BUS;
+    private ChiTietHoaDon_BUS chiTietHoaDon_BUS;
 
-	private DefaultTableModel tblModelCTHD, tblHoaDon;
-	private ArrayList<HoaDon> listHoaDon;
-	private TAB_HoaDon_EditorMode trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
-	// Thanh toán là giao diện bán hàng, xem chi tiết là trạng thái chỉ xem
+    private HoaDon hoaDon;
+    private HoaDonTra hoaDonTra;
+    private NhanVien nhanVien;
+    private KhachHang khachHang;
+    private KhuyenMai khuyenMai;
 
-	/**
-	 * Creates new form TAB_BanHang
-	 */
-	public TAB_BanHang() {
-		// Hoá đơn mặc định.
-		sanPham_BUS = new SanPham_BUS();
-		hoaDon_BUS = new HoaDon_BUS();
-		chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
-		nhanVien_BUS = new NhanVien_BUS();
-		khachHang_BUS = new KhachHang_BUS();
-		khuyenMai_BUS = new KhuyenMai_BUS();
-                if (!CurrentSession.isLogin()){
-                    JOptionPane.showMessageDialog(null , "Lỗi đăng nhập: Nhân viên không xác định!");
+    private DefaultTableModel tblModelCTHD, tblHoaDon;
+    private ArrayList<HoaDon> listHoaDon;
+    private ArrayList<HoaDon> listHoaDonDangCho;
+    private TAB_HoaDon_EditorMode trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
+    // Thanh toán là giao diện bán hàng, xem chi tiết là trạng thái chỉ xem
+
+    /**
+     * Creates new form TAB_BanHang
+     */
+    public TAB_BanHang() {
+        // Hoá đơn mặc định.
+        listHoaDonDangCho = new ArrayList<HoaDon>();
+        sanPham_BUS = new SanPham_BUS();
+        hoaDon_BUS = new HoaDon_BUS();
+        chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
+        nhanVien_BUS = new NhanVien_BUS();
+        khachHang_BUS = new KhachHang_BUS();
+        khuyenMai_BUS = new KhuyenMai_BUS();
+        if (!CurrentSession.isLogin()) {
+            JOptionPane.showMessageDialog(null, "Lỗi đăng nhập: Nhân viên không xác định!");
+        }
+        /**
+         * Test this case
+         */
+
+        trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
+
+        initComponents();
+        setDefaultEntities();
+
+        tblChiTietHoaDon.getColumn("-").setCellRenderer(new ButtonRender(ImageProcessing
+                .resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png")), 15, 15)));
+
+        tblChiTietHoaDon.getColumn("+").setCellRenderer(new ButtonRender(ImageProcessing
+                .resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-increase.png")), 15, 15)));
+        tblChiTietHoaDon.getColumn("Xoá").setCellRenderer(new ButtonRender(ImageProcessing
+                .resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 12, 15)));
+
+        tblChiTietHoaDon.addMouseListener(this);
+
+        // Placeholder text
+        ((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
+        ((utilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
+
+        WindowTitle.setTitle("Quản lý bán hàng");
+
+        tblModelCTHD.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent event) {
+                int row = event.getFirstRow(), col = event.getColumn();
+                if (row == -1) {
+                    return;
                 }
-		/**
-		 * Test this case
-		 */
-
-		trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
-
-		initComponents();
-                setDefaultEntities();
-
-		tblChiTietHoaDon.getColumn("-").setCellRenderer(new ButtonRender(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png")), 15, 15)));
-
-		tblChiTietHoaDon.getColumn("+").setCellRenderer(new ButtonRender(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-increase.png")), 15, 15)));
-		tblChiTietHoaDon.getColumn("Xoá").setCellRenderer(new ButtonRender(ImageProcessing
-				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 12, 15)));
-
-		tblChiTietHoaDon.addMouseListener(this);
-
-		// Placeholder text
-		((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
-		((utilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
-
-		WindowTitle.setTitle("Quản lý bán hàng");
-
-		tblModelCTHD.addTableModelListener(new TableModelListener() {
-			@Override
-			public void tableChanged(TableModelEvent event) {
-				int row = event.getFirstRow(), col = event.getColumn();
-				if (row == -1)
-					return;
-				int newValue = 0;
-				if (row + 1 > hoaDon.getListChiTietHoaDon().size())
-					return;
-				int oldValue = hoaDon.getListChiTietHoaDon().get(row).getSoLuong();
-				if (col == 5) {
-					newValue = (int) tblModelCTHD.getValueAt(row, col);
-
-					// Chặn đổi trả
-					if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && hoaDon.getListChiTietHoaDon().get(row)
-							.getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
-						ErrorMessage.showMessageWithFocusTextField("Thông tin",
-								"Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
-						tblModelCTHD.setValueAt(oldValue, row, col);
-						return;
-					}
-					if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && oldValue < newValue) {
-						ErrorMessage.showMessageWithFocusTextField("Lưu ý", "Không được tăng số lượng hoá đơn trả.",
-								txtMaSanPham);
-						tblModelCTHD.setValueAt(oldValue, row, col);
-					} else if (newValue <= 0) {
-                                                
-						hoaDon.getListChiTietHoaDon().remove(row);
-						tblModelCTHD.removeRow(row);
-						reIndexTable();
-					} else {
-                                                if (hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon() < newValue){
-                                                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
-                                                                        "Hiện chỉ còn " + hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon() 
-                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
-                                                    
-                                                    hoaDon.getListChiTietHoaDon().get(row).setSoLuong(oldValue);
-                                                    return;
-                                                }
-						hoaDon.getListChiTietHoaDon().get(row).setSoLuong(newValue);
-					}
-
-					// Nếu là trả hàng
-					if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
-						ChiTietTraHang ctth = new ChiTietTraHang(oldValue - newValue, "Không có lý do",
-								hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
-								hoaDon.getListChiTietHoaDon().get(row).getSanPham());
-						hoaDonTra.addChiTietHoaDon(ctth);
-					}
-					updateThongTinBill();
-
-				}
-			}
-		});
-
-		// Tab Danh sach hoa don
-		loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
-
-		// Shortcut Key
-		createShortcutKey();
-	}
-
-	public void createShortcutKey() {
-		AbstractAction thanhToanAction = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnThanhToanActionPerformed(e);
-			}
-		};
-		btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0),
-				WHEN_IN_FOCUSED_WINDOW);
-
-		AbstractAction hangChoAction = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnHangChoActionPerformed(e);
-			}
-		};
-		btnHangCho.registerKeyboardAction(hangChoAction, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0),
-				WHEN_IN_FOCUSED_WINDOW);
-
-		AbstractAction huyHoaDonAction = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnCancelHDActionPerformed(e);
-			}
-		};
-		btnCancelHD.registerKeyboardAction(huyHoaDonAction, KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0),
-				WHEN_IN_FOCUSED_WINDOW);
-	}
-
-	public void setTrangThaiEditor(TAB_HoaDon_EditorMode tt) {
-		trangThaiEditor = tt;
-		if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == tt) {
-			txtKhuyenMai.setEditable(false);
-			txtMaKhachHang.setEditable(false);
-			txtMaSanPham.setEditable(false);
-			txtMaSanPham.setText("Chế độ chỉ xem, không thể chỉnh sửa!");
-			// Đổi tên nút
-			btnCancelHD.setEnabled(true);
-			btnCancelHD.setText("Trở về bán hàng (F9)");
-
-			btnHangCho.setEnabled(false);
-			btnKeyPad.setEnabled(false);
-			btnThanhToan.setEnabled(false);
-			btnThanhToan.setText("Thanh toán (F12)");
-			btnThemSanPham.setEnabled(false);
-			btnThemSanPham.setIcon(ImageProcessing
-					.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20, 20));
-			btnXoaRongMaSP.setEnabled(false);
-
-			btnKhachHangEnter.setEnabled(false);
-			btnKhuyenMaiEnter.setEnabled(false);
-
-			tblChiTietHoaDon.setEnabled(false);
-
-			lblChietKhau.setVisible(true);
-			txtValueChietKhau.setVisible(true);
-
-			lblThanhTien.setText("Thành tiền:");
-
-			lblThue.setVisible(true);
-			txtValueTongThue.setVisible(true);
-
-			txtValueTongTien.setVisible(true);
-			lblTongTien.setVisible(true);
-
-		} else if (TAB_HoaDon_EditorMode.TRA_HANG == tt) {
-			if (hoaDon.getTrangThai() != null)
-				if (!hoaDon.getHoaDonID().isBlank() && !hoaDon.getTrangThai().equalsIgnoreCase("DA_XU_LY")) {
-					ErrorMessage.showMessageWithFocusTextField("Lỗi",
-							"Hoá đơn bạn vừa chọn đã bị huỷ hoặc đang được xử lý. Hãy tải lại hoá đơn!", txtMaSanPham);
-					clearHoaDonDangTao();
-					btn_DSHD_taiLai.doClick();
-					jTabbed.setSelectedIndex(1);
-					return;
-				}
-			txtKhuyenMai.setEditable(false);
-			txtMaKhachHang.setEditable(false);
-			txtMaSanPham.setEditable(true);
-			txtMaSanPham.setText("");
-			// Đổi tên nút
-			btnCancelHD.setEnabled(true);
-			btnCancelHD.setText("Huỷ đổi trả hàng");
-
-			btnHangCho.setEnabled(false);
-			btnKeyPad.setEnabled(true);
-			btnThanhToan.setEnabled(true);
-			btnThanhToan.setText("Trả hàng (F12)");
-			btnThemSanPham.setEnabled(true);
-			btnThemSanPham.setIcon(ImageProcessing
-					.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-remove.png")), 20, 20));
-			btnXoaRongMaSP.setEnabled(true);
-
-			btnKhachHangEnter.setEnabled(false);
-			btnKhuyenMaiEnter.setEnabled(false);
-
-			tblChiTietHoaDon.setEnabled(true);
-
-			lblChietKhau.setVisible(false);
-			txtValueChietKhau.setVisible(false);
-
-			lblThanhTien.setText("Tổng hoàn:");
-
-			lblThue.setVisible(false);
-			txtValueTongThue.setVisible(false);
-
-			txtValueTongTien.setVisible(false);
-			lblTongTien.setVisible(false);
-		} else {
-			if (hoaDon.getHoaDonID() != null && hoaDon.getTrangThai() != null)
-				if (!hoaDon.getHoaDonID().isBlank() && !hoaDon.getTrangThai().equalsIgnoreCase("CHO_XU_LY")) {
-					ErrorMessage.showMessageWithFocusTextField("Lỗi",
-							"Hoá đơn bạn vừa chọn đã bị huỷ hoặc đã xử lý xong. Hãy tải lại hoá đơn!", txtMaSanPham);
-					clearHoaDonDangTao();
-					btn_DSHD_taiLai.doClick();
-					jTabbed.setSelectedIndex(1);
-					return;
-				}
-			txtKhuyenMai.setEditable(true);
-			txtMaKhachHang.setEditable(true);
-			txtMaSanPham.setEditable(true);
-			txtMaSanPham.setText("");
-
-			// Đổi tên nút
-			btnCancelHD.setEnabled(true);
-			btnCancelHD.setText("Huỷ hoá đơn (F9)");
-
-			btnHangCho.setEnabled(true);
-			btnKeyPad.setEnabled(true);
-			btnThanhToan.setEnabled(true);
-			btnThanhToan.setText("Thanh toán (F12)");
-			btnThemSanPham.setEnabled(true);
-			btnThemSanPham.setIcon(ImageProcessing
-					.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20, 20));
-			btnXoaRongMaSP.setEnabled(true);
-
-			btnKhachHangEnter.setEnabled(true);
-			btnKhuyenMaiEnter.setEnabled(true);
-			tblChiTietHoaDon.setEnabled(true);
-
-			lblChietKhau.setVisible(true);
-			txtValueChietKhau.setVisible(true);
-
-			lblThanhTien.setText("Thành tiền:");
-
-			lblThue.setVisible(true);
-			txtValueTongThue.setVisible(true);
-
-			txtValueTongTien.setVisible(true);
-			lblTongTien.setVisible(true);
-		}
-		updateThongTinBill();
-	}
-
-	public void loadHoaDon(String x) {
-		hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
-		if (hoaDon == null) {
-			hoaDon = new HoaDon();
-			hoaDon.setNhanVien(CurrentSession.getNhanVien());
-		}
-		ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
-		if (cthdTemp == null)
-			cthdTemp = new ArrayList<ChiTietHoaDon>();
-		hoaDon.setListChiTietHoaDon(cthdTemp);
-
-		// Trả hàng
-		if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
-			hoaDonTra = new HoaDonTra(hoaDon.getHoaDonID());
-		}
-
-		loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
-		updateThongTinBill();
-	}
-
-	public void loadTableHoaDon(ArrayList<HoaDon> x) {
-		while (tblHoaDon.getRowCount() > 0)
-			tblHoaDon.removeRow(0);
-		listHoaDon = x;
-		for (int i = 0; i < listHoaDon.size(); i++) {
-			Object[] obj = listHoaDon.get(i).getRowTableHoaDon();
-			obj[0] = i + 1;
-			tblHoaDon.addRow(obj);
-		}
-	}
-
-	public void loadTableChiTietHoaDon(ArrayList<Object[]> x) {
-		while (tblModelCTHD.getRowCount() > 0)
-			tblModelCTHD.removeRow(0);
-		for (Object[] y : x) {
-			tblModelCTHD.addRow(y);
-		}
-		jTabbed.setSelectedIndex(0); // Focus vào tab được chọn
-	}
-
-	public void reIndexTable() {
-		for (int i = 0; i < tblModelCTHD.getRowCount(); i++) {
-			tblModelCTHD.setValueAt(i + 1, i, 0);
-		}
-	}
-
-	public void updateThongTinBill() {
-		if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
-			txtValueThanhTien.setText(Numberic.formatVND(hoaDonTra.tinhTongHoan()));
-			return;
-		}
-		calcKhuyenMai();
-		txtValueThanhTien.setText(Numberic.formatVND(hoaDon.tinhThanhTien()));
-		txtValueChietKhau.setText(Numberic.formatVND(hoaDon.getGiaKhuyenMai()));
-		txtValueTongThue.setText(Numberic.formatVND(hoaDon.tinhTongThue()));
-		txtValueTongTien.setText(Numberic.formatVND(hoaDon.tinhTongTien()));
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		ChiTietHoaDon cthd = null;
-		// TODO Auto-generated method stub
-		if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == trangThaiEditor)
-			return;
-		if (e.getSource().equals(tblChiTietHoaDon)) {
-			JTable tbl = (JTable) e.getSource();
-			int row = tbl.rowAtPoint(e.getPoint());
-			if (row < 0)
-				return;
-			int column = tbl.columnAtPoint(e.getPoint());
-			cthd = hoaDon.getListChiTietHoaDon().get(row);
-			// Không tồn tại.
-			if (hoaDon.getListChiTietHoaDon().size() < row)
-				return;
-
-			// Chế độ trả hàng
-			if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor) {
-				if (cthd.getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
-					ErrorMessage.showMessageWithFocusTextField("Thông tin",
-							"Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
-					return;
-				}
-				switch (column) {
-				case 4 -> {
-					ChiTietTraHang ctth = new ChiTietTraHang(1, TOOL_TIP_TEXT_KEY,
-							hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
-							hoaDon.getListChiTietHoaDon().get(row).getSanPham());
-					hoaDonTra.addChiTietHoaDon(ctth);
-					if (cthd.getSoLuong() - 1 <= 0) {
-						hoaDon.removeChiTietHoaDon(cthd);
-						tblModelCTHD.removeRow(row);
-						reIndexTable();
-					} else {
-						cthd.setSoLuong(cthd.getSoLuong() - 1);
-						tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
-						tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
-					}
-
-				}
-				case 6 -> {
-					ErrorMessage.showMessageWithFocusTextField("Lưu ý", "Không được tăng số lượng hoá đơn trả.",
-							txtMaSanPham);
-
-				}
-				case 9 -> {
-					if (!ErrorMessage.showConfirmDialogYesNo("Chú ý",
-							"Bạn có chắc chắn muốn hoàn toàn bộ sản phẩm " + tbl.getValueAt(row, 2) + " không??"))
-						return;
-					// Nếu là trả hàng
-					ChiTietTraHang ctth = new ChiTietTraHang(hoaDon.getListChiTietHoaDon().get(row).getSoLuong(),
-							"Không có", hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
-							hoaDon.getListChiTietHoaDon().get(row).getSanPham());
-					hoaDonTra.addChiTietHoaDon(ctth);
-
-					hoaDon.removeChiTietHoaDon(cthd);
-					tblModelCTHD.removeRow(row);
-					reIndexTable();
-
-				}
-				default -> {
-
-				}
-				}
-				updateThongTinBill();
-				return;
-			} else {
-
-				// Chế độ bán hàng
-				switch (column) {
-				case 4 -> {
-					if (cthd.getSoLuong() - 1 <= 0) {
-						hoaDon.removeChiTietHoaDon(cthd);
-						tblModelCTHD.removeRow(row);
-						reIndexTable();
-					} else {
-						cthd.setSoLuong(cthd.getSoLuong() - 1);
-						tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
-						tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
-					}
-				}
-				case 6 -> {
-                                    if (cthd.getSanPham().getSoLuongTon() < cthd.getSoLuong() + 1){
-                                        ErrorMessage.showMessageWithFocusTextField("Thông tin",
-                                                            "Hiện chỉ còn " + cthd.getSanPham().getSoLuongTon() 
-                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
-                                            return;
-                                    }
-					cthd.setSoLuong(cthd.getSoLuong() + 1);
-					tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
-					tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
-                                        
-
-				}
-				case 9 -> {
-					if (!ErrorMessage.showConfirmDialogYesNo("Chú ý",
-							"Bạn có chắc chắn muốn xoá sản phẩm " + tbl.getValueAt(row, 2) + " khỏi hoá đơn không??"))
-						return;
-					hoaDon.removeChiTietHoaDon(cthd);
-					tblModelCTHD.removeRow(row);
-					reIndexTable();
-				}
-				default -> {
-
-				}
-				}
-			}
-			updateThongTinBill();
-		}
-
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// <editor-fold defaultstate="collapsed" desc="Generated
+                int newValue = 0;
+                if (row + 1 > hoaDon.getListChiTietHoaDon().size()) {
+                    return;
+                }
+                int oldValue = hoaDon.getListChiTietHoaDon().get(row).getSoLuong();
+                if (col == 5) {
+                    newValue = (int) tblModelCTHD.getValueAt(row, col);
+
+                    // Chặn đổi trả
+                    if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && hoaDon.getListChiTietHoaDon().get(row)
+                            .getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
+                        ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                "Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
+                        tblModelCTHD.setValueAt(oldValue, row, col);
+                        return;
+                    }
+                    if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG && oldValue < newValue) {
+                        ErrorMessage.showMessageWithFocusTextField("Lưu ý", "Không được tăng số lượng hoá đơn trả.",
+                                txtMaSanPham);
+                        tblModelCTHD.setValueAt(oldValue, row, col);
+                    } else if (newValue <= 0) {
+
+                        hoaDon.getListChiTietHoaDon().remove(row);
+                        tblModelCTHD.removeRow(row);
+                        reIndexTable();
+                    } else {
+                        if (trangThaiEditor != TAB_HoaDon_EditorMode.TRA_HANG && hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon() < newValue) {
+                            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                    "Hiện chỉ còn " + hoaDon.getListChiTietHoaDon().get(row).getSanPham().getSoLuongTon()
+                                    + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+
+                            hoaDon.getListChiTietHoaDon().get(row).setSoLuong(oldValue);
+                            return;
+                        }
+                        hoaDon.getListChiTietHoaDon().get(row).setSoLuong(newValue);
+                    }
+
+                    // Nếu là trả hàng
+                    if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
+                        ChiTietTraHang ctth = new ChiTietTraHang(oldValue - newValue, "Không có lý do",
+                                hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
+                                hoaDon.getListChiTietHoaDon().get(row).getSanPham());
+                        hoaDonTra.addChiTietHoaDon(ctth);
+                    }
+                    updateThongTinBill();
+
+                }
+            }
+        });
+
+        // Tab Danh sach hoa don
+        loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
+
+        // Shortcut Key
+        createShortcutKey();
+    }
+
+    public void createShortcutKey() {
+        AbstractAction thanhToanAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnThanhToanActionPerformed(e);
+            }
+        };
+        btnThanhToan.registerKeyboardAction(thanhToanAction, KeyStroke.getKeyStroke(KeyEvent.VK_F12, 0),
+                WHEN_IN_FOCUSED_WINDOW);
+
+        AbstractAction hangChoAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnHangChoActionPerformed(e);
+            }
+        };
+        btnHangCho.registerKeyboardAction(hangChoAction, KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0),
+                WHEN_IN_FOCUSED_WINDOW);
+
+        AbstractAction huyHoaDonAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btnCancelHDActionPerformed(e);
+            }
+        };
+        btnCancelHD.registerKeyboardAction(huyHoaDonAction, KeyStroke.getKeyStroke(KeyEvent.VK_F9, 0),
+                WHEN_IN_FOCUSED_WINDOW);
+    }
+
+    public void setTrangThaiEditor(TAB_HoaDon_EditorMode tt) {
+        trangThaiEditor = tt;
+        if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == tt) {
+            txtKhuyenMai.setEditable(false);
+            txtMaKhachHang.setEditable(false);
+            txtMaSanPham.setEditable(false);
+            txtMaSanPham.setText("Chế độ chỉ xem, không thể chỉnh sửa!");
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Trở về bán hàng (F9)");
+
+            btnHangCho.setEnabled(false);
+            btnKeyPad.setEnabled(false);
+            btnThanhToan.setEnabled(false);
+            btnThanhToan.setText("Thanh toán (F12)");
+            btnThemSanPham.setEnabled(false);
+            btnThemSanPham.setIcon(ImageProcessing
+                    .resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20, 20));
+            btnXoaRongMaSP.setEnabled(false);
+
+            btnKhachHangEnter.setEnabled(false);
+            btnKhuyenMaiEnter.setEnabled(false);
+
+            tblChiTietHoaDon.setEnabled(false);
+
+            lblChietKhau.setVisible(true);
+            txtValueChietKhau.setVisible(true);
+
+            lblThanhTien.setText("Thành tiền:");
+
+            lblThue.setVisible(true);
+            txtValueTongThue.setVisible(true);
+
+            txtValueTongTien.setVisible(true);
+            lblTongTien.setVisible(true);
+
+        } else if (TAB_HoaDon_EditorMode.TRA_HANG == tt) {
+            if (hoaDon.getTrangThai() != null) {
+                if (!hoaDon.getHoaDonID().isBlank() && !hoaDon.getTrangThai().equalsIgnoreCase("DA_XU_LY")) {
+                    ErrorMessage.showMessageWithFocusTextField("Lỗi",
+                            "Hoá đơn bạn vừa chọn đã bị huỷ hoặc đang được xử lý. Hãy tải lại hoá đơn!", txtMaSanPham);
+                    clearHoaDonDangTao();
+                    btn_DSHD_taiLai.doClick();
+                    jTabbed.setSelectedIndex(1);
+                    return;
+                }
+            }
+            txtKhuyenMai.setEditable(false);
+            txtMaKhachHang.setEditable(false);
+            txtMaSanPham.setEditable(true);
+            txtMaSanPham.setText("");
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Huỷ đổi trả hàng");
+
+            btnHangCho.setEnabled(false);
+            btnKeyPad.setEnabled(true);
+            btnThanhToan.setEnabled(true);
+            btnThanhToan.setText("Trả hàng (F12)");
+            btnThemSanPham.setEnabled(true);
+            btnThemSanPham.setIcon(ImageProcessing
+                    .resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-remove.png")), 20, 20));
+            btnXoaRongMaSP.setEnabled(true);
+
+            btnKhachHangEnter.setEnabled(false);
+            btnKhuyenMaiEnter.setEnabled(false);
+
+            tblChiTietHoaDon.setEnabled(true);
+
+            lblChietKhau.setVisible(false);
+            txtValueChietKhau.setVisible(false);
+
+            lblThanhTien.setText("Tổng hoàn:");
+
+            lblThue.setVisible(false);
+            txtValueTongThue.setVisible(false);
+
+            txtValueTongTien.setVisible(false);
+            lblTongTien.setVisible(false);
+        } else {
+            txtKhuyenMai.setEditable(true);
+            txtMaKhachHang.setEditable(true);
+            txtMaSanPham.setEditable(true);
+            txtMaSanPham.setText("");
+
+            // Đổi tên nút
+            btnCancelHD.setEnabled(true);
+            btnCancelHD.setText("Huỷ hoá đơn (F9)");
+
+            btnHangCho.setEnabled(true);
+            btnKeyPad.setEnabled(true);
+            btnThanhToan.setEnabled(true);
+            btnThanhToan.setText("Thanh toán (F12)");
+            btnThemSanPham.setEnabled(true);
+            btnThemSanPham.setIcon(ImageProcessing
+                    .resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/btn-add.png")), 20, 20));
+            btnXoaRongMaSP.setEnabled(true);
+
+            btnKhachHangEnter.setEnabled(true);
+            btnKhuyenMaiEnter.setEnabled(true);
+            tblChiTietHoaDon.setEnabled(true);
+
+            lblChietKhau.setVisible(true);
+            txtValueChietKhau.setVisible(true);
+
+            lblThanhTien.setText("Thành tiền:");
+
+            lblThue.setVisible(true);
+            txtValueTongThue.setVisible(true);
+
+            txtValueTongTien.setVisible(true);
+            lblTongTien.setVisible(true);
+        }
+        updateThongTinBill();
+    }
+
+    public void loadHoaDon(String x) {
+        hoaDon = hoaDon_BUS.getHoaDonByID(new HoaDon(x));
+        if (hoaDon == null) {
+            hoaDon = new HoaDon();
+            hoaDon.setNhanVien(CurrentSession.getNhanVien());
+        }
+        ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
+        if (cthdTemp == null) {
+            cthdTemp = new ArrayList<ChiTietHoaDon>();
+        }
+        hoaDon.setListChiTietHoaDon(cthdTemp);
+
+        // Trả hàng
+        if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
+            hoaDonTra = new HoaDonTra(hoaDon.getHoaDonID());
+        }
+
+        loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
+        updateThongTinBill();
+    }
+
+    public void loadHoaDon(HoaDon x) {
+        hoaDon = x;
+        if (hoaDon == null) {
+            hoaDon = new HoaDon();
+            hoaDon.setNhanVien(CurrentSession.getNhanVien());
+        }
+        if (hoaDon.getListChiTietHoaDon() == null) {
+            hoaDon.setListChiTietHoaDon(new ArrayList<>());
+        }
+
+        // Trả hàng
+        if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
+            hoaDonTra = new HoaDonTra(hoaDon.getHoaDonID());
+        }
+
+        loadTableChiTietHoaDon(hoaDon.tableChiTietHoaDon());
+        updateThongTinBill();
+    }
+
+    public void loadTableHoaDon(ArrayList<HoaDon> x) {
+        while (tblHoaDon.getRowCount() > 0) {
+            tblHoaDon.removeRow(0);
+        }
+        listHoaDon = x;
+        for (int i = 0; i < listHoaDon.size(); i++) {
+            Object[] obj = listHoaDon.get(i).getRowTableHoaDon();
+            obj[0] = i + 1;
+            if (x.get(i).getHoaDonID() == null || x.get(i).getHoaDonID().isBlank()) {
+                obj[1] = "Đang lập";
+            }
+            tblHoaDon.addRow(obj);
+        }
+    }
+
+    public void loadTableChiTietHoaDon(ArrayList<Object[]> x) {
+        while (tblModelCTHD.getRowCount() > 0) {
+            tblModelCTHD.removeRow(0);
+        }
+        for (Object[] y : x) {
+            tblModelCTHD.addRow(y);
+        }
+        jTabbed.setSelectedIndex(0); // Focus vào tab được chọn
+    }
+
+    public void reIndexTable() {
+        for (int i = 0; i < tblModelCTHD.getRowCount(); i++) {
+            tblModelCTHD.setValueAt(i + 1, i, 0);
+        }
+    }
+
+    public void updateThongTinBill() {
+    	
+        if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
+            txtValueThanhTien.setText(Numberic.formatVND(hoaDonTra.tinhTongHoan()));
+            return;
+        }
+        calcKhuyenMai();
+        calcKhuyenMaiAuto();
+        txtValueThanhTien.setText(Numberic.formatVND(hoaDon.tinhThanhTien()));
+        txtValueChietKhau.setText(Numberic.formatVND(hoaDon.getGiaKhuyenMai()));
+        txtValueTongThue.setText(Numberic.formatVND(hoaDon.tinhTongThue()));
+        txtValueTongTien.setText(Numberic.formatVND(hoaDon.tinhTongTien()));
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        ChiTietHoaDon cthd = null;
+        // TODO Auto-generated method stub
+        if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == trangThaiEditor) {
+            return;
+        }
+        if (e.getSource().equals(tblChiTietHoaDon)) {
+            JTable tbl = (JTable) e.getSource();
+            int row = tbl.rowAtPoint(e.getPoint());
+            if (row < 0) {
+                return;
+            }
+            int column = tbl.columnAtPoint(e.getPoint());
+            cthd = hoaDon.getListChiTietHoaDon().get(row);
+            // Không tồn tại.
+            if (hoaDon.getListChiTietHoaDon().size() < row) {
+                return;
+            }
+
+            // Chế độ trả hàng
+            if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor) {
+                if (cthd.getSanPham().getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
+                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                            "Sản phẩm này thuộc loại không được đổi trả!", txtMaSanPham);
+                    return;
+                }
+                switch (column) {
+                    case 4 -> {
+                        ChiTietTraHang ctth = new ChiTietTraHang(1, "Không có lý do",
+                                hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
+                                hoaDon.getListChiTietHoaDon().get(row).getSanPham());
+                        hoaDonTra.addChiTietHoaDon(ctth);
+                        if (cthd.getSoLuong() - 1 <= 0) {
+                            hoaDon.removeChiTietHoaDon(cthd);
+                            tblModelCTHD.removeRow(row);
+                            reIndexTable();
+                        } else {
+                            cthd.setSoLuong(cthd.getSoLuong() - 1);
+                            tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                            tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+                        }
+
+                    }
+                    case 6 -> {
+                        ErrorMessage.showMessageWithFocusTextField("Lưu ý", "Không được tăng số lượng hoá đơn trả.",
+                                txtMaSanPham);
+
+                    }
+                    case 9 -> {
+                        if (!ErrorMessage.showConfirmDialogYesNo("Chú ý",
+                                "Bạn có chắc chắn muốn hoàn toàn bộ sản phẩm " + tbl.getValueAt(row, 2) + " không??")) {
+                            return;
+                        }
+                        // Nếu là trả hàng
+                        ChiTietTraHang ctth = new ChiTietTraHang(hoaDon.getListChiTietHoaDon().get(row).getSoLuong(),
+                                "Không có", hoaDon.getListChiTietHoaDon().get(row).getDonGia(), hoaDonTra,
+                                hoaDon.getListChiTietHoaDon().get(row).getSanPham());
+                        hoaDonTra.addChiTietHoaDon(ctth);
+
+                        hoaDon.removeChiTietHoaDon(cthd);
+                        tblModelCTHD.removeRow(row);
+                        reIndexTable();
+
+                    }
+                    default -> {
+
+                    }
+                }
+                updateThongTinBill();
+                return;
+            } else {
+
+                // Chế độ bán hàng
+                switch (column) {
+                    case 4 -> {
+                        if (cthd.getSoLuong() - 1 <= 0) {
+                            hoaDon.removeChiTietHoaDon(cthd);
+                            tblModelCTHD.removeRow(row);
+                            reIndexTable();
+                        } else {
+                            cthd.setSoLuong(cthd.getSoLuong() - 1);
+                            tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                            tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+                        }
+                    }
+                    case 6 -> {
+                        if (trangThaiEditor != TAB_HoaDon_EditorMode.TRA_HANG && cthd.getSanPham().getSoLuongTon() < cthd.getSoLuong() + 1) {
+                            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                                    "Hiện chỉ còn " + cthd.getSanPham().getSoLuongTon()
+                                    + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+                            return;
+                        }
+                        cthd.setSoLuong(cthd.getSoLuong() + 1);
+                        tblModelCTHD.setValueAt(cthd.getSoLuong(), row, 5);
+                        tblModelCTHD.setValueAt(cthd.tinhTongTien(), row, 8);
+
+                    }
+                    case 9 -> {
+                        if (!ErrorMessage.showConfirmDialogYesNo("Chú ý",
+                                "Bạn có chắc chắn muốn xoá sản phẩm " + tbl.getValueAt(row, 2) + " khỏi hoá đơn không??")) {
+                            return;
+                        }
+                        hoaDon.removeChiTietHoaDon(cthd);
+                        tblModelCTHD.removeRow(row);
+                        reIndexTable();
+                    }
+                    default -> {
+
+                    }
+                }
+            }
+            updateThongTinBill();
+        }
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
@@ -1260,7 +1290,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
     jPanel2.add(jLabel11, gridBagConstraints);
 
-    cbo_DSHD_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Chờ xử lý", "Đã xử lý", "Huỷ bỏ" }));
+    cbo_DSHD_TrangThai.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Đã xử lý", "Chờ xử lý", "Đã trả hàng" }));
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 10;
@@ -1583,11 +1613,250 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     add(jTabbed, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
-  
+    private void jTabbedMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedMouseClicked
+        // TODO add your handling code here:
+        if (jTabbed.getSelectedIndex() == 1) {
+            btn_DSHD_taiLai.doClick();
+        }
+    }//GEN-LAST:event_jTabbedMouseClicked
+
+    private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabSwitchBanHang
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabSwitchBanHang
+
+    public void autoApplyKhuyenMai(){
+        
+    }
+    
+    private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        int row = jTable2.getSelectedRow();
+        int col = jTable2.getSelectedColumn();
+
+        if (tblHoaDon.getValueAt(row, 5).equals("Huỷ bỏ")) {
+            btn_DSHD_DoiTraHoaDon.setEnabled(false);
+            btn_DSHD_InHD.setEnabled(false);
+            btn_DSHD_HuyHoaDon.setEnabled(false);
+            btn_DSHD_ThanhToan.setEnabled(false);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+
+        if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
+            btn_DSHD_DoiTraHoaDon.setEnabled(true);
+            btn_DSHD_InHD.setEnabled(true);
+            btn_DSHD_HuyHoaDon.setEnabled(false);
+            btn_DSHD_ThanhToan.setEnabled(false);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+
+        if (tblHoaDon.getValueAt(row, 5).equals("Chờ xử lý")) {
+            btn_DSHD_DoiTraHoaDon.setEnabled(false);
+            btn_DSHD_InHD.setEnabled(false);
+            btn_DSHD_HuyHoaDon.setEnabled(true);
+            btn_DSHD_ThanhToan.setEnabled(true);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+            return;
+        }
+    }//GEN-LAST:event_tblHoaDonMouseClicked
+
+    private void btn_DSHD_HuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_HuyHoaDonActionPerformed
+        // TODO add your handling code here:
+        if (jTable2.getSelectedRow() < 0) {
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
+            return;
+        }
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
+                "Bạn có chắc chắn muốn huỷ hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)
+                + " không?\n\nCảnh báo: Hoá đơn sau khi huỷ sẽ không thể thanh toán trở lại!")) {
+            listHoaDonDangCho.remove(jTable2.getSelectedRow());
+            JOptionPane.showMessageDialog(null,
+                    "Hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " đã bị huỷ!");
+            btn_DSHD_taiLai.doClick();
+        }
+    }//GEN-LAST:event_btn_DSHD_HuyHoaDonActionPerformed
+
+    private void btn_DSHD_DoiTraHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_DoiTraHoaDonActionPerformed
+        // TODO add your handling code here:
+        if (jTable2.getSelectedRow() < 0) {
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
+            return;
+        }
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
+                + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1))) {
+            setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
+            loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+        }
+    }//GEN-LAST:event_btn_DSHD_DoiTraHoaDonActionPerformed
+
+    private void btn_DSHD_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_XemChiTietActionPerformed
+        // TODO add your handling code here:
+        if (jTable2.getSelectedRow() < 0) {
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
+            return;
+        }
+
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
+                "Bạn đang chuẩn bị vào chế độ xem chi tiết hoá đơn.\n\nLưu ý: Chế độ này không thể chỉnh sửa hoá đơn.")) {
+            if (((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)).equalsIgnoreCase("Đang lập")) {
+                loadHoaDon((HoaDon) listHoaDonDangCho.get(jTable2.getSelectedRow()));
+            } else {
+                loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+            }
+            setTrangThaiEditor(XEM_CHI_TIET_HOA_DON);
+        }
+    }//GEN-LAST:event_btn_DSHD_XemChiTietActionPerformed
+
+    private void btn_DSHD_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_ThanhToanActionPerformed
+        // TODO add your handling code here:
+        if (jTable2.getSelectedRow() < 0) {
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
+            return;
+        }
+
+        // Nếu hoá đơn đang chờ
+        if (((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)).equalsIgnoreCase("Đang lập")) {
+            if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn xác nhận muốn xử lý hoá đơn đang chờ không?")) {
+                loadHoaDon((HoaDon) listHoaDonDangCho.get(jTable2.getSelectedRow()));
+                listHoaDonDangCho.remove(jTable2.getSelectedRow());
+                setTrangThaiEditor(trangThaiEditor);
+            }
+        } else {
+            if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn có chắc chắn muốn xử lý lại hoá đơn "
+                    + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " không?")) {
+                loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+                setTrangThaiEditor(trangThaiEditor);
+            }
+        }
+
+    }//GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
+
+    private void btn_DSHD_xoaRongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_xoaRongActionPerformed
+        // TODO add your handling code here:
+        txt_DSHD_DenNLHD.setCalendar(null);
+        txt_DSHD_TuNLHD.setCalendar(null);
+        txt_DSHD_GiaTriTu.setText("");
+        txt_DSHD_GiaTriDen.setText("");
+        txt_DSHD_MaHoaDon.setText("");
+        txt_DSHD_MaKH.setText("");
+        txt_DSHD_MaNV.setText("");
+        cbo_DSHD_TrangThai.setSelectedIndex(0);
+    }//GEN-LAST:event_btn_DSHD_xoaRongActionPerformed
+
+    private void btn_DSHD_taiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_taiLaiActionPerformed
+        // TODO add your handling code here:
+        loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
+
+    }//GEN-LAST:event_btn_DSHD_taiLaiActionPerformed
+
+    private void btn_DSHD_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_SearchActionPerformed
+        // TODO add your handling code here:
+        Date start = txt_DSHD_TuNLHD.getDate(), end = txt_DSHD_DenNLHD.getDate();
+
+        Object[] obj = new Object[8];
+        // TODO add your handling code here:
+
+        if (start != null && end != null) {
+            if (end.getTime() < start.getTime()) {
+                ErrorMessage.showConfirmDialogYesNo("Chú ý",
+                        "Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
+                txt_DSHD_TuNLHD.requestFocus();
+                return;
+            }
+        }
+
+        if (start != null) {
+            start.setDate(start.getDate() - 1);
+            start.setHours(23);
+            start.setMinutes(59);
+            start.setSeconds(59);
+        }
+
+        if (end != null) {
+            // end.setDate(end.getDate() + 1);
+            end.setHours(23);
+            end.setMinutes(59);
+            end.setSeconds(59);
+        }
+
+        if (!txt_DSHD_GiaTriTu.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriTu.getText())) {
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu có ký tự không hợp lệ!");
+            txt_DSHD_GiaTriTu.requestFocus();
+            return;
+        }
+
+        if (!txt_DSHD_GiaTriDen.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriDen.getText())) {
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị kết thúc có ký tự không hợp lệ!");
+            txt_DSHD_GiaTriDen.requestFocus();
+            return;
+        }
+
+        if ((!txt_DSHD_GiaTriDen.getText().isBlank() && !txt_DSHD_GiaTriTu.getText().isBlank())
+                && Numberic.parseDouble(txt_DSHD_GiaTriDen.getText())
+                - Numberic.parseDouble(txt_DSHD_GiaTriTu.getText()) < 0) {
+            ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu nhỏ hơn giá trị kết thúc!");
+            txt_DSHD_GiaTriTu.requestFocus();
+            return;
+        }
+
+        obj[0] = start;
+        obj[1] = end;
+        obj[2] = HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem()).equalsIgnoreCase("ALL")
+                ? null
+                : HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem());
+        obj[3] = txt_DSHD_GiaTriTu.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriTu.getText());
+        obj[4] = txt_DSHD_GiaTriDen.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriDen.getText());
+        obj[5] = txt_DSHD_MaHoaDon.getText().isBlank() ? null : txt_DSHD_MaHoaDon.getText();
+        obj[6] = txt_DSHD_MaKH.getText().isBlank() ? null : txt_DSHD_MaKH.getText();
+        obj[7] = txt_DSHD_MaNV.getText().isBlank() ? null : txt_DSHD_MaNV.getText();
+
+        if (((String) cbo_DSHD_TrangThai.getSelectedItem()).equalsIgnoreCase("Chờ xử lý")) {
+            loadTableHoaDon(listHoaDonDangCho);
+        } else {
+            loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDonNangCao(obj));
+        }
+    }//GEN-LAST:event_btn_DSHD_SearchActionPerformed
+
+    private void txt_DSHD_MaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_DSHD_MaHoaDonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_DSHD_MaHoaDonActionPerformed
+
+    private void btnKeyPadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKeyPadActionPerformed
+        // TODO add your handling code here:
+        new Frame_KeyPad(this, txtKhuyenMai).setVisible(true);
+    }//GEN-LAST:event_btnKeyPadActionPerformed
+
+    private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanActionPerformed
+        // TODO add your handling code here:
+        switch (trangThaiEditor) {
+            case BAN_HANG -> {
+                if (hoaDon.getListChiTietHoaDon().size() < 1) {
+                    ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
+                            "Chưa có sản phẩm trong giỏ hàng, không thể tạo hoá đơn!", txtMaSanPham);
+                    return;
+                }
+                new Form_ThanhToan(hoaDon, ((JFrame) this.getTopLevelAncestor()), this).setVisible(true);
+            }
+            case TRA_HANG -> {
+                if (hoaDonTra.getListChiTietHoaDon().size() < 1) {
+                    ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
+                            "Chưa có thực hiện đổi trả sản phẩm nào, không thể tạo hoá đơn trả!!", txtMaSanPham);
+                    return;
+                }
+                new Form_TraHang(hoaDon, ((JFrame) this.getTopLevelAncestor()), this, hoaDonTra).setVisible(true);
+            }
+            default -> {
+
+            }
+        }
+    }//GEN-LAST:event_btnThanhToanActionPerformed
+
     private void btnKhuyenMaiEnterActionPer(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiEnterActionPer
         // TODO add your handling code here:
         khuyenMai = khuyenMai_BUS.getKhuyenMaiByCodeKMForSeller(txtKhuyenMai.getText());
-        if (khuyenMai == null){
+        if (khuyenMai == null) {
             khuyenMai = new KhuyenMai("NO_APPLY");
             khuyenMai.setTenKhuyenMai("Không áp dụng");
             ErrorMessage.showMessageWithFocusTextField("Thông tin", "Mã khuyến mãi không tồn tại trên hệ thống", txtKhuyenMai);
@@ -1609,8 +1878,8 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     private void btnKhachHangEnterAP(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangEnterAP
         // TODO add your handling code here:
-        try{
-            if (txtMaKhachHang.getText().isBlank()){
+        try {
+            if (txtMaKhachHang.getText().isBlank()) {
                 khachHang.setKhachHangID("KH0001");
                 khachHang.setHoTen("Khách lẻ");
                 txtDisplayMaKH.setText(khachHang.getKhachHangID());
@@ -1620,7 +1889,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             }
 
             khachHang = khachHang_BUS.getKhachHangTuMaVaSDT(txtMaKhachHang.getText().trim());
-            if (khachHang == null){
+            if (khachHang == null) {
                 khachHang = new KhachHang();
                 khachHang.setKhachHangID("KH0001");
                 khachHang.setHoTen("Khách lẻ");
@@ -1631,496 +1900,303 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             txtDisplayTenKH.setText(khachHang.getHoTen());
             hoaDon.setKhachHang(khachHang);
             return;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnKhachHangEnterAP
-
-    private void btn_DSHD_xoaRongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_xoaRongActionPerformed
-        // TODO add your handling code here:
-        txt_DSHD_DenNLHD.setCalendar(null);
-        txt_DSHD_TuNLHD.setCalendar(null);
-        txt_DSHD_GiaTriTu.setText("");
-        txt_DSHD_GiaTriDen.setText("");
-        txt_DSHD_MaHoaDon.setText("");
-        txt_DSHD_MaKH.setText("");
-        txt_DSHD_MaNV.setText("");
-        cbo_DSHD_TrangThai.setSelectedIndex(0);
-    }//GEN-LAST:event_btn_DSHD_xoaRongActionPerformed
 
     private void txtMaKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaKhachHangActionPerformed
         // TODO add your handling code here:
         btnKhachHangEnter.doClick();
     }//GEN-LAST:event_txtMaKhachHangActionPerformed
 
-    private void calcKhuyenMai(){ 
+    private void btnXoaRongMaSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaRongMaSPActionPerformed
+        // TODO add your handling code here:
+        clearTextAndFocus(txtMaSanPham);
+    }//GEN-LAST:event_btnXoaRongMaSPActionPerformed
+
+    private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSanPhamActionPerformed
+        // TODO add your handling code here:
+        int tempPos = -1;
+        String maSanPham = txtMaSanPham.getText().trim();
+        if (maSanPham.isEmpty() || maSanPham.isBlank()) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                    "Để thêm sản phẩm vào hoá đơn, hãy thêm mã sản phẩm trước", txtMaSanPham);
+            return;
+        }
+
+        if (maSanPham.matches("\\D")) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Barcode/Mã sản phẩm nội bộ không hợp lệ!",
+                    txtMaSanPham);
+            return;
+        }
+
+        SanPham x = sanPham_BUS.getChiMotSanPhamTheoMaHoacBarcode(maSanPham);
+
+        if (x == null) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                    "Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
+            return;
+        }
+        if (x.getSoLuongTon() <= 0) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                    "Sản phẩm này đã hết hàng, hãy báo với quản lý và bạn không được bán sản phẩm này!", txtMaSanPham);
+            return;
+        }
+        ChiTietHoaDon ct = new ChiTietHoaDon(x, 1);
+
+        // Đổi trả hàng
+        if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor) {
+            tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
+            if (tempPos < 0) {
+                ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này không nằm trong hoá đơn!",
+                        txtMaSanPham);
+                return;
+            }
+            ct = hoaDon.getListChiTietHoaDon().get(tempPos);
+
+            // Chặn đổi trả
+            if (x.getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
+                ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này thuộc loại không được đổi trả!",
+                        txtMaSanPham);
+                return;
+            }
+
+            if (ct.getSoLuong() - 1 <= 0) {
+                hoaDon.removeChiTietHoaDon(ct);
+                tblModelCTHD.removeRow(tempPos);
+                reIndexTable();
+            } else {
+                ct.setSoLuong(ct.getSoLuong() - 1);
+                tblModelCTHD.setValueAt(ct.getSoLuong(), tempPos, 5);
+                tblModelCTHD.setValueAt(ct.tinhTongTien(), tempPos, 8);
+            }
+        } else {
+            // Kiểm tra tình trạng trước khi th 
+            tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
+            if (tempPos >= 0) {
+                if (trangThaiEditor != TAB_HoaDon_EditorMode.TRA_HANG  && x.getSoLuongTon() < hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong() + 1) {
+                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                            "Hiện chỉ còn " + x.getSoLuongTon()
+                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
+                    return;
+                }
+            }
+
+            tempPos = hoaDon.addChiTietHoaDon(ct);
+            if (tempPos == -1) {
+                addRowIntoChiTietHoaDon(ct);
+            } else {
+                tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
+            }
+        }
+        clearTextAndFocus(txtMaSanPham);
+        updateThongTinBill();
+    }//GEN-LAST:event_btnAddSanPhamActionPerformed
+
+    private void btnCancelHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelHDActionPerformed
+        // TODO add your handling code here:
+        // TODO add your handling code here:
+        switch (trangThaiEditor) {
+            case XEM_CHI_TIET_HOA_DON -> {
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn trở về chế độ bán hàng chứ?")) {
+                    clearHoaDonDangTao();
+                    setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
+                }
+            }
+            case TRA_HANG -> {
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
+                        "Việc đổi trả hoá đơn chưa hoàn tất, bạn đã chắc chắn muốn trở lại chế độ bán hàng?")) {
+                    clearHoaDonDangTao();
+                    setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
+                }
+            }
+            default -> {
+                if (hoaDon.getListChiTietHoaDon().size() < 1) {
+                    ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hiện chưa khởi tạo đơn hàng!", txtMaSanPham);
+                    return;
+                }
+                if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
+                        "Hoá đơn đang lập sẽ mất sau khi xác nhận, bạn đã chắc chắn chứ?")) {
+                    //updateHoaDon("HUY_BO");
+                    clearHoaDonDangTao();
+                }
+            }
+        }
+    }//GEN-LAST:event_btnCancelHDActionPerformed
+
+    private void btnHangChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHangChoActionPerformed
+        // TODO add your handling code here:
+        if (hoaDon.getListChiTietHoaDon().size() < 1) {
+            ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
+                    "Chưa có sản phẩm trong giỏ hàng, không thể thêm vào hàng chờ!", txtMaSanPham);
+            return;
+        }
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn đưa hoá đơn vào hàng chờ chứ?")) {
+            //updateHoaDon("CHO_XU_LY");
+            hoaDon.setTrangThai("CHO_XU_LY");
+            hoaDon.setNgayLapHoaDon(new Date());
+            listHoaDonDangCho.add(hoaDon);
+            clearHoaDonDangTao();
+            JOptionPane.showMessageDialog(null, "Hoá đơn đã được đưa vào hàng chờ, để lấy hoá đơn này, bạn hãy vào danh sách hoá đơn -> chọn trạng thái chờ xử lý và lấy hoá đơn ra");
+        }
+    }//GEN-LAST:event_btnHangChoActionPerformed
+
+    private void calcKhuyenMai() {
         double tempChietKhau = 0;
         hoaDon.setGiaKhuyenMai(tempChietKhau);
-        if (khuyenMai.getCodeKhuyenMai().equalsIgnoreCase("NO_APPLY")){
-        	return;
+        if (khuyenMai.getCodeKhuyenMai().equalsIgnoreCase("NO_APPLY")) {
+            return;
         }
-        if (khuyenMai.getDonHangTu() > hoaDon.tinhTongTien()){
+        if (khuyenMai.getDonHangTu() > hoaDon.tinhTongTien()) {
             showTrangThaiKhuyenMai("*Khuyến mãi áp dụng cho đơn hàng từ " + Numberic.formatVND(khuyenMai.getDonHangTu()));
             return;
         }
-        
-        if (khuyenMai.getChiTietKhuyenMai() == null)
+
+        if (khuyenMai.getChiTietKhuyenMai() == null) {
             return;
-        
+        }
+
         double giaTriGiam = khuyenMai.getGiaTri();
         boolean isApply = false;
         for (ChiTietKhuyenMai x : khuyenMai.getChiTietKhuyenMai()) {
-	        for (ChiTietHoaDon y : hoaDon.getListChiTietHoaDon()) {
-	        	if (x.getSanPham().getSanPhamID() == y.getSanPham().getSanPhamID()) {
-	        		isApply = true;
-	        		if (khuyenMai.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
-	        			tempChietKhau += (y.tinhTongTien() * (giaTriGiam/100));
-	        		}else {
-	        			tempChietKhau += giaTriGiam;
-	        			break;
-	        		}
-	        	}
-	        }
+            for (ChiTietHoaDon y : hoaDon.getListChiTietHoaDon()) {
+                if (x.getSanPham().getSanPhamID() == y.getSanPham().getSanPhamID()) {
+                    isApply = true;
+                    if (khuyenMai.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
+                        tempChietKhau += (y.tinhTongTien() * (giaTriGiam / 100));
+                    } else {
+                        tempChietKhau += giaTriGiam;
+                        break;
+                    }
+                }
+            }
         }
-        if (!isApply)
+        if (!isApply) {
             showTrangThaiKhuyenMai("*Các sản phẩm không nằm trong danh sách khuyến mãi");
-        else
-        	lblTrangThaiApDungKM.setVisible(false);
+        } else {
+            lblTrangThaiApDungKM.setVisible(false);
+        }
 
         hoaDon.setGiaKhuyenMai(tempChietKhau);
     }
-   
-    public void setDefaultEntities(){
-        try {
-        hoaDonTra = new HoaDonTra();
-        hoaDonTra.setNhanVien(CurrentSession.getNhanVien());
-	hoaDon = new HoaDon();
-	hoaDon.setNhanVien(CurrentSession.getNhanVien());
-        
-	khuyenMai = new KhuyenMai("NO_APPLY");
-        khuyenMai.setTenKhuyenMai("Không áp dụng");
-	khachHang = new KhachHang("KH0001");
-        khachHang.setHoTen("Khách lẻ");
+    
+    private void calcKhuyenMaiAuto() {
+        double tempChietKhau = hoaDon.getGiaKhuyenMai();
 
-        txtDisplayMaGiamGia.setText(khuyenMai.getCodeKhuyenMai());
-        txtDisplayChuongTrinhKM.setText(khuyenMai.getTenKhuyenMai());
-        txtDisplayMaKH.setText(khachHang.getKhachHangID());
-        txtDisplayTenKH.setText(khachHang.getHoTen());
-        lblTrangThaiApDungKM.setVisible(false);
-        } catch (Exception e){
+        for (ChiTietHoaDon x : hoaDon.getListChiTietHoaDon()) {
+        	if (x.getSanPham() == null)
+        		continue;
+        	if (x.getSanPham().getSanPhamID() < 1)
+        		continue;
+        	KhuyenMai tempKM = khuyenMai_BUS.getKhuyenMaiViaSanPhamAutoApply(x.getSanPham().getSanPhamID());
+        	
+        	if (tempKM == null)
+        		continue;
+        	
+        	if (tempKM.getDonHangTu() > hoaDon.tinhTongTien()) {
+        		// Hoá đơn chưa đạt giá trị tối thiểu
+        		continue;
+            }
+        	
+        	if (tempKM.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
+                tempChietKhau += (x.tinhTongTien() * (tempKM.getGiaTri() / 100));
+            } else {
+                tempChietKhau += tempKM.getGiaTri();
+            }
+        	
+        }
+        hoaDon.setGiaKhuyenMai(tempChietKhau);
+    }
+
+    public void setDefaultEntities() {
+        try {
+            hoaDonTra = new HoaDonTra();
+            hoaDonTra.setNhanVien(CurrentSession.getNhanVien());
+
+            hoaDon = new HoaDon();
+            hoaDon.setNhanVien(CurrentSession.getNhanVien());
+
+            khuyenMai = new KhuyenMai("NO_APPLY");
+            khuyenMai.setTenKhuyenMai("Không áp dụng");
+            khachHang = new KhachHang("KH0001");
+            khachHang.setHoTen("Khách lẻ");
+
+            hoaDon.setKhuyenMai(khuyenMai);
+            hoaDon.setKhachHang(khachHang);
+
+            txtDisplayMaGiamGia.setText(khuyenMai.getCodeKhuyenMai());
+            txtDisplayChuongTrinhKM.setText(khuyenMai.getTenKhuyenMai());
+            txtDisplayMaKH.setText(khachHang.getKhachHangID());
+            txtDisplayTenKH.setText(khachHang.getHoTen());
+            lblTrangThaiApDungKM.setVisible(false);
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    public void showTrangThaiKhuyenMai(String x){
+
+    public void showTrangThaiKhuyenMai(String x) {
         lblTrangThaiApDungKM.setText(x);
         lblTrangThaiApDungKM.setVisible(true);
     }
-    
-    public void preloadInfomation(){
+
+    public void preloadInfomation() {
         try {
             txtDisplayMaGiamGia.setText(khuyenMai.getCodeKhuyenMai());
             txtDisplayChuongTrinhKM.setText(khuyenMai.getTenKhuyenMai());
             txtDisplayMaKH.setText(khachHang.getKhachHangID());
             txtDisplayTenKH.setText(khachHang.getHoTen());
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-    
 
-	private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField7ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField7ActionPerformed
+    public void clearTextAndFocus(JTextField x) {
+        x.setText("");
+        x.requestFocus();
+    }
 
-	private void jTextField8ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField8ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField8ActionPerformed
+    public JTextField getLastClickedJTextField() {
+        return lastClicked;
+    }
 
-	private void jTextField14ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField14ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField14ActionPerformed
-
-	private void jTextField15ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField15ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField15ActionPerformed
-
-	private void btnKeyPadActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnKeyPadActionPerformed
-		// TODO add your handling code here:
-            new Frame_KeyPad(this, txtKhuyenMai).setVisible(true);
-	}// GEN-LAST:event_btnKeyPadActionPerformed
-
-	private void btnThanhToanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnThanhToanActionPerformed
-		// TODO add your handling code here:
-		switch (trangThaiEditor) {
-		case BAN_HANG -> {
-			if (hoaDon.getListChiTietHoaDon().size() < 1) {
-				ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
-						"Chưa có sản phẩm trong giỏ hàng, không thể tạo hoá đơn!", txtMaSanPham);
-				return;
-			}
-			new Form_ThanhToan(hoaDon, ((JFrame) this.getTopLevelAncestor()), this).setVisible(true);
-		}
-		case TRA_HANG -> {
-                    if (hoaDonTra.getListChiTietHoaDon().size() < 1) {
-				ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
-						"Chưa có thực hiện đổi trả sản phẩm nào, không thể tạo hoá đơn trả!!", txtMaSanPham);
-				return;
-			}
-			new Form_TraHang(hoaDon, ((JFrame) this.getTopLevelAncestor()), this, hoaDonTra).setVisible(true);
-		}
-		default -> {
-
-		}
-		}
-	}// GEN-LAST:event_btnThanhToanActionPerformed
-
-	private void btnXoaRongMaSPActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnXoaRongMaSPActionPerformed
-		// TODO add your handling code here:
-		clearTextAndFocus(txtMaSanPham);
-	}// GEN-LAST:event_btnXoaRongMaSPActionPerformed
-
-	public void clearTextAndFocus(JTextField x) {
-		x.setText("");
-		x.requestFocus();
-	}
-
-        public JTextField getLastClickedJTextField(){
-            return lastClicked;
+    public boolean updateHoaDon(String trangThai) {
+        hoaDon.setTrangThai(trangThai);
+        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+        if (!result) {
+            return false;
         }
-	private void btnAddSanPhamActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnAddSanPhamActionPerformed
-		// TODO add your handling code here:
-		int tempPos = -1;
-		String maSanPham = txtMaSanPham.getText().trim();
-		if (maSanPham.isEmpty() || maSanPham.isBlank()) {
-			ErrorMessage.showMessageWithFocusTextField("Thông tin",
-					"Để thêm sản phẩm vào hoá đơn, hãy thêm mã sản phẩm trước", txtMaSanPham);
-			return;
-		}
+        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+        return result;
+    }
 
-		if (maSanPham.matches("\\D")) {
-			ErrorMessage.showMessageWithFocusTextField("Thông tin", "Barcode/Mã sản phẩm nội bộ không hợp lệ!",
-					txtMaSanPham);
-			return;
-		}
+    public void clearHoaDonDangTao() {
+        setDefaultEntities();
+        while (tblModelCTHD.getRowCount() > 0) {
+            tblModelCTHD.removeRow(0);
+        }
+        updateThongTinBill();
+    }
 
-		SanPham x = sanPham_BUS.getChiMotSanPhamTheoMaHoacBarcode(maSanPham);
+    private void btnKhachHangEnterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnKhachHangEnterActionPerformed
+        // TODO add your handling code here:
 
-		if (x == null) {
-			ErrorMessage.showMessageWithFocusTextField("Thông tin",
-					"Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
-			return;
-		}
-                if (x.getSoLuongTon() <= 0){
-                                    ErrorMessage.showMessageWithFocusTextField("Thông tin",
-                                                        "Sản phẩm này đã hết hàng, hãy báo với quản lý và bạn không được bán sản phẩm này!", txtMaSanPham);
-                                        return;
-                                }
-		ChiTietHoaDon ct = new ChiTietHoaDon(x, 1);
+    }// GEN-LAST:event_btnKhachHangEnterActionPerformed
 
-		// Đổi trả hàng
-		if (TAB_HoaDon_EditorMode.TRA_HANG == trangThaiEditor) {
-			tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
-			if (tempPos < 0) {
-				ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này không nằm trong hoá đơn!",
-						txtMaSanPham);
-				return;
-			}
-			ct = hoaDon.getListChiTietHoaDon().get(tempPos);
+    public void thanhToanHoanTat() {
+        setDefaultEntities();
+        while (tblModelCTHD.getRowCount() > 0) {
+            tblModelCTHD.removeRow(0);
+        }
+        if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
+            setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
+        }
+        updateThongTinBill();
+    }
 
-			// Chặn đổi trả
-			if (x.getLoaiDoiTra().equalsIgnoreCase("KHONG_DOI_TRA")) {
-				ErrorMessage.showMessageWithFocusTextField("Thông tin", "Sản phẩm này thuộc loại không được đổi trả!",
-						txtMaSanPham);
-				return;
-			}
-                        
-			if (ct.getSoLuong() - 1 <= 0) {
-				hoaDon.removeChiTietHoaDon(ct);
-				tblModelCTHD.removeRow(tempPos);
-				reIndexTable();
-			} else {
-				ct.setSoLuong(ct.getSoLuong() - 1);
-				tblModelCTHD.setValueAt(ct.getSoLuong(), tempPos, 5);
-				tblModelCTHD.setValueAt(ct.tinhTongTien(), tempPos, 8);
-			}
-		} else {
-                        // Kiểm tra tình trạng trước khi th 
-                       tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
-			if (tempPos >= 0) {
-				if (x.getSoLuongTon() < hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong() + 1){
-                                ErrorMessage.showMessageWithFocusTextField("Thông tin",
-                                                "Hiện chỉ còn " + x.getSoLuongTon() 
-                                                            + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
-                                return;
-                        }
-                        }
-                        
-                            tempPos = hoaDon.addChiTietHoaDon(ct);
-                            if (tempPos == -1)
-                                    addRowIntoChiTietHoaDon(ct);
-                            else {
-                                    tblModelCTHD.setValueAt(hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong(), tempPos, 5);
-                            }
-		}
-		clearTextAndFocus(txtMaSanPham);
-		updateThongTinBill();
-
-	}// GEN-LAST:event_btnAddSanPhamActionPerformed
-
-	private void btnCancelHDActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnCancelHDActionPerformed
-		// TODO add your handling code here:
-		switch (trangThaiEditor) {
-		case XEM_CHI_TIET_HOA_DON -> {
-			if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn trở về chế độ bán hàng chứ?")) {
-				clearHoaDonDangTao();
-				setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
-			}
-		}
-		case TRA_HANG -> {
-			if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
-					"Việc đổi trả hoá đơn chưa hoàn tất, bạn đã chắc chắn muốn trở lại chế độ bán hàng?")) {
-				clearHoaDonDangTao();
-				setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
-			}
-		}
-		default -> {
-			if (hoaDon.getListChiTietHoaDon().size() < 1) {
-				ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hiện chưa khởi tạo đơn hàng!", txtMaSanPham);
-				return;
-			}
-			if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
-					"Hoá đơn sẽ bị huỷ sau khi xác nhận, bạn đã chắc chắn chứ?")) {
-				updateHoaDon("HUY_BO");
-				clearHoaDonDangTao();
-			}
-		}
-		}
-
-	}// GEN-LAST:event_btnCancelHDActionPerformed
-
-	public boolean updateHoaDon(String trangThai) {
-		hoaDon.setTrangThai(trangThai);
-		boolean result = hoaDon_BUS.createHoaDon(hoaDon);
-		if (!result)
-			return false;
-		result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
-		return result;
-	}
-
-	public void clearHoaDonDangTao() {
-		setDefaultEntities();
-		while (tblModelCTHD.getRowCount() > 0)
-			tblModelCTHD.removeRow(0);
-		updateThongTinBill();
-	}
-
-	private void btn_DSHD_ThanhToanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_ThanhToanActionPerformed
-		// TODO add your handling code here:
-		if (jTable2.getSelectedRow() < 0) {
-			ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
-			return;
-		}
-		if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn có chắc chắn muốn xử lý lại hoá đơn "
-				+ (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " không?")) {
-			loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
-			setTrangThaiEditor(trangThaiEditor);
-		}
-	}// GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
-
-	private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {// GEN-FIRST:event_tabSwitchBanHang
-		// TODO add your handling code here:
-	}// GEN-LAST:event_tabSwitchBanHang
-
-	private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_tblHoaDonMouseClicked
-		// TODO add your handling code here:
-		int row = jTable2.getSelectedRow();
-		int col = jTable2.getSelectedColumn();
-
-		if (tblHoaDon.getValueAt(row, 5).equals("Huỷ bỏ")) {
-			btn_DSHD_DoiTraHoaDon.setEnabled(false);
-			btn_DSHD_InHD.setEnabled(false);
-			btn_DSHD_HuyHoaDon.setEnabled(false);
-			btn_DSHD_ThanhToan.setEnabled(false);
-			btn_DSHD_XemChiTiet.setEnabled(true);
-			return;
-		}
-
-		if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
-			btn_DSHD_DoiTraHoaDon.setEnabled(true);
-			btn_DSHD_InHD.setEnabled(true);
-			btn_DSHD_HuyHoaDon.setEnabled(false);
-			btn_DSHD_ThanhToan.setEnabled(false);
-			btn_DSHD_XemChiTiet.setEnabled(true);
-			return;
-		}
-
-		if (tblHoaDon.getValueAt(row, 5).equals("Chờ xử lý")) {
-			btn_DSHD_DoiTraHoaDon.setEnabled(false);
-			btn_DSHD_InHD.setEnabled(false);
-			btn_DSHD_HuyHoaDon.setEnabled(true);
-			btn_DSHD_ThanhToan.setEnabled(true);
-			btn_DSHD_XemChiTiet.setEnabled(true);
-			return;
-		}
-	}// GEN-LAST:event_tblHoaDonMouseClicked
-
-	private void btnHangChoActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnHangChoActionPerformed
-		// TODO add your handling code here:
-		if (hoaDon.getListChiTietHoaDon().size() < 1) {
-			ErrorMessage.showMessageWithFocusTextField("Cảnh báo",
-					"Chưa có sản phẩm trong giỏ hàng, không thể thêm vào hàng chờ!", txtMaSanPham);
-			return;
-		}
-		if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn muốn đưa hoá đơn vào hàng chờ chứ?")) {
-			updateHoaDon("CHO_XU_LY");
-			clearHoaDonDangTao();
-		}
-	}// GEN-LAST:event_btnHangChoActionPerformed
-
-	private void btn_DSHD_HuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_HuyHoaDonActionPerformed
-		// TODO add your handling code here:
-		if (jTable2.getSelectedRow() < 0) {
-			ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
-			return;
-		}
-		if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
-				"Bạn có chắc chắn muốn huỷ hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)
-						+ " không?\n\nCảnh báo: Hoá đơn sau khi huỷ sẽ không thể thanh toán trở lại!"))
-			if (hoaDon_BUS.cancelHoaDon(new HoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)))) {
-				JOptionPane.showMessageDialog(null,
-						"Hoá đơn " + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " đã bị huỷ!");
-				btn_DSHD_taiLai.doClick();
-			} else {
-				JOptionPane.showMessageDialog(null, "Huỷ hoá đơn "
-						+ (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1) + " thất bại! Lỗi CSDL.");
-			}
-	}// GEN-LAST:event_btn_DSHD_HuyHoaDonActionPerformed
-
-	private void btn_DSHD_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_XemChiTietActionPerformed
-		// TODO add your handling code here:
-		if (jTable2.getSelectedRow() < 0) {
-			ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
-			return;
-		}
-		if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
-				"Bạn đang chuẩn bị vào chế độ xem chi tiết hoá đơn.\n\nLưu ý: Chế độ này không thể chỉnh sửa hoá đơn.")) {
-			loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
-			setTrangThaiEditor(TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON);
-		}
-	}// GEN-LAST:event_btn_DSHD_XemChiTietActionPerformed
-
-	private void btn_DSHD_taiLaiActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_taiLaiActionPerformed
-		// TODO add your handling code here:
-		loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDon());
-	}// GEN-LAST:event_btn_DSHD_taiLaiActionPerformed
-
-	private void btn_DSHD_SearchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_SearchActionPerformed
-		Date start = txt_DSHD_TuNLHD.getDate(), end = txt_DSHD_DenNLHD.getDate();
-
-		Object[] obj = new Object[8];
-		// TODO add your handling code here:
-
-		if (start != null && end != null) {
-			if (end.getTime() < start.getTime()) {
-				ErrorMessage.showConfirmDialogYesNo("Chú ý",
-						"Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
-				txt_DSHD_TuNLHD.requestFocus();
-				return;
-			}
-		}
-
-		if (start != null) {
-			start.setDate(start.getDate() - 1);
-			start.setHours(23);
-			start.setMinutes(59);
-			start.setSeconds(59);
-		}
-
-		if (end != null) {
-			// end.setDate(end.getDate() + 1);
-			end.setHours(23);
-			end.setMinutes(59);
-			end.setSeconds(59);
-		}
-
-		if (!txt_DSHD_GiaTriTu.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriTu.getText())) {
-			ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu có ký tự không hợp lệ!");
-			txt_DSHD_GiaTriTu.requestFocus();
-			return;
-		}
-
-		if (!txt_DSHD_GiaTriDen.getText().isBlank() && !Numberic.isDouble(txt_DSHD_GiaTriDen.getText())) {
-			ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị kết thúc có ký tự không hợp lệ!");
-			txt_DSHD_GiaTriDen.requestFocus();
-			return;
-		}
-
-		if ((!txt_DSHD_GiaTriDen.getText().isBlank() && !txt_DSHD_GiaTriTu.getText().isBlank())
-				&& Numberic.parseDouble(txt_DSHD_GiaTriDen.getText())
-						- Numberic.parseDouble(txt_DSHD_GiaTriTu.getText()) < 0) {
-			ErrorMessage.showConfirmDialogYesNo("Chú ý", "Giá trị bắt đầu nhỏ hơn giá trị kết thúc!");
-			txt_DSHD_GiaTriTu.requestFocus();
-			return;
-		}
-
-		obj[0] = start;
-		obj[1] = end;
-		obj[2] = HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem()).equalsIgnoreCase("ALL")
-				? null
-				: HoaDon.parseTrangThaiHoaDon((String) cbo_DSHD_TrangThai.getSelectedItem());
-		obj[3] = txt_DSHD_GiaTriTu.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriTu.getText());
-		obj[4] = txt_DSHD_GiaTriDen.getText().isBlank() ? null : Numberic.parseDouble(txt_DSHD_GiaTriDen.getText());
-		obj[5] = txt_DSHD_MaHoaDon.getText().isBlank() ? null : txt_DSHD_MaHoaDon.getText();
-		obj[6] = txt_DSHD_MaKH.getText().isBlank() ? null : txt_DSHD_MaKH.getText();
-		obj[7] = txt_DSHD_MaNV.getText().isBlank() ? null : txt_DSHD_MaNV.getText();
-
-		loadTableHoaDon(hoaDon_BUS.getDanhSachHoaDonNangCao(obj));
-	}// GEN-LAST:event_btn_DSHD_SearchActionPerformed
-
-	private void txt_DSHD_MaHoaDonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txt_DSHD_MaHoaDonActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_txt_DSHD_MaHoaDonActionPerformed
-
-	private void btn_DSHD_DoiTraHoaDonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_DSHD_DoiTraHoaDonActionPerformed
-		// TODO add your handling code here:
-		if (jTable2.getSelectedRow() < 0) {
-			ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
-			return;
-		}
-		if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
-				+ (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1))) {
-			setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
-			loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
-		}
-	}// GEN-LAST:event_btn_DSHD_DoiTraHoaDonActionPerformed
-
-	private void btnKhachHangEnterActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnKhachHangEnterActionPerformed
-		// TODO add your handling code here:
-
-	}// GEN-LAST:event_btnKhachHangEnterActionPerformed
-
-	private void jTabbedMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTabbedMouseClicked
-		// TODO add your handling code here:
-		if (jTabbed.getSelectedIndex() == 1) {
-			btn_DSHD_taiLai.doClick();
-		}
-	}// GEN-LAST:event_jTabbedMouseClicked
-
-	public void thanhToanHoanTat() {
-		setDefaultEntities();
-		while (tblModelCTHD.getRowCount() > 0)
-			tblModelCTHD.removeRow(0);
-		if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
-			setTrangThaiEditor(TAB_HoaDon_EditorMode.BAN_HANG);
-		}
-		updateThongTinBill();
-	}
-
-	public void addRowIntoChiTietHoaDon(ChiTietHoaDon x) {
-		tblModelCTHD.addRow(hoaDon.tableRowChiTietHoaDon(x));
-	}
+    public void addRowIntoChiTietHoaDon(ChiTietHoaDon x) {
+        tblModelCTHD.addRow(hoaDon.tableRowChiTietHoaDon(x));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelHD;

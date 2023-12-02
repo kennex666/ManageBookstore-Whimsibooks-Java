@@ -14,6 +14,7 @@ public interface IKhuyenMai {
 	public boolean editKhuyenMai(KhuyenMai khuyenMai);
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query);
 	public ArrayList<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay);
-        public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai);
+    public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai);
+    public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham);
 }
 	

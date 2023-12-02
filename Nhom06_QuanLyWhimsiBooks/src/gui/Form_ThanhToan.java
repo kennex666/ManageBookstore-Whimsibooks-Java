@@ -40,12 +40,13 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
-        
+       /* Nghiệp vụ cũ 
         x.setTrangThai("CHO_XU_LY");
         
         if (!tabBanHang.updateHoaDon("CHO_XU_LY")){
             JOptionPane.showMessageDialog(null, "Thông tin: Khởi tạo hoá đơn thất bại.");
         }
+        */
         
         y.setEnabled(false);
         //setUndecorated(true); 

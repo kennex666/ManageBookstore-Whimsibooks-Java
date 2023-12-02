@@ -220,6 +220,29 @@ public class KhuyenMai_DAO implements IKhuyenMai{
 		}
 		return km;
 	}
+        
+    @Override
+    public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham) {
+    	// TODO Auto-generated method stub
+    	KhuyenMai km = null;
+		try {
+			String query = "SELECT TOP 1 * from KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.CodeKhuyenMai = ct.CodeKhuyenMai WHERE SanPhamID = ? AND NgayKhuyenMai <= GETDATE() AND NgayHetHanKM >= GETDATE() AND SoLuongKhuyenMai > 1 AND SoLuotDaApDung < SoLuongKhuyenMai ORDER BY NgayKhuyenMai DESC";
+			
+            PreparedStatement pstm = conn.prepareStatement(query);
+                        pstm.setInt(1, maSanPham);
+			ResultSet rs = pstm.executeQuery();
+			if(!rs.next()) {
+				return null;
+			}
+            km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+
+	        return km;
+		} catch (Exception e) {
+			e.printStackTrace();
+                        
+		}
+    	return null;
+    }
 
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();

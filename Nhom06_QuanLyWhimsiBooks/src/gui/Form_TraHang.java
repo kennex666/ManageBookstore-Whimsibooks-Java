@@ -365,21 +365,12 @@ public class Form_TraHang extends javax.swing.JFrame {
 
     private void btnThanhToanHoanTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanHoanTatActionPerformed
         // TODO add your handling code here:
-
-    	hoaDon_BUS.cancelHoaDon(hoaDon);
-    	hoaDon.setHoaDonID(null);
     	
-    	hoaDon.setTrangThai("DA_XU_LY");
-        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+    	hoaDon.setTrangThai("TRA_HANG");
+        boolean result = hoaDon_BUS.updateHoaDon(hoaDon);
         
         if (!result){
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn.");
-            return;
-        }
-        
-        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
-        if (!result) {
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi trả hàng.");
             return;
         }
         

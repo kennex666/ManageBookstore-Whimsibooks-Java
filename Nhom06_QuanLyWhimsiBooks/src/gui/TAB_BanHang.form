@@ -4551,9 +4551,9 @@
                         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                           <StringArray count="4">
                             <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                            <StringItem index="1" value="Ch&#x1edd; x&#x1eed; l&#xfd;"/>
-                            <StringItem index="2" value="&#x110;&#xe3; x&#x1eed; l&#xfd;"/>
-                            <StringItem index="3" value="Hu&#x1ef7; b&#x1ecf;"/>
+                            <StringItem index="1" value="&#x110;&#xe3; x&#x1eed; l&#xfd;"/>
+                            <StringItem index="2" value="Ch&#x1edd; x&#x1eed; l&#xfd;"/>
+                            <StringItem index="3" value="&#x110;&#xe3; tr&#x1ea3; h&#xe0;ng"/>
                           </StringArray>
                         </Property>
                       </Properties>
