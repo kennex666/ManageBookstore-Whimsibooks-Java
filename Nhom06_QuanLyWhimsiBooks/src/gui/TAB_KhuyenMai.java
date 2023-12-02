@@ -85,6 +85,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         txt_CTTKM_KiemTraVoucher.setVisible(false);
         btn_CTTKM_KiemTraVoucher.setVisible(false);
         loadDataCTTKM();
+        spSoLuongApDung.setValue(1);
     }
 
     /**
@@ -116,7 +117,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         lblSoLuong = new javax.swing.JLabel();
-        spSoLuongApDung = new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, null, 1));
+        spSoLuongApDung = new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, null, 1));
         jPanel18 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         txtDonHangTu = new javax.swing.JTextField();
@@ -965,80 +966,79 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		return false;
 	}
 
-	// Nhấn Lưu
-	private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLuuActionPerformed
-		String maKM = txtMaKM.getText();
-		String tenKM = txtTenKM.getText();
-		int soLuongApDung = (int) spSoLuongApDung.getValue();
-		String donHangTu = txtDonHangTu.getText();
-		String hinhThuc = txtHinhThuc.getSelectedItem().toString();
-		String mucGiam = txtMucGiamGia.getText();
-		java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
-		java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
-		java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
-		java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
-		try {
-			if (checkValue()) {
-				if (evt_selectVoucher) {
-					boolean check = false;
-					ArrayList<KhuyenMai> listVoucher = new ArrayList<>();
+    // Nhấn Lưu
+    private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
+    	 String maKM = txtMaKM.getText();
+         String tenKM = txtTenKM.getText();
+         int soLuongApDung = (int) spSoLuongApDung.getValue();
+         String donHangTu = txtDonHangTu.getText();
+         String hinhThuc = txtHinhThuc.getSelectedItem().toString();
+         String mucGiam = txtMucGiamGia.getText();
+         java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
+         java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
+         java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
+         java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
+        try {
+            if (checkValue()) {
+            	// Thêm một khuyến mãi // nhiều voucher
+                if (radVoucher.isSelected()) {
+                    boolean check = false;
+                    ArrayList<KhuyenMai> listVoucher = new ArrayList<>();
 
-					if (checkTenSuKien(tenKM)
-							&& JOptionPane.showConfirmDialog(null, "Sự kiện đã tồn tại, bạn có muốn thêm voucher",
-									"Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-						for (int i = 0; i < soLuongApDung; i++) {
-							KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam),
-									ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
-							if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
-								check = true;
-								listVoucher.add(khuyenMai);
-							} else {
-								check = false;
-								break;
-							}
-						}
-					} else {
-						for (int i = 0; i < soLuongApDung; i++) {
-							KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam),
-									ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
-							if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
-								check = true;
-								listVoucher.add(khuyenMai);
-							} else {
-								check = false;
-								break;
-							}
-						}
-					}
-					if (check) {
-						Huy();
-						loadDataKM();
-						JOptionPane.showMessageDialog(this, "Thêm voucher/mã khuyễn mãi thành công");
-						Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
-						danhSachVoucher.setVisible(true);
-					}
-				}
+                    if (checkTenSuKien(tenKM) && JOptionPane.showConfirmDialog(null, "Sự kiện đã tồn tại, bạn có muốn thêm voucher", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                    	for (int i = 0; i < soLuongApDung; i++) {
+                    		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
+                    		if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
+                    			check = true;
+                    			listVoucher.add(khuyenMai);
+                    		} else {
+                    			check = false;
+                    			break;
+                    		}
+                    	}
+                    } else {
+                    	int yesAdd = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm Voucher: "+ tenKM, "Thông báo", JOptionPane.YES_NO_OPTION);
+                    	if(yesAdd == JOptionPane.YES_OPTION) {
+                        	for (int i = 0; i < soLuongApDung; i++) {
+                        		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), 1, 0);
+                        		if (khuyenMai_BUS.addKhuyenMai(khuyenMai)) {
+                        			check = true;
+                        			listVoucher.add(khuyenMai);
+                        		} else {
+                        			check = false;
+                        			break;
+                        		}
+                        	}
+                    	}
+                    }
+                    if (check) {
+                        Huy();
+                        loadDataKM();
+                        JOptionPane.showMessageDialog(this, "Thêm voucher/mã khuyễn mãi thành công");
+                        Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
+                        danhSachVoucher.setVisible(true);
+                    }
+                }
 
-				if (!evt_selectVoucher) {
-					ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
-					KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau,
-							ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
+                else{
+                    ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                    KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
 
-					if (khuyenMai_BUS.addKhuyenMai(khuyenMai)
-							&& chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
-						JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
-						Huy();
-						loadDataKM();
-					} else {
-						JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
-					}
-				}
-			}
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
-			e.printStackTrace();
-		}
-	}// GEN-LAST:event_btnLuuActionPerformed
+                    if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
+                        JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
+                        Huy();
+                        loadDataKM();
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
+                    }
+                }
+            }
+            // Update
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnLuuActionPerformed
 
 	private void checkBoxSelectChoTatCaMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_checkBoxSelectChoTatCaMouseClicked
 		int rowCount = tableChonSP.getRowCount();
@@ -1046,7 +1046,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		for (int i = 0; i < rowCount; i++) {
 			tableChonSP.setValueAt(isSelected, i, 0);
 		}
-	}//GEN-LAST:event_checkBoxSelectChoTatCaMouseClicked
+	}                                                   
 
 	private void btnTimKiemKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTimKiemKhuyenMaiActionPerformed
 		String timMa = txtTimKMTheoMa.getText().trim();
@@ -1367,6 +1367,16 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	txtMucGiamGia.setText(donGiaTu+"");
             	txtNgayBatDau.setDate(ngayBatDau);
             	txtNgayKetThuc.setDate(ngayKetThuc);
+				comboboxApDung.setEnabled(false);
+				lblApDung.setEnabled(false);
+				checkBoxSelectChoTatCa.setEnabled(false);
+				checkBoxSelectChoTatCa.setSelected(true);
+				TimMaSanPham.setEnabled(false);
+				btnTimKiem.setEnabled(false);
+				tableChonSP.setEnabled(false);
+				for (int i = 0; i < tableChonSP.getRowCount(); i++) {
+					tableChonSP.setValueAt(false, i, 0);
+				}
             }
             else {
             	txtMaKM.setVisible(true);

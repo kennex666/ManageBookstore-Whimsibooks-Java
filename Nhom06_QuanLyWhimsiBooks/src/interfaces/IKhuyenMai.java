@@ -19,5 +19,6 @@ public interface IKhuyenMai {
     public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM);
     public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params);
     public ArrayList<KhuyenMai> getKhuyenMaiByName(String name);
+    public boolean deleteKhuyenMai(String codeKhuyenMai);
 }
 	

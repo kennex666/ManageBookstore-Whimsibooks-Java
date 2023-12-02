@@ -246,7 +246,7 @@
                                 </Component>
                                 <Component class="javax.swing.JSpinner" name="spSoLuongApDung">
                                   <AuxValues>
-                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(1, 1, null, 1))"/>
+                                    <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JSpinner(new SpinnerNumberModel(0, 0, null, 1))"/>
                                   </AuxValues>
                                 </Component>
                               </SubComponents>

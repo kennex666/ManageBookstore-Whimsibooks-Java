@@ -261,20 +261,16 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	    return false;
 	}
 	
-//	public void updateVoucher(String tenVoucherOld,String tenVoucherNew, int SoLuong, double donHangTu, String hinhThuc, double mucGiaGiam, Date ngayBatDau, Date NgayKetThuc) {
-//		ArrayList<KhuyenMai> list = getKhuyenMaiByName(tenVoucher);
-//		boolean check = false;
-//		for(KhuyenMai km : list) {
-//			String ma = km.getCodeKhuyenMai();
-//			
-//			khuyenMai_DAO.editKhuyenMai(khuyenMai);
-//		}
-//	}
-
 	@Override
 	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiByName(name);
+	}
+
+	@Override
+	public boolean deleteKhuyenMai(String codeKhuyenMai) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.deleteKhuyenMai(codeKhuyenMai);
 	}
 
 

@@ -189,6 +189,19 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		}
 		return false;
 	}
+	
+	@Override
+	public boolean deleteKhuyenMai(String codeKhuyenMai) {
+	    String delete = "DELETE FROM KhuyenMai WHERE CodeKhuyenMai = ?";
+	    try {
+	        PreparedStatement preparedStatement = conn.prepareStatement(delete);
+	        preparedStatement.setString(1, codeKhuyenMai);
+	        return (preparedStatement.executeUpdate() > 0);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
 
 	@Override
 	public ArrayList<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
