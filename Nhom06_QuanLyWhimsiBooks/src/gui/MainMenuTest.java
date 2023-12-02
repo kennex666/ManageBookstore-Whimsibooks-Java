@@ -26,9 +26,10 @@ public class MainMenuTest {
 //		KhuyenMai_DAO a = new KhuyenMai_DAO();
 //		System.out.println(a.TimKiemKhuyenMaiTheoDieuKien("Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+0+"%' and LoaiGiamGia = 'Percentage'"));
 		
-//		KhuyenMai_BUS bus = new KhuyenMai_BUS();
-//		System.out.println(bus.TimKiemTheoDieuKien("", "Giá trị"));
-		ChiTietKhuyenMai_BUS bus = new ChiTietKhuyenMai_BUS();
-		System.out.println(bus.laySanPhamKMTheoMa("AAA"));
+		KhuyenMai_BUS bus = new KhuyenMai_BUS();
+		System.out.println(bus.getDanhSachKhuyenMaiNangCao(new Object[] {null , null ,120, null, null, null}));
+		
+//		ChiTietKhuyenMai_BUS bus = new ChiTietKhuyenMai_BUS();
+//		System.out.println(bus.laySanPhamKMTheoMa("AAA"));
 	}
 }

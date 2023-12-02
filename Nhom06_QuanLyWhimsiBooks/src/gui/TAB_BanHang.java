@@ -1250,7 +1250,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     jPanel2.add(jLabel4, gridBagConstraints);
 
-    jLabel11.setText("Ngày lập hoá đơn");
+    jLabel11.setText("Ngày lập hóa đơn");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 4;

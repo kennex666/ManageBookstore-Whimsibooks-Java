@@ -9,7 +9,7 @@ import entities.SanPham;
 import entities.ThuongHieu;
 
 public interface ISanPham {
-	public  ArrayList<SanPham> laySanPhamChoKM();
+	public ArrayList<SanPham> laySanPhamChoKM();
 	public ArrayList<SanPham> getDanhSachSanPham(String query);
 	public ArrayList<SanPham> getDanhSachSanPham();
 	public ArrayList<SanPham> searchSanPham(String id);

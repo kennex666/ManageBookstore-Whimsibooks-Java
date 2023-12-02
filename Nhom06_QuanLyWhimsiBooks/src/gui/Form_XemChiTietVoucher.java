@@ -21,7 +21,7 @@ public class Form_XemChiTietVoucher extends javax.swing.JFrame {
 	
 	
 	private void loadData(String tenSK) {
-		ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getVoucher(tenSK);
+		ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiTheoTen(tenSK);
 		txtTen.setText(khuyenMais.get(0).getTenKhuyenMai());
 		txtNBD.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayKhuyenMai()));
 		txtNKT.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayHetHanKM()));

@@ -46,7 +46,14 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return list;
 	}
 	
-	public ArrayList<KhuyenMai> getVoucher(String tenSK) {
+
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiByIDAndName(maKhuyenMai, tenKM);
+	}
+	
+	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
 		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
@@ -171,6 +178,11 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 	
 	// Xuat file
+	@Override
+	public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getDanhSachKhuyenMaiNangCao(params);
+	}
 	
 	public boolean xuatFile(ArrayList<KhuyenMai> list) {
 	    JFileChooser excelFileChooser = new JFileChooser("D:\\");
@@ -248,4 +260,23 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	    // Người dùng đã hủy hoặc có lỗi, trả về false
 	    return false;
 	}
+	
+//	public void updateVoucher(String tenVoucherOld,String tenVoucherNew, int SoLuong, double donHangTu, String hinhThuc, double mucGiaGiam, Date ngayBatDau, Date NgayKetThuc) {
+//		ArrayList<KhuyenMai> list = getKhuyenMaiByName(tenVoucher);
+//		boolean check = false;
+//		for(KhuyenMai km : list) {
+//			String ma = km.getCodeKhuyenMai();
+//			
+//			khuyenMai_DAO.editKhuyenMai(khuyenMai);
+//		}
+//	}
+
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiByName(name);
+	}
+
+
+
 }
