@@ -5,7 +5,9 @@
 package gui;
 
 import java.awt.Color;
+import java.awt.Toolkit;
 import java.awt.event.ItemEvent;
+import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.sql.Date;
 import java.text.ParseException;
@@ -16,6 +18,7 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.print.attribute.AttributeSet;
 import javax.swing.DefaultCellEditor;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
@@ -30,6 +33,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableRowSorter;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DocumentFilter;
 
 import bus.ChiTietKhuyenMai_BUS;
 import bus.KhuyenMai_BUS;
@@ -87,6 +92,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         btn_CTTKM_KiemTraVoucher.setVisible(false);
         loadDataCTTKM();
         spSoLuongApDung.setValue(1);
+       
     }
 
     /**
@@ -228,6 +234,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         lblMaKhuyenMai.setText("Mã khuyến mại:");
         lblMaKhuyenMai.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel10.add(lblMaKhuyenMai);
+
+        txtMaKM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMaKMKeyReleased(evt);
+            }
+        });
         jPanel10.add(txtMaKM);
 
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
@@ -250,6 +262,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         tenKhuyenMai.setText("Tên khuyến mại:");
         tenKhuyenMai.setPreferredSize(new java.awt.Dimension(110, 16));
         jPanel9.add(tenKhuyenMai);
+
+        txtTenKM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTenKMKeyReleased(evt);
+            }
+        });
         jPanel9.add(txtTenKM);
 
         jPanel5.setMinimumSize(new java.awt.Dimension(100, 34));
@@ -781,6 +799,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         cbb_CTTKM_SXGiaTri.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tăng dần", "Giảm dần" }));
         cbb_CTTKM_SXGiaTri.setPreferredSize(new java.awt.Dimension(160, 28));
+        cbb_CTTKM_SXGiaTri.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbb_CTTKM_SXGiaTriItemStateChanged(evt);
+            }
+        });
         jPanel22.add(cbb_CTTKM_SXGiaTri);
         jPanel22.add(filler2);
 
@@ -790,6 +813,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         cbb_CTTKM_DonGia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Tăng dần", "Giảm dần" }));
         cbb_CTTKM_DonGia.setPreferredSize(new java.awt.Dimension(160, 28));
+        cbb_CTTKM_DonGia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbb_CTTKM_DonGiaItemStateChanged(evt);
+            }
+        });
         jPanel22.add(cbb_CTTKM_DonGia);
         jPanel22.add(filler1);
 
@@ -911,7 +939,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
 
 		if (!radVoucher.isSelected()) {
-			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6}$"))) {
+			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6,}$"))) {
 				new utilities.ShowMessageError().showError(this, txtMaKM,
 						"Mã khuyến mãi không đúng định dạng (có 6 ký tự ví dụ: Abc_123)", "Thông báo");
 				return false;
@@ -928,7 +956,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			}
 		}
 
-		if (!(tenKM.length() > 0 && tenKM.matches(utilities.RegexPattern.HOTEN))) {
+		if (!(tenKM.length() > 0 && tenKM.matches(utilities.RegexPattern.KHONG_TRONG_TIENG_VIET))) {
 			new utilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng",
 					"Thông báo");
 			return false;
@@ -1044,11 +1072,32 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             		obj[5] = hinhThuc; obj[6] = mucGiam; obj[7] = ngayBatDau; obj[8] = ngayKetThuc;
             		obj[9] = nameVoucher;
             		
-            		khuyenMai_BUS.update(obj);
+            		int count = 0;
+            		for(int i = 0; i < tableChonSP.getRowCount(); i++) {
+            			if ((boolean) tableChonSP.getValueAt(i, 0) == true)
+            				count++;
+            		}
+            		
+            		Object[] objProduct = new Object[count];
+            		
+            		int addProduct = 0;
+            		for(int i = 0; i < tableChonSP.getRowCount(); i++) {
+            			if ((boolean) tableChonSP.getValueAt(i, 0) == true) {
+            				objProduct[addProduct++] = tableChonSP.getValueAt(i, 1);
+            			}
+            		}
+            		for(int i = 0 ; i < objProduct.length; i++) {
+            			System.out.println(objProduct[i]);
+            		}
+            		
+            		if(khuyenMai_BUS.update(obj, objProduct)) {
+            			JOptionPane.showMessageDialog(null, "Cập nhật thành công!");
+            		}
             	}
             }
     		loadDataKM();
     		loadDataCTTKM();
+                tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
             e.printStackTrace();
@@ -1250,6 +1299,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private void btn_CTTKM_TaiLaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_CTTKM_TaiLaiActionPerformed
         // TODO add your handling code here:
         loadDataCTTKM();
+        cbb_CTTKM_SXGiaTri.setSelectedIndex(0);
+        cbb_CTTKM_DonGia.setSelectedIndex(0);
     }//GEN-LAST:event_btn_CTTKM_TaiLaiActionPerformed
 
 	private void btn_CTTKM_XoaRongActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_CTTKM_XoaRongActionPerformed
@@ -1322,6 +1373,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		obj[3] = txt_CTTKM_GiaTriDen.getText().isBlank() ? null : Double.valueOf(txt_CTTKM_GiaTriDen.getText());
 		obj[4] = txt_CTTKM_MaKhuyenMai.getText().isBlank() ? null : txt_CTTKM_MaKhuyenMai.getText();
 		obj[5] = txt_CTTKM_TenKM.getText().isBlank() ? null : txt_CTTKM_TenKM.getText();
+		
+		
 
 		ArrayList<KhuyenMai> arrayList = khuyenMai_BUS.getDanhSachKhuyenMaiNangCao(obj);
 
@@ -1357,7 +1410,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         int selectedRow = table_DSCTTKM.getSelectedRow();
         int selectedColumn = table_DSCTTKM.getSelectedColumn();
 
-        if(selectedRow != 0) {
+        if(selectedRow != -1) {
         	btn_CTTKM_CapNhat.setEnabled(false);
         	evet_Update = true;
         	String maKM = (String) table_DSCTTKM.getValueAt(selectedRow, 1);
@@ -1371,10 +1424,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             nameVoucher = tenKM;
             
             if(maKM.contains("Voucher_")) {
+            	
             	txtMaKM.setVisible(false);
             	lblMaKhuyenMai.setVisible(false);
             	radVoucher.setEnabled(false);
             	radVoucher.setSelected(true);
+            	
             	txtTenKM.setText(tenKM);
             	spSoLuongApDung.setValue(soLuong);
             	txtDonHangTu.setText(donGiaTu+"");
@@ -1394,11 +1449,14 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 				}
             }
             else {
+            	
             	txtMaKM.setVisible(true);
             	lblMaKhuyenMai.setVisible(true);
             	radVoucher.setEnabled(false);
             	radVoucher.setSelected(false);
+            	
             	txtMaKM.setText(maKM);
+            	txtMaKM.setEnabled(false);
             	txtTenKM.setText(tenKM);
             	spSoLuongApDung.setValue(soLuong);
             	txtDonHangTu.setText(donGiaTu+"");
@@ -1406,16 +1464,91 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	txtMucGiamGia.setText(donGiaTu+"");
             	txtNgayBatDau.setDate(ngayBatDau);
             	txtNgayKetThuc.setDate(ngayKetThuc);
+            	
+        		tableChonSP.removeAll();
+        		
+        		tableChonSP.setRowSelectionAllowed(false);
+        		tableModelSP.setRowCount(0);
+        		tableChonSP.setEnabled(true);
+        		
+        		int stt = 1;
+        		for (int i = 0; i < danhSachSp.size(); i++) {
+        			tableModelSP.addRow(
+        					new Object[] {checkSelect(danhSachSp.get(i).getSanPhamID(), maKM), danhSachSp.get(i).getSanPhamID(), danhSachSp.get(i).getTenSanPham() });
+        		}
             }
         }
     }//GEN-LAST:event_btn_CTTKM_CapNhatActionPerformed
+
+    private void cbb_CTTKM_SXGiaTriItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbb_CTTKM_SXGiaTriItemStateChanged
+        // TODO add your handling code here:
+        String selectedOption = (String) cbb_CTTKM_SXGiaTri.getSelectedItem();
+        switch (selectedOption) {
+        case "Tăng dần":
+            sorterCTTKM.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.ASCENDING))); // Sắp xếp theo cột "Giá trị" tăng dần
+            break;
+        case "Giảm dần":
+            sorterCTTKM.setSortKeys(Arrays.asList(new RowSorter.SortKey(4, SortOrder.DESCENDING))); // Sắp xếp theo cột "Giá trị" giảm dần
+            break;
+        case "Tất cả":
+            sorterCTTKM.setSortKeys(null); // Bỏ sắp xếp
+            break;
+        }
+    }//GEN-LAST:event_cbb_CTTKM_SXGiaTriItemStateChanged
+
+    private void cbb_CTTKM_DonGiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbb_CTTKM_DonGiaItemStateChanged
+        // TODO add your handling code here:
+        String selectedOption = (String) cbb_CTTKM_DonGia.getSelectedItem();
+        switch (selectedOption) {
+        case "Tăng dần":
+            sorterCTTKM.setSortKeys(Arrays.asList(new RowSorter.SortKey(7, SortOrder.ASCENDING))); // Sắp xếp theo cột "Giá trị" tăng dần
+            break;
+        case "Giảm dần":
+            sorterCTTKM.setSortKeys(Arrays.asList(new RowSorter.SortKey(7, SortOrder.DESCENDING))); // Sắp xếp theo cột "Giá trị" giảm dần
+            break;
+        case "Tất cả":
+            sorterCTTKM.setSortKeys(null); // Bỏ sắp xếp
+            break;
+        }
+    }//GEN-LAST:event_cbb_CTTKM_DonGiaItemStateChanged
+
+    private void txtMaKMKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMaKMKeyReleased
+        // TODO add your handling code here:
+    	 txtMaKM.setText(txtMaKM.getText().toUpperCase());
+    }//GEN-LAST:event_txtMaKMKeyReleased
+
+    private void txtTenKMKeyReleased(java.awt.event.KeyEvent evt) {                                     
+        handleKeyReleased();
+    }
+
+    private void handleKeyReleased() {
+        String text = txtTenKM.getText();
+
+        if (!text.isEmpty()) {
+            char firstChar = Character.toUpperCase(text.charAt(0));
+
+            String convertedText = firstChar + text.substring(1);
+
+            txtTenKM.setText(convertedText);
+        }
+    }
+
+    
+    private boolean checkSelect(int maSP,String maKM) {
+    	ArrayList<ChiTietKhuyenMai> list = chiTietKhuyenMai_BUS.layCTTKMTheoMa(maKM);
+    	for(int i = 0 ; i < list.size(); i++) {
+    		if(maSP == list.get(i).getSanPham().getSanPhamID())
+    			return true;
+    	}
+    	return false;
+    }
     
     // Load date
     private void loadDataKM() {
 		tableKM.removeAll();
 		tableKM.setRowSelectionAllowed(false);
 		tableModel.setRowCount(0);
-		danhSachKM = khuyenMai_BUS.getAllKhuyenMai();
+		danhSachKM = khuyenMai_BUS.getRecentKhuyenMai(200);
 		int stt = 1;
 		for (KhuyenMai km : danhSachKM) {
 			tableModel.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(), km.getLoaiKhuyenMai(),
@@ -1450,7 +1583,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
-		ArrayList<KhuyenMai> dsList = khuyenMai_BUS.getAllKhuyenMai();
+		ArrayList<KhuyenMai> dsList = khuyenMai_BUS.getRecentKhuyenMai(200);
 		int stt = 1;
 		for (KhuyenMai km : dsList) {
 			tableModelDSCTTKM.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(),

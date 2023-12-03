@@ -45,6 +45,83 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		}
 		return list;
 	}
+	
+	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
+	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	    try {
+	        String query = "SELECT TOP " + limit + " * FROM KhuyenMai ORDER BY NgayKhuyenMai DESC";
+	        Statement statement = conn.createStatement();
+	        ResultSet rs = statement.executeQuery(query);
+	        while (rs.next()) {
+	            try {
+	                KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
+	                        rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
+	                        rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
+	                        rs.getInt("SoLuotDaApDung"));
+	                list.add(khuyenMai);
+	            } catch (Exception e) {
+	                e.printStackTrace();
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
+	}
+	
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {;
+	String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
+	try {
+		Calendar calendar = Calendar.getInstance();
+		PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
+		preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
+		preparedStatement1.setInt(2, masanPham);
+		preparedStatement1.setString(3, makhuyenMai);
+		preparedStatement1.executeUpdate();
+		return true;
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+		return false;
+	}
+	
+	public boolean xoaSanPhamKhuyenMai(String makhuyenMai) {
+	    String deleteCTTKM = "DELETE FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
+	    try {
+	        PreparedStatement preparedStatement = conn.prepareStatement(deleteCTTKM);
+	        preparedStatement.setString(1, makhuyenMai);
+	        int soDongBiAnhHuong = preparedStatement.executeUpdate();
+
+	        if (soDongBiAnhHuong > 0) {
+	            return true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return false;
+	}
+	
+	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
+					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
+					list.add(chiTietKhuyenMai);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 
 	@Override
 	public ArrayList<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {

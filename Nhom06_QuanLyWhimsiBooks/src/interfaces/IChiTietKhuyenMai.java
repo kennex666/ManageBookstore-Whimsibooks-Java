@@ -12,4 +12,5 @@ public interface IChiTietKhuyenMai {
 	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM);
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham);
 	public Date getNgayTao(String maKM);
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham);
 }

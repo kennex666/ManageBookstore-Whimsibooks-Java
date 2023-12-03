@@ -59,4 +59,9 @@ public class ChiTietKhuyenMai_BUS implements IChiTietKhuyenMai{
 		// TODO Auto-generated method stub
 		return chiTietKhuyenMai_DAO.getNgayTao(maKM);
 	}
+	@Override
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai, int masanPham) {
+		// TODO Auto-generated method stub
+		return chiTietKhuyenMai_DAO.addSanPhamKhuyenMaiKhiUpdate(makhuyenMai, masanPham);
+	}
 }

@@ -25,7 +25,7 @@ public class Form_XemChiTietVoucher extends javax.swing.JFrame {
 		txtTen.setText(khuyenMais.get(0).getTenKhuyenMai());
 		txtNBD.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayKhuyenMai()));
 		txtNKT.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayHetHanKM()));
-		int count = 1, countDa = 0;
+		int count = 0, countDa = 0;
 		for(KhuyenMai km : khuyenMais) {
 			String trangThai = "Chưa sử dụng";
 			if(km.getSoLuotDaApDung() != 0) {

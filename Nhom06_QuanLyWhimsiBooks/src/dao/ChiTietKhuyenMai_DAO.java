@@ -104,6 +104,22 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		}
 		return false;
 	}
+	
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {;
+		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
+		try {
+			Calendar calendar = Calendar.getInstance();
+			PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
+			preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
+			preparedStatement1.setInt(2, masanPham);
+			preparedStatement1.setString(3, makhuyenMai);
+			preparedStatement1.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public ChiTietKhuyenMai_DAO() {
 		conn = ConnectDB.getConnection();

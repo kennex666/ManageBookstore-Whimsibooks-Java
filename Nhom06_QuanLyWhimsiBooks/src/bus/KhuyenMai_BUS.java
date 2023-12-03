@@ -22,9 +22,11 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import dao.KhuyenMai_DAO;
+import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
+import gui.Form_DanhSachVoucher;
 import interfaces.IKhuyenMai;
 
 public class KhuyenMai_BUS implements IKhuyenMai{
@@ -290,7 +292,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return voucherCode;
 	}
 	
-	public boolean update(Object[] obj) {
+	public boolean update(Object[] obj, Object[] objProduct) {
 		ArrayList<KhuyenMai> list = getKhuyenMaiByName(obj[9].toString());
 		
 		String typeUpdate = (String) obj[0];	
@@ -313,7 +315,6 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 				for(KhuyenMai km : list) {
 					KhuyenMai khuyenMai = new KhuyenMai(km.getCodeKhuyenMai(), tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, km.getSoLuotDaApDung());
 					editKhuyenMai(khuyenMai);
-					System.out.println(khuyenMai);
 				}
 				// số lượng không thay đổi
 				if(countNew == countOld) {
@@ -322,20 +323,44 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 				// Tăng số lượng
 				if(countNew > countOld) {
 					int SLTang = countNew - countOld;
+					ArrayList<KhuyenMai> khuyenMais = new ArrayList<KhuyenMai>();
 					for (int i = 0; i < SLTang; i++) {
                 		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
+                		khuyenMais.add(khuyenMai);
                 		addKhuyenMai(khuyenMai);
                 	}
+                    Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(khuyenMais);
+                    danhSachVoucher.setVisible(true);
+                    return true;
 				}
 				// Giảm số lượng
 				if(countNew < countOld) {
 					int SLGiam = countOld - countNew;
 					ArrayList<KhuyenMai> listChuaSD = getKhuyenMaiByName(obj[9].toString());
-					for(int i = 0; i < listChuaSD.size(); i++) {
+					for(int i = 0; i < SLGiam; i++) {
 						if(listChuaSD.get(i).getSoLuotDaApDung() == 0)
 							deleteKhuyenMai(listChuaSD.get(i).getCodeKhuyenMai());
 					}
+					return true;
 				}
+			}
+			// Update khuyenMai
+			if(typeUpdate.equals("KhuyenMai")) {
+				KhuyenMai khuyenMai = new KhuyenMai(maKhuyenMai, tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
+				editKhuyenMai(khuyenMai);
+				ArrayList<ChiTietKhuyenMai> listCTTKM = getChiTietKhuyenMaiTheoMa(maKhuyenMai);
+				
+				int countCTKM_Old = listCTTKM.size();
+				int countCTKM_New = objProduct.length;
+				
+				for(int j = 0; j < countCTKM_Old; j++) {
+					xoaSanPhamKhuyenMai(maKhuyenMai);
+				}
+
+				for(int i = 0; i < countCTKM_New; i++) {
+					addSanPhamKhuyenMaiKhiUpdate(maKhuyenMai,Integer.valueOf(objProduct[i].toString()));
+				}
+				return true;
 			}
 			
 		} catch (Exception e) {
@@ -349,6 +374,30 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	public int getSoLuongChuaSD(Object[] params) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getSoLuongChuaSD(params);
+	}
+
+	@Override
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai, int masanPham) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.addSanPhamKhuyenMaiKhiUpdate(makhuyenMai, masanPham);
+	}
+
+	@Override
+	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getChiTietKhuyenMaiTheoMa(maKM);
+	}
+
+	@Override
+	public boolean xoaSanPhamKhuyenMai(String makhuyenMai) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.xoaSanPhamKhuyenMai(makhuyenMai);
+	}
+
+	@Override
+	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getRecentKhuyenMai(limit);
 	}
 
 }

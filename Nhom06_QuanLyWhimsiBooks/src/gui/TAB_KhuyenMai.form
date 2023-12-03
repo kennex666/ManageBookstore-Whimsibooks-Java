@@ -139,6 +139,9 @@
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtMaKM">
+                                  <Events>
+                                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaKMKeyReleased"/>
+                                  </Events>
                                 </Component>
                                 <Container class="javax.swing.JPanel" name="jPanel21">
 
@@ -185,6 +188,9 @@
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtTenKM">
+                                  <Events>
+                                    <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtTenKMKeyReleased"/>
+                                  </Events>
                                 </Component>
                                 <Container class="javax.swing.JPanel" name="jPanel5">
                                   <Properties>
@@ -2990,6 +2996,9 @@
                           <Dimension value="[160, 28]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbb_CTTKM_SXGiaTriItemStateChanged"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -3031,6 +3040,9 @@
                           <Dimension value="[160, 28]"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbb_CTTKM_DonGiaItemStateChanged"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -3084,7 +3096,7 @@
                         <Component class="javax.swing.JTable" name="table_DSCTTKM">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="tableModelDSCTTKM = new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;T&#xea;n khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Lo&#x1ea1;i khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Gi&#xe1; tr&#x1ecb;&quot;, &quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;, &quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;, &quot;&#x110;&#x1a1;n h&#xe0;ng t&#x1eeb;&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;&#x110;&#xe3; &#xe1;p d&#x1ee5;ng&quot;, &quot;Chi ti&#x1ebf;t&quot;&#xa;    }&#xa;) {&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class&#xa;    };&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;}" type="code"/>
+                              <Connection code="tableModelDSCTTKM = new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;T&#xea;n khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Lo&#x1ea1;i khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Gi&#xe1; tr&#x1ecb;&quot;, &quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;, &quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;, &quot;&#x110;&#x1a1;n h&#xe0;ng t&#x1eeb;&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;&#x110;&#xe3; &#xe1;p d&#x1ee5;ng&quot;, &quot;Chi ti&#x1ebf;t&quot;&#xa;    }&#xa;) {&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    Class[] types = new Class [] {&#xa;         java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class&#xa;    };&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;}" type="code"/>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
