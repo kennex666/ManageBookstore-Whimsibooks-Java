@@ -77,7 +77,7 @@ public class HoaDon_DAO implements IHoaDon{
             String query = "UPDATE HoaDon SET TrangThai = ? WHERE HoaDonID = ?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
-			pstm.setString(1, "HUY_BO");
+			pstm.setString(1, "TRA_HANG");
 			pstm.setString(2, x.getHoaDonID());
                         pstm.executeUpdate();
 			return true;

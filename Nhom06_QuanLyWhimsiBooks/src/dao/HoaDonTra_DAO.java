@@ -311,7 +311,7 @@ public class HoaDonTra_DAO implements IHoaDonTra{
 				hd.setNhanVien(nv);
 				
 	
-				String hoTenKH = rs.getString(22);
+				String hoTenKH = rs.getString(19);
 				String maSoThue = rs.getString("MaSoThue");
 				String diaChi = rs.getString("diaChi");
 				String loaiKH = rs.getString("LoaiKhachHang");
@@ -340,7 +340,7 @@ public class HoaDonTra_DAO implements IHoaDonTra{
 	
 	@Override
 	public HoaDonTra getHoaDonByID(HoaDonTra hd) {
-		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai WHERE HoaDonID = ?";
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID WHERE HoaDonID = ?";
 		try {
 			PreparedStatement pstm = conn.prepareStatement(query);
 			pstm.setString(1, hd.getHoaDonID());
@@ -353,7 +353,7 @@ public class HoaDonTra_DAO implements IHoaDonTra{
 			String khachHangID = rs.getString("KhachHangID");
 			String nhanVienID = rs.getString("NhanVienID");
 			Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
-			double tongTien = rs.getDouble("tongHoan");
+			double tongTien = rs.getDouble("TongHoan");
 			String trangThai = rs.getString("TrangThai");
 			
 			hd.setHoaDonID(hoaDonID);

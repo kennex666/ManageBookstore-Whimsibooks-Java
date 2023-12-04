@@ -62,7 +62,8 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         
         // Khởi instance title
         WindowTitle.getInstance().setJf(this);
-        
+        cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào, " + CurrentSession.getTenNhanVienDangNhap(), "Đăng xuất" }));
+
         // Khởi tạo các tab
         tabBanHang = new TAB_BanHang();
         tabSanPham = new TAB_SanPham();

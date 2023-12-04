@@ -390,7 +390,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     }
 
     public void updateThongTinBill() {
-    	
+
         if (trangThaiEditor == TAB_HoaDon_EditorMode.TRA_HANG) {
             txtValueThanhTien.setText(Numberic.formatVND(hoaDonTra.tinhTongHoan()));
             return;
@@ -1624,15 +1624,18 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         // TODO add your handling code here:
     }//GEN-LAST:event_tabSwitchBanHang
 
-    public void autoApplyKhuyenMai(){
-        
+    public void autoApplyKhuyenMai() {
+
     }
-    
+
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:
         // TODO add your handling code here:
         int row = jTable2.getSelectedRow();
         int col = jTable2.getSelectedColumn();
+
+        btn_DSHD_XemChiTiet.setText("Xem chi tiết");
+        btn_DSHD_DoiTraHoaDon.setText("Đổi trả hoá đơn");
 
         if (tblHoaDon.getValueAt(row, 5).equals("Huỷ bỏ")) {
             btn_DSHD_DoiTraHoaDon.setEnabled(false);
@@ -1660,6 +1663,18 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             btn_DSHD_XemChiTiet.setEnabled(true);
             return;
         }
+
+        if (tblHoaDon.getValueAt(row, 5).equals("Đã trả hàng")) {
+            btn_DSHD_DoiTraHoaDon.setEnabled(true);
+            btn_DSHD_InHD.setEnabled(true);
+            btn_DSHD_HuyHoaDon.setEnabled(false);
+            btn_DSHD_ThanhToan.setEnabled(false);
+            btn_DSHD_XemChiTiet.setEnabled(true);
+
+            btn_DSHD_XemChiTiet.setText("Xem hoá đơn gốc");
+            btn_DSHD_DoiTraHoaDon.setText("Xem hoá đơn trả");
+            return;
+        }
     }//GEN-LAST:event_tblHoaDonMouseClicked
 
     private void btn_DSHD_HuyHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_HuyHoaDonActionPerformed
@@ -1680,15 +1695,25 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     private void btn_DSHD_DoiTraHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_DoiTraHoaDonActionPerformed
         // TODO add your handling code here:
-        if (jTable2.getSelectedRow() < 0) {
+
+        int row = jTable2.getSelectedRow();
+        if (row < 0) {
             ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn cần xử lý!", txt_DSHD_GiaTriTu);
             return;
         }
-        if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
-                + (String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1))) {
-            setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
-            loadHoaDon((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1));
+
+        if (tblHoaDon.getValueAt(row, 5).equals("Đã trả hàng")) {
+            Form_XemChiTietHDT xemChiTiet_Form = new Form_XemChiTietHDT((String) tblHoaDon.getValueAt(row, 1));
+            xemChiTiet_Form.setVisible(true);
+        }else
+        if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
+            if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
+                    + (String) tblHoaDon.getValueAt(row, 1))) {
+                setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
+                loadHoaDon((String) tblHoaDon.getValueAt(row, 1));
+            }
         }
+
     }//GEN-LAST:event_btn_DSHD_DoiTraHoaDonActionPerformed
 
     private void btn_DSHD_XemChiTietActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_XemChiTietActionPerformed
@@ -1975,7 +2000,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             // Kiểm tra tình trạng trước khi th 
             tempPos = hoaDon.getListChiTietHoaDon().indexOf(ct);
             if (tempPos >= 0) {
-                if (trangThaiEditor != TAB_HoaDon_EditorMode.TRA_HANG  && x.getSoLuongTon() < hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong() + 1) {
+                if (trangThaiEditor != TAB_HoaDon_EditorMode.TRA_HANG && x.getSoLuongTon() < hoaDon.getListChiTietHoaDon().get(tempPos).getSoLuong() + 1) {
                     ErrorMessage.showMessageWithFocusTextField("Thông tin",
                             "Hiện chỉ còn " + x.getSoLuongTon()
                             + " sản phẩm có thể bán. Hãy báo với QLCH nhé!", txtMaSanPham);
@@ -2080,31 +2105,34 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
         hoaDon.setGiaKhuyenMai(tempChietKhau);
     }
-    
+
     private void calcKhuyenMaiAuto() {
         double tempChietKhau = hoaDon.getGiaKhuyenMai();
 
         for (ChiTietHoaDon x : hoaDon.getListChiTietHoaDon()) {
-        	if (x.getSanPham() == null)
-        		continue;
-        	if (x.getSanPham().getSanPhamID() < 1)
-        		continue;
-        	KhuyenMai tempKM = khuyenMai_BUS.getKhuyenMaiViaSanPhamAutoApply(x.getSanPham().getSanPhamID());
-        	
-        	if (tempKM == null)
-        		continue;
-        	
-        	if (tempKM.getDonHangTu() > hoaDon.tinhTongTien()) {
-        		// Hoá đơn chưa đạt giá trị tối thiểu
-        		continue;
+            if (x.getSanPham() == null) {
+                continue;
             }
-        	
-        	if (tempKM.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
+            if (x.getSanPham().getSanPhamID() < 1) {
+                continue;
+            }
+            KhuyenMai tempKM = khuyenMai_BUS.getKhuyenMaiViaSanPhamAutoApply(x.getSanPham().getSanPhamID());
+
+            if (tempKM == null) {
+                continue;
+            }
+
+            if (tempKM.getDonHangTu() > hoaDon.tinhTongTien()) {
+                // Hoá đơn chưa đạt giá trị tối thiểu
+                continue;
+            }
+
+            if (tempKM.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
                 tempChietKhau += (x.tinhTongTien() * (tempKM.getGiaTri() / 100));
             } else {
                 tempChietKhau += tempKM.getGiaTri();
             }
-        	
+
         }
         hoaDon.setGiaKhuyenMai(tempChietKhau);
     }
