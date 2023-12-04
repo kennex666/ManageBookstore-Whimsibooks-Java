@@ -165,27 +165,27 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_tableVoucherMouseClicked
 
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if(checkImport) {
-        	evt.getWindow().dispose();
-        }
-        else {
-        	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        	JOptionPane.showMessageDialog(this, "Bạn phải import danh sách voucher trước");
-        }
-    }//GEN-LAST:event_formWindowClosing
+	private void formWindowClosing(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowClosing
+		int yes = JOptionPane.showConfirmDialog(this, "Bạn nên import voucher, bạn có chắc chắn muốn thoát !",
+				"Thông báo", JOptionPane.YES_NO_OPTION);
+		if (yes == JOptionPane.YES_OPTION) {
+			evt.getWindow().dispose();
+		} else {
+			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
+	}// GEN-LAST:event_formWindowClosing
 
-    private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed
-        // TODO add your handling code here:
-        if(checkImport) {
-        	this.setVisible(false);
-        	this.dispose();
-        }
-        else {
-        	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        	JOptionPane.showMessageDialog(this, "Bạn phải import danh sách voucher trước");
-        }
-    }//GEN-LAST:event_backActionPerformed
+	private void backActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_backActionPerformed
+		// TODO add your handling code here:
+		int yes = JOptionPane.showConfirmDialog(this, "Bạn nên import voucher, bạn có chắc chắn muốn thoát !",
+				"Thông báo", JOptionPane.YES_NO_OPTION);
+		if (yes == JOptionPane.YES_OPTION) {
+			this.setVisible(false);
+			this.dispose();
+		} else {
+			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		}
+	}// GEN-LAST:event_backActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
