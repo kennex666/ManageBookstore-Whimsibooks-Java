@@ -265,10 +265,10 @@ public class SanPham {
 		super();
 		long millis = System.currentTimeMillis();
 		this.ngayNhap = new java.sql.Date(millis);
-		this.loaiDoiTra = "";
+		this.loaiDoiTra = "DUOC_DOI_TRA";
 		this.barcode = "";
 		this.imgPath = "";
-		this.tinhTrang = "";
+		this.tinhTrang = "CON_HANG";
 		this.donViDoLuong = "";
 		this.loaiSanPham = "";
 		this.donViDoLuong = "";

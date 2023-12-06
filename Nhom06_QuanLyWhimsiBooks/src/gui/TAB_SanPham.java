@@ -5,54 +5,43 @@
 package gui;
 
 import bus.DanhMuc_BUS;
+import bus.NhaCungCap_BUS;
 import bus.NhaXuatBan_BUS;
 import bus.SanPham_BUS;
 import bus.ThuongHieu_BUS;
 import connectDB.ConnectDB;
 import entities.DanhMuc;
+import entities.NhaCungCap;
 import entities.NhaXuatBan;
 import entities.SanPham;
 import entities.TacGia;
+import entities.TheLoai;
 import entities.ThuongHieu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.FormulaEvaluator;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.ImageProcessing;
@@ -63,8 +52,7 @@ import utilities.ImageProcessing;
  */
 public class TAB_SanPham extends javax.swing.JPanel {
 
-    private final int COLUNM_BOX = 3;
-    private GridBagConstraints gridBagConstraints;
+
 
     /**
      * Creates new form TAB_SanPham
@@ -682,6 +670,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jButton5.setFocusCycleRoot(true);
         jButton5.setFocusable(false);
         jButton5.setIconTextGap(12);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         jPanel13.setBackground(new java.awt.Color(204, 204, 255));
         jPanel13.setLayout(new javax.swing.BoxLayout(jPanel13, javax.swing.BoxLayout.LINE_AXIS));
@@ -945,16 +938,14 @@ public class TAB_SanPham extends javax.swing.JPanel {
         int nhaXuatBanID = sanPham_BUS.getIdNhaXuatBanByName(timKiem_NhaXuatBan.toString());
 
         String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
-        if(tacGiaID != -1)
-        {
+        if (tacGiaID != -1) {
             query1 += " OR TacGiaID = " + tacGiaID;
         }
-        
-        if(theLoaiID != -1)
-        {
+
+        if (theLoaiID != -1) {
             query1 += " OR TheLoaiID = " + theLoaiID;
         }
-        
+
         if (danhMucID != -1) {
             query1 += " AND DanhMucID = " + danhMucID;
         }
@@ -1000,7 +991,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
             });
         }
         loadSanPham(list);
-
+        jScrollPane1.getVerticalScrollBar().setValue(0);
+        jScrollPane1.getHorizontalScrollBar().setValue(0);
 
     }//GEN-LAST:event_jButton_TimKiemActionPerformed
 
@@ -1122,6 +1114,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
             });
         }
         loadSanPham(list);
+        jScrollPane2.getVerticalScrollBar().setValue(0);
+        jScrollPane2.getHorizontalScrollBar().setValue(0);
 
     }//GEN-LAST:event_jButton_TimKiem_SPKActionPerformed
 
@@ -1139,67 +1133,144 @@ public class TAB_SanPham extends javax.swing.JPanel {
     }//GEN-LAST:event_jComboBox_TrangThaiActionPerformed
 
     private void jButton_ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImportActionPerformed
-        FileInputStream file_Input = null;
-        try {
-            // TODO add your handling code here:
-            JFileChooser chooser;
-            chooser = new JFileChooser();
-            chooser.showOpenDialog(null);
-            File file = chooser.getSelectedFile();
-            int COLUMN_INDEX_STT = 0;
-            int COLUMN_INDEX_MAHANG = 1;
-            int COLUMN_INDEX_TENHANG = 2;
-            int COLUMN_INDEX_DVT = 3;
-            int COLUMN_INDEX_SOLUONG = 4;
-            int COLUMN_INDEX_DONGIA = 5;
-            int COLUMN_INDEX_CHIECKHAU = 6;
-            int COLUMN_INDEX_THANHTIEN = 7;
-            int COLUMN_INDEX_GHICHU = 8;
 
-            file_Input = new FileInputStream(new File("C:\\Users\\ASUS\\Desktop\\DA_PTUD\\Data_PhieuNhap.xlsx"));
-            XSSFWorkbook workbook = null;
+        // TODO add your handling code here:
+//            JFileChooser chooser;
+//            chooser = new JFileChooser();
+//            chooser.showOpenDialog(null);
+//            File file = chooser.getSelectedFile();
+        File excelFile;
+        FileInputStream excelFIS = null;
+        BufferedInputStream excelBIS = null;
+        XSSFWorkbook excelImportToJTable = null;
+        String defaultCurrentDirectoryPath = "D:";
+        JFileChooser excelFileChooser = new JFileChooser(defaultCurrentDirectoryPath);
+        excelFileChooser.setDialogTitle("Chọn file excel");
+        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
+        excelFileChooser.setFileFilter(fnef);
+        int excelChooser = excelFileChooser.showOpenDialog(null);
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
+        ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
+        ArrayList<NhaCungCap> list_NhaCungCap = nhaCungCap_BUS.getAllNhaCungCap();
+        if (excelChooser == JFileChooser.APPROVE_OPTION) {
+            Set<Object> maSanPhamSet = new HashSet<>();
             try {
-                workbook = new XSSFWorkbook(file_Input);
-            } catch (IOException ex) {
-                Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
-            while(rowIterator.hasNext())
-            {
-                Row row = rowIterator.next();
-                Iterator<Cell> cellIterator = row.cellIterator();
+                excelFile = excelFileChooser.getSelectedFile();
+                excelFIS = new FileInputStream(excelFile);
+                excelBIS = new BufferedInputStream(excelFIS);
+                excelImportToJTable = new XSSFWorkbook(excelBIS);
+                XSSFSheet excelSheet = excelImportToJTable.getSheetAt(0);
                 
-                while(cellIterator.hasNext())
+                XSSFRow excelRow = excelSheet.getRow(1);
+                XSSFCell excelNgayNhap = excelRow.getCell(7);
+                String ngayNhap = excelNgayNhap.toString().trim();
+
+                excelRow = excelSheet.getRow(6);
+                XSSFCell excelNhaCungCap = excelRow.getCell(2);
+                String tenNhaCungCap = excelNhaCungCap.toString().trim();
+                XSSFCell excelsoDienThoai = excelRow.getCell(5);
+                String soDienThoai = excelsoDienThoai.toString().trim();
+
+                excelRow = excelSheet.getRow(7);
+                String diaChi = excelSheet.getRow(2).toString();
+                int check1 = 0;
+                for(NhaCungCap ncc : list_NhaCungCap)
                 {
-                    Cell cell = cellIterator.next();
-                    switch(cell.getCellType())
+                    if(!ncc.getTenNhaCungCap().equals(tenNhaCungCap))
                     {
-                        case STRING:
-                            System.out.println(cell.toString());
-                            break;
-                        case NUMERIC:
-                            System.out.println(cell.toString());
-                            break;
-                        case BOOLEAN:
-                            break;
-                        case FORMULA:
-                            break;
+                        check1 = 1;
+                        break;
                     }
                 }
-                System.out.println("");
-            }
-            try {
-                file_Input.close();
-            } catch (IOException ex) {
+                if(check1 == 0)
+                {
+                    NhaCungCap new_ncc = new NhaCungCap();
+                    new_ncc.setTenNhaCungCap(tenNhaCungCap);
+                    new_ncc.setSoDienThoai(soDienThoai);
+                    new_ncc.setDiaChi(diaChi);
+                    nhaCungCap_BUS.addNhaCungCap(new_ncc);
+                }
+                
+
+                for (int row = 11; row <= excelSheet.getLastRowNum(); row++) {
+                	excelRow = excelSheet.getRow(row);
+                    XSSFCell excelSTT = excelRow.getCell(0);
+                    XSSFCell excelBarcode = excelRow.getCell(1);
+                    XSSFCell excelTenHang = excelRow.getCell(2);
+                    XSSFCell excelDVT = excelRow.getCell(3);
+                    XSSFCell excelSoLuong = excelRow.getCell(4);
+                    XSSFCell excelDonGia = excelRow.getCell(5);
+                    XSSFCell excelCK = excelRow.getCell(6);
+                    XSSFCell excelThanhTien = excelRow.getCell(7);
+                    XSSFCell excelGhiChu = excelRow.getCell(8);
+                   
+                    String barCode = excelBarcode.toString().trim();
+                    String tenHang = excelTenHang.toString().trim();
+                    int soLuong = (int) Double.parseDouble(excelSoLuong.toString().trim());
+                    double donGia = Double.parseDouble(excelDonGia.toString().trim());
+                    double chiecKhau = Double.parseDouble(excelCK.toString().trim());
+                    int check = 0;
+
+                    for(SanPham sp : list_SanPham)
+                    {
+                        if(sp.getBarcode().equals(barCode))
+                        {
+                            sp.setSoLuongTon(sp.getSoLuongTon() + soLuong);
+                            sanPham_BUS.editSanPham(sp);
+                            check = 1;
+                            break;
+                        }
+                    }
+                    
+                    if(check == 0)
+                    {
+                        SanPham new_SanPham = new SanPham();
+                        new_SanPham.setBarcode(barCode);
+                        new_SanPham.setTenSanPham(tenHang);
+                        new_SanPham.setGiaNhap(donGia);
+                        new_SanPham.setThue(chiecKhau);
+                        //new_SanPham.setNgayNhap(new SimpleDateFormat("yyyy-MM-dd").parse(ngayNhap));
+                        new_SanPham.setTacGia(new TacGia(1));
+                        new_SanPham.setDanhMuc(new DanhMuc(1));
+                        new_SanPham.setNhaXuatBan(new NhaXuatBan(1));
+                        new_SanPham.setThuongHieu(new ThuongHieu(1));
+                        new_SanPham.setNhaCungCap(new NhaCungCap(sanPham_BUS.getIdNhaCungCapByName(tenNhaCungCap)));
+                        new_SanPham.setTheLoai(new TheLoai(1));
+                        sanPham_BUS.addSanPham(new_SanPham);
+                    }
+        
+                }
+                JOptionPane.showMessageDialog(null, "Nhập thành công");
+            } catch (IOException iOException) {
+            	JOptionPane.showMessageDialog(null, "Nhập thất bại");
+                JOptionPane.showMessageDialog(null, iOException.getMessage());
+
+            } catch (Exception ex) {
                 Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    if (excelFIS != null) {
+                        excelFIS.close();
+                    }
+                    if (excelBIS != null) {
+                        excelBIS.close();
+                    }
+                    if (excelImportToJTable != null) {
+                        excelImportToJTable.close();
+                    }
+                } catch (IOException iOException) {
+                    JOptionPane.showMessageDialog(null, iOException.getMessage());
+                }
             }
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
 
 
     }//GEN-LAST:event_jButton_ImportActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     Box box_SP = new Box(BoxLayout.X_AXIS);
     Box box_SPK = new Box(BoxLayout.X_AXIS);

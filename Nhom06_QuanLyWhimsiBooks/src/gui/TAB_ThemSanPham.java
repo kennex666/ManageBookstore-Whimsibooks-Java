@@ -1378,43 +1378,36 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField1_NamSanXuatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1_NamSanXuatMouseClicked
         // TODO add your handling code here:
-        this.jTextField1_NamSanXuat.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField1_NamSanXuatMouseClicked
 
     private void jTextField_KichThuocMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_KichThuocMouseClicked
         // TODO add your handling code here:
-        this.jTextField_KichThuoc.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_KichThuocMouseClicked
 
     private void jTextField_XuatXuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_XuatXuMouseClicked
         // TODO add your handling code here:
-        this.jTextField_XuatXu.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_XuatXuMouseClicked
 
     private void jTextField_NgonNguMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_NgonNguMouseClicked
         // TODO add your handling code here:
-        this.jTextField_NgonNgu.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_NgonNguMouseClicked
 
     private void txtNgayMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNgayMouseClicked
         // TODO add your handling code here:
-        this.txtNgay.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_txtNgayMouseClicked
 
     private void jTextField_SoTrangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_SoTrangMouseClicked
         // TODO add your handling code here:
-        this.jTextField_SoTrang.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_SoTrangMouseClicked
 
     private void jTextField_DonViDoLuongMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_DonViDoLuongMouseClicked
         // TODO add your handling code here:
-        this.jTextField_DonViDoLuong.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_DonViDoLuongMouseClicked
 
@@ -1495,7 +1488,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_ThueMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_ThueMouseClicked
         // TODO add your handling code here:
-        this.jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_ThueMouseClicked
 
@@ -1505,7 +1497,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_SoLuongTonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_SoLuongTonMouseClicked
         // TODO add your handling code here:
-        this.jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_SoLuongTonMouseClicked
 
@@ -1515,7 +1506,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_BarcodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_BarcodeMouseClicked
         // TODO add your handling code here:
-        this.jTextField_Barcode.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_BarcodeMouseClicked
 
@@ -1525,7 +1515,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_TenSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_TenSanPhamMouseClicked
         // TODO add your handling code here:
-        this.jTextField_TenSanPham.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_TenSanPhamMouseClicked
 
