@@ -137,6 +137,9 @@
                     <Property name="focusable" type="boolean" value="false"/>
                     <Property name="iconTextGap" type="int" value="12"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_ImportActionPerformed"/>
+                  </Events>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel5">
                   <Properties>

@@ -17,22 +17,44 @@ import entities.ThuongHieu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 import javax.swing.event.CaretEvent;
 import javax.swing.event.CaretListener;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import utilities.ImageProcessing;
 
 /**
@@ -341,6 +363,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jButton_Import.setFocusCycleRoot(true);
         jButton_Import.setFocusable(false);
         jButton_Import.setIconTextGap(12);
+        jButton_Import.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ImportActionPerformed(evt);
+            }
+        });
 
         jPanel5.setBackground(new java.awt.Color(204, 204, 255));
         jPanel5.setLayout(new javax.swing.BoxLayout(jPanel5, javax.swing.BoxLayout.LINE_AXIS));
@@ -917,13 +944,22 @@ public class TAB_SanPham extends javax.swing.JPanel {
         int danhMucID = sanPham_BUS.getIdDanhMucByName(timKiem_DanhMuc.toString());
         int nhaXuatBanID = sanPham_BUS.getIdNhaXuatBanByName(timKiem_NhaXuatBan.toString());
 
-        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%' OR TacGiaID = " + tacGiaID + " OR TheLoaiID = " + theLoaiID;
-
+        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
+        if(tacGiaID != -1)
+        {
+            query1 += " OR TacGiaID = " + tacGiaID;
+        }
+        
+        if(theLoaiID != -1)
+        {
+            query1 += " OR TheLoaiID = " + theLoaiID;
+        }
+        
         if (danhMucID != -1) {
             query1 += " AND DanhMucID = " + danhMucID;
         }
         if (nhaXuatBanID != -1) {
-            query1 += " AND NhaXuatBanID = " + nhaXuatBanID;;
+            query1 += " AND NhaXuatBanID = " + nhaXuatBanID;
         }
 
         if (timKiem_TrangThai.equals("Còn bán")) {
@@ -963,7 +999,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 }
             });
         }
-
         loadSanPham(list);
 
 
@@ -1102,6 +1137,69 @@ public class TAB_SanPham extends javax.swing.JPanel {
     private void jComboBox_TrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_TrangThaiActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox_TrangThaiActionPerformed
+
+    private void jButton_ImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImportActionPerformed
+        FileInputStream file_Input = null;
+        try {
+            // TODO add your handling code here:
+            JFileChooser chooser;
+            chooser = new JFileChooser();
+            chooser.showOpenDialog(null);
+            File file = chooser.getSelectedFile();
+            int COLUMN_INDEX_STT = 0;
+            int COLUMN_INDEX_MAHANG = 1;
+            int COLUMN_INDEX_TENHANG = 2;
+            int COLUMN_INDEX_DVT = 3;
+            int COLUMN_INDEX_SOLUONG = 4;
+            int COLUMN_INDEX_DONGIA = 5;
+            int COLUMN_INDEX_CHIECKHAU = 6;
+            int COLUMN_INDEX_THANHTIEN = 7;
+            int COLUMN_INDEX_GHICHU = 8;
+
+            file_Input = new FileInputStream(new File("C:\\Users\\ASUS\\Desktop\\DA_PTUD\\Data_PhieuNhap.xlsx"));
+            XSSFWorkbook workbook = null;
+            try {
+                workbook = new XSSFWorkbook(file_Input);
+            } catch (IOException ex) {
+                Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.iterator();
+            while(rowIterator.hasNext())
+            {
+                Row row = rowIterator.next();
+                Iterator<Cell> cellIterator = row.cellIterator();
+                
+                while(cellIterator.hasNext())
+                {
+                    Cell cell = cellIterator.next();
+                    switch(cell.getCellType())
+                    {
+                        case STRING:
+                            System.out.println(cell.toString());
+                            break;
+                        case NUMERIC:
+                            System.out.println(cell.toString());
+                            break;
+                        case BOOLEAN:
+                            break;
+                        case FORMULA:
+                            break;
+                    }
+                }
+                System.out.println("");
+            }
+            try {
+                file_Input.close();
+            } catch (IOException ex) {
+                Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+
+
+    }//GEN-LAST:event_jButton_ImportActionPerformed
 
     Box box_SP = new Box(BoxLayout.X_AXIS);
     Box box_SPK = new Box(BoxLayout.X_AXIS);

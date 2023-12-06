@@ -20,6 +20,7 @@ import entities.SanPham;
 import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -66,149 +67,63 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     public TAB_ThemSanPham() {
         initComponents();
         ConnectDB.getInstance().connect();
-        
+
         this.txtNgay.setDate(java.util.Calendar.getInstance().getTime());
-        
+
         nxb_name = new ArrayList<String>();
         ncc_name = new ArrayList<String>();
         dm_name = new ArrayList<String>();
         tg_name = new ArrayList<String>();
         tl_name = new ArrayList<String>();
-        
+
         NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
         ArrayList<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
-        for(NhaCungCap ncc : list_NCC)
-        {
+        for (NhaCungCap ncc : list_NCC) {
             ncc_name.add(ncc.getTenNhaCungCap());
         }
-      
-        
+
         NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
         ArrayList<NhaXuatBan> list_NXB = nhaXuatBan_BUS.getAllNhaXuatBan();
-        for(NhaXuatBan nxb : list_NXB)
-        {
-            nxb_name.add( nxb.getTenNhaXuatBan());
+        for (NhaXuatBan nxb : list_NXB) {
+            nxb_name.add(nxb.getTenNhaXuatBan());
         }
 
-        
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
         ArrayList<DanhMuc> list_DM = danhMuc_BUS.getAllDanhMuc();
-        for(DanhMuc dm : list_DM)
-        {
+        for (DanhMuc dm : list_DM) {
             dm_name.add(dm.getTenDanhMuc());
         }
-        
+
         TacGia_BUS tacGia_BUS = new TacGia_BUS();
         ArrayList<TacGia> list_TG = tacGia_BUS.getAllTacGia();
-        for(TacGia tg : list_TG)
-        {
+        for (TacGia tg : list_TG) {
             tg_name.add(tg.getTenTacGia());
         }
-        
+
         TheLoai_BUS theLoai_BUS = new TheLoai_BUS();
         ArrayList<TheLoai> list_TL = theLoai_BUS.getAllTheLoai();
-        for(TheLoai tl : list_TL)
-        {
+        for (TheLoai tl : list_TL) {
             tl_name.add(tl.getTenTheLoai());
         }
-       
-        
-        
 
-        comboBox_NCC = new JComboBox<String>();
-        this.jPanel_CBB_NhaCungCap.removeAll();
-        this.jPanel_CBB_NhaCungCap.add(comboBox_NCC);
-        comboBox_NCC.setVisible(false);
-        this.jTextField_NhaCungCap.addCaretListener(new TextFieldCaretListener_NCC());
-        comboBox_NCC.removeAll();
-        comboBox_NCC.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0) {
-        try {
-            jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem().toString());
-            comboBox_NCC.removeAllItems();
-//               comboBox.hidePopup();
-            jPanel_CBB_NhaCungCap.removeAll();
-        } catch (Exception e) {
-                    }
-                }
-        });
-        
-        
-        comboBox_NXB = new JComboBox<String>();
-        this.jPanel_CBB_NhaXuatBan.removeAll();
-        this.jPanel_CBB_NhaXuatBan.add(comboBox_NXB);
-        comboBox_NXB.setVisible(false);
-        this.jTextField_NhaXuatBan.addCaretListener(new TextFieldCaretListener_NXB());
-        comboBox_NXB.removeAll();
-        comboBox_NXB.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0) {
-        try {
-            jTextField_NhaXuatBan.setText(comboBox_NXB.getSelectedItem().toString());
-            comboBox_NXB.removeAllItems();
-//            comboBox.hidePopup();
-            jPanel_CBB_NhaXuatBan.removeAll();
-            } catch (Exception e) {
-            }
+        for (String string : ncc_name) {
+            comboBox_NCC.addItem(string);
         }
-        });
-        
-        comboBox_DM = new JComboBox<String>();
-        this.jPanel_CBB_DanhMuc.removeAll();
-        this.jPanel_CBB_DanhMuc.add(comboBox_DM);
-        comboBox_DM.setVisible(false);
-        this.jTextField_DanhMuc.addCaretListener(new TextFieldCaretListener_DM());
-        comboBox_DM.removeAll();
-        comboBox_DM.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0) {
-        try {
-            jTextField_DanhMuc.setText(comboBox_DM.getSelectedItem().toString());
-            comboBox_DM.removeAllItems();
-//            comboBox.hidePopup();
-            jPanel_CBB_DanhMuc.removeAll();
-            } catch (Exception e) {
-            }
+
+        for (String string : nxb_name) {
+            comboBox_NXB.addItem(string);
         }
-        });
-        
-        comboBox_TL = new JComboBox<String>();
-        this.jPanel_CBB_TheLoai.removeAll();
-        this.jPanel_CBB_TheLoai.add(comboBox_TL);
-        comboBox_TL.setVisible(false);
-        this.jTextField_TheLoai.addCaretListener(new TextFieldCaretListener_TL());
-        comboBox_TL.removeAll();
-        comboBox_TL.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0) {
-        try {
-            jTextField_TheLoai.setText(comboBox_TL.getSelectedItem().toString());
-            comboBox_TL.removeAllItems();
-//            comboBox.hidePopup();
-            jPanel_CBB_TheLoai.removeAll();
-            } catch (Exception e) {
-            }
+
+        for (String string : tg_name) {
+            comboBox_TG.addItem(string);
         }
-        });
-        
-        comboBox_TG = new JComboBox<String>();
-        this.jPanel_CBB_TacGia.removeAll();
-        this.jPanel_CBB_TacGia.add(comboBox_TG);
-        comboBox_TG.setVisible(false);
-        this.jTextField_TacGia.addCaretListener(new TextFieldCaretListener_TG());
-        comboBox_TG.removeAll();
-        comboBox_TG.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0) {
-        try {
-            jTextField_TacGia.setText(comboBox_TG.getSelectedItem().toString());
-            comboBox_TG.removeAllItems();
-//            comboBox.hidePopup();
-            jPanel_CBB_TacGia.removeAll();
-            } catch (Exception e) {
-            }
+        for (String string : dm_name) {
+            comboBox_DM.addItem(string);
         }
-        });
-        
-        
-        
-            
+        for (String string : tl_name) {
+            comboBox_TL.addItem(string);
+        }
+
 
     }
 
@@ -229,15 +144,18 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         filler25 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel17 = new javax.swing.JPanel();
         jPanel28 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         filler43 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 20), new java.awt.Dimension(10, 10));
         filler45 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 10), new java.awt.Dimension(10, 10));
         jLabel_ImgChooser = new javax.swing.JLabel();
+        jPanel6 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        filler48 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 5), new java.awt.Dimension(10, 10));
+        filler47 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 10), new java.awt.Dimension(10, 10));
         jPanel29 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jButton_Chon = new javax.swing.JButton();
-        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 50), new java.awt.Dimension(10, 10));
+        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 50), new java.awt.Dimension(10, 10));
         filler46 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 5), new java.awt.Dimension(10, 10));
         jPanel44 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -257,27 +175,31 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel22 = new javax.swing.JPanel();
         jPanel_Title = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel33 = new javax.swing.JPanel();
         jLabel_NhaCungCap = new javax.swing.JLabel();
         jTextField_NhaCungCap = new javax.swing.JTextField();
         jPanel_CBB_NhaCungCap = new javax.swing.JPanel();
+        comboBox_NCC = new javax.swing.JComboBox<>();
         jPanel_NhaXuatban = new javax.swing.JPanel();
         jLabel_SoLuongTon3 = new javax.swing.JLabel();
         jTextField_NhaXuatBan = new javax.swing.JTextField();
         jPanel_CBB_NhaXuatBan = new javax.swing.JPanel();
+        comboBox_NXB = new javax.swing.JComboBox<>();
         jPanel55 = new javax.swing.JPanel();
         jLabel_TacGia = new javax.swing.JLabel();
         jTextField_TacGia = new javax.swing.JTextField();
         jPanel_CBB_TacGia = new javax.swing.JPanel();
+        comboBox_TG = new javax.swing.JComboBox<>();
         jPanel56 = new javax.swing.JPanel();
         jLabel_SoLuongTon2 = new javax.swing.JLabel();
         jTextField_TheLoai = new javax.swing.JTextField();
         jPanel_CBB_TheLoai = new javax.swing.JPanel();
+        comboBox_TL = new javax.swing.JComboBox<>();
         jPanel59 = new javax.swing.JPanel();
         jLabel_SoLuongTon5 = new javax.swing.JLabel();
         jTextField_DanhMuc = new javax.swing.JTextField();
         jPanel_CBB_DanhMuc = new javax.swing.JPanel();
+        comboBox_DM = new javax.swing.JComboBox<>();
         jPanel_GiaNhap = new javax.swing.JPanel();
         jLabel_GiaNhap = new javax.swing.JLabel();
         jTextField_GiaNhap = new javax.swing.JTextField();
@@ -288,6 +210,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel23 = new javax.swing.JPanel();
         jPanel_Title1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        filler49 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 40), new java.awt.Dimension(10, 10));
         jPanel46 = new javax.swing.JPanel();
         jLabel_NamSanXuat = new javax.swing.JLabel();
         jTextField1_NamSanXuat = new javax.swing.JTextField();
@@ -336,7 +259,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         filler33 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 50), new java.awt.Dimension(10, 10));
         filler34 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(30, 60), new java.awt.Dimension(10, 10));
         jPanel3 = new javax.swing.JPanel();
-        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(0, 0));
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(20, 0), new java.awt.Dimension(20, 0));
         jLabel_Warning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -353,6 +276,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(15, 145, 239));
         jLabel1.setText("Thông tin sản phẩm");
+        jLabel1.setPreferredSize(new java.awt.Dimension(225, 57));
         jPanel2.add(jLabel1);
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
@@ -387,10 +311,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel28.setRequestFocusEnabled(false);
         jPanel28.setLayout(new javax.swing.BoxLayout(jPanel28, javax.swing.BoxLayout.Y_AXIS));
 
-        jLabel4.setText("Hình ảnh");
-        jLabel4.setPreferredSize(new java.awt.Dimension(200, 22));
-        jPanel28.add(jLabel4);
-
         jPanel12.setBackground(new java.awt.Color(255, 255, 255));
         jPanel12.setMaximumSize(new java.awt.Dimension(350, 300));
         jPanel12.setMinimumSize(new java.awt.Dimension(70, 140));
@@ -409,6 +329,20 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jLabel_ImgChooser.setPreferredSize(new java.awt.Dimension(40, 140));
         jPanel12.add(jLabel_ImgChooser, java.awt.BorderLayout.CENTER);
 
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setPreferredSize(new java.awt.Dimension(181, 30));
+        jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(15, 145, 239));
+        jLabel6.setText("Thông tin chung");
+        jLabel6.setRequestFocusEnabled(false);
+        jPanel6.add(jLabel6);
+        jPanel6.add(filler48);
+
+        jPanel12.add(jPanel6, java.awt.BorderLayout.PAGE_START);
+        jPanel12.add(filler47, java.awt.BorderLayout.LINE_START);
+
         jPanel28.add(jPanel12);
 
         jPanel17.add(jPanel28);
@@ -425,7 +359,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 81, Short.MAX_VALUE)
+            .addGap(0, 77, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -586,12 +520,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel_Title.setMinimumSize(new java.awt.Dimension(80, 30));
         jPanel_Title.setPreferredSize(new java.awt.Dimension(200, 65));
         jPanel_Title.setLayout(new java.awt.BorderLayout());
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(15, 145, 239));
-        jLabel6.setText("Thông tin chung");
-        jPanel_Title.add(jLabel6, java.awt.BorderLayout.CENTER);
-
         jPanel22.add(jPanel_Title);
 
         jPanel33.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -624,7 +552,23 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel_CBB_NhaCungCap.setMaximumSize(new java.awt.Dimension(1000, 25));
         jPanel_CBB_NhaCungCap.setMinimumSize(new java.awt.Dimension(80, 25));
         jPanel_CBB_NhaCungCap.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel_CBB_NhaCungCap.setLayout(new javax.swing.BoxLayout(jPanel_CBB_NhaCungCap, javax.swing.BoxLayout.Y_AXIS));
+        jPanel_CBB_NhaCungCap.setLayout(new javax.swing.BoxLayout(jPanel_CBB_NhaCungCap, javax.swing.BoxLayout.LINE_AXIS));
+
+        comboBox_NCC.setMaximumSize(new java.awt.Dimension(32767, 0));
+        comboBox_NCC.setMinimumSize(new java.awt.Dimension(72, 0));
+        comboBox_NCC.setPreferredSize(new java.awt.Dimension(72, 0));
+        comboBox_NCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                comboBox_NCCMouseClicked(evt);
+            }
+        });
+        comboBox_NCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_NCCActionPerformed(evt);
+            }
+        });
+        jPanel_CBB_NhaCungCap.add(comboBox_NCC);
+
         jPanel22.add(jPanel_CBB_NhaCungCap);
 
         jPanel_NhaXuatban.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -654,10 +598,21 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jPanel_CBB_NhaXuatBan.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_CBB_NhaXuatBan.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
-        jPanel_CBB_NhaXuatBan.setMaximumSize(new java.awt.Dimension(1000, 25));
-        jPanel_CBB_NhaXuatBan.setMinimumSize(new java.awt.Dimension(80, 25));
+        jPanel_CBB_NhaXuatBan.setMaximumSize(new java.awt.Dimension(1000, 0));
+        jPanel_CBB_NhaXuatBan.setMinimumSize(new java.awt.Dimension(80, 0));
         jPanel_CBB_NhaXuatBan.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel_CBB_NhaXuatBan.setLayout(new javax.swing.BoxLayout(jPanel_CBB_NhaXuatBan, javax.swing.BoxLayout.Y_AXIS));
+        jPanel_CBB_NhaXuatBan.setLayout(new javax.swing.BoxLayout(jPanel_CBB_NhaXuatBan, javax.swing.BoxLayout.LINE_AXIS));
+
+        comboBox_NXB.setMaximumSize(new java.awt.Dimension(32767, 0));
+        comboBox_NXB.setMinimumSize(new java.awt.Dimension(72, 0));
+        comboBox_NXB.setPreferredSize(new java.awt.Dimension(72, 0));
+        comboBox_NXB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_NXBActionPerformed(evt);
+            }
+        });
+        jPanel_CBB_NhaXuatBan.add(comboBox_NXB);
+
         jPanel22.add(jPanel_CBB_NhaXuatBan);
 
         jPanel55.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -676,16 +631,32 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 jTextField_TacGiaMouseClicked(evt);
             }
         });
+        jTextField_TacGia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_TacGiaActionPerformed(evt);
+            }
+        });
         jPanel55.add(jTextField_TacGia, java.awt.BorderLayout.PAGE_END);
 
         jPanel22.add(jPanel55);
 
         jPanel_CBB_TacGia.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_CBB_TacGia.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
-        jPanel_CBB_TacGia.setMaximumSize(new java.awt.Dimension(1000, 25));
-        jPanel_CBB_TacGia.setMinimumSize(new java.awt.Dimension(80, 25));
+        jPanel_CBB_TacGia.setMaximumSize(new java.awt.Dimension(1000, 0));
+        jPanel_CBB_TacGia.setMinimumSize(new java.awt.Dimension(80, 0));
         jPanel_CBB_TacGia.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel_CBB_TacGia.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TacGia, javax.swing.BoxLayout.Y_AXIS));
+        jPanel_CBB_TacGia.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TacGia, javax.swing.BoxLayout.LINE_AXIS));
+
+        comboBox_TG.setMaximumSize(new java.awt.Dimension(32767, 0));
+        comboBox_TG.setMinimumSize(new java.awt.Dimension(72, 0));
+        comboBox_TG.setPreferredSize(new java.awt.Dimension(72, 0));
+        comboBox_TG.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_TGActionPerformed(evt);
+            }
+        });
+        jPanel_CBB_TacGia.add(comboBox_TG);
+
         jPanel22.add(jPanel_CBB_TacGia);
 
         jPanel56.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -715,10 +686,21 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jPanel_CBB_TheLoai.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_CBB_TheLoai.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
-        jPanel_CBB_TheLoai.setMaximumSize(new java.awt.Dimension(1000, 25));
-        jPanel_CBB_TheLoai.setMinimumSize(new java.awt.Dimension(80, 25));
+        jPanel_CBB_TheLoai.setMaximumSize(new java.awt.Dimension(1000, 0));
+        jPanel_CBB_TheLoai.setMinimumSize(new java.awt.Dimension(80, 0));
         jPanel_CBB_TheLoai.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel_CBB_TheLoai.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TheLoai, javax.swing.BoxLayout.Y_AXIS));
+        jPanel_CBB_TheLoai.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TheLoai, javax.swing.BoxLayout.LINE_AXIS));
+
+        comboBox_TL.setMaximumSize(new java.awt.Dimension(32767, 0));
+        comboBox_TL.setMinimumSize(new java.awt.Dimension(72, 0));
+        comboBox_TL.setPreferredSize(new java.awt.Dimension(72, 0));
+        comboBox_TL.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_TLActionPerformed(evt);
+            }
+        });
+        jPanel_CBB_TheLoai.add(comboBox_TL);
+
         jPanel22.add(jPanel_CBB_TheLoai);
 
         jPanel59.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -743,10 +725,21 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jPanel_CBB_DanhMuc.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_CBB_DanhMuc.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
-        jPanel_CBB_DanhMuc.setMaximumSize(new java.awt.Dimension(1000, 25));
-        jPanel_CBB_DanhMuc.setMinimumSize(new java.awt.Dimension(80, 25));
+        jPanel_CBB_DanhMuc.setMaximumSize(new java.awt.Dimension(1000, 0));
+        jPanel_CBB_DanhMuc.setMinimumSize(new java.awt.Dimension(80, 0));
         jPanel_CBB_DanhMuc.setPreferredSize(new java.awt.Dimension(200, 25));
-        jPanel_CBB_DanhMuc.setLayout(new javax.swing.BoxLayout(jPanel_CBB_DanhMuc, javax.swing.BoxLayout.Y_AXIS));
+        jPanel_CBB_DanhMuc.setLayout(new javax.swing.BoxLayout(jPanel_CBB_DanhMuc, javax.swing.BoxLayout.LINE_AXIS));
+
+        comboBox_DM.setMaximumSize(new java.awt.Dimension(32767, 0));
+        comboBox_DM.setMinimumSize(new java.awt.Dimension(72, 0));
+        comboBox_DM.setPreferredSize(new java.awt.Dimension(72, 0));
+        comboBox_DM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBox_DMActionPerformed(evt);
+            }
+        });
+        jPanel_CBB_DanhMuc.add(comboBox_DM);
+
         jPanel22.add(jPanel_CBB_DanhMuc);
 
         jPanel_GiaNhap.setPreferredSize(new java.awt.Dimension(0, 60));
@@ -810,13 +803,14 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel_Title1.setCursor(new java.awt.Cursor(java.awt.Cursor.W_RESIZE_CURSOR));
         jPanel_Title1.setMaximumSize(new java.awt.Dimension(1000, 30));
         jPanel_Title1.setMinimumSize(new java.awt.Dimension(80, 30));
-        jPanel_Title1.setPreferredSize(new java.awt.Dimension(200, 65));
+        jPanel_Title1.setPreferredSize(new java.awt.Dimension(280, 65));
         jPanel_Title1.setLayout(new java.awt.BorderLayout());
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(15, 145, 239));
         jLabel5.setText("Thông tin khác");
         jPanel_Title1.add(jLabel5, java.awt.BorderLayout.CENTER);
+        jPanel_Title1.add(filler49, java.awt.BorderLayout.PAGE_END);
 
         jPanel23.add(jPanel_Title1);
 
@@ -1185,9 +1179,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         jLabel_Warning.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
         jLabel_Warning.setForeground(java.awt.Color.red);
-        jLabel_Warning.setMaximumSize(new java.awt.Dimension(10, 10));
+        jLabel_Warning.setMaximumSize(new java.awt.Dimension(200, 20));
         jLabel_Warning.setMinimumSize(new java.awt.Dimension(10, 10));
-        jLabel_Warning.setPreferredSize(new java.awt.Dimension(200, 10));
+        jLabel_Warning.setPreferredSize(new java.awt.Dimension(200, 20));
         jPanel3.add(jLabel_Warning);
 
         getContentPane().add(jPanel3);
@@ -1227,8 +1221,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private void jButton_SuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SuaActionPerformed
         // TODO add your handling code here:
 
-        if(!check_empty())
-        {
+        if (!check_empty()) {
             return;
         }
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
@@ -1238,38 +1231,31 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             e.printStackTrace();
         }
         int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
-        if(decided == 0)
-        {
+        if (decided == 0) {
             SanPham sanPham = getNewSanPham();
             sanPham.setSanPhamID(ID);
             sanPham_BUS.editSanPham(sanPham);
             this.setVisible(false);
         }
-        
-        
-    }//GEN-LAST:event_jButton_SuaActionPerformed
-    
-    
-    
-    public boolean check_empty()
-    {
 
-        if(this.jTextField_TenSanPham.getText().equals(""))
-        {
+
+    }//GEN-LAST:event_jButton_SuaActionPerformed
+
+    public boolean check_empty() {
+
+        if (this.jTextField_TenSanPham.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên của sản phẩm!");
             jTextField_TenSanPham.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_TenSanPham.setToolTipText("Tên của sản phẩm");
             return false;
         }
-        if(this.jTextField_Barcode.getText().equals(""))
-        {
+        if (this.jTextField_Barcode.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập barcode của sản phẩm!");
             jTextField_Barcode.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_Barcode.setToolTipText("Barcode của sản phẩm");
             return false;
         }
-        if(this.jTextField_SoLuongTon.getText().equals(""))
-        {
+        if (this.jTextField_SoLuongTon.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập số lượng của sản phẩm!");
             jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_SoLuongTon.setToolTipText("Số lượng tồn của sản phẩm");
@@ -1277,8 +1263,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         }
         try {
             int soLuongTon = Integer.parseInt(this.jTextField_SoLuongTon.getText());
-            if(soLuongTon < 0)
-            {
+            if (soLuongTon < 0) {
                 jTextField_SoLuongTon.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
                 return false;
@@ -1288,15 +1273,13 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             this.jLabel_Warning.setText("Số lượng tồn của sản phẩm phải là số nguyên dương!");
             return false;
         }
-        if(this.jTextField_NhaCungCap.getText().equals(""))
-        {
+        if (this.jTextField_NhaCungCap.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên nhà cung cấp!");
             jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_NhaCungCap.setToolTipText("Tên của nhà cung cấp");
             return false;
         }
-        if(this.jTextField_GiaNhap.getText().equals(""))
-        {
+        if (this.jTextField_GiaNhap.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập giá nhập hàng của sản phẩm!");
             jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_GiaNhap.setToolTipText("Giá nhập của sản phẩm");
@@ -1304,8 +1287,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         }
         try {
             double giaNhap = Double.parseDouble(this.jTextField_GiaNhap.getText());
-            if(giaNhap < 0)
-            {
+            if (giaNhap < 0) {
                 jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
                 return false;
@@ -1315,46 +1297,40 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             this.jLabel_Warning.setText("Giá nhập của sản phẩm phải là số thực > 0!");
             return false;
         }
-        
-        if(this.jTextField_TacGia.getText().equals(""))
-        {
+
+        if (this.jTextField_TacGia.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy thêm tên của tác giả!");
             jTextField_TacGia.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_TacGia.setToolTipText("Tên của tác giả");
             return false;
         }
-        if(this.jTextField_TheLoai.getText().equals(""))
-        {
+        if (this.jTextField_TheLoai.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập thêm tên thể loại!");
             jTextField_TheLoai.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_TheLoai.setToolTipText("Tên thể loại của sản phẩm");
             return false;
         }
-        if(this.jTextField_DanhMuc.getText().equals(""))
-        {
+        if (this.jTextField_DanhMuc.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên danh mục!");
             jTextField_DanhMuc.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_DanhMuc.setToolTipText("Tên của danh mục");
             return false;
         }
-        if(this.jTextField_NhaXuatBan.getText().equals(""))
-        {
+        if (this.jTextField_NhaXuatBan.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập tên nhà xuất bản!");
             jTextField_NhaXuatBan.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_NhaXuatBan.setToolTipText("Tên của sản phẩm");
             return false;
         }
-        if(this.jTextField_Thue.getText().equals(""))
-        {
+        if (this.jTextField_Thue.getText().equals("")) {
             this.jLabel_Warning.setText("Hãy nhập thêm thuế của sản phẩm!");
             jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
             this.jTextField_Thue.setToolTipText("Thuế của sản phẩm");
             return false;
         }
-         try {
+        try {
             double thue = Double.parseDouble(this.jTextField_Thue.getText());
-            if(thue < 0)
-            {
+            if (thue < 0) {
                 jTextField_Thue.setBorder(BorderFactory.createLineBorder(Color.red));
                 this.jLabel_Warning.setText("Thuế của sản phẩm phải là số thực > 0!");
                 return false;
@@ -1364,39 +1340,36 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             this.jLabel_Warning.setText("Thuế của sản phẩm phải là số thực > 0!");
             return false;
         }
-        
-        if(this.txtNgay.getDate().toString().equals(""))
-        {
+
+        if (this.txtNgay.getDate().toString().equals("")) {
             this.jLabel_Warning.setText("Hãy bổ sung ngày nhập");
             txtNgay.setBorder(BorderFactory.createLineBorder(Color.red));
             this.txtNgay.setToolTipText("Tên của sản phẩm");
             return false;
-        }         
+        }
         return true;
     }
     private void jButton_LuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_LuuActionPerformed
-        if(!check_empty())
-        {
+        if (!check_empty()) {
             return;
         }
-        try {                                            
-            
+        try {
+
             SanPham sanPham = getNewSanPham();
             sanPham.setTinhTrang("CON_HANG");
             sanPham.setLoaiSanPham("SACH");
             sanPham.setThuongHieu(new ThuongHieu(1));
             SanPham_BUS sanPham_BUS = new SanPham_BUS();
-  
+
             sanPham_BUS.addSanPham(sanPham);
-            
+
             this.setVisible(false);
-            
-            
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        
-        
+
+
     }//GEN-LAST:event_jButton_LuuActionPerformed
 
     private void jTextField_DonViDoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_DonViDoLuongActionPerformed
@@ -1464,30 +1437,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_DanhMucMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_DanhMucMouseClicked
         // TODO add your handling code here:
-        this.jTextField_DanhMuc.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
-
-        comboBox_DM = new JComboBox<String>();
-        for(String string : dm_name)
-        {
-            comboBox_DM.addItem(string);
-        }
-
-        this.jPanel_CBB_DanhMuc.add(comboBox_DM);
-        //comboBox_NCC.showPopup();
-        comboBox_DM.setPopupVisible(true);
-        comboBox_DM.removeAll();
-        comboBox_DM.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    jTextField_DanhMuc.setText(comboBox_DM.getSelectedItem().toString());
-                    comboBox_DM.removeAllItems();
-                    //            comboBox.hidePopup();
-                    jPanel_CBB_DanhMuc.removeAll();
-                } catch (Exception e) {
-                }
-            }
-        });
+        comboBox_DM.showPopup();
+        comboBox_DM.setSelectedIndex(-1);
     }//GEN-LAST:event_jTextField_DanhMucMouseClicked
 
     private void jTextField_TheLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TheLoaiActionPerformed
@@ -1496,55 +1448,18 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_TheLoaiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_TheLoaiMouseClicked
         // TODO add your handling code here:
-        this.jTextField_TheLoai.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
-        comboBox_TL = new JComboBox<String>();
-        for(String string : tl_name)
-        {
-            comboBox_TL.addItem(string);
-        }
-
-        this.jPanel_CBB_TheLoai.add(comboBox_TL);
-        //comboBox_NCC.showPopup();
-        comboBox_TL.setPopupVisible(true);
-        comboBox_TL.removeAll();
-        comboBox_TL.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    jTextField_TheLoai.setText(comboBox_TL.getSelectedItem().toString());
-                    comboBox_TL.removeAllItems();
-                    //            comboBox.hidePopup();
-                    jPanel_CBB_TheLoai.removeAll();
-                } catch (Exception e) {
-                }
-            }
-        });
+        comboBox_TL.showPopup();
+        comboBox_TL.setSelectedIndex(-1);
     }//GEN-LAST:event_jTextField_TheLoaiMouseClicked
 
     private void jTextField_TacGiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_TacGiaMouseClicked
-        this.jTextField_TacGia.setBorder(BorderFactory.createLineBorder(Color.black));
-        this.jLabel_Warning.setText("");
-        comboBox_TG = new JComboBox<String>();
-        for(String string : tg_name)
-        {
-            comboBox_TG.addItem(string);
-        }
 
-        this.jPanel_CBB_TacGia.add(comboBox_TG);
-        //comboBox_NCC.showPopup();
-        comboBox_TG.setPopupVisible(true);
-        comboBox_TG.removeAll();
-        comboBox_TG.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    jTextField_TacGia.setText(comboBox_TG.getSelectedItem().toString());
-                    comboBox_TG.removeAllItems();
-                    //            comboBox.hidePopup();
-                    jPanel_CBB_TacGia.removeAll();
-                } catch (Exception e) {
-                }
-            }
-        });
+        this.jLabel_Warning.setText("");
+        comboBox_TG.showPopup();
+        comboBox_TG.setSelectedIndex(-1);
+
+
     }//GEN-LAST:event_jTextField_TacGiaMouseClicked
 
     private void jTextField_NhaXuatBanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NhaXuatBanActionPerformed
@@ -1553,29 +1468,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_NhaXuatBanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_NhaXuatBanMouseClicked
         // TODO add your handling code here:
-        this.jTextField_NhaXuatBan.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
-        comboBox_NXB = new JComboBox<String>();
-        for(String string : nxb_name)
-        {
-            comboBox_NXB.addItem(string);
-        }
+        comboBox_NXB.showPopup();
+        comboBox_NXB.setSelectedIndex(-1);
+        
 
-        this.jPanel_CBB_NhaXuatBan.add(comboBox_NXB);
-        //comboBox_NCC.showPopup();
-        comboBox_NXB.setPopupVisible(true);
-        comboBox_NXB.removeAll();
-        comboBox_NXB.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    jTextField_NhaXuatBan.setText(comboBox_NXB.getSelectedItem().toString());
-                    comboBox_NXB.removeAllItems();
-                    //            comboBox.hidePopup();
-                    jPanel_CBB_NhaXuatBan.removeAll();
-                } catch (Exception e) {
-                }
-            }
-        });
     }//GEN-LAST:event_jTextField_NhaXuatBanMouseClicked
 
     private void jTextField_NhaCungCapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_NhaCungCapActionPerformed
@@ -1584,30 +1481,12 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_NhaCungCapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_NhaCungCapMouseClicked
         // TODO add your handling code here:
-        this.jTextField_NhaCungCap.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
-        comboBox_NCC = new JComboBox<String>();
-        for(String string : ncc_name)
-        {
-            comboBox_NCC.addItem(string);
-        }
-
-        this.jPanel_CBB_NhaCungCap.add(comboBox_NCC);
-        //comboBox_NCC.showPopup();
         comboBox_NCC.setPopupVisible(true);
-        comboBox_NCC.removeAll();
-        comboBox_NCC.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent arg0) {
-                try {
-                    jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem().toString());
-                    comboBox_NCC.removeAllItems();
-                    //            comboBox.hidePopup();
-                    jPanel_CBB_NhaCungCap.removeAll();
-                } catch (Exception e) {
-                }
-            }
-        });
-
+        comboBox_NCC.setSelectedIndex(-1);
+        
+        
+       
     }//GEN-LAST:event_jTextField_NhaCungCapMouseClicked
 
     private void jTextField_ThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ThueActionPerformed
@@ -1663,20 +1542,75 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             e.printStackTrace();
         }
 
-        Image newimg = img.getScaledInstance(140, 170,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
+        Image newimg = img.getScaledInstance(140, 170, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way
         System.out.println(newimg.toString());
         ImageIcon icon = new ImageIcon(newimg);
         jLabel_ImgChooser.setIcon(icon);
 
     }//GEN-LAST:event_jButton_ChonActionPerformed
-    
-    public SanPham getNewSanPham()
-    {
+
+    private void jTextField_TacGiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TacGiaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField_TacGiaActionPerformed
+
+    private void comboBox_NCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NCCActionPerformed
+        if(comboBox_NCC.getSelectedIndex()!= -1)
+        {
+            jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem() + "");
+            comboBox_NCC.setSelectedIndex(-1);
+        }
+    }//GEN-LAST:event_comboBox_NCCActionPerformed
+
+    private void comboBox_NXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NXBActionPerformed
+        // TODO add your handling code here:
+        if(comboBox_NXB.getSelectedIndex()!= -1)
+        {
+            jTextField_NhaXuatBan.setText(comboBox_NXB.getSelectedItem() + "");
+            comboBox_NXB.setSelectedIndex(-1);
+        }
+    }//GEN-LAST:event_comboBox_NXBActionPerformed
+
+    private void comboBox_TGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TGActionPerformed
+        // TODO add your handling code here:
+        if(comboBox_TG.getSelectedIndex()!= -1)
+        {
+            jTextField_TacGia.setText(comboBox_TG.getSelectedItem() + "");
+            comboBox_TG.setSelectedIndex(-1);
+        }
+       
+    }//GEN-LAST:event_comboBox_TGActionPerformed
+
+    private void comboBox_TLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TLActionPerformed
+        // TODO add your handling code here:
+        if(comboBox_TL.getSelectedIndex()!= -1)
+        {
+            jTextField_TheLoai.setText(comboBox_TL.getSelectedItem() + "");
+            comboBox_TL.setSelectedIndex(-1);
+        }
+      
+    }//GEN-LAST:event_comboBox_TLActionPerformed
+
+    private void comboBox_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_DMActionPerformed
+        // TODO add your handling code here:
+        if(comboBox_DM.getSelectedIndex()!= -1)
+        {
+            jTextField_DanhMuc.setText(comboBox_DM.getSelectedItem() + "");
+            comboBox_DM.setSelectedIndex(-1);
+        }
+       
+
+    }//GEN-LAST:event_comboBox_DMActionPerformed
+
+    private void comboBox_NCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_comboBox_NCCMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboBox_NCCMouseClicked
+
+    public SanPham getNewSanPham() {
         String tenSanPham = jTextField_TenSanPham.getText();
         int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText());
         String barcode = jTextField_Barcode.getText();
         double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText());
-        
+
         double thue = Double.parseDouble(jTextField_Thue.getText());
         int namSanXuat;
         try {
@@ -1720,54 +1654,48 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         } catch (Exception e) {
             loaiBia = "";
         }
-        
+
         String loaiDoiTra = jComboBox_LoaiDoiTra.getSelectedItem().toString();
-        
+
         SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
         String date = dcn.format(txtNgay.getDate());
         Date DATE = Date.valueOf(date);
-       
-        
 
         String partialPath;
-         try {
+        try {
             String filePath = this.file.getPath();
             partialPath = filePath.substring(filePath.indexOf("img\\products"));
         } catch (Exception e) {
             partialPath = "";
         }
 
-        
         NhaCungCap ncc = new NhaCungCap();
         TheLoai tl = new TheLoai();
         NhaXuatBan nxb = new NhaXuatBan();
         DanhMuc dm = new DanhMuc();
         TacGia tg = new TacGia();
         ThuongHieu th = new ThuongHieu();
-        
+
         String tenTacGia = jTextField_TacGia.getText();
         String tenNhaCungCap = jTextField_NhaCungCap.getText();
         String tenTheLoai = jTextField_TheLoai.getText();
         String tenNhaXuatBan = jTextField_NhaXuatBan.getText();
         String tenDanhMuc = jTextField_DanhMuc.getText();
 
-
-       
         try {
             ncc.setTenNhaCungCap(tenNhaCungCap);
             tl.setTenTheLoai(tenTheLoai);
             nxb.setTenNhaXuatBan(tenNhaXuatBan);
             dm.setTenDanhMuc(tenDanhMuc);
             tg.setTenTacGia(tenTacGia);
-            
 
         } catch (Exception e) {
-           
+
             e.printStackTrace();
         }
-        
-        SanPham_BUS sanPham_BUS = new  SanPham_BUS();
-        
+
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+
         ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
         if (ncc.getNhaCungCapID().equals("")) {
             int check = JOptionPane.showConfirmDialog(null, "Nhà cung cấp này vốn chưa có sẳn. Tạo mới?");
@@ -1777,7 +1705,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
             }
         }
-        
+
         tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
         if (tl.getTheLoaiID() == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên thể loại này vốn chưa có sẳn. Tạo mới?");
@@ -1797,7 +1725,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
             }
         }
-        
+
         dm.setDanhMucID(sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc()));
         if (dm.getDanhMucID() == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên danh mục này vốn chưa có sẳn. Tạo mới?");
@@ -1809,7 +1737,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         }
 
         tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
-        if (tg.getTacGiaID()== -1) {
+        if (tg.getTacGiaID() == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên tác giả này vốn chưa có sẳn. Tạo mới?");
             if (check == 0) {
                 TacGia_BUS tacGia_BUS = new TacGia_BUS();
@@ -1821,7 +1749,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         SanPham sanPham = new SanPham();
         try {
-           sanPham.setTenSanPham(tenSanPham);
+            sanPham.setTenSanPham(tenSanPham);
             sanPham.setSoLuongTon(soLuongTon);
             sanPham.setBarcode(barcode);
             sanPham.setGiaNhap(giaNhap);
@@ -1845,43 +1773,40 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setLoaiDoiTra(loaiDoiTra.equalsIgnoreCase("Được đổi trả") ? "DUOC_DOI_TRA" : "KHONG_DOI_TRA");
             sanPham.setNgayNhap(DATE);
             sanPham.setImgPath(partialPath);
-            
+
             sanPham.setTacGia(tg);
             sanPham.setTheLoai(tl);
             sanPham.setNhaCungCap(ncc);
             sanPham.setDanhMuc(dm);
             sanPham.setNhaXuatBan(nxb);
             sanPham.setThuongHieu(th);
-            
+
         } catch (Exception ex) {
-           
+
             ex.printStackTrace();
         }
         return sanPham;
     }
-    
 
-    
-    public void setSanPhamSach(SanPham x)
-    {
- 
+    public void setSanPhamSach(SanPham x) {
+
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         ID = x.getSanPhamID();
         try {
             ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
 
             Image image = imageIcon.getImage(); // transform it 
-            Image newimg = image.getScaledInstance(140, 170,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
-            imageIcon = new ImageIcon(newimg); 
+            Image newimg = image.getScaledInstance(140, 170, java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+            imageIcon = new ImageIcon(newimg);
             this.jLabel_ImgChooser.setIcon(imageIcon);
         } catch (Exception e) {
             this.jLabel_ImgChooser.setText("NO IMAGE");
         }
-        
+
         this.jTextField_TenSanPham.setText(x.getTenSanPham());
         this.jTextField_SoLuongTon.setText(x.getSoLuongTon() + "");
         this.jTextField_TacGia.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
-     
+
         this.jTextField_Barcode.setText(x.getBarcode());
         this.jTextField_NhaCungCap.setText(x.getNhaCungCap().getTenNhaCungCap());
         this.jTextField_GiaNhap.setText(x.getGiaNhap() + "");
@@ -1898,235 +1823,41 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         this.jTextField_TheLoai.setText(sanPham_BUS.getNameTheLoaiByID(x.getTheLoai().getTheLoaiID()));
         this.jTextField_NhaCungCap.setText(sanPham_BUS.getNameNhaCungCapByID(x.getNhaCungCap().getNhaCungCapID()));
 
-        this.jTextField_SoTrang.setText(x.getSoTrang()+"");
+        this.jTextField_SoTrang.setText(x.getSoTrang() + "");
         this.jTextField_LoaiBia.setText(x.getLoaiBia());
-        if(x.getLoaiDoiTra().equals("DUOC_DOI_TRA"))
-        {
+        if (x.getLoaiDoiTra().equals("DUOC_DOI_TRA")) {
             this.jComboBox_LoaiDoiTra.setSelectedIndex(0);
         }
-        if(x.getLoaiDoiTra().equals("KHONG_DOI_TRA"))
-        {
+        if (x.getLoaiDoiTra().equals("KHONG_DOI_TRA")) {
             this.jComboBox_LoaiDoiTra.setSelectedIndex(1);
         }
         this.txtNgay.setDate(x.getNgayNhap());
-        
-        comboBox_NCC.removeAllItems();
-        jPanel_CBB_NhaCungCap.removeAll();
-        comboBox_TG.removeAllItems();
-        jPanel_CBB_TacGia.removeAll();
-        comboBox_TL.removeAllItems();
-        jPanel_CBB_TheLoai.removeAll();
-        comboBox_NXB.removeAllItems();
-        jPanel_CBB_NhaXuatBan.removeAll();
-        comboBox_DM.removeAllItems();
-        jPanel_CBB_DanhMuc.removeAll();
-       
+
     }
+
     /**
      * @param args the command line arguments
      */
-    
-    public void disVisibleForLuu()
-    {
-        this.jButton_Sua.setBackground(new Color(204,204,204));
+    public void disVisibleForLuu() {
+        this.jButton_Sua.setBackground(new Color(204, 204, 204));
         this.jButton_Sua.setEnabled(false);
-     
-    }
-    
-    public void disVisibleForSua()
-    {
-        this.jButton_Luu.setBackground(new Color(204,204,204));
-        this.jButton_Luu.setEnabled(false);
-     
-    }
-    
-    private javax.swing.JComboBox<String> comboBox_NCC;
-    private javax.swing.JComboBox<String> comboBox_TL;
-    private javax.swing.JComboBox<String> comboBox_TG;
-    private javax.swing.JComboBox<String> comboBox_NXB;
-    private javax.swing.JComboBox<String> comboBox_DM;
-    
-    
-    
-    private String[] arr = {"Huy1", "Nuy2", "Huy3"};
-    
-    private class TextFieldCaretListener_NCC implements CaretListener
-    {
-        @Override
-        public void caretUpdate(CaretEvent e) {
-            try{
-                comboBox_NCC.removeAllItems();
-//                comboBox.hidePopup();
-                comboBox_NCC.setVisible(true);
-                jPanel_CBB_NhaCungCap.remove(comboBox_NCC);
-                if(e.getMark() > 0)
-                {
-                    for(String string : ncc_name)
-                    {
-                        if(string.toLowerCase().startsWith(jTextField_NhaCungCap.getText().toLowerCase()))
-                        {
-                            jPanel_CBB_NhaCungCap.add(comboBox_NCC);
-                            comboBox_NCC.addItem(string);
-                            comboBox_NCC.setMinimumSize(new Dimension(200, 25));
-                            comboBox_NCC.showPopup();
-                        }
-                    }
-                }
-            }catch(Exception e1)
-            {
-                
-            }
 
-            if(e.getMark() < 2)
-            {
-                jPanel_CBB_NhaCungCap.removeAll();
-            }
-            
-        }
-        
     }
-    
-    private class TextFieldCaretListener_TG implements CaretListener
-    {
-        @Override
-        public void caretUpdate(CaretEvent e) {
-            try{
-                comboBox_TG.removeAllItems();
-//                comboBox.hidePopup();
-                comboBox_TG.setVisible(true);
-                jPanel_CBB_TacGia.remove(comboBox_TG);
-                if(e.getMark() > 0)
-                {
-                    for(String string : tg_name)
-                    {
-                        if(string.toLowerCase().startsWith(jTextField_TacGia.getText().toLowerCase()))
-                        {
-                            jPanel_CBB_TacGia.add(comboBox_TG);
-                            comboBox_TG.addItem(string);
-                            comboBox_TG.showPopup();
-                        }
-                    }
-                }
-            }catch(Exception e1)
-            {
-                
-            }
-            if(e.getMark() < 2)
-            {
-                jPanel_CBB_TacGia.removeAll();
-            }
-            
-        }
-        
+
+    public void disVisibleForSua() {
+        this.jButton_Luu.setBackground(new Color(204, 204, 204));
+        this.jButton_Luu.setEnabled(false);
+
     }
-    
-    private class TextFieldCaretListener_NXB implements CaretListener
-    {
-        @Override
-        public void caretUpdate(CaretEvent e) {
-            try{
-                comboBox_NXB.removeAllItems();
-//                comboBox.hidePopup();
-                comboBox_NXB.setVisible(true);
-                jPanel_CBB_NhaXuatBan.remove(comboBox_NXB);
-                if(e.getMark() > 0)
-                {
-                    for(String string : nxb_name)
-                    {
-                        if(string.toLowerCase().startsWith(jTextField_NhaXuatBan.getText().toLowerCase()))
-                        {
-                            jPanel_CBB_NhaXuatBan.add(comboBox_NXB);
-                            comboBox_NXB.addItem(string);
-                            comboBox_NXB.showPopup();
-                        }
-                    }
-                }
-            }catch(Exception e1)
-            {
-                
-            }
-            if(e.getMark() < 2)
-            {
-                jPanel_CBB_NhaXuatBan.removeAll();
-            }
-            
-        }
-        
-    }
-    private class TextFieldCaretListener_DM implements CaretListener
-    {
-        @Override
-        public void caretUpdate(CaretEvent e) {
-            try{
-                comboBox_DM.removeAllItems();
-//                comboBox.hidePopup();
-                comboBox_DM.setVisible(true);
-                jPanel_CBB_DanhMuc.remove(comboBox_DM);
-                if(e.getMark() > 0)
-                {
-                    for(String string : dm_name)
-                    {
-                        if(string.toLowerCase().startsWith(jTextField_DanhMuc.getText().toLowerCase()))
-                        {
-                            jPanel_CBB_DanhMuc.add(comboBox_DM);
-                            comboBox_DM.addItem(string);
-                            comboBox_DM.showPopup();
-                        }
-                    }
-                }
-            }catch(Exception e1)
-            {
-                
-            }
-            if(e.getMark() < 2)
-            {
-                jPanel_CBB_DanhMuc.removeAll();
-            }
-            
-        }
-        
-    }
-    
-    private class TextFieldCaretListener_TL implements CaretListener
-    {
-        @Override
-        public void caretUpdate(CaretEvent e) {
-            try{
-                comboBox_TL.removeAllItems();
-//                comboBox.hidePopup();
-                comboBox_TL.setVisible(true);
-                jPanel_CBB_TheLoai.remove(comboBox_TL);
-                if(e.getMark() > 0)
-                {
-                    for(String string : tl_name)
-                    {
-                        if(string.toLowerCase().startsWith(jTextField_TheLoai.getText().toLowerCase()))
-                        {
-                            jPanel_CBB_TheLoai.add(comboBox_TL);
-                            comboBox_TL.addItem(string);
-                            comboBox_TL.showPopup();
-                        }
-                    }
-                }
-            }catch(Exception e1)
-            {
-                
-            }
-            if(e.getMark() < 2)
-            {
-                jPanel_CBB_TheLoai.removeAll();
-            }
-            
-        }
-        
-    }
-    
-    
-    
 
     private int ID;
     private File file;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> comboBox_DM;
+    private javax.swing.JComboBox<String> comboBox_NCC;
+    private javax.swing.JComboBox<String> comboBox_NXB;
+    private javax.swing.JComboBox<String> comboBox_TG;
+    private javax.swing.JComboBox<String> comboBox_TL;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler24;
@@ -2147,6 +1878,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.Box.Filler filler44;
     private javax.swing.Box.Filler filler45;
     private javax.swing.Box.Filler filler46;
+    private javax.swing.Box.Filler filler47;
+    private javax.swing.Box.Filler filler48;
+    private javax.swing.Box.Filler filler49;
     private javax.swing.JButton jButton_Chon;
     private javax.swing.JButton jButton_Huy;
     private javax.swing.JButton jButton_Luu;
@@ -2154,7 +1888,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox_LoaiDoiTra;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel_Barcode;
@@ -2210,6 +1943,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel55;
     private javax.swing.JPanel jPanel56;
     private javax.swing.JPanel jPanel59;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel60;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
@@ -2246,6 +1980,4 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser txtNgay;
     // End of variables declaration//GEN-END:variables
 
-
- 
 }
