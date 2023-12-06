@@ -956,7 +956,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			}
 		}
 
-		if (!(tenKM.length() > 0 && tenKM.matches(utilities.RegexPattern.KHONG_TRONG_TIENG_VIET))) {
+		if (!(tenKM.length() > 0 && tenKM.matches("^[a-zA-Z0-9%\\s\\-_À-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư]+$"))) {
 			new utilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng",
 					"Thông báo");
 			return false;
@@ -988,7 +988,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
 	private boolean checkTenSuKien(String tenSuKien) {
 		for (KhuyenMai km : danhSachKM) {
-			if (km.getCodeKhuyenMai().equals(tenSuKien))
+			if (km.getTenKhuyenMai().equals(tenSuKien))
 				return true;
 		}
 
@@ -1050,18 +1050,46 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                             danhSachVoucher.setVisible(true);
                         }
                     }
-
+                    // Khuyen mai
                     else{
-                        ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
-                        KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
-
-                        if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
-                            JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
-                            Huy();
-                            loadDataKM();
-                        } else {
-                            JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
-                        }
+                    	 if (checkTenSuKien(tenKM)) {
+                    		 int yes = JOptionPane.showConfirmDialog(this, "Tên khuyến mãi đã tồn tại, bạn có muốn thêm voucher", "Thông báo", JOptionPane.YES_NO_OPTION);
+                    		 if(yes == JOptionPane.YES_OPTION) {
+                    			 ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                                 KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
+                                 try {
+                                     if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
+                                         JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
+                                         Huy();
+                                         loadDataKM();
+                                     }
+                                     else {
+                                     	JOptionPane.showMessageDialog(this, "Mã khuyến mã đã tồn tại!");
+                                     }
+         						} catch (Exception e) {
+         							e.printStackTrace();	
+         						}
+                    		 }                    		
+                    	 }
+                    	 else {
+                    		 int yesAdd = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm khuyến mãi: "+ maKM, "Thông báo", JOptionPane.YES_NO_OPTION);
+                    		 if(yesAdd == JOptionPane.YES_OPTION) {
+                    			 ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                                 KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
+                                 try {
+                                     if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
+                                         JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
+                                         Huy();
+                                         loadDataKM();
+                                     }
+                                     else {
+                                     	JOptionPane.showMessageDialog(this, "Mã khuyến mã đã tồn tại!");
+                                     }
+         						} catch (Exception e) {
+         							e.printStackTrace();	
+         						}
+                    		 }
+                    	 }
                     }
                 }
                 // Update
@@ -1113,7 +1141,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	}                                                   
 
 	private void btnTimKiemKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTimKiemKhuyenMaiActionPerformed
-		String timMa = txtTimKMTheoMa.getText().trim();
+		String timMa = txtTimKMTheoMa.getText();
 		if (!timMa.equals("")) {
 			tableKM.removeAll();
 			tableKM.setRowSelectionAllowed(false);
@@ -1142,13 +1170,32 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		}
 		return true;
 	}
+	
+	private boolean checkMaSP(int ma) {
+		ArrayList<SanPham> list = sanPham_BUS.laySanPhamChoKM();
+		for(SanPham sp : list) {
+			if(sp.getSanPhamID() == ma)
+				return true;
+		}
+		return false;
+	}
     
 	private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTimKiemActionPerformed
 		String txtTimSp = TimMaSanPham.getText();
+		ArrayList<SanPham> list = sanPham_BUS.laySanPhamChoKM();
 		for (int i = 0; i < tableModelSP.getRowCount(); i++) {
 			int j = 1;
 			if (((int) tableModelSP.getValueAt(i, j) + "").equalsIgnoreCase(txtTimSp)) {
 				tableModelSP.setValueAt(true, i, 0);
+			}
+			else {
+				if(checkMaSP(Integer.valueOf(txtTimSp))) {
+					for(SanPham sp : list) {
+						if(txtTimSp.equalsIgnoreCase(sp.getSanPhamID()+"")) {
+							tableModelSP.addRow(new Object[] {true, sp.getSanPhamID(), sp.getTenSanPham()});
+						}
+					}
+				}
 			}
 		}
 	}// GEN-LAST:event_btnTimKiemActionPerformed

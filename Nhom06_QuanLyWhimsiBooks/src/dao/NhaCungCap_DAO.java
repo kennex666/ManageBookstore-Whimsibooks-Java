@@ -64,7 +64,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE SoDIenThoai LIKE '%"+sdt+"%'";
+			String query = "SELECT * FROM NhaCungCap WHERE SoDIenThoai = '%"+sdt+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {

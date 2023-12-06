@@ -169,7 +169,8 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
 		int yes = JOptionPane.showConfirmDialog(this, "Bạn nên import voucher, bạn có chắc chắn muốn thoát !",
 				"Thông báo", JOptionPane.YES_NO_OPTION);
 		if (yes == JOptionPane.YES_OPTION) {
-			evt.getWindow().dispose();
+			this.setVisible(false);
+			this.dispose();
 		} else {
 			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		}

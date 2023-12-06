@@ -142,9 +142,18 @@ public class NhaCungCap_BUS implements INhaCungCap{
 			return "NCC" + "00001";
 		}
 	}
+    
+    private boolean checkNCC(String sdt, String email) {
+    	ArrayList<NhaCungCap> list = getAllNhaCungCap();
+    	for(NhaCungCap ncc : list) {
+    		if(ncc.getSoDienThoai().equalsIgnoreCase(sdt) || ncc.getEmail().equalsIgnoreCase(email))
+    			return false;
+    	}
+    	return true;
+    }
 	
-	public void nhapFile() {
-		int count = 0;
+	public boolean nhapFile() {
+		int count = 1;
         File excelFile;
         FileInputStream excelFIS = null;
         BufferedInputStream excelBIS = null;
@@ -171,23 +180,24 @@ public class NhaCungCap_BUS implements INhaCungCap{
 				while (iterator.hasNext()) {
 					Row currentRow = iterator.next();
 					NhaCungCap ncc = new NhaCungCap();
-					if(getNCCByEmail(currentRow.getCell(2).getStringCellValue()) == null && getNCCByPhone(currentRow.getCell(1).getStringCellValue()) == null) {
+					Cell phoneCell = currentRow.getCell(1);
 					ncc.setNhaCungCapID(phatSinhMaNhaCungCap());
 					ncc.setTenNhaCungCap(currentRow.getCell(0).getStringCellValue());
-					ncc.setSoDienThoai(currentRow.getCell(1).getStringCellValue());;
-					ncc.setEmail(currentRow.getCell(2).getStringCellValue());;
+					ncc.setSoDienThoai("0"+String.valueOf((long) phoneCell.getNumericCellValue()));
+					ncc.setEmail(currentRow.getCell(2).getStringCellValue());
 					ncc.setDiaChi(currentRow.getCell(3).getStringCellValue());
-					addNhaCungCap(ncc);
+					if(checkNCC(ncc.getSoDienThoai(), ncc.getEmail())) {
+						addNhaCungCap(ncc);
 					}
 					else {
 						count++;
 					}
 				}
 				if(count == 0) {
-					JOptionPane.showMessageDialog(null, "Imported Successfully !!.....");
+					JOptionPane.showMessageDialog(null, "Imported Successfully !.....");
 				}
 				else {
-					JOptionPane.showMessageDialog(null, "Imported thành công đã xóa "+count+" nhà cung cấp bị trùng !!.....");
+					JOptionPane.showMessageDialog(null, "Imported thành công đã xóa "+count+" nhà cung cấp bị trùng thông tin!.....");
 				}
 				workbook.close();
 			} catch (FileNotFoundException e) {
@@ -196,6 +206,7 @@ public class NhaCungCap_BUS implements INhaCungCap{
 				e.printStackTrace();
 			}
         }
+        return true;
 	}
 
 	public void xuatFile(ArrayList<NhaCungCap> list) {
