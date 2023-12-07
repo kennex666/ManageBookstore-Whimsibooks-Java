@@ -303,7 +303,21 @@ public class KhachHang_DAO implements IKhachHang {
         return false;
   }
 
-	
+	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
+	    String query = "UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?";
+	    try {
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, loaiKhachHangMoi);
+	        pstmt.setString(2, maKhachHang);
+
+	        int rowsAffected = pstmt.executeUpdate();
+	        return rowsAffected > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 	public KhachHang_DAO() {
 		this.conn=ConnectDB.getConnection();
 	}

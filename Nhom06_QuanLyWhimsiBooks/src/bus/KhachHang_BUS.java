@@ -82,4 +82,10 @@ public class KhachHang_BUS implements IKhachHang {
 	public boolean checkIfKhachHangExists(String maKH) {
 		return kh_dao.checkIfKhachHangExists(maKH);
 	}
+
+	@Override
+	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
+		// TODO Auto-generated method stub
+		return kh_dao.chuyenLoaiKhachHang(maKhachHang, loaiKhachHangMoi);
+	}
 }
