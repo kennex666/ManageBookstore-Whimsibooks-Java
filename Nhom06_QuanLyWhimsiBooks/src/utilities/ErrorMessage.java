@@ -11,6 +11,7 @@ public class ErrorMessage {
 	
 	public static void showMessageWithFocusTextField(String title, String message, JTextField txt) {
 		JOptionPane.showConfirmDialog(null, message, title, JOptionPane.CLOSED_OPTION);
-		txt.requestFocus();
+		if (txt != null)
+			txt.requestFocus();
 	}
 }

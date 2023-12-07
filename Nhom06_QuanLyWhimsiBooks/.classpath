@@ -17,5 +17,7 @@
 	<classpathentry kind="lib" path="src/lib/excelLib/stax-api-1.0.1.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/itextpdf-5.5.13.3.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/Spire.Xls12.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

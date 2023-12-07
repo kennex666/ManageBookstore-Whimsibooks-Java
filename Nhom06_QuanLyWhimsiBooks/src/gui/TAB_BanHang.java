@@ -27,6 +27,7 @@ import entities.KhachHang;
 import entities.KhuyenMai;
 import entities.NhanVien;
 import entities.SanPham;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
@@ -1478,6 +1479,11 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     btn_DSHD_InHD.setText("In hoá đơn");
     btn_DSHD_InHD.setEnabled(false);
     btn_DSHD_InHD.setIconTextGap(12);
+    btn_DSHD_InHD.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_InHDActionPerformed(evt);
+        }
+    });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 4;
     gridBagConstraints.gridy = 2;
@@ -1707,6 +1713,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             xemChiTiet_Form.setVisible(true);
         }else
         if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
+        	Date temp = new Date((String) tblHoaDon.getValueAt(row, 4));
+        	temp.setDate(temp.getDate() + 7);
+        	if (temp.compareTo(new Date()) > 0) {
+        		ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hoá đơn chỉ được đổi trả trong 7 ngày. Hoá đơn này đã quá hạn đổi trả!", null);
+        		return;
+        	}
             if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
                     + (String) tblHoaDon.getValueAt(row, 1))) {
                 setTrangThaiEditor(TAB_HoaDon_EditorMode.TRA_HANG);
@@ -2066,6 +2078,31 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             JOptionPane.showMessageDialog(null, "Hoá đơn đã được đưa vào hàng chờ, để lấy hoá đơn này, bạn hãy vào danh sách hoá đơn -> chọn trạng thái chờ xử lý và lấy hoá đơn ra");
         }
     }//GEN-LAST:event_btnHangChoActionPerformed
+
+    private void btn_DSHD_InHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_InHDActionPerformed
+        // TODO add your handling code here:
+         if (jTable2.getSelectedRow() < 0) {
+            ErrorMessage.showMessageWithFocusTextField("Lỗi", "Chưa chọn hoá đơn muốn in!", txt_DSHD_GiaTriTu);
+            return;
+        }
+
+        if (ErrorMessage.showConfirmDialogYesNo("Thông tin",
+                "Xác nhận in lại hoá đơn " + ((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1)) + "?")) {
+            
+            HoaDon tempHD = hoaDon_BUS.getHoaDonByID(new HoaDon(((String) tblHoaDon.getValueAt(jTable2.getSelectedRow(), 1))));
+            if (tempHD == null) {
+                JOptionPane.showMessageDialog(null, "Lỗi database: Hoá đơn không tìm thấy.");
+            }
+            ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(tempHD.getHoaDonID());
+            if (cthdTemp == null) {
+                cthdTemp = new ArrayList<ChiTietHoaDon>();
+            }
+            tempHD.setListChiTietHoaDon(cthdTemp);
+            
+        	new ExcelFileExportForHoaDon(tempHD, -1, -1);  
+         	
+        }
+    }//GEN-LAST:event_btn_DSHD_InHDActionPerformed
 
     private void calcKhuyenMai() {
         double tempChietKhau = 0;

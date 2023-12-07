@@ -7,6 +7,7 @@ package gui;
 import bus.ChiTietHoaDon_BUS;
 import bus.HoaDon_BUS;
 import entities.HoaDon;
+
 import java.awt.event.KeyEvent;
 import java.util.Date;
 
@@ -614,7 +615,7 @@ public class Form_ThanhToan extends javax.swing.JFrame {
                 "Thanh toán hoàn tất", 
                 (tienTraLai > 0 ? "Đừng quên trả khách " + Numberic.formatVND(tienTraLai) + " nhé!" : "Đã nhận đủ tiền!") + "\nBạn có muốn in hoá đơn?"
         )){
-        	new ExcelFileExportForHoaDon(hoaDon, tienNhan, tienTraLai);
+        	new ExcelFileExportForHoaDon(hoaDon, tienNhan, tienTraLai);  
         }
 
     	tabBanHang.thanhToanHoanTat();

@@ -4,6 +4,7 @@
  */
 package utilities;
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -47,6 +48,8 @@ public class ExcelFileExportForHoaDon {
 
 	public ExcelFileExportForHoaDon(HoaDon hoaDon, double tienKhachDua, double tienTraKhach) {
 		super();
+              
+                
 		this.hoaDon = hoaDon;
 		DecimalFormat df = new DecimalFormat("#,###");
 		try {
@@ -55,7 +58,7 @@ public class ExcelFileExportForHoaDon {
 			Sheet currentSheet = workbook.getSheetAt(0);
 			
 			Cell cellMaHoadon = currentSheet.getRow(5).getCell(0);
-			cellMaHoadon.setCellValue("Số HD: " + hoaDon.getHoaDonID());
+			cellMaHoadon.setCellValue("Số HD: " + hoaDon.getHoaDonID() + ((tienKhachDua >= 0) ? "" : " (Hoá đơn in lại)"));
 
 			SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss - dd/MM/yyyy");
 			Cell cellNgayGio = currentSheet.getRow(6).getCell(0);
@@ -67,8 +70,7 @@ public class ExcelFileExportForHoaDon {
 			
 			Cell cellNhanVien = currentSheet.getRow(8).getCell(0);
 			cellNhanVien.setCellValue("NV bán hàng: " + hoaDon.getNhanVien().getHoTen());
-			
-
+		
 			
 			for (int i = 0; i < hoaDon.getListChiTietHoaDon().size(); i++) {
 				ChiTietHoaDon tempCTHD = hoaDon.getListChiTietHoaDon().get(i);
@@ -195,7 +197,7 @@ public class ExcelFileExportForHoaDon {
 			rowTamTinh.getCell(3).setCellStyle(cellStyleHeading);
 			
 			// Row giảm giá
-			row =  13 + ((hoaDon.getListChiTietHoaDon().size() - 1) * 2 ) + 1;
+			++row;
 			Row rowGiamGia = currentSheet.createRow(row);
 			rowGiamGia.createCell(2).setCellValue("Giảm giá:");
 			rowGiamGia.getCell(2).setCellStyle(cellStyleGeneral);
@@ -204,7 +206,7 @@ public class ExcelFileExportForHoaDon {
 			rowGiamGia.getCell(3).setCellStyle(cellStyleGeneral);
 			
 			// Row tổng cộng 
-			row =  13 + ((hoaDon.getListChiTietHoaDon().size() - 1) * 2 ) + 2;
+			++row;
 			Row rowTC = currentSheet.createRow(row);
 			rowTC.createCell(2).setCellValue("Tổng cộng:");
 			rowTC.getCell(2).setCellStyle(cellStyleGeneral);
@@ -214,27 +216,31 @@ public class ExcelFileExportForHoaDon {
 			
 
 			// Row tiền đưa khách
-			row =  13 + ((hoaDon.getListChiTietHoaDon().size() - 1) * 2 ) + 3;
-			Row rowTDK = currentSheet.createRow(row);
-			rowTDK.createCell(2).setCellValue("Tiền khách đưa:");
-			rowTDK.getCell(2).setCellStyle(cellStyleGeneral);
-
-			rowTDK.createCell(3).setCellValue(df.format(tienKhachDua));
-			rowTDK.getCell(3).setCellStyle(cellStyleGeneral);
+			if (tienKhachDua >= 0) {
+				++row;
+				Row rowTDK = currentSheet.createRow(row);
+				rowTDK.createCell(2).setCellValue("Tiền khách đưa:");
+				rowTDK.getCell(2).setCellStyle(cellStyleGeneral);
+	
+				rowTDK.createCell(3).setCellValue(df.format(tienKhachDua));
+				rowTDK.getCell(3).setCellStyle(cellStyleGeneral);
+			}
 			
 
 			// Row tiền trả lại khách
-			row =  13 + ((hoaDon.getListChiTietHoaDon().size() - 1) * 2 ) + 4;
-			Row rowTTLK= currentSheet.createRow(row);
-			rowTTLK.createCell(2).setCellValue("Tiền trả lại khách:");
-			rowTTLK.getCell(2).setCellStyle(cellStyleGeneral);
-
-			rowTTLK.createCell(3).setCellValue(df.format(tienTraKhach));
-			rowTTLK.getCell(3).setCellStyle(cellStyleGeneral);
+			if (tienTraKhach >= 0) {
+				++row;
+				Row rowTTLK= currentSheet.createRow(row);
+				rowTTLK.createCell(2).setCellValue("Tiền trả lại khách:");
+				rowTTLK.getCell(2).setCellStyle(cellStyleGeneral);
+	
+				rowTTLK.createCell(3).setCellValue(df.format(tienTraKhach));
+				rowTTLK.getCell(3).setCellStyle(cellStyleGeneral);
+			}
 			
 
 			// Row Cảm ơn quý khách
-			row =  13 + ((hoaDon.getListChiTietHoaDon().size() - 1) * 2 ) + 6;
+			++row;
 			Row rowXCO= currentSheet.createRow(row);
 			CellRangeAddress craXCO = new CellRangeAddress(row, row, 0, 3);
 			
@@ -242,10 +248,25 @@ public class ExcelFileExportForHoaDon {
 			rowXCO.createCell(0).setCellValue("Whimsibooks xin cảm ơn! Hẹn gặp lại quý khách!");
 			rowXCO.getCell(0).setCellStyle(cellStyleI);
 			
-			
+
 			FileOutputStream fos = new FileOutputStream("tempFile.xlsx");
 			workbook.write(fos);
-			
+
+			 workbook.setPrintArea(0, // Sheet index 
+                     0, // Start column 
+                     4, // End column 
+                     0, // Start row 
+                     row // End row 
+			);
+
+			/*
+			Desktop desktop = Desktop.getDesktop();
+			desktop.print(new File("tempFile.xlsx"));
+			*/
+
+			PrintExcel.printer("tempFile.xlsx");
+			 
+
 			workbook.close();
 			
 		} catch (Exception e) {

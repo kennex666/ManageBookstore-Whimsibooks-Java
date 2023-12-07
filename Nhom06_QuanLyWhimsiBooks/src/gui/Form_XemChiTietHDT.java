@@ -52,9 +52,9 @@ public class Form_XemChiTietHDT extends javax.swing.JFrame {
         chiTietTraHang_BUS = new ChiTietTraHang_BUS();
         
         z = hoaDonTra_BUS.getHoaDonByID(z);
-        System.out.println(z.getNhanVien().getHoTen());
         if (z == null){
             JOptionPane.showMessageDialog(null, "Error: Lấy thông tin thất bại. Lỗi CSDL!");
+            return;
         }
         
         z.setListChiTietHoaDon(chiTietTraHang_BUS.getAllChiTietCuaMotHoaDon(maHoaDon));

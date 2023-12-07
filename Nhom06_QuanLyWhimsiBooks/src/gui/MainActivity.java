@@ -1,5 +1,6 @@
 package gui;
 
+import loader.SplashLoading;
 import java.awt.EventQueue;
 
 import javax.swing.UIManager;
