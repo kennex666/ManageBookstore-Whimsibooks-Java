@@ -136,5 +136,20 @@ public class SanPham_BUS implements ISanPham{
     public boolean editTrangThaiSanPham(SanPham sp) {
         return sanPham_DAO.editTrangThaiSanPham(sp);
     }
+	@Override
+	public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepTangTheoGia(list);
+		
+	}
+	@Override
+	public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepGiamTheoGia(list);
+		
+	}
+	@Override
+	public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepTangTheoSoLuong(list);
+		
+	}
 
 }

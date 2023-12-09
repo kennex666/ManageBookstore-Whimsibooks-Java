@@ -279,7 +279,7 @@ public class SanPham {
 		this.soLuongTon = 0;
 		this.namSanXuat = 0;
 		this.giaNhap = 0;
-		this.soTrang = 0;
+		this.soTrang = 1;
 	}
 
 	

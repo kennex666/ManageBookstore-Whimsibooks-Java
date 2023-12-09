@@ -35,5 +35,8 @@ public interface ISanPham {
         public String getNameTheLoaiByID(int ID);
         public String getNameThuongHieuByID(int ID);
         public String getNameNhaCungCapByID(String ID);
+        public void SapXepTangTheoGia(ArrayList<SanPham> list);
+        public void SapXepGiamTheoGia(ArrayList<SanPham> list);
+        public void SapXepTangTheoSoLuong(ArrayList<SanPham> list);
 	
 }

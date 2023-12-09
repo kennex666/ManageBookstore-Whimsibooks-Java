@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
@@ -625,6 +627,65 @@ public class SanPham_DAO implements ISanPham{
 		// TODO Auto-generated method stub
 		return false;
     }
+
+	@Override
+	public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+		// TODO Auto-generated method stub
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getGiaNhap() > sp2.getGiaNhap()) {
+                    return 1;
+                } else {
+                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
+
+	@Override
+	public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
+                    return 1;
+                } else {
+                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
+
+	@Override
+	public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+		// TODO Auto-generated method stub
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getSoLuongTon() > sp2.getSoLuongTon()) {
+                    return 1;
+                } else {
+                    if (sp1.getSoLuongTon() == sp2.getSoLuongTon()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
 
 
         

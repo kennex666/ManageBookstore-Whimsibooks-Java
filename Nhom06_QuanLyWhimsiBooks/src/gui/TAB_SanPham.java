@@ -25,6 +25,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -87,7 +90,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
     int dem_spk = 0;
 
     public void loadSanPham(ArrayList<SanPham> list_SanPham) {
-
+        int dem_sach_SoLuong = 0;
+        int dem_spk_SoLuong = 0;
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
         ArrayList<DanhMuc> list_danhMuc = new DanhMuc_BUS().getAllDanhMuc();
         jComboBox_DanhMuc.addItem("Tất cả");
@@ -132,6 +136,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         for (SanPham sanPham : list_SanPham) {
             if (sanPham.getLoaiSanPham().equals("SACH")) {
+                dem_sach_SoLuong++;
+                if(dem_sach_SoLuong > 100)
+                {
+                    break;
+                }
                 TAB_ChiTietSanPham_Sach jPanel_New_SanPham = new TAB_ChiTietSanPham_Sach(sanPham);
                 if (dem_sach == 0) {
                     box_SP.add(jPanel_New_SanPham);
@@ -182,6 +191,11 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         for (SanPham sanPham : list_SanPham) {
             if (sanPham.getLoaiSanPham().equals("SAN_PHAM_KHAC")) {
+                dem_spk_SoLuong++;
+                if(dem_spk_SoLuong > 100)
+                {
+                    break;
+                }
                 TAB_ChiTietSanPham_SanPhamKhac jPanel_New_SanPhamKhac = new TAB_ChiTietSanPham_SanPhamKhac(sanPham);
                 if (dem_spk == 0) {
                     box_SPK.add(jPanel_New_SanPhamKhac);
@@ -377,7 +391,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jTextField_TimKiem)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -394,7 +408,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel2.setText("Sắp xếp theo");
 
-        jComboBox_SapXepTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Giá cao nhất" }));
+        jComboBox_SapXepTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Giá cao nhất", "Giá thấp nhất", "Số lượng tăng", "Sản phẩm sắp hết" }));
         jComboBox_SapXepTheo.setName(""); // NOI18N
         jComboBox_SapXepTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,8 +423,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox_SapXepTheo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+                    .addComponent(jComboBox_SapXepTheo, 0, 123, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 123, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -440,7 +454,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jComboBox_DanhMuc, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -511,7 +525,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
                     .addComponent(jComboBox_TrangThai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -713,7 +727,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel6.setText("Sắp xếp theo");
 
-        jComboBox_SapXepTheo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Giá cao nhất" }));
+        jComboBox_SapXepTheo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Giá cao nhất", "Giá thấp nhất", "Số lượng tăng", "Sản phẩm sắp hết" }));
         jComboBox_SapXepTheo1.setName(""); // NOI18N
         jComboBox_SapXepTheo1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -975,20 +989,17 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
         if (timKiem_SapXep.equals("Giá cao nhất")) {
-            Collections.sort(list, new Comparator<SanPham>() {
-                @Override
-                public int compare(SanPham sp1, SanPham sp2) {
-                    if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
-                        return 1;
-                    } else {
-                        if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
-                            return 0;
-                        } else {
-                            return -1;
-                        }
-                    }
-                }
-            });
+            sanPham_BUS.SapXepGiamTheoGia(list);
+        }
+        else if (timKiem_SapXep.equals("Giá thấp nhất")) {
+            sanPham_BUS.SapXepTangTheoGia(list);
+        }
+        else if (timKiem_SapXep.equals("Số lượng tăng")) {
+            sanPham_BUS.SapXepTangTheoSoLuong(list);
+        }
+        else if(timKiem_SapXep.equals("Sản phẩm sắp hết"))
+        {
+            list = sanPham_BUS.getDanhSachSanPhamSapHet();
         }
         loadSanPham(list);
         jScrollPane1.getVerticalScrollBar().setValue(0);
@@ -1085,6 +1096,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         } else if (timKiem_TrangThai.equals("Ngưng bán")) {
             query1 += " AND TinhTrang = " + "'NGUNG_KINH_DOANH'";
         }
+        
 
         this.jPanel_List_SanPham1.removeAll();
         jComboBox_ThuongHieu.removeAllItems();
@@ -1098,20 +1110,17 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
         if (timKiem_SapXep.equals("Giá cao nhất")) {
-            Collections.sort(list, new Comparator<SanPham>() {
-                @Override
-                public int compare(SanPham sp1, SanPham sp2) {
-                    if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
-                        return 1;
-                    } else {
-                        if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
-                            return 0;
-                        } else {
-                            return -1;
-                        }
-                    }
-                }
-            });
+            sanPham_BUS.SapXepGiamTheoGia(list);
+        }
+        else if (timKiem_SapXep.equals("Giá thấp nhất")) {
+            sanPham_BUS.SapXepTangTheoGia(list);
+        }
+        else if (timKiem_SapXep.equals("Số lượng tăng")) {
+            sanPham_BUS.SapXepTangTheoSoLuong(list);
+        } 
+        else if(timKiem_SapXep.equals("Sản phẩm sắp hết"))
+        {
+            list = sanPham_BUS.getDanhSachSanPhamSapHet();
         }
         loadSanPham(list);
         jScrollPane2.getVerticalScrollBar().setValue(0);
@@ -1162,11 +1171,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 excelImportToJTable = new XSSFWorkbook(excelBIS);
                 XSSFSheet excelSheet = excelImportToJTable.getSheetAt(0);
                 
-                XSSFRow excelRow = excelSheet.getRow(1);
-                XSSFCell excelNgayNhap = excelRow.getCell(7);
-                String ngayNhap = excelNgayNhap.toString().trim();
+//                XSSFRow excelRow = excelSheet.getRow(1);
+//                XSSFCell excelNgayNhap = excelRow.getCell(7);
+//                String ngayNhap = excelNgayNhap.toString().trim();
+//                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//                LocalDate localDate = LocalDate.parse(ngayNhap, formatter);
 
-                excelRow = excelSheet.getRow(6);
+                XSSFRow excelRow = excelSheet.getRow(6);
                 XSSFCell excelNhaCungCap = excelRow.getCell(2);
                 String tenNhaCungCap = excelNhaCungCap.toString().trim();
                 XSSFCell excelsoDienThoai = excelRow.getCell(5);
@@ -1177,7 +1188,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 int check1 = 0;
                 for(NhaCungCap ncc : list_NhaCungCap)
                 {
-                    if(!ncc.getTenNhaCungCap().equals(tenNhaCungCap))
+                    if(ncc.getTenNhaCungCap().equals(tenNhaCungCap))
                     {
                         check1 = 1;
                         break;
@@ -1185,11 +1196,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 }
                 if(check1 == 0)
                 {
-                    NhaCungCap new_ncc = new NhaCungCap();
-                    new_ncc.setTenNhaCungCap(tenNhaCungCap);
-                    new_ncc.setSoDienThoai(soDienThoai);
-                    new_ncc.setDiaChi(diaChi);
-                    nhaCungCap_BUS.addNhaCungCap(new_ncc);
+                	JOptionPane.showMessageDialog(null, "Nhà cung cấp không có sẳn!");
+                	return;
                 }
                 
 
@@ -1198,7 +1206,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                     XSSFCell excelSTT = excelRow.getCell(0);
                     XSSFCell excelBarcode = excelRow.getCell(1);
                     XSSFCell excelTenHang = excelRow.getCell(2);
-                    XSSFCell excelDVT = excelRow.getCell(3);
+                    XSSFCell excelLSP = excelRow.getCell(3);
                     XSSFCell excelSoLuong = excelRow.getCell(4);
                     XSSFCell excelDonGia = excelRow.getCell(5);
                     XSSFCell excelCK = excelRow.getCell(6);
@@ -1207,6 +1215,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                    
                     String barCode = excelBarcode.toString().trim();
                     String tenHang = excelTenHang.toString().trim();
+                    String loaiSanPham = excelLSP.toString().trim();
                     int soLuong = (int) Double.parseDouble(excelSoLuong.toString().trim());
                     double donGia = Double.parseDouble(excelDonGia.toString().trim());
                     double chiecKhau = Double.parseDouble(excelCK.toString().trim());
@@ -1230,13 +1239,20 @@ public class TAB_SanPham extends javax.swing.JPanel {
                         new_SanPham.setTenSanPham(tenHang);
                         new_SanPham.setGiaNhap(donGia);
                         new_SanPham.setThue(chiecKhau);
-                        //new_SanPham.setNgayNhap(new SimpleDateFormat("yyyy-MM-dd").parse(ngayNhap));
                         new_SanPham.setTacGia(new TacGia(1));
                         new_SanPham.setDanhMuc(new DanhMuc(1));
                         new_SanPham.setNhaXuatBan(new NhaXuatBan(1));
                         new_SanPham.setThuongHieu(new ThuongHieu(1));
                         new_SanPham.setNhaCungCap(new NhaCungCap(sanPham_BUS.getIdNhaCungCapByName(tenNhaCungCap)));
                         new_SanPham.setTheLoai(new TheLoai(1));
+                        if(loaiSanPham.equals("Sách"))
+                        {
+                        	new_SanPham.setLoaiSanPham("SACH");
+                        }
+                        else
+                        {
+                        	new_SanPham.setLoaiSanPham("SAN_PHAM_KHAC");
+                        }
                         sanPham_BUS.addSanPham(new_SanPham);
                     }
         
@@ -1247,6 +1263,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, iOException.getMessage());
 
             } catch (Exception ex) {
+            	JOptionPane.showMessageDialog(null, "Nhập thất bại");
                 Logger.getLogger(TAB_SanPham.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {

@@ -25,8 +25,6 @@ public class TacGia {
 		return quocTich;
 	}
 	public void setQuocTich(String quocTich) throws Exception{
-		if (!quocTich.matches(RegexPattern.KHONG_TRONG_TIENG_VIET))
-			throw new Exception("Quốc tịch không chứa số và kí tự đặc biệt");
 		this.quocTich = quocTich;
 	}
 	

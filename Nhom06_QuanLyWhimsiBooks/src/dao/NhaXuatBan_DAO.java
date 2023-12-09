@@ -77,10 +77,18 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
     public boolean addNhaXuatBan(NhaXuatBan x) {
          String tenNXB = x.getTenNhaXuatBan();
 
-        String insert = "INSERT INTO NhaXuatBan (TenNhaXuatBan) VALUES (?)";
+        String insert = "INSERT INTO NhaXuatBan (TenNhaXuatBan, DiaChi, SoDienThoai, Email, Website, NamThanhLap, "
+                + " LinhVucXuatBan, QuocGia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, tenNXB);
+            preparedStatement.setString(1, x.getTenNhaXuatBan());
+            preparedStatement.setString(2, x.getDiaChi());
+            preparedStatement.setString(3, x.getSoDienThoai());
+            preparedStatement.setString(4, x.getEmail());
+            preparedStatement.setString(5, x.getWebsite());
+            preparedStatement.setInt(6, x.getNamThanhLap());
+            preparedStatement.setString(7, x.getLinhVucXuatBan());
+            preparedStatement.setString(8, x.getQuocGia());
             preparedStatement.executeUpdate();
             return true;
         } catch (Exception e) {

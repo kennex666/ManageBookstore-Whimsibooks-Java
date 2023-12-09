@@ -124,7 +124,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             comboBox_TL.addItem(string);
         }
 
-
     }
 
     /**
@@ -1354,16 +1353,33 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             return;
         }
         try {
-
             SanPham sanPham = getNewSanPham();
-            sanPham.setTinhTrang("CON_HANG");
-            sanPham.setLoaiSanPham("SACH");
-            sanPham.setThuongHieu(new ThuongHieu(1));
-            SanPham_BUS sanPham_BUS = new SanPham_BUS();
+            if (sanPham != null) {
+                SanPham_BUS sanPham_BUS = new SanPham_BUS();
+                ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham();
+                for (SanPham sanPham1 : list) {
+                    if (sanPham1.getBarcode().equals(sanPham.getBarcode())) {
 
-            sanPham_BUS.addSanPham(sanPham);
+                        sanPham1.setSoLuongTon(sanPham1.getSoLuongTon() + sanPham.getSoLuongTon());
+                        sanPham_BUS.editSanPham(sanPham1);
+                        this.setVisible(false);
+                        return;
+                    }
+                }
 
-            this.setVisible(false);
+                sanPham.setTinhTrang("CON_HANG");
+                sanPham.setLoaiSanPham("SACH");
+                sanPham.setThuongHieu(new ThuongHieu(1));
+                try {
+                    sanPham_BUS.addSanPham(sanPham);
+                    JOptionPane.showMessageDialog(null, "Thêm sản phẩm thành công");
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "Thêm sản phẩm thất bại");
+                }
+              
+
+                this.setVisible(false);
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -1413,7 +1429,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_LoaiBiaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_LoaiBiaMouseClicked
         // TODO add your handling code here:
-        this.jTextField_LoaiBia.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
     }//GEN-LAST:event_jTextField_LoaiBiaMouseClicked
 
@@ -1423,7 +1438,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void jTextField_GiaNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_GiaNhapMouseClicked
         // TODO add your handling code here:
-        this.jTextField_GiaNhap.setBorder(BorderFactory.createLineBorder(Color.black));
         this.jLabel_Warning.setText("");
 
     }//GEN-LAST:event_jTextField_GiaNhapMouseClicked
@@ -1464,7 +1478,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         this.jLabel_Warning.setText("");
         comboBox_NXB.showPopup();
         comboBox_NXB.setSelectedIndex(-1);
-        
+
 
     }//GEN-LAST:event_jTextField_NhaXuatBanMouseClicked
 
@@ -1477,9 +1491,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         this.jLabel_Warning.setText("");
         comboBox_NCC.setPopupVisible(true);
         comboBox_NCC.setSelectedIndex(-1);
-        
-        
-       
+
+
     }//GEN-LAST:event_jTextField_NhaCungCapMouseClicked
 
     private void jTextField_ThueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_ThueActionPerformed
@@ -1543,8 +1556,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_TacGiaActionPerformed
 
     private void comboBox_NCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NCCActionPerformed
-        if(comboBox_NCC.getSelectedIndex()!= -1)
-        {
+        if (comboBox_NCC.getSelectedIndex() != -1) {
             jTextField_NhaCungCap.setText(comboBox_NCC.getSelectedItem() + "");
             comboBox_NCC.setSelectedIndex(-1);
         }
@@ -1552,8 +1564,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void comboBox_NXBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_NXBActionPerformed
         // TODO add your handling code here:
-        if(comboBox_NXB.getSelectedIndex()!= -1)
-        {
+        if (comboBox_NXB.getSelectedIndex() != -1) {
             jTextField_NhaXuatBan.setText(comboBox_NXB.getSelectedItem() + "");
             comboBox_NXB.setSelectedIndex(-1);
         }
@@ -1561,32 +1572,29 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     private void comboBox_TGActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TGActionPerformed
         // TODO add your handling code here:
-        if(comboBox_TG.getSelectedIndex()!= -1)
-        {
+        if (comboBox_TG.getSelectedIndex() != -1) {
             jTextField_TacGia.setText(comboBox_TG.getSelectedItem() + "");
             comboBox_TG.setSelectedIndex(-1);
         }
-       
+
     }//GEN-LAST:event_comboBox_TGActionPerformed
 
     private void comboBox_TLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_TLActionPerformed
         // TODO add your handling code here:
-        if(comboBox_TL.getSelectedIndex()!= -1)
-        {
+        if (comboBox_TL.getSelectedIndex() != -1) {
             jTextField_TheLoai.setText(comboBox_TL.getSelectedItem() + "");
             comboBox_TL.setSelectedIndex(-1);
         }
-      
+
     }//GEN-LAST:event_comboBox_TLActionPerformed
 
     private void comboBox_DMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboBox_DMActionPerformed
         // TODO add your handling code here:
-        if(comboBox_DM.getSelectedIndex()!= -1)
-        {
+        if (comboBox_DM.getSelectedIndex() != -1) {
             jTextField_DanhMuc.setText(comboBox_DM.getSelectedItem() + "");
             comboBox_DM.setSelectedIndex(-1);
         }
-       
+
 
     }//GEN-LAST:event_comboBox_DMActionPerformed
 
@@ -1595,15 +1603,15 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_comboBox_NCCMouseClicked
 
     public SanPham getNewSanPham() {
-        String tenSanPham = jTextField_TenSanPham.getText();
-        int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText());
-        String barcode = jTextField_Barcode.getText();
-        double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText());
+        String tenSanPham = jTextField_TenSanPham.getText().trim();
+        int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText().trim());
+        String barcode = jTextField_Barcode.getText().trim();
+        double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText().trim());
 
-        double thue = Double.parseDouble(jTextField_Thue.getText());
+        double thue = Double.parseDouble(jTextField_Thue.getText().trim());
         int namSanXuat;
         try {
-            namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText());
+            namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText().trim());
         } catch (Exception e) {
             namSanXuat = 1;
         }
@@ -1665,11 +1673,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         TacGia tg = new TacGia();
         ThuongHieu th = new ThuongHieu();
 
-        String tenTacGia = jTextField_TacGia.getText();
-        String tenNhaCungCap = jTextField_NhaCungCap.getText();
-        String tenTheLoai = jTextField_TheLoai.getText();
-        String tenNhaXuatBan = jTextField_NhaXuatBan.getText();
-        String tenDanhMuc = jTextField_DanhMuc.getText();
+        String tenTacGia = jTextField_TacGia.getText().trim();
+        String tenNhaCungCap = jTextField_NhaCungCap.getText().trim();
+        String tenTheLoai = jTextField_TheLoai.getText().trim();
+        String tenNhaXuatBan = jTextField_NhaXuatBan.getText().trim();
+        String tenDanhMuc = jTextField_DanhMuc.getText().trim();
 
         try {
             ncc.setTenNhaCungCap(tenNhaCungCap);
@@ -1687,12 +1695,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
         if (ncc.getNhaCungCapID().equals("")) {
-            int check = JOptionPane.showConfirmDialog(null, "Nhà cung cấp này vốn chưa có sẳn. Tạo mới?");
-            if (check == 0) {
-                NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
-                nhaCungCap_BUS.addNhaCungCap(ncc);
-                ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
-            }
+            JOptionPane.showMessageDialog(null, "Nhà cung cấp này vốn chưa có sẳn!");
+            return null;
         }
 
         tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
@@ -1707,11 +1711,14 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
         if (nxb.getNhaXuatBanID() == -1) {
-            int check = JOptionPane.showConfirmDialog(null, "Tên nhà xuất bản này vốn chưa có sẳn. Tạo mới?");
+            int check = JOptionPane.showConfirmDialog(null, "Tên nhà xuất bản này vốn chưa có sẳn. Hãy tạo trước?");
             if (check == 0) {
-                NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
-                nhaXuatBan_BUS.addNhaXuatBan(nxb);
-                nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
+
+                nxb.setTenNhaXuatBan(nxb.getTenNhaXuatBan());
+                TAB_ThemNhaXuatBan themNhaSanXuat = new TAB_ThemNhaXuatBan(nxb);
+                themNhaSanXuat.setLocationRelativeTo(null);
+                themNhaSanXuat.setVisible(true);
+                return null;
             }
         }
 
