@@ -627,6 +627,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         btn_DSHD_taiLai = new javax.swing.JButton();
         jLabel18 = new javax.swing.JLabel();
         btn_DSHD_xoaRong = new javax.swing.JButton();
+        btn_DSHD_LoadHoaDonCho = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         btn_DSHD_ThanhToan = new javax.swing.JButton();
@@ -1240,7 +1241,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
     java.awt.GridBagLayout jPanel2Layout = new java.awt.GridBagLayout();
     jPanel2Layout.columnWidths = new int[] {0, 10, 0, 10, 0, 10, 0, 10, 0};
-    jPanel2Layout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
+    jPanel2Layout.rowHeights = new int[] {0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0, 7, 0};
     jPanel2.setLayout(jPanel2Layout);
 
     jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1440,8 +1441,25 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
     gridBagConstraints.ipadx = 19;
     gridBagConstraints.ipady = 8;
-    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
     jPanel2.add(btn_DSHD_xoaRong, gridBagConstraints);
+
+    btn_DSHD_LoadHoaDonCho.setBackground(new java.awt.Color(85, 182, 83));
+    btn_DSHD_LoadHoaDonCho.setForeground(new java.awt.Color(255, 255, 255));
+    btn_DSHD_LoadHoaDonCho.setText("Load danh sách hoá đơn chờ");
+    btn_DSHD_LoadHoaDonCho.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btn_DSHD_LoadHoaDonChoActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 38;
+    gridBagConstraints.gridwidth = 5;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+    gridBagConstraints.ipadx = 19;
+    gridBagConstraints.ipady = 8;
+    gridBagConstraints.insets = new java.awt.Insets(0, 0, 54, 0);
+    jPanel2.add(btn_DSHD_LoadHoaDonCho, gridBagConstraints);
 
     jPanel1.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
@@ -1714,7 +1732,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         }else
         if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
         	Date temp = new Date((String) tblHoaDon.getValueAt(row, 4));
-        	temp.setDate(temp.getDate() + 7);
+        	temp.setDate(temp.getDate() + 3);
         	if (temp.compareTo(new Date()) > 0) {
         		ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hoá đơn chỉ được đổi trả trong 7 ngày. Hoá đơn này đã quá hạn đổi trả!", null);
         		return;
@@ -2104,6 +2122,14 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         }
     }//GEN-LAST:event_btn_DSHD_InHDActionPerformed
 
+    private void btn_DSHD_LoadHoaDonChoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_LoadHoaDonChoActionPerformed
+        // TODO add your handling code here:
+        if (listHoaDonDangCho.size() < 1)
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hiện không có hoá đơn nào trong hàng chờ!", null);
+        loadTableHoaDon(listHoaDonDangCho);
+        
+    }//GEN-LAST:event_btn_DSHD_LoadHoaDonChoActionPerformed
+
     private void calcKhuyenMai() {
         double tempChietKhau = 0;
         hoaDon.setGiaKhuyenMai(tempChietKhau);
@@ -2275,6 +2301,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private javax.swing.JButton btn_DSHD_DoiTraHoaDon;
     private javax.swing.JButton btn_DSHD_HuyHoaDon;
     private javax.swing.JButton btn_DSHD_InHD;
+    private javax.swing.JButton btn_DSHD_LoadHoaDonCho;
     private javax.swing.JButton btn_DSHD_Search;
     private javax.swing.JButton btn_DSHD_ThanhToan;
     private javax.swing.JButton btn_DSHD_XemChiTiet;

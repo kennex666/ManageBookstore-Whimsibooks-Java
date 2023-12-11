@@ -52,4 +52,9 @@ public class Numberic {
 		DecimalFormat df = new DecimalFormat("#,### VND");
 		return df.format(x);
 	}
+	
+	public static String formatD(double x) {
+		DecimalFormat df = new DecimalFormat("#,### đ");
+		return df.format(x);
+	}
 }

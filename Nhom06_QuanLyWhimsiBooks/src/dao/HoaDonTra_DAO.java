@@ -150,7 +150,7 @@ public class HoaDonTra_DAO implements IHoaDonTra{
 		// TODO Auto-generated method stub
 		ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
                 
-		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID ?";
                 
 		try {
                     QueryBuilder queryBuilder = new QueryBuilder(query);
@@ -226,7 +226,7 @@ public class HoaDonTra_DAO implements IHoaDonTra{
 		// TODO Auto-generated method stub
 		ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
                 
-		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?";
+		String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID ?";
                 
 		try {
                     QueryBuilder queryBuilder = new QueryBuilder(query);

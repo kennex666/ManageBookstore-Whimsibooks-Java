@@ -387,6 +387,10 @@ public class Form_TraHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
             return;
         }
+        
+        if (hoaDon.getListChiTietHoaDon().size() < 1)
+            return;
+        
     	hoaDon.setHoaDonID(null);
     	
     	hoaDon.setTrangThai("DA_XU_LY");

@@ -19,5 +19,7 @@
 	<classpathentry kind="lib" path="src/lib/excelLib/poi-3.17.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/itextpdf-5.5.13.3.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/Spire.Xls12.jar"/>
+	<classpathentry kind="lib" path="src/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="src/lib/miglayout-4.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

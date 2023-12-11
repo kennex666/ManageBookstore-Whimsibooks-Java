@@ -60,7 +60,6 @@ public class MainActivity {
                 GUI_MainMenu guiMain = new GUI_MainMenu();
                 for (int i = 80; i < 101; i++) {
                     Thread.sleep(random(10, 50));
-
                     sl.processBarUpdate(i);
                 }
 

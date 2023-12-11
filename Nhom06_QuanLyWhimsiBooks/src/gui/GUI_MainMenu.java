@@ -43,6 +43,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private TAB_KhachHang tabKhachHang;
     private TAB_NhaCungCap tabNhaCungCap;
     private TAB_KhuyenMai tabKhuyenMai;
+    private TAB_ThongKe tabThongKe;
     private Enum_TabMainMenu currentSelectedTab;
     private JButton isFocusTab;
     
@@ -71,6 +72,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         tabKhachHang = new TAB_KhachHang();
         tabNhaCungCap = new TAB_NhaCungCap();
         tabKhuyenMai = new TAB_KhuyenMai();
+        tabThongKe = new TAB_ThongKe();
         currentSelectedTab = Enum_TabMainMenu.KHONG_MO_TAB_NAO;
         tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
     }
@@ -79,7 +81,6 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         Default test start
     */
     public void guiDisable() {
-    	btnTabThongKe.setVisible(false);
     	if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
     		btnTabNhanVien.setVisible(false);
     		btnTabNhaCungCap.setVisible(false);
@@ -453,6 +454,13 @@ public class GUI_MainMenu extends javax.swing.JFrame {
        // Tab khuyến mãi
        if (evt.getSource().equals(btnTabKhuyenMai)){
     	   tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
+    	   return;
+       }
+       
+       
+       // Tab khuyến mãi
+       if (evt.getSource().equals(btnTabThongKe)){
+    	   tabSwitcher(tabThongKe, Enum_TabMainMenu.THONG_KE, btnTabThongKe);
     	   return;
        }
        

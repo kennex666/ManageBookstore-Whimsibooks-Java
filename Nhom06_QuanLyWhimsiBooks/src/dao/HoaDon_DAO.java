@@ -166,13 +166,13 @@ public class HoaDon_DAO implements IHoaDon{
 		ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
                 
 		String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ? ORDER BY ngayLapHoaDon ASC";
-                
+              
 		try {
                     QueryBuilder queryBuilder = new QueryBuilder(query);
                     queryBuilder.addParameter(
                             QueryBuilder.Enum_DataType.TIMESTAMP, 
                             "NgayLapHoaDon", 
-                            ">=", 
+                            ">", 
                             batDau
                     );
                     queryBuilder.addParameter(
