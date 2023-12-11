@@ -11,7 +11,9 @@ import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -504,14 +506,14 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
             if (end.getTime() < start.getTime()) {
                 ErrorMessage.showConfirmDialogYesNo("Chú ý",
-                    "Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
+                        "Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
                 txtNgayBatDau.requestFocus();
                 return;
             }
-            start.setDate(start.getDate() - 1);
-            start.setHours(23);
-            start.setMinutes(59);
-            start.setSeconds(59);
+            start.setDate(start.getDate());
+            start.setHours(0);
+            start.setMinutes(0);
+            start.setSeconds(0);
             end.setHours(23);
             end.setMinutes(59);
             end.setSeconds(59);
@@ -523,8 +525,10 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                 loaiBieuDo = 1;
             } else if (pos == 1) {
                 end = new Date();
-                start = new Date(end.getYear(), end.getMonth() - 1, 1);
-                loaiBieuDo = 2;
+                start = new Date(end.getYear(), end.getMonth(), 1);
+                end.setMonth(end.getMonth() + 1);
+                end.setDate(0);
+                loaiBieuDo = 1;
             } else if (pos == 2) {
                 end = new Date();
                 start = new Date(end.getYear() - 1, 0, 1);
@@ -533,33 +537,34 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                 int quyPos = cboQuy.getSelectedIndex();
                 switch (quyPos) {
                     case 0:
-                    start = new Date();
-                    start = new Date(start.getYear(), 0, 1);
-                    end = new Date(start.getYear(), 2, 31);
-                    break;
+                        start = new Date();
+                        start = new Date(start.getYear(), 0, 1);
+                        end = new Date(start.getYear(), 2, 31);
+                        break;
                     case 1:
-                    start = new Date();
-                    start = new Date(start.getYear(), 3, 1);
-                    end = new Date(start.getYear(), 5, 30);
-                    break;
+                        start = new Date();
+                        start = new Date(start.getYear(), 3, 1);
+                        end = new Date(start.getYear(), 5, 30);
+                        break;
                     case 2:
-                    start = new Date();
-                    start = new Date(start.getYear(), 6, 1);
-                    end = new Date(start.getYear(), 8, 31);
-                    break;
+                        start = new Date();
+                        start = new Date(start.getYear(), 6, 1);
+                        end = new Date(start.getYear(), 8, 31);
+                        break;
                     case 3:
-                    start = new Date();
-                    start = new Date(start.getYear(), 9, 1);
-                    end = new Date(start.getYear(), 12, 31);
-                    break;
+                        start = new Date();
+                        start = new Date(start.getYear(), 9, 1);
+                        end = new Date(start.getYear(), 12, 31);
+                        break;
                     default:
-                    start = new Date();
-                    start = new Date(start.getYear(), 0, 1);
-                    end = new Date(start.getYear(), 2, 31);
-                    break;
+                        start = new Date();
+                        start = new Date(start.getYear(), 0, 1);
+                        end = new Date(start.getYear(), 2, 31);
+                        break;
                 }
             }
         }
+
         loadThongKe(start, end, "7 ngày gần đây", loaiBieuDo);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
@@ -692,8 +697,18 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
             switch (loaiBieuDo) {
                 case 1: {
                     SimpleDateFormat sdf = new SimpleDateFormat("dd");
-                    if (ngayTruocDo.getDate() + 1 < entry.getKey().getDate()) {
-                        int temp = entry.getKey().getDate() - ngayTruocDo.getDate() - 1;
+                    if (i == 0) {
+                        Date tempDate = new Date(start.getTime());
+                        if (getDiffDate(ngayTruocDo, entry.getKey()) > 0) {
+                            int temp = getDiffDate(ngayTruocDo, entry.getKey());
+                            for (int k = 0; k < temp; k++) {
+                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
+                                tempDate.setDate(tempDate.getDate() + 1);
+                            }
+                        }
+                    }
+                    if (getDiffDate(ngayTruocDo, entry.getKey()) > 1) {
+                        int temp = getDiffDate(ngayTruocDo, entry.getKey()) - 1;
                         for (int k = 0; k < temp; k++) {
                             ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
                             chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -705,14 +720,24 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                 }
                 case 2: {
                     SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+                    if (i == 0) {
+                        Date tempDate = new Date(start.getTime());
+                        if (getDiffMonth(ngayTruocDo, entry.getKey()) > 0) {
+                            int temp = getDiffMonth(ngayTruocDo, entry.getKey());
+                            for (int k = 0; k < temp; k++) {
+                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
+                                tempDate.setMonth(tempDate.getMonth() + 1);
+                            }
+                        }
+                    }
                     if (ngayTruocDo.getMonth() == entry.getKey().getMonth()) {
                         thongKeDataTemp[0] += object[0];
                         thongKeDataTemp[1] += object[1];
                         thongKeDataTemp[2] += object[2];
                         thongKeDataTemp[3] += object[3];
                     } else {
-                        if (ngayTruocDo.getMonth() + 1 < entry.getKey().getMonth()) {
-                            int temp = entry.getKey().getMonth() - ngayTruocDo.getMonth() - 1;
+                        if (getDiffMonth(ngayTruocDo, entry.getKey()) > 1) {
+                            int temp = getDiffMonth(ngayTruocDo, entry.getKey()) - 1;
                             for (int k = 0; k < temp; k++) {
                                 ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
                                 chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -729,12 +754,29 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                 }
                 case 3: {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                    if (i == 0) {
+                        Date tempDate = new Date(start.getTime());
+                        if (getDiffYear(ngayTruocDo, entry.getKey()) > 0) {
+                            int temp = getDiffYear(ngayTruocDo, entry.getKey());
+                            for (int k = 0; k < temp; k++) {
+                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
+                                tempDate.setYear(tempDate.getYear() + 1);
+                            }
+                        }
+                    }
                     if (ngayTruocDo.getYear() == entry.getKey().getYear()) {
                         thongKeDataTemp[0] += object[0];
                         thongKeDataTemp[1] += object[1];
                         thongKeDataTemp[2] += object[2];
                         thongKeDataTemp[3] += object[3];
                     } else {
+                        if (getDiffYear(ngayTruocDo, entry.getKey()) > 1) {
+                            int temp = getDiffYear(ngayTruocDo, entry.getKey()) - 1;
+                            for (int k = 0; k < temp; k++) {
+                                ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
+                                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+                            }
+                        }
                         chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
                         thongKeDataTemp = new double[]{0, 0, 0, 0};
                         thongKeDataTemp[0] += object[0];
@@ -777,8 +819,11 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         switch (loaiBieuDo) {
             case 1: {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd");
-                if (ngayTruocDo.getDate() + 1 < end.getDate()) {
-                    int temp = end.getDate() - ngayTruocDo.getDate();
+                if (listThongKe.size() == 0){
+                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
+                }
+                if (getDiffDate(ngayTruocDo, end) > 0) {
+                    int temp = getDiffDate(ngayTruocDo, end);
                     for (int k = 0; k < temp; k++) {
                         ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
                         chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -790,9 +835,12 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             case 2: {
                 SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                if (ngayTruocDo.getMonth() + 1 < end.getMonth()) {
-                    int temp = end.getMonth() - ngayTruocDo.getMonth();
+                if (listThongKe.size() == 0){
+                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
+                }else
+                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
+                if (getDiffMonth(ngayTruocDo, end) > 0) {
+                    int temp = getDiffMonth(ngayTruocDo, end);
                     for (int k = 0; k < temp; k++) {
                         ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
                         chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -802,9 +850,12 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
             }
             case 3: {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                if (listThongKe.size() == 0){
+                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
+                }else
                 chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                if (ngayTruocDo.getYear() + 1 < end.getYear()) {
-                    int temp = end.getYear() - ngayTruocDo.getYear();
+                if (getDiffYear(ngayTruocDo, end) > 0) {
+                    int temp = getDiffYear(ngayTruocDo, end);
                     for (int k = 0; k < temp; k++) {
                         ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
                         chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -834,6 +885,31 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         chart.start();
     }
 
+    public int getDiffDate(Date d1, Date d2) {
+        int temp = (int) ((d2.getTime() - d1.getTime()) / 1000 / 60 / 60 / 24);
+        return temp;
+    }
+
+    public int getDiffMonth(Date d1, Date d2) {
+        Calendar startCalendar = new GregorianCalendar();
+        startCalendar.setTime(d1);
+        Calendar endCalendar = new GregorianCalendar();
+        endCalendar.setTime(d2);
+
+        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        int diffMonth = diffYear * 12 + endCalendar.get(Calendar.MONTH) - startCalendar.get(Calendar.MONTH);
+        return diffMonth;
+    }
+
+    public int getDiffYear(Date d1, Date d2) {
+        Calendar startCalendar = new GregorianCalendar();
+        startCalendar.setTime(d1);
+        Calendar endCalendar = new GregorianCalendar();
+        endCalendar.setTime(d2);
+
+        int diffYear = endCalendar.get(Calendar.YEAR) - startCalendar.get(Calendar.YEAR);
+        return diffYear;
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
