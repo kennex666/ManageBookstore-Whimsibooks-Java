@@ -843,6 +843,9 @@
                   <Dimension value="[200, 50]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_HuyActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

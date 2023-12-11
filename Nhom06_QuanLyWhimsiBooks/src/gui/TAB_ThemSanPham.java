@@ -43,6 +43,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Icon;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -1232,9 +1233,12 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
         if (decided == 0) {
             SanPham sanPham = getNewSanPham();
-            sanPham.setSanPhamID(ID);
-            sanPham_BUS.editSanPham(sanPham);
-            this.setVisible(false);
+            if(sanPham != null)
+            {
+                sanPham.setSanPhamID(ID);
+                sanPham_BUS.editSanPham(sanPham);
+                this.setVisible(false);
+            }   
         }
 
 
@@ -1362,7 +1366,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
                         sanPham1.setSoLuongTon(sanPham1.getSoLuongTon() + sanPham.getSoLuongTon());
                         sanPham_BUS.editSanPham(sanPham1);
-                        this.setVisible(false);
+                        this.dispose();
                         return;
                     }
                 }
@@ -1716,6 +1720,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
                 nxb.setTenNhaXuatBan(nxb.getTenNhaXuatBan());
                 TAB_ThemNhaXuatBan themNhaSanXuat = new TAB_ThemNhaXuatBan(nxb);
+                themNhaSanXuat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 themNhaSanXuat.setLocationRelativeTo(null);
                 themNhaSanXuat.setVisible(true);
                 return null;

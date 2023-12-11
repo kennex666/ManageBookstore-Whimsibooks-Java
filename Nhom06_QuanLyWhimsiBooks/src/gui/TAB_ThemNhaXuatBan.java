@@ -384,6 +384,11 @@ public class TAB_ThemNhaXuatBan extends javax.swing.JFrame {
         jButton_Huy.setText("Hủy");
         jButton_Huy.setMaximumSize(new java.awt.Dimension(200, 23));
         jButton_Huy.setPreferredSize(new java.awt.Dimension(200, 50));
+        jButton_Huy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_HuyActionPerformed(evt);
+            }
+        });
         jPanel26.add(jButton_Huy);
 
         jPanel9.add(jPanel26);
@@ -505,9 +510,14 @@ public class TAB_ThemNhaXuatBan extends javax.swing.JFrame {
             }
              
              
-             this.setVisible(false);
+            this.dispose();
         }
     }//GEN-LAST:event_jButton_LuuActionPerformed
+
+    private void jButton_HuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_HuyActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton_HuyActionPerformed
 
     /**
      * @param args the command line arguments

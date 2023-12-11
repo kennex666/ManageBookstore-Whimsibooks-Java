@@ -1025,7 +1025,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         taB_ThemSanPham.setLocationRelativeTo(null);
         taB_ThemSanPham.setVisible(true);
         taB_ThemSanPham.disVisibleForLuu();
-
     }//GEN-LAST:event_jButton_ThemSanPhamActionPerformed
 
     private void jButton_Them_SPKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_Them_SPKActionPerformed
