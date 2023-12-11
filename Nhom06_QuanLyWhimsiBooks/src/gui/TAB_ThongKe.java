@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import utilities.ErrorMessage;
 import utilities.Numberic;
 
 /**
@@ -34,6 +35,12 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         initComponents();
         Date ngayKetThuc = new Date();
+        jPanel13.setVisible(false);
+        btnXuatExel.setVisible(false);
+
+        txtNgayBatDau.setEnabled(false);
+        txtNgayKetThuc.setEnabled(false);
+        cboQuy.setEnabled(false);
 
         Date ngayBatDau = new Date();
         ngayBatDau.setDate(ngayKetThuc.getDate() - 7);
@@ -41,7 +48,6 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         chart.addLegend("Tiền vốn", new Color(135, 189, 245), new Color(135, 189, 245));
         chart.addLegend("Lợi nhuận", new Color(189, 135, 245), new Color(189, 135, 245));
         chart.addLegend("Trả hàng", new Color(139, 229, 222), new Color(139, 229, 222));
-        loadThongKe(ngayBatDau, ngayKetThuc, "7 ngày gần đây", 0);
 
     }
 
@@ -76,6 +82,13 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         cboBaoCaoTheo = new javax.swing.JComboBox<>();
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        panelQuy = new javax.swing.JPanel();
+        filler28 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        jLabel15 = new javax.swing.JLabel();
+        filler29 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        cboQuy = new javax.swing.JComboBox<>();
+        filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
+        filler31 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel15 = new javax.swing.JPanel();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jLabel13 = new javax.swing.JLabel();
@@ -123,6 +136,8 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         jPanel7 = new javax.swing.JPanel();
         chart = new utilities.chartline.CurveLineChart();
         jPanel2 = new javax.swing.JPanel();
+        jPanel21 = new javax.swing.JPanel();
+        jPanel22 = new javax.swing.JPanel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -130,8 +145,8 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         jPanel3.setLayout(new java.awt.BorderLayout());
 
-        jPanel6.setMaximumSize(new java.awt.Dimension(200, 600));
-        jPanel6.setPreferredSize(new java.awt.Dimension(70, 516));
+        jPanel6.setMaximumSize(new java.awt.Dimension(80, 600));
+        jPanel6.setPreferredSize(new java.awt.Dimension(80, 516));
         jPanel6.setRequestFocusEnabled(false);
         jPanel6.setLayout(new javax.swing.BoxLayout(jPanel6, javax.swing.BoxLayout.Y_AXIS));
 
@@ -172,12 +187,38 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         jPanel14.add(jLabel12);
         jPanel14.add(filler4);
 
-        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "7 ngày qua", "Tháng trước", "Năm trước", "Quý", "Thời gian tuỳ chọn" }));
+        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuần này", "Tháng này", "Năm nay", "Quý", "Thời gian tuỳ chọn" }));
+        cboBaoCaoTheo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboBaoCaoTheoActionPerformed(evt);
+            }
+        });
         jPanel14.add(cboBaoCaoTheo);
         jPanel14.add(filler7);
 
         jPanel6.add(jPanel14);
         jPanel6.add(filler12);
+
+        panelQuy.setMaximumSize(new java.awt.Dimension(300, 25));
+        panelQuy.setLayout(new javax.swing.BoxLayout(panelQuy, javax.swing.BoxLayout.LINE_AXIS));
+        panelQuy.add(filler28);
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel15.setText("Quý:");
+        panelQuy.add(jLabel15);
+        panelQuy.add(filler29);
+
+        cboQuy.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quý I (năm nay)", "Quý II (năm nay)", "Quý III (năm nay)", "Quý IV (năm nay)" }));
+        cboQuy.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboQuyActionPerformed(evt);
+            }
+        });
+        panelQuy.add(cboQuy);
+        panelQuy.add(filler30);
+
+        jPanel6.add(panelQuy);
+        jPanel6.add(filler31);
 
         jPanel15.setMaximumSize(new java.awt.Dimension(300, 25));
         jPanel15.setLayout(new javax.swing.BoxLayout(jPanel15, javax.swing.BoxLayout.LINE_AXIS));
@@ -303,7 +344,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         lblTienVon.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTienVon.setForeground(new java.awt.Color(255, 255, 255));
-        lblTienVon.setText("1,000,000,000 đ");
+        lblTienVon.setText("Chưa thống kê");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -332,7 +373,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         lblTraHang.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTraHang.setForeground(new java.awt.Color(255, 255, 255));
-        lblTraHang.setText("1,000,000,000 đ");
+        lblTraHang.setText("Chưa thống kê");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -361,7 +402,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         lblLoiNhuan.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblLoiNhuan.setForeground(new java.awt.Color(255, 255, 255));
-        lblLoiNhuan.setText("1,000,000,000 đ");
+        lblLoiNhuan.setText("Chưa thống kê");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -390,7 +431,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         lblDoanhThu.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblDoanhThu.setForeground(new java.awt.Color(255, 255, 255));
-        lblDoanhThu.setText("1,000,000,000 đ");
+        lblDoanhThu.setText("Chưa thống kê");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -410,8 +451,8 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipady = 29;
         gridBagConstraints.weightx = 0.1;
-        gridBagConstraints.weighty = 0.1;
         jPanel4.add(jPanel5, gridBagConstraints);
 
         java.awt.GridBagLayout jPanel7Layout = new java.awt.GridBagLayout();
@@ -445,18 +486,48 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
         jTabbedPane1.addTab("Thống kê doanh thu", jPanel1);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1030, Short.MAX_VALUE)
+        jPanel2.setLayout(new java.awt.GridBagLayout());
+
+        jPanel21.setBackground(new java.awt.Color(204, 255, 153));
+
+        javax.swing.GroupLayout jPanel21Layout = new javax.swing.GroupLayout(jPanel21);
+        jPanel21.setLayout(jPanel21Layout);
+        jPanel21Layout.setHorizontalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 554, Short.MAX_VALUE)
+        jPanel21Layout.setVerticalGroup(
+            jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("Thống kê xu hướng", jPanel2);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.1;
+        jPanel2.add(jPanel21, gridBagConstraints);
+
+        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
+        jPanel22.setLayout(jPanel22Layout);
+        jPanel22Layout.setHorizontalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel22Layout.setVerticalGroup(
+            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.weightx = 0.1;
+        gridBagConstraints.weighty = 0.3;
+        jPanel2.add(jPanel22, gridBagConstraints);
+
+        jTabbedPane1.addTab("Thống kê sản phẩm bán chạy", jPanel2);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -485,20 +556,20 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         ArrayList<Map.Entry<Date, double[]>> listThongKe = new ArrayList<Map.Entry<Date, double[]>>();
         listThongKe = thongKe_BUS.thongKeTheoThoiGian(start, end);
 
-        chart.setTitle("Từ " + sdfTitle.format(start) + " đến " + sdfTitle.format(end));
+        chart.setTitle("Từ " + sdfTitle.format(start) + " đến " + sdfTitle.format(end) + " (Đơn vị Nghìn đồng)");
         if (loaiBieuDoTemp != 0) {
             loaiBieuDo = loaiBieuDoTemp;
         } else if (soNgay >= 730) {
             loaiBieuDo = 3;
         } else if (soNgay > 365) {
             mocBieuDo = mocBieuDo / 90;
-            loaiBieuDo = 4;
+            loaiBieuDo = 2;
         } else if (soNgay >= 360) {
             mocBieuDo = 12;
             loaiBieuDo = 2;
-        } else if (soNgay >= 180) {
+        } else if (soNgay >= 180 && soNgay < 185) {
             mocBieuDo = soNgay / 90;
-            loaiBieuDo = 4;
+            loaiBieuDo = 3;
         } else if (soNgay > 31) {
             mocBieuDo = 2;
             loaiBieuDo = 2;
@@ -535,7 +606,6 @@ public class TAB_ThongKe extends javax.swing.JPanel {
                 end.setDate(1 + end.getDate());
             }
         }
-        System.out.println("Select" + loaiBieuDo);
         Date ngayTruocDo = start;
         double[] thongKeDataTemp = new double[]{0, 0, 0, 0};
         String quyTemp = "";
@@ -548,22 +618,23 @@ public class TAB_ThongKe extends javax.swing.JPanel {
             tongLoiNhuan += object[2];
             tongTraHang += object[3];
 
-            object[0] = object[0] / 100000;
-            object[1] = object[1] / 100000;
-            object[2] = object[2] / 100000;
-            object[3] = object[3] / 100000;
+            object[0] = object[0] / 1000;
+            object[1] = object[1] / 1000;
+            object[2] = object[2] / 1000;
+            object[3] = object[3] / 1000;
 
             switch (loaiBieuDo) {
                 case 1: {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd");
                     if (ngayTruocDo.getDate() + 1 < entry.getKey().getDate()) {
-                        int temp = entry.getKey().getDate() - ngayTruocDo.getDate();
+                        int temp = entry.getKey().getDate() - ngayTruocDo.getDate() - 1;
                         for (int k = 0; k < temp; k++) {
                             ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
                             chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
                         }
                     }
                     chart.addData(new utilities.chartline.ModelChart(sdf.format(entry.getKey()), new double[]{object[0], object[1], object[2], object[3]}));
+
                     break;
                 }
                 case 2: {
@@ -575,7 +646,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
                         thongKeDataTemp[3] += object[3];
                     } else {
                         if (ngayTruocDo.getMonth() + 1 < entry.getKey().getMonth()) {
-                            int temp = entry.getKey().getMonth() - ngayTruocDo.getMonth();
+                            int temp = entry.getKey().getMonth() - ngayTruocDo.getMonth() - 1;
                             for (int k = 0; k < temp; k++) {
                                 ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
                                 chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
@@ -598,13 +669,6 @@ public class TAB_ThongKe extends javax.swing.JPanel {
                         thongKeDataTemp[2] += object[2];
                         thongKeDataTemp[3] += object[3];
                     } else {
-                        if (ngayTruocDo.getYear() + 1 < entry.getKey().getYear()) {
-                            int temp = entry.getKey().getYear() - ngayTruocDo.getYear();
-                            for (int k = 0; k < temp; k++) {
-                                ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                            }
-                        }
                         chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
                         thongKeDataTemp = new double[]{0, 0, 0, 0};
                         thongKeDataTemp[0] += object[0];
@@ -644,44 +708,55 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         }
 
         // Show after done
-        if (loaiBieuDo == 1) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM");
+        switch (loaiBieuDo) {
+            case 1: {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd");
+                if (ngayTruocDo.getDate() + 1 < end.getDate()) {
+                    int temp = end.getDate() - ngayTruocDo.getDate();
+                    for (int k = 0; k < temp; k++) {
+                        ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
+                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+                    }
+                }
+                //chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
 
-            if (ngayTruocDo.getDate() + 1 < end.getDate()) {
-                int temp = end.getDate() - ngayTruocDo.getDate();
-                for (int k = 0; k < temp; k++) {
-                    ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+                break;
+            }
+            case 2: {
+                SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
+                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
+                if (ngayTruocDo.getMonth() + 1 < end.getMonth()) {
+                    int temp = end.getMonth() - ngayTruocDo.getMonth();
+                    for (int k = 0; k < temp; k++) {
+                        ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
+                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+                    }
                 }
+                break;
             }
-        } else if (loaiBieuDo == 2) {
-            SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-            chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-            if (ngayTruocDo.getMonth() + 1 < end.getMonth()) {
-                int temp = end.getMonth() - ngayTruocDo.getMonth();
-                for (int k = 0; k < temp; k++) {
-                    ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+            case 3: {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
+                if (ngayTruocDo.getYear() + 1 < end.getYear()) {
+                    int temp = end.getYear() - ngayTruocDo.getYear();
+                    for (int k = 0; k < temp; k++) {
+                        ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
+                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+                    }
                 }
+                break;
             }
-        } else if (loaiBieuDo == 3) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-            chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-            if (ngayTruocDo.getYear() + 1 < end.getYear()) {
-                int temp = end.getYear() - ngayTruocDo.getYear();
-                for (int k = 0; k < temp; k++) {
-                    ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
+            case 4: {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                int quarter = (start.getMonth() / 3) + 1;
+                if (chart.getModelSize() < 2) {
+                    chart.addData(new utilities.chartline.ModelChart("Từ " + sdf.format(start) + " đến trước " + quyTemp, new double[]{0, 0, 0, 0}));
                 }
+                chart.addData(new utilities.chartline.ModelChart(quyTemp, thongKeDataTemp));
+                break;
             }
-        } else if (loaiBieuDo == 4) {
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            int quarter = (start.getMonth() / 3) + 1;
-            if (chart.getModelSize() < 2) {
-                chart.addData(new utilities.chartline.ModelChart("Từ " + sdf.format(start) + " đến trước " + quyTemp, new double[]{0, 0, 0, 0}));
-            }
-            chart.addData(new utilities.chartline.ModelChart(quyTemp, thongKeDataTemp));
+            default:
+                break;
         }
 
         //chart.addData(new utilities.chartline.ModelChart("Default", thongKeDataTemp));
@@ -696,19 +771,130 @@ public class TAB_ThongKe extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        txtNgayBatDau.getDate();
-        txtNgayKetThuc.getDate();
+        int loaiBieuDo = 0;
+        int pos = cboBaoCaoTheo.getSelectedIndex();
+        Date start = new Date(), end = new Date();
+        if (pos == 4) {
+
+            Date ngayKetThuc = new Date();
+            if (txtNgayBatDau.getDate() == null) {
+                ErrorMessage.showMessageWithFocusTextField("Lỗi", "Vui lòng chọn ngày bắt đầu!", null);
+                return;
+            }
+
+            if (txtNgayKetThuc.getDate() == null) {
+                ErrorMessage.showMessageWithFocusTextField("Lỗi", "Vui lòng chọn ngày bắt đầu!", null);
+                return;
+            }
+            start = txtNgayBatDau.getDate();
+            end = txtNgayKetThuc.getDate();
+
+            if (end.getTime() < start.getTime()) {
+                ErrorMessage.showConfirmDialogYesNo("Chú ý",
+                        "Thời gian bắt đầu không hợp lệ. Phải nhỏ hơn hoặc bằng thời gian kết thúc!");
+                txtNgayBatDau.requestFocus();
+                return;
+            }
+            start.setDate(start.getDate() - 1);
+            start.setHours(23);
+            start.setMinutes(59);
+            start.setSeconds(59);
+            end.setHours(23);
+            end.setMinutes(59);
+            end.setSeconds(59);
+
+        } else {
+            if (pos == 0) {
+                end = new Date();
+                start = new Date(end.getYear(), end.getMonth(), end.getDate() - 7);
+                loaiBieuDo = 1;
+            } else if (pos == 1) {
+                end = new Date();
+                start = new Date(end.getYear(), end.getMonth() - 1, 1);
+                loaiBieuDo = 2;
+            } else if (pos == 2) {
+                end = new Date();
+                start = new Date(end.getYear() - 1, 0, 1);
+                loaiBieuDo = 4;
+            } else if (pos == 3) {
+                int quyPos = cboQuy.getSelectedIndex();
+                switch (quyPos) {
+                    case 0:
+                        start = new Date();
+                        start = new Date(start.getYear(), 0, 1);
+                        end = new Date(start.getYear(), 2, 31);
+                        break;
+                    case 1:
+                        start = new Date();
+                        start = new Date(start.getYear(), 3, 1);
+                        end = new Date(start.getYear(), 5, 30);
+                        break;
+                    case 2:
+                        start = new Date();
+                        start = new Date(start.getYear(), 6, 1);
+                        end = new Date(start.getYear(), 8, 31);
+                        break;
+                    case 3:
+                        start = new Date();
+                        start = new Date(start.getYear(), 9, 1);
+                        end = new Date(start.getYear(), 12, 31);
+                        break;
+                    default:
+                        start = new Date();
+                        start = new Date(start.getYear(), 0, 1);
+                        end = new Date(start.getYear(), 2, 31);
+                        break;
+                }
+            }
+        }
+        loadThongKe(start, end, "7 ngày gần đây", loaiBieuDo);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnXuatExelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatExelActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXuatExelActionPerformed
 
+    private void cboBaoCaoTheoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboBaoCaoTheoActionPerformed
+        // TODO add your handling code here:
+        int pos = cboBaoCaoTheo.getSelectedIndex();
+        if (pos < 0) {
+            return;
+        }
+
+        if (pos == 4) {
+            txtNgayBatDau.setEnabled(true);
+            txtNgayKetThuc.setEnabled(true);
+            cboQuy.setEnabled(false);
+            Date ngayHomNay = new Date();
+            ngayHomNay.setHours(0);
+            ngayHomNay.setMinutes(0);
+
+            txtNgayBatDau.setDate(ngayHomNay);
+            txtNgayKetThuc.setDate(ngayHomNay);
+        } else {
+            txtNgayBatDau.setEnabled(false);
+            txtNgayKetThuc.setEnabled(false);
+            if (pos == 3) {
+                cboQuy.setEnabled(true);
+            } else {
+                cboQuy.setEnabled(false);
+            }
+
+            txtNgayBatDau.setDate(null);
+            txtNgayKetThuc.setDate(null);
+        }
+    }//GEN-LAST:event_cboBaoCaoTheoActionPerformed
+
+    private void cboQuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboQuyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboQuyActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnXuatExel;
     private javax.swing.JComboBox<String> cboBaoCaoTheo;
+    private javax.swing.JComboBox<String> cboQuy;
     private utilities.chartline.CurveLineChart chart;
     private javax.swing.Box.Filler filler1;
     private javax.swing.Box.Filler filler10;
@@ -730,7 +916,11 @@ public class TAB_ThongKe extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler25;
     private javax.swing.Box.Filler filler26;
     private javax.swing.Box.Filler filler27;
+    private javax.swing.Box.Filler filler28;
+    private javax.swing.Box.Filler filler29;
     private javax.swing.Box.Filler filler3;
+    private javax.swing.Box.Filler filler30;
+    private javax.swing.Box.Filler filler31;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
     private javax.swing.Box.Filler filler6;
@@ -744,6 +934,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
@@ -760,6 +951,8 @@ public class TAB_ThongKe extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel19;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel20;
+    private javax.swing.JPanel jPanel21;
+    private javax.swing.JPanel jPanel22;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -772,6 +965,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
     private javax.swing.JLabel lblLoiNhuan;
     private javax.swing.JLabel lblTienVon;
     private javax.swing.JLabel lblTraHang;
+    private javax.swing.JPanel panelQuy;
     private com.toedter.calendar.JDateChooser txtNgayBatDau;
     private com.toedter.calendar.JDateChooser txtNgayKetThuc;
     // End of variables declaration//GEN-END:variables
