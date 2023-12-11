@@ -1085,8 +1085,8 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	           ; 
 	        }
 	    } catch (Exception e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Lỗi khi thực hiện chức năng: " + e.getMessage());
+	     
+	        JOptionPane.showMessageDialog(this, "Vui Long chon lai: ");
 	    }
 	}// GEN-LAST:event_btnDangXuatKHActionPerformed
 	public void phimTatTimKien() {
