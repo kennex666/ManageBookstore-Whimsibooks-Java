@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -81,12 +82,18 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         Default test start
      */
     public void guiDisable() {
+        if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_CU) {
+        	return;
+        	
+        }
         if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
             btnTabNhanVien.setVisible(false);
             btnTabNhaCungCap.setVisible(false);
             btnTabKhachHang.setVisible(false);
         } else {
-
+        	btnTabNhanVien.setVisible(true);
+            btnTabNhaCungCap.setVisible(true);
+            btnTabKhachHang.setVisible(true);
         }
     }
 
@@ -486,6 +493,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
             if (ErrorMessage.showConfirmDialogYesNo("Thông báo", "Bạn có muốn đăng xuất khỏi hệ thống không?")) {
                 new GUI_Login().setVisible(true);
                 CurrentSession.getInstance().setNhanVienHienHanh(null);
+                
                 this.dispose();
             }
             return;

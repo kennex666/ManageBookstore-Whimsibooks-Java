@@ -16,7 +16,8 @@ public class CurrentSession {
     private static NhanVien nhanVien;
     public static enum EnumQuyenHan{
         NHAN_VIEN_QUAN_LY,
-        NHAN_VIEN_BAN_HANG
+        NHAN_VIEN_BAN_HANG,
+        NHAN_VIEN_CU
     }
 
     public void setNhanVienHienHanh(NhanVien x){
@@ -34,7 +35,9 @@ public class CurrentSession {
     public static EnumQuyenHan checkQuyenTruyCap(){
         if (nhanVien.getChucVu().equalsIgnoreCase("NGUOI_QUAN_LY"))
             return EnumQuyenHan.NHAN_VIEN_QUAN_LY;
-        return EnumQuyenHan.NHAN_VIEN_BAN_HANG;
+        if (nhanVien.getChucVu().equalsIgnoreCase("NHAN_VIEN_BAN_HANG"))
+            return EnumQuyenHan.NHAN_VIEN_BAN_HANG;
+        return EnumQuyenHan.NHAN_VIEN_CU;
     }
     
     public static String getTenNhanVienDangNhap(){

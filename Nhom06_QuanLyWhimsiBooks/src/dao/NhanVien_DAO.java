@@ -113,7 +113,7 @@ public class NhanVien_DAO implements INhanVien {
 		// TODO Auto-generated method stub
 		int soLuong = 0;
 		try {
-			String query = "SELECT Count(*) AS soLuong FROM NhanVien ";
+			String query = "SELECT Count(*) AS soLuong FROM NhanVien";
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(query);
 			if (rs.next()) {
@@ -266,7 +266,7 @@ public class NhanVien_DAO implements INhanVien {
 			ResultSet rs = ps.executeQuery();
 			rs.next();
 			int count = rs.getInt(1);
-			return count;
+			return count + 1;
 	//public int phatSinhMaNhanVien() {
 		//try {
 			// Tìm mã nhân viên cuối cùng trong cơ sở dữ liệu
@@ -295,7 +295,7 @@ public class NhanVien_DAO implements INhanVien {
 	    try {
 	        
 	        PreparedStatement pstmt = conn.prepareStatement(query);
-	        pstmt.setString(1, "Nhân viên Cũ");
+	        pstmt.setString(1, "NHAN_VIEN_CU");
 	        pstmt.setString(2, maNhanVien);
 
 	        int rowsAffected = pstmt.executeUpdate();

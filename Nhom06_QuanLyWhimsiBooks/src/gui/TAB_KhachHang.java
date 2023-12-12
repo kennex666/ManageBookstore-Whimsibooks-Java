@@ -316,7 +316,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel15.setText("Giới tính");
 
-        cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "","Nam", "Nữ" }));
+        cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
         cboGioiTinh1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboGioiTinh1ActionPerformed(evt);
@@ -325,7 +325,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel16.setText("Loại khách hàng");
 
-        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {"", "CA NHAN", "CONG TY","DAC BIET" }));
+        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CA NHAN", "CONG TY" }));
         cboLoaiKH1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLoaiKH1ActionPerformed(evt);
@@ -420,9 +420,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
-            public boolean isCellEditable(int row, int column) {
-		        return false; // Make all cells non-editable
-		    }
         });
         tblKhachHang.setSelectionBackground(new java.awt.Color(51, 153, 255));
         jScrollPane1.setViewportView(tblKhachHang);
@@ -467,7 +464,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
         btnDangXuatKH.setBackground(new java.awt.Color(255, 102, 102));
         btnDangXuatKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnDangXuatKH.setForeground(new java.awt.Color(255, 255, 255));
-        btnDangXuatKH.setText("Khách hàng đặc biệt");
+        btnDangXuatKH.setText("Quay về");
         btnDangXuatKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDangXuatKHActionPerformed(evt);
@@ -516,8 +513,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
                                     .addComponent(btnSuaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnImportKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnExportKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDangXuatKH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, 0))
+                                    .addComponent(btnDangXuatKH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnThemLayout.createSequentialGroup()
                                 .addComponent(Left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
@@ -552,6 +548,10 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         add(btnThem, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtMaActionPerformed
 
 	private void customizeTable() {
 		// Lấy đối tượng JTableHeader của bảng tblNhanVien
@@ -647,10 +647,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		}
 	}
 
-	private String phatSinhMaSoThue(String loaiKhachHang) {
-		KhachHang_BUS khachHangBus = new KhachHang_BUS();
-		return khachHangBus.phatSinhMaSoThue(loaiKhachHang);
-	}
+
 
 	private void showTuBangLenFormKhachHang() {
 		tblKhachHang.addMouseListener(new MouseAdapter() {
@@ -717,16 +714,16 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		}
 		// Kiểm tra ngày sinh
 		if (dtmNgaySinh.getDate() == null) {
-			errorMessage += "Ngày sinh không được trống.\n";
-			JOptionPane.showMessageDialog(this, errorMessage);
-			return false;
+//			errorMessage += "Ngày sinh không được trống.\n";
+//			JOptionPane.showMessageDialog(this, errorMessage);
+			dtmNgaySinh.setDate(new Date());
 		}
 
 		// Kiểm tra địa chỉ
 		if (txtDiaChi.getText().isBlank()) {
-			errorMessage += "Địa chỉ không được trống.\n";
-			JOptionPane.showMessageDialog(this, errorMessage);
-			return false;
+//			errorMessage += "Địa chỉ không được trống.\n";
+//			JOptionPane.showMessageDialog(this, errorMessage);
+			//txtDiaChi.setText("");
 		}
 
 		// Kiểm tra loại khách hàng
@@ -1139,10 +1136,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	private void txtSDTActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtSDTActionPerformed
 		// TODO add your handling code here:
 	}// GEN-LAST:event_txtSDTActionPerformed
-
-	private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtMaActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_txtMaActionPerformed
 
 	private void cboGioiTinh1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_cboGioiTinh1ActionPerformed
 		// TODO add your handling code here:

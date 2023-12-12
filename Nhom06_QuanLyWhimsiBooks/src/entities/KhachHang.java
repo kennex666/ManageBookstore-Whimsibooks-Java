@@ -103,8 +103,6 @@ public class KhachHang {
 	}
 
 	public void setDiaChi(String diaChi) throws Exception {
-		if (diaChi.trim() == "" || diaChi.isBlank() || diaChi.isEmpty())
-			throw new Exception("Địa chỉ là một trường bắt buộc!");
 		this.diaChi = diaChi;
 	}
 

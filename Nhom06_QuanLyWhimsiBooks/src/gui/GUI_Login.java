@@ -39,6 +39,7 @@ import java.awt.event.ActionEvent;
 import java.util.Properties;
 import javax.swing.SwingConstants;
 import utilities.CurrentSession;
+import utilities.CurrentSession.EnumQuyenHan;
 import utilities.EmailUtils;
 import utilities.EnviromentConfigs;
 import utilities.ErrorMessage;
@@ -180,6 +181,10 @@ public class GUI_Login extends JFrame implements ActionListener {
 			}
 
 			CurrentSession.getInstance().setNhanVienHienHanh(nhanVien);
+			if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_CU) {
+	        	JOptionPane.showMessageDialog(null, "Tài khoản bị vô hiệu: Nhân viên đã nghỉ làm!");
+	        	return;
+			}
 			GUI_MainMenu gui = new GUI_MainMenu();
 			gui.guiDisable();
 			gui.setVisible(true);

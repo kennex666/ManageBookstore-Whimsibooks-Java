@@ -55,6 +55,7 @@ import bus.NhanVien_BUS;
 
 import entities.NhanVien;
 import utilities.ImageProcessing;
+import utilities.ProcessingEnumDBForQuy;
 import utilities.RegexPattern;
 
 import java.awt.event.ActionEvent;
@@ -812,7 +813,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 	public String phatSinhMaNhanVien() {
 		try {
 			int maxId = nhanvienBus.phatSinhMaNhanVien();
-			String maNV = "NV" + String.format("%04d", maxId);
+			String maNV = String.format("NV%04d", maxId);
 			return maNV;
 		} catch (Exception e) {
 			// Nếu có lỗi, trả về mã mặc định
@@ -847,7 +848,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 				newNhanVien.setHoTen(tenNV);
 				newNhanVien.setGioiTinh(gioiTinh);
 				newNhanVien.setSoDienThoai(sdt);
-				newNhanVien.setChucVu(chucVu);
+				newNhanVien.setChucVu(ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu));
 				newNhanVien.setEmail(email);
 				newNhanVien.setNgaySinh(LocalDate.parse(ngaySinh));
 				newNhanVien.setDiaChi(diaChi);
@@ -898,14 +899,14 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
 			NhanVien existingNhanVien = nhanvienBus.getNhanVienByNhanVienID(maNhanVien);
 			String oldPassword = existingNhanVien.getPassword();
-			if (password.isEmpty()) {
+			if (password.isBlank()) {
 				// Nếu mật khẩu trống, giữ nguyên giá trị mặc định trong CSDL
 
 				password = oldPassword;
 			}
 
 			NhanVien nhanVien = new NhanVien(maNhanVien, userName, password, LocalDate.now(), hoTen, gioiTinh,
-					soDienThoai, chucVu, email, ngaySinh, diaChi);
+					soDienThoai, ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu), email, ngaySinh, diaChi);
 
 			boolean result = nhanvienBus.editNhanVien(nhanVien);
 			// Hiển thị thông báo kết quả
@@ -941,7 +942,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 			nhanVienXoa.setNhanVienID(maNhanVien);
 
 			// Gọi hàm xóa từ lớp DAO
-			boolean result = nhanvienBus.deleteNhanVien(nhanVienXoa);
+			boolean result = false; //nhanvienBus.deleteNhanVien(nhanVienXoa);
 
 			// Hiển thị thông báo kết quả
 			if (result) {
@@ -1046,7 +1047,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
 				LocalDate ngaySinhDate = LocalDate.parse(ngaySinh, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 				NhanVien nhanVien = new NhanVien(phatSinhMaNhanVien(), taiKhoan, "123456", ngayht, tenNV, gioiTinh,
-						sdtNV, chucVu, email, ngaySinhDate, diaChi);
+						sdtNV, ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu), email, ngaySinhDate, diaChi);
 				employeeList.add(nhanVien);
 			}
 		} catch (Exception e) {
@@ -1136,7 +1137,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 					cell.setCellValue(list.get(i).getUserName());
 
 					cell = row.createCell(6, CellType.STRING);
-					cell.setCellValue(list.get(i).getChucVu());
+					cell.setCellValue(ProcessingEnumDBForQuy.convertEnumToNhanVienRoles(list.get(i).getChucVu()));
 
 					cell = row.createCell(7, CellType.STRING);
 					cell.setCellValue(list.get(i).getEmail());
@@ -1188,7 +1189,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 			if (confirm == JOptionPane.YES_OPTION) {
 				if (nhanVienBus.chuyenChucVuNhanVienCu(maNhanVien)) {
 					JOptionPane.showMessageDialog(this,
-							"Đã chuyển chức vụ của nhân viên " + tenNhanVien + " thành Nhân viên cũ.");
+							"Nhân viên " + tenNhanVien + " đã được cho nghỉ!");
 					loadNhanVienTable();
 				} else {
 					JOptionPane.showMessageDialog(this, "Không thể chuyển chức vụ cho nhân viên " + tenNhanVien);

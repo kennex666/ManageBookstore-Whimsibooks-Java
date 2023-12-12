@@ -250,10 +250,10 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 	public int phatSinhMaKhachHang() {
 	    try {
-	        PreparedStatement ps = conn.prepareStatement("SELECT MAX(CAST(SUBSTRING(KhachHangID, 3, LEN(KhachHangID)) AS INT)) FROM KhachHang");
+	        PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhachHang");
 	        ResultSet rs = ps.executeQuery();
 	        rs.next();
-	        return rs.getInt(1);
+	        return rs.getInt(1) + 1;
 	    } catch (Exception e) {
 	        System.out.println("Lỗi phát sinh mã bên DAO");
 	        return 0;
