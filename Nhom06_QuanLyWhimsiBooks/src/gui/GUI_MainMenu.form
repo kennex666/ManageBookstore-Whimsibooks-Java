@@ -88,7 +88,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Component id="lblLogo" min="-2" pref="159" max="-2" attributes="0"/>
-                  <EmptySpace pref="654" max="32767" attributes="0"/>
+                  <EmptySpace pref="683" max="32767" attributes="0"/>
                   <Component id="cboUser" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
@@ -127,12 +127,16 @@
             </Property>
             <Property name="maximumRowCount" type="int" value="2"/>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="2">
-                <StringItem index="0" value="Ch&#xe0;o, D&#x1b0;&#x1a1;ng Th&#xe1;i B&#x1ea3;o"/>
-                <StringItem index="1" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
+              <StringArray count="3">
+                <StringItem index="0" value="Ch&#xe0;o ${username}"/>
+                <StringItem index="1" value="&#x110;&#x1ed5;i m&#x1ead;t kh&#x1ea9;u"/>
+                <StringItem index="2" value="&#x110;&#x103;ng xu&#x1ea5;t"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cboUserActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

@@ -32,11 +32,12 @@ import utilities.WindowTitle;
  * @author duong
  */
 public class GUI_MainMenu extends javax.swing.JFrame {
+
     private int sizeIconBar = 30;
-    
+
     /*
         Phần khai báo các biến
-    */
+     */
     private TAB_BanHang tabBanHang;
     private TAB_SanPham tabSanPham;
     private TAB_NhanVien tabNhanVien;
@@ -46,9 +47,9 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     private TAB_ThongKe tabThongKe;
     private Enum_TabMainMenu currentSelectedTab;
     private JButton isFocusTab;
-    
+
     public GUI_MainMenu() {
-        
+
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         utilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));
@@ -56,14 +57,13 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         cboUser.enableInputMethods(false);
         cboUser.setPopupVisible(false);
         jPannelSplit.setBorder(null);
-        
+
         // Khởi tạo line chia cắt menu màu xanh.
         //Border pannelBorder =  BorderFactory.createMatteBorder(0, 0, 0, 1, ColorProcessing.rgbColor(15, 102, 165));
         //pannelLeft.setBorder(pannelBorder);
-        
         // Khởi instance title
         WindowTitle.getInstance().setJf(this);
-        cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào, " + CurrentSession.getTenNhanVienDangNhap(), "Đăng xuất" }));
+        cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Chào, " + CurrentSession.getTenNhanVienDangNhap(), "Đổi mật khẩu"}));
 
         // Khởi tạo các tab
         tabBanHang = new TAB_BanHang();
@@ -79,21 +79,21 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
     /*
         Default test start
-    */
+     */
     public void guiDisable() {
-    	if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
-    		btnTabNhanVien.setVisible(false);
-    		btnTabNhaCungCap.setVisible(false);
-    		btnTabKhachHang.setVisible(false);
-    	}else {
-    		
-    	}
+        if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
+            btnTabNhanVien.setVisible(false);
+            btnTabNhaCungCap.setVisible(false);
+            btnTabKhachHang.setVisible(false);
+        } else {
+
+        }
     }
-    
-    public void activateGUITest(){
+
+    public void activateGUITest() {
         tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,7 +166,12 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
         cboUser.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cboUser.setMaximumRowCount(2);
-        cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào, Dương Thái Bảo", "Đăng xuất" }));
+        cboUser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Chào ${username}", "Đổi mật khẩu", "Đăng xuất" }));
+        cboUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -175,7 +180,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 654, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 683, Short.MAX_VALUE)
                 .addComponent(cboUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -427,78 +432,113 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
     private void btnTabActionPerformed(ActionEvent evt) {//GEN-FIRST:event_btnTabActionPerformed
         // TODO add your handling code here:
-    	// Tab bán hàng
-       if (evt.getSource().equals(btnTabBanHang)){
-    	   tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
-    	   return;
-       } 
-       
-       // Tab sản phẩm 
-       if (evt.getSource().equals(btnTabSanPham)){
-    	   tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
-    	   return;
-       }
-       if (evt.getSource().equals(btnTabNhanVien)){
-    	   tabSwitcher(tabNhanVien, Enum_TabMainMenu.NHAN_VIEN, btnTabNhanVien);
-    	   return;
-       }
-       if (evt.getSource().equals(btnTabKhachHang)){
-    	   tabSwitcher(tabKhachHang, Enum_TabMainMenu.KHACH_HANG, btnTabKhachHang);
-    	   return;
-       }
-       // Tab nhà cung cấp
-       if (evt.getSource().equals(btnTabNhaCungCap)){
-    	   tabSwitcher(tabNhaCungCap, Enum_TabMainMenu.NHA_CUNG_CAP, btnTabNhaCungCap);
-    	   return;
-       }
-       // Tab khuyến mãi
-       if (evt.getSource().equals(btnTabKhuyenMai)){
-    	   tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
-    	   return;
-       }
-       
-       
-       // Tab khuyến mãi
-       if (evt.getSource().equals(btnTabThongKe)){
-    	   tabSwitcher(tabThongKe, Enum_TabMainMenu.THONG_KE, btnTabThongKe);
-    	   return;
-       }
-       
-       if (evt.getSource().equals(btnTabDangXuat)) {
-    	   if (ErrorMessage.showConfirmDialogYesNo("Thông báo", "Bạn có muốn đăng xuất khỏi hệ thống không?"))
-    	   {
-    		   new GUI_Login().setVisible(true);
-        	   CurrentSession.getInstance().setNhanVienHienHanh(null);
-    		   this.dispose();
-    	   }
-    	   return;
-       }
+        // Tab bán hàng
+        if (evt.getSource().equals(btnTabBanHang)) {
+            tabSwitcher(tabBanHang, Enum_TabMainMenu.BAN_HANG, btnTabBanHang);
+            WindowTitle.setTitle("Quản lý bán hàng");
+
+            return;
+        }
+
+        // Tab sản phẩm 
+        if (evt.getSource().equals(btnTabSanPham)) {
+            tabSwitcher(tabSanPham, Enum_TabMainMenu.SAN_PHAM, btnTabSanPham);
+            WindowTitle.setTitle("Quản lý sản phẩm");
+
+            return;
+        }
+        if (evt.getSource().equals(btnTabNhanVien)) {
+            tabSwitcher(tabNhanVien, Enum_TabMainMenu.NHAN_VIEN, btnTabNhanVien);
+            WindowTitle.setTitle("Quản lý nhân viên");
+
+            return;
+        }
+        if (evt.getSource().equals(btnTabKhachHang)) {
+            tabSwitcher(tabKhachHang, Enum_TabMainMenu.KHACH_HANG, btnTabKhachHang);
+            WindowTitle.setTitle("Quản lý khách hàng");
+
+            return;
+        }
+        // Tab nhà cung cấp
+        if (evt.getSource().equals(btnTabNhaCungCap)) {
+            tabSwitcher(tabNhaCungCap, Enum_TabMainMenu.NHA_CUNG_CAP, btnTabNhaCungCap);
+            WindowTitle.setTitle("Quản lý nhà cung cấp");
+
+            return;
+        }
+        // Tab khuyến mãi
+        if (evt.getSource().equals(btnTabKhuyenMai)) {
+            tabSwitcher(tabKhuyenMai, Enum_TabMainMenu.KHUYEN_MAI, btnTabKhuyenMai);
+            WindowTitle.setTitle("Quản lý khuyến mãi");
+
+            return;
+        }
+
+        // Tab khuyến mãi
+        if (evt.getSource().equals(btnTabThongKe)) {
+            tabSwitcher(tabThongKe, Enum_TabMainMenu.THONG_KE, btnTabThongKe);
+            WindowTitle.setTitle("Thống kê");
+
+            return;
+        }
+
+        if (evt.getSource().equals(btnTabDangXuat)) {
+            if (ErrorMessage.showConfirmDialogYesNo("Thông báo", "Bạn có muốn đăng xuất khỏi hệ thống không?")) {
+                new GUI_Login().setVisible(true);
+                CurrentSession.getInstance().setNhanVienHienHanh(null);
+                this.dispose();
+            }
+            return;
+        }
     }//GEN-LAST:event_btnTabActionPerformed
 
+    private void cboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboUserActionPerformed
+        // TODO add your handling code here:
+        int pos = cboUser.getSelectedIndex();
+        cboUser.setSelectedIndex(0);
+        if (pos == -1) {
+            return;
+        }
+
+        if (pos == 0) {
+            return;
+        }
+
+        if (pos == 1) {
+            new Form_DoiMatKhau().setVisible(true);
+            return;
+        }
+
+        if (pos == 2) {
+            btnTabDangXuat.doClick();
+            return;
+        }
+    }//GEN-LAST:event_cboUserActionPerformed
+
     public void tabSwitcher(JPanel panelChuyen, Enum_TabMainMenu tabMoi, JButton btnTab) {
-    	Component oldCom;
-		if (currentSelectedTab == tabMoi)
-			return;
-		
-		
-		if (panelRight.getComponentCount() > 0) {
-			isFocusTab.setBackground(Color.white);
-	        btnTabSanPham.setForeground(new java.awt.Color(15, 102, 165));
-			isFocusTab.setForeground(new java.awt.Color(15, 102, 165));
-			oldCom = panelRight.getComponent(0);
-			oldCom.setVisible(false);
-			panelRight.remove(oldCom);
-		}
-		
-		isFocusTab = btnTab;
-		isFocusTab.setBackground(new java.awt.Color(15, 145, 239));
-		isFocusTab.setForeground(new java.awt.Color(255, 255, 255));
-		currentSelectedTab = tabMoi;
-		panelChuyen.setVisible(true);
-		panelRight.add(panelChuyen);
-		panelRight.revalidate();
-	}
-	
+        Component oldCom;
+        if (currentSelectedTab == tabMoi) {
+            return;
+        }
+
+        if (panelRight.getComponentCount() > 0) {
+            isFocusTab.setBackground(Color.white);
+            btnTabSanPham.setForeground(new java.awt.Color(15, 102, 165));
+            isFocusTab.setForeground(new java.awt.Color(15, 102, 165));
+            oldCom = panelRight.getComponent(0);
+            oldCom.setVisible(false);
+            panelRight.remove(oldCom);
+        }
+
+        isFocusTab = btnTab;
+        isFocusTab.setBackground(new java.awt.Color(15, 145, 239));
+        isFocusTab.setForeground(new java.awt.Color(255, 255, 255));
+        currentSelectedTab = tabMoi;
+        panelChuyen.setVisible(true);
+        panelRight.add(panelChuyen);
+        panelRight.revalidate();
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTabBanHang;

@@ -108,7 +108,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         ((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
         ((utilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
 
-        WindowTitle.setTitle("Quản lý bán hàng");
 
         tblModelCTHD.addTableModelListener(new TableModelListener() {
             @Override

@@ -245,7 +245,8 @@ public class GUI_Login extends JFrame implements ActionListener {
 						"[Whimsibooks] Đặt lại mật khẩu",
 						"Chào " + txtUsername.getText() + ", "
 								+ "\n\nBạn vừa yêu cầu đặt lại mật khẩu từ hệ thống Whimsibooks - Quản lý nhà sách.\n\nTUYỆT ĐỐI KHÔNG CUNG CẤP MẬT KHẨU VỚI BẤT KỲ AI\nMật khẩu mới của bạn là: "
-								+ tempPassword + "\n\nWhimsibooks trân trọng cảm ơn!");
+								+ tempPassword + 
+								"\n\nĐể đổi mật khẩu, bạn hãy đăng nhập lại hệ thống. Ở góc bên trái trên cùng có nút \"Chào, <Tên bạn>\", hãy ấn vào và chọn đổi mật khẩu!\n\nWhimsibooks trân trọng cảm ơn!");
 				ErrorMessage.showMessageWithFocusTextField("Đã gửi mật khẩu mới", "Đã gửi mật khẩu mới về email " + emailUser.substring(0, 3) + "********! Hãy kiểm tra email và đăng nhập.", pwdUserType);
 			} catch (Exception mex) {
 				mex.printStackTrace();
