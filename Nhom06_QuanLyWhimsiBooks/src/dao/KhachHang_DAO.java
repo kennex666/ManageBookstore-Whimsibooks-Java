@@ -4,11 +4,17 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import org.apache.poi.ss.formula.functions.Count;
 
 import connectDB.ConnectDB;
 import entities.KhachHang;
 import entities.NhanVien;
+import gui.TAB_KhachHang;
 import interfaces.IKhachHang;
 import java.sql.ResultSet;
 import java.time.LocalDate;
@@ -21,17 +27,29 @@ public class KhachHang_DAO implements IKhachHang {
 	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) {
 		  ArrayList<KhachHang> listKhachHang = new ArrayList<>();
-		  QueryBuilder qb = new QueryBuilder("SELECT * FROM KhachHang ?");
-		    try {
+		  String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
+		    
+		  List<String> parameters = new ArrayList<>();
+		  parameters.add(maKhachHang.isBlank()? "%":"%"+maKhachHang+"%");
+		  parameters.add(tenKhachHang.isBlank()? "%":"%"+tenKhachHang+"%");
+		  parameters.add(soDienThoai.isBlank()? "%":"%"+soDienThoai+"%");
+		  if(!gioiTinh.isBlank()) {
+			  query +=" AND GioiTinh = ?";
+			  parameters.add(gioiTinh);
+		  }
+		  if(!loaiKhachHang.isBlank()) {
+			  query +=" AND LoaiKhachHang = ?";
+			  parameters.add(loaiKhachHang);
+		  }
+		  try {
 
-				qb.addParameter(Enum_DataType.STRING, "KhachHangID", "%?%", maKhachHang.isBlank() ? null : maKhachHang);
-				qb.addParameter(Enum_DataType.STRING, "hoTen", "%?%", tenKhachHang.isBlank() ? null : tenKhachHang);
-				qb.addParameter(Enum_DataType.STRING, "SoDienThoai", "%?%", soDienThoai.isBlank() ? null : soDienThoai);
-				qb.addParameter(Enum_DataType.STRING, "GioiTinh", "=",null );
-				qb.addParameter(Enum_DataType.STRING, "LoaiKhachHang", "=", null);
-
-				PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "AND");
-
+		    	 PreparedStatement pstmt = conn.prepareStatement(query);
+			  
+			       for(int i=0; i<parameters.size();i++) {
+			    	   pstmt.setString(i+1, parameters.get(i));
+			    	 
+			       }
+			       
 		        ResultSet rs = pstmt.executeQuery();
 		        while (rs.next()) {
 		            // Tạo đối tượng KhachHang từ kết quả tìm kiếm
@@ -45,7 +63,7 @@ public class KhachHang_DAO implements IKhachHang {
 		            listKhachHang.add(khachHang);
 		        }
 		    } catch (Exception e) {
-		        e.printStackTrace();
+		       e.printStackTrace();
 		    }
 
 		    return listKhachHang;
@@ -94,12 +112,13 @@ public class KhachHang_DAO implements IKhachHang {
 
 	@Override
 	public boolean addKhachHang(KhachHang kh) {
-
+		TAB_KhachHang maKHTD = new TAB_KhachHang();
+		String maKH = maKHTD.phatSinhMaKhachHang1();
 		boolean result = false;
 		String query = "INSERT INTO KhachHang(KhachHangID,HoTen,SoDienThoai,NgaySinh,GioiTinh,Email,MaSoThue,DiaChi,LoaiKhachHang) VALUES(?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
-			pretm.setString(1, kh.getKhachHangID());
+			pretm.setString(1, maKH);
 			pretm.setString(2, kh.getHoTen());
 			pretm.setString(3, kh.getSoDienThoai());
 			pretm.setDate(4, Date.valueOf(kh.getNgaySinh()));
@@ -111,7 +130,7 @@ public class KhachHang_DAO implements IKhachHang {
 
 			return (pretm.executeUpdate() > 0) ? true : false;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Thêm thất bại");
 		}
 		return result;
 	}
@@ -229,18 +248,16 @@ public class KhachHang_DAO implements IKhachHang {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public String phatSinhMaKhachHang() {
-		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhachHang");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			int count =rs.getInt(1);
-			return "KH"+String.format("%04d", count+1);
-		} catch (Exception e) {
-			System.out.println("Lỗi phát sinh mã bên DAO");
-			return "KH"+"0001";
-		}
-		
+	public int phatSinhMaKhachHang() {
+	    try {
+	        PreparedStatement ps = conn.prepareStatement("SELECT MAX(CAST(SUBSTRING(KhachHangID, 3, LEN(KhachHangID)) AS INT)) FROM KhachHang");
+	        ResultSet rs = ps.executeQuery();
+	        rs.next();
+	        return rs.getInt(1);
+	    } catch (Exception e) {
+	        System.out.println("Lỗi phát sinh mã bên DAO");
+	        return 0;
+	    }
 	}
 	public String phatSinhMaSoThue(String loaiKhachHang) {
 	    try {
@@ -260,8 +277,47 @@ public class KhachHang_DAO implements IKhachHang {
 	        return null; 
 	    }
 	}
-	
-	
+	public boolean checkIfKhachHangExists(String maKH) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        try {
+
+
+            String query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
+            preparedStatement = conn.prepareStatement(query);
+            preparedStatement.setString(1, maKH);
+            resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                System.out.println(resultSet.getInt(1));
+                return count > 0;
+                
+            }
+           
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } 
+        return false;
+  }
+
+	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
+	    String query = "UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?";
+	    try {
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, loaiKhachHangMoi);
+	        pstmt.setString(2, maKhachHang);
+
+	        int rowsAffected = pstmt.executeUpdate();
+	        return rowsAffected > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 	public KhachHang_DAO() {
 		this.conn=ConnectDB.getConnection();
 	}

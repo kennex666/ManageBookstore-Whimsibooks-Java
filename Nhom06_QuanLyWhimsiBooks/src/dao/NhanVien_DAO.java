@@ -9,29 +9,47 @@ import java.util.ArrayList;
 
 import connectDB.ConnectDB;
 import entities.NhanVien;
+import gui.TAB_NhanVien;
 import interfaces.INhanVien;
 import java.time.LocalDate;
 import java.util.List;
 import utilities.QueryBuilder;
 import utilities.QueryBuilder.Enum_DataType;
-public class NhanVien_DAO implements INhanVien {
-	private Connection conn ;
-	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh, String chucVu) {
-		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
-	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ? ";
-	    try {
-			QueryBuilder qb = new QueryBuilder("SELECT * FROM NhanVien ?");
-			qb.addParameter(Enum_DataType.STRING, "NhanVienID", "%?%", maNhanVien.isBlank() ? null : maNhanVien);
-			qb.addParameter(Enum_DataType.STRING, "HoTen", "%?%", tenNhanVien.isBlank() ? null : tenNhanVien);
-			qb.addParameter(Enum_DataType.STRING, "SoDienThoai", "%?%", soDienThoai.isBlank() ? null : soDienThoai);
 
-			PreparedStatement pstmt = qb.setParamsForPrepairedStament(conn, "AND");
-//	    	PreparedStatement pstmt = conn.prepareStatement(query);
-//	        pstmt.setString(1, "%" + maNhanVien + "%");
-//	        pstmt.setString(2, "%" + tenNhanVien + "%");
-//	        pstmt.setString(3, "%" + soDienThoai + "%");
-//	        pstmt.setString(4, gioiTinh);
-//	        pstmt.setString(5, chucVu);
+public class NhanVien_DAO implements INhanVien {
+	private Connection conn;
+
+	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
+			String gioiTinh, String chucVu) {
+		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
+	    
+	    // Tạo một danh sách tham số để lưu giữ các tham số có thể trống
+	    List<String> parameters = new ArrayList<>();
+	    
+	    // Thêm các giá trị vào danh sách tham số
+	    parameters.add(maNhanVien.isBlank() ? "%" : "%" + maNhanVien + "%");
+	    parameters.add(tenNhanVien.isBlank() ? "%" : "%" + tenNhanVien + "%");
+	    parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
+
+	    // Xây dựng phần câu truy vấn dựa trên giới tính và chức vụ
+	    if (!gioiTinh.isBlank()) {
+	        query += " AND GioiTinh = ?";
+	        parameters.add(gioiTinh);
+	    }
+
+	    if (!chucVu.isBlank()) {
+	        query += " AND ChucVu = ?";
+	        parameters.add(chucVu);
+	    }
+
+	    try {
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+
+	        // Thiết lập các giá trị tham số
+	        for (int i = 0; i < parameters.size(); i++) {
+	            pstmt.setString(i + 1, parameters.get(i));
+	        }
 
 	        ResultSet rs = pstmt.executeQuery();
 	        while (rs.next()) {
@@ -83,7 +101,7 @@ public class NhanVien_DAO implements INhanVien {
 				listNhanVien.add(nhanVien);
 			}
 		} catch (Exception e) {
-                    return listNhanVien;
+			return listNhanVien;
 		}
 
 		return listNhanVien;
@@ -110,15 +128,20 @@ public class NhanVien_DAO implements INhanVien {
 	@Override
 	public boolean addNhanVien(NhanVien x) {
 		boolean result = false;
+		TAB_NhanVien maNVTD  = new TAB_NhanVien();
+		String maNV = maNVTD.phatSinhMaNhanVien();
+		String gioiTinh = x.getGioiTinh().toLowerCase(); // Chuyển đổi giới tính thành chữ thường
+	    String gioiTinhFormatted = gioiTinh.substring(0, 1).toUpperCase() + gioiTinh.substring(1); // In hoa ký tự đầu tiên
+		
 		String query = "INSERT INTO NhanVien(NhanVienID,UserName,Password,NgayTaoTK,HoTen,GioiTinh,SoDienThoai,ChucVu,Email,NgaySinh,DiaChi) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pretm = conn.prepareStatement(query);
-			pretm.setString(1, x.getNhanVienID());
+			pretm.setString(1,maNV);
 			pretm.setString(2, x.getUserName());
 			pretm.setString(3, x.getPassword());
 			pretm.setDate(4, Date.valueOf(x.getNgayTaoTK()));
 			pretm.setString(5, x.getHoTen());
-			pretm.setString(6, x.getGioiTinh());
+			pretm.setString(6, gioiTinhFormatted);
 			pretm.setString(7, x.getSoDienThoai());
 			pretm.setString(8, x.getChucVu());
 			pretm.setString(9, x.getEmail());
@@ -147,11 +170,11 @@ public class NhanVien_DAO implements INhanVien {
 			pretm.setString(6, x.getGioiTinh());
 			pretm.setString(7, x.getSoDienThoai());
 			pretm.setString(8, x.getChucVu());
-			pretm.setString(9, x.getEmail	());
+			pretm.setString(9, x.getEmail());
 			pretm.setDate(10, Date.valueOf(x.getNgaySinh()));
 			pretm.setString(11, x.getDiaChi());
-			 // Đặt giá trị cho tham số trong điều kiện WHERE (nhanVienID)
-		    pretm.setString(12, x.getNhanVienID());
+			// Đặt giá trị cho tham số trong điều kiện WHERE (nhanVienID)
+			pretm.setString(12, x.getNhanVienID());
 			return (pretm.executeUpdate() > 0) ? true : false;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -185,29 +208,38 @@ public class NhanVien_DAO implements INhanVien {
 
 	@Override
 	public NhanVien getNhanVienByNhanVienID(String x) {
-		NhanVien nhanVien = null;
-		String query = "SELECT * FROM NhanVien WHERE nhanVienID = ?";
+	    NhanVien nhanVien = null;
+	    String query = "SELECT * FROM NhanVien WHERE nhanVienID = ?";
 
-		try  {
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, x);
-			ResultSet rs = pstmt.executeQuery();
+	    try {
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, x);
+	        ResultSet rs = pstmt.executeQuery();
 
-			if (rs.next()) {
-				nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"), rs.getString("password"),
-						rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"), rs.getString("gioiTinh"),
-						rs.getString("soDienThoai"), rs.getString("chucVu"), rs.getString("email"),
-						rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi")
+	        if (rs.next()) {
+	            // Chuyển đổi giới tính thành chữ in hoa để đảm bảo là "Nam" hoặc "Nữ"
+	            String gioiTinh = rs.getString("gioiTinh").toUpperCase();
+	            
+	            nhanVien = new NhanVien(
+	                rs.getString("nhanVienID"),
+	                rs.getString("userName"),
+	                rs.getString("password"),
+	                rs.getDate("ngayTaoTK").toLocalDate(),
+	                rs.getString("hoTen"),
+	                gioiTinh, // Giữ nguyên giá trị giới tính đã được chuyển đổi
+	                rs.getString("soDienThoai"),
+	                rs.getString("chucVu"),
+	                rs.getString("email"),
+	                rs.getDate("ngaySinh").toLocalDate(),
+	                rs.getString("diaChi")
+	            );
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 
-				);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return nhanVien;
+	    return nhanVien;
 	}
-
 	@Override
 	public boolean isMaNhanVienExists(String x) {
 		String query = "SELECT COUNT(*) FROM NhanVien WHERE nhanVienID = ?";
@@ -226,21 +258,21 @@ public class NhanVien_DAO implements INhanVien {
 		return false; // Trả về false nếu có lỗi hoặc mã nhân viên không tồn tại
 	}
 
-	
-	
-	@Override
 	public int phatSinhMaNhanVien() {
 		try {
-			PreparedStatement ps =conn.prepareStatement("SELECT COUNT(*) FROM NhanVien");
+			// Tìm mã nhân viên cuối cùng trong cơ sở dữ liệu
+			String query = "SELECT MAX(CAST(SUBSTRING(NhanVienID, 3, LEN(NhanVienID)) AS INT)) FROM NhanVien";
+			PreparedStatement ps = conn.prepareStatement(query);
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			int count= rs.getInt(1);
-			return count;
+			int lastId = rs.getInt(1);
+
+			// Phát sinh mã nhân viên mới
+			return lastId + 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return -1;
+			return 1; // Trả về 1 nếu có lỗi
 		}
-		
 	}
 
 	@Override
@@ -248,36 +280,46 @@ public class NhanVien_DAO implements INhanVien {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	public  boolean chuyenChucVuNhanVienCu(String maNhanVien) {
+		String query = "UPDATE NhanVien SET ChucVu = ? WHERE NhanVienID = ?";
+	    try {
+	        
+	        PreparedStatement pstmt = conn.prepareStatement(query);
+	        pstmt.setString(1, "Nhân viên Cũ");
+	        pstmt.setString(2, maNhanVien);
 
+	        int rowsAffected = pstmt.executeUpdate();
+	        return rowsAffected > 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 	public NhanVien_DAO() {
 		this.conn = ConnectDB.getConnection();
 	}
 
-    @Override
-    public NhanVien dangNhapNhanVien(String user, String password) {
-        
+	@Override
+	public NhanVien dangNhapNhanVien(String user, String password) {
 
-        NhanVien nhanVien = null;
-        try {
-        	PreparedStatement pstm = conn.prepareStatement("SELECT * FROM NhanVien WHERE UserName = ? AND Password = ?");
-            pstm.setString(1, user);
-            pstm.setString(2, password);
-            ResultSet rs = pstm.executeQuery();
-            if (rs.next()){
-                        nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"), rs.getString("password"),
+		NhanVien nhanVien = null;
+		try {
+			PreparedStatement pstm = conn
+					.prepareStatement("SELECT * FROM NhanVien WHERE UserName = ? AND Password = ?");
+			pstm.setString(1, user);
+			pstm.setString(2, password);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"), rs.getString("password"),
 						rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"), rs.getString("gioiTinh"),
 						rs.getString("soDienThoai"), rs.getString("chucVu"), rs.getString("email"),
-						rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi")
-		);            
-            }
-            return nhanVien;
-        } catch (Exception e) {
-             return null;
-        }
-        
-        
-    }
-	
-	
-	
+						rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
+			}
+			return nhanVien;
+		} catch (Exception e) {
+			return null;
+		}
+
+	}
+
 }
