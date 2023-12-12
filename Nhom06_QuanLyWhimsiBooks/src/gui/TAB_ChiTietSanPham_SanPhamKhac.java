@@ -30,7 +30,6 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
     public TAB_ChiTietSanPham_SanPhamKhac(SanPham x) {
         this.x = x;
         initComponents();
-        ConnectDB.getInstance().connect();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         
    
@@ -39,6 +38,10 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
         this.jLabel_TenSanPham.setText(x.getTenSanPham());
         this.jLabel_ThuongHieu.setText(sanPham_BUS.getNameThuongHieuByID(x.getThuongHieu().getThuongHieuID()));
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
+        if(x.getSoLuongTon() <= 10)
+        {
+            this.jLabel_SoLuong.setForeground(Color.red);
+        }
         
         if(x.getTinhTrang().equals("NGUNG_KINH_DOANH"))
         {
