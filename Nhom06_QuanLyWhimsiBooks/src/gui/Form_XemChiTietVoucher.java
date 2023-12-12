@@ -21,12 +21,11 @@ public class Form_XemChiTietVoucher extends javax.swing.JFrame {
 	
 	
 	private void loadData(String tenSK) {
-		ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiTheoTen(tenSK);
-		txtTen.setText(khuyenMais.get(0).getTenKhuyenMai());
-		txtNBD.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayKhuyenMai()));
-		txtNKT.setText(utilities.GetToDay.sdf.format(khuyenMais.get(0).getNgayHetHanKM()));
+		ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiTheoTen1(tenSK);
 		int count = 0, countDa = 0;
+		KhuyenMai khuyenMai = new KhuyenMai();
 		for(KhuyenMai km : khuyenMais) {
+			khuyenMai = km;
 			String trangThai = "Chưa sử dụng";
 			if(km.getSoLuotDaApDung() != 0) {
 				trangThai = "Đã sử dụng";
@@ -35,6 +34,9 @@ public class Form_XemChiTietVoucher extends javax.swing.JFrame {
 			tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri(),trangThai});
 			count++;
 		}
+		txtTen.setText(khuyenMai.getTenKhuyenMai());
+		txtNBD.setText(khuyenMai.getNgayKhuyenMai()+"");
+		txtNKT.setText(khuyenMai.getNgayHetHanKM()+"");
 		txtSL.setText(count+"");
 		txtDaSD.setText(countDa+"");
 		txtChuaSD.setText((count - countDa)+"");

@@ -26,5 +26,6 @@ public interface IKhuyenMai {
     public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM);
 	public boolean xoaSanPhamKhuyenMai(String makhuyenMai);
 	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit);
+	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK);
 }
 	

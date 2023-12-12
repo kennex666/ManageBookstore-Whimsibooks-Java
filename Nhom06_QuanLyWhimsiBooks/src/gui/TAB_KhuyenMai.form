@@ -139,6 +139,10 @@
                                   </Properties>
                                 </Component>
                                 <Component class="javax.swing.JTextField" name="txtMaKM">
+                                  <AccessibilityProperties>
+                                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+                                    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+                                  </AccessibilityProperties>
                                   <Events>
                                     <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtMaKMKeyReleased"/>
                                   </Events>
