@@ -23,7 +23,9 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
+import javax.mail.Authenticator;
 import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -34,11 +36,10 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.Properties;
 import javax.swing.SwingConstants;
 import utilities.CurrentSession;
+import utilities.EmailUtils;
 import utilities.EnviromentConfigs;
 import utilities.ErrorMessage;
 import utilities.PasswordGenerator;
@@ -187,6 +188,7 @@ public class GUI_Login extends JFrame implements ActionListener {
 		}
 
 		if (e.getSource().equals(btnResetPassword)) {
+			
 			if (txtUsername.getText().isBlank()) {
 				ErrorMessage.showMessageWithFocusTextField("Yêu cầu hành động",
 						"Hãy gõ username vào ô. Chúng tôi sẽ gửi mật khẩu mới về tài khoản email đã đăng ký!",
@@ -195,9 +197,9 @@ public class GUI_Login extends JFrame implements ActionListener {
 				return;
 			}
 			String emailUser = nhanVien_BUS.getNhanVienEmailViaUsername(txtUsername.getText());
-			if (emailUser == null)
-			{
-				ErrorMessage.showMessageWithFocusTextField("Lỗi", "Không tìm thấy email của " + txtUsername.getText() + " hoặc user này không có email trên hệ thống!", txtUsername);
+			if (emailUser == null) {
+				ErrorMessage.showMessageWithFocusTextField("Lỗi", "Không tìm thấy email của " + txtUsername.getText()
+						+ " hoặc user này không có email trên hệ thống!", txtUsername);
 				return;
 			}
 
@@ -205,36 +207,50 @@ public class GUI_Login extends JFrame implements ActionListener {
 			String host = "smtp.gmail.com";
 			String tempPassword = PasswordGenerator.generatePassword(10);
 
-			Properties properties = System.getProperties();
-			properties.put("smtp.gmail.com", host);
-			properties.put("smtp.gmail.com", "465");
-			properties.put("mail.smtp.ssl.enable", "true");
-			properties.put("mail.smtp.auth", "true");
-
-		       Session session = Session.getDefaultInstance(properties);
-
 
 			try {
-		        Transport transport = session.getTransport();
 
-				boolean isSuccessReset = nhanVien_BUS.resetUserPassword(txtUsername.getText(), tempPassword);
 				
+				System.out.println("TLSEmail Start");
+				Properties props = new Properties();
+
+				props.put("mail.smtp.host", host); //SMTP Host
+				props.put("mail.smtp.socketFactory.port", "465");
+                props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+                props.put("mail.smtp.auth", "true");
+                props.put("mail.smtp.prot", "465");
+
+				
+		                //create Authenticator object to pass in Session.getInstance argument
+				Authenticator auth = new Authenticator() {
+					//override the getPasswordAuthentication method
+					protected PasswordAuthentication getPasswordAuthentication() {
+						return new PasswordAuthentication(EnviromentConfigs.STMP_USERNAME, EnviromentConfigs.STMP_PASSWORD);
+					}
+				};
+				Session session = Session.getInstance(props, auth);
+				
+				
+				boolean isSuccessReset = nhanVien_BUS.resetUserPassword(txtUsername.getText(), tempPassword);
+
 				if (isSuccessReset != true) {
-					ErrorMessage.showMessageWithFocusTextField("Lỗi", "Không thể cập nhật lại mật khẩu của người dùng " + txtUsername.getText() + ": Lỗi CSDL!", txtUsername);
+					ErrorMessage.showMessageWithFocusTextField("Lỗi",
+							"Không thể cập nhật lại mật khẩu của người dùng " + txtUsername.getText() + ": Lỗi CSDL!",
+							txtUsername);
 					return;
 				}
-				MimeMessage message = new MimeMessage(session);
-				message.setFrom(new InternetAddress(EnviromentConfigs.STMP_EMAIL));
-				message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-				message.setSubject("[Whimsibooks] Đặt lại mật khẩu");
-				message.setText("Chào " + "name" + ", "
-						+ "\n\nBạn vừa yêu cầu đặt lại mật khẩu từ hệ thống Whimsibooks - Quản lý nhà sách.\n\nTUYỆT ĐỐI KHÔNG CUNG CẤP MẬT KHẨU VỚI BẤT KỲ AI\nMật khẩu mới của bạn là: " + tempPassword
-						+ "\n\nWhimsibooks trân trọng cảm ơn!");
-	            transport.connect(host, EnviromentConfigs.STMP_USERNAME, EnviromentConfigs.STMP_USERNAME);    
-	            transport.send(message);
-				
+				EmailUtils.sendEmail(
+						session, 
+						emailUser, 
+						"[Whimsibooks] Đặt lại mật khẩu",
+						"Chào " + txtUsername.getText() + ", "
+								+ "\n\nBạn vừa yêu cầu đặt lại mật khẩu từ hệ thống Whimsibooks - Quản lý nhà sách.\n\nTUYỆT ĐỐI KHÔNG CUNG CẤP MẬT KHẨU VỚI BẤT KỲ AI\nMật khẩu mới của bạn là: "
+								+ tempPassword + "\n\nWhimsibooks trân trọng cảm ơn!");
+				ErrorMessage.showMessageWithFocusTextField("Đã gửi mật khẩu mới", "Đã gửi mật khẩu mới về email " + emailUser.substring(0, 3) + "********! Hãy kiểm tra email và đăng nhập.", pwdUserType);
 			} catch (Exception mex) {
-				JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi, vui lòng kiểm tra lại thiết lập email hoặc sự cố Internet!");
+				mex.printStackTrace();
+				JOptionPane.showMessageDialog(null,
+						"Đã xảy ra lỗi, vui lòng kiểm tra lại thiết lập email hoặc sự cố Internet!");
 			}
 
 			return;

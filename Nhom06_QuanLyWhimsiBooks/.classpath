@@ -21,8 +21,8 @@
 	<classpathentry kind="lib" path="src/lib/excelLib/Spire.Xls12.jar"/>
 	<classpathentry kind="lib" path="src/lib/TimingFramework-0.55.jar"/>
 	<classpathentry kind="lib" path="src/lib/miglayout-4.0.jar"/>
-	<classpathentry kind="lib" path="src/lib/excelLib/angus-mail-2.0.2.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/activation.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/mail.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/jakarta.activation-api-2.1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
