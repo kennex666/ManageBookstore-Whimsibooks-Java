@@ -710,6 +710,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                                 tempDate.setDate(tempDate.getDate() + 1);
                             }
                         }
+                        ngayTruocDo = entry.getKey();
                     }
                     if (getDiffDate(ngayTruocDo, entry.getKey()) > 1) {
                         int temp = getDiffDate(ngayTruocDo, entry.getKey()) - 1;
@@ -733,6 +734,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                                 tempDate.setMonth(tempDate.getMonth() + 1);
                             }
                         }
+                        ngayTruocDo = entry.getKey();
                     }
                     if (ngayTruocDo.getMonth() == entry.getKey().getMonth()) {
                         thongKeDataTemp[0] += object[0];
