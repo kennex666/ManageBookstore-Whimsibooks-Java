@@ -474,7 +474,8 @@ public class HoaDon_DAO implements IHoaDon {
                     0,
                     rs.getDouble("TongDoanhThu"),
                     rs.getDouble("TongVon"),
-                    rs.getDouble("TongDoanhThu") - rs.getDouble("TongVon")
+                    rs.getDouble("TongDoanhThu") - rs.getDouble("TongVon"),
+                    (double) 0
                 }; 
                 listHoaDon.add(tempObj);
 

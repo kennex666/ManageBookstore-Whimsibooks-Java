@@ -31,11 +31,21 @@ public class ThongKe_BUS {
     private ChiTietHoaDon_DAO chiTietHoaDon_DAO;
     private HoaDonTra_DAO hoaDonTra_DAO;
     private ChiTietTraHang_DAO chiTietTraHang_DAO;
-    
-    public ArrayList<Object[]> thongKeXuHuongTheoThoiGian(Date timeStart, Date timeEnd){
+
+    public ArrayList<Object[]> thongKeXuHuongTheoThoiGian(Date timeStart, Date timeEnd) {
         ArrayList<Object[]> listThongKe = hoaDon_DAO.getDanhSachHoaDonThongKeXuHuong(timeStart, timeEnd);
-        if (listThongKe == null){
+        if (listThongKe == null) {
             listThongKe = new ArrayList<Object[]>();
+        }
+        HashMap<String, Object[]> listTraHang = getTongTraHangThongKeXuHuong(timeStart, timeEnd);
+        for (int i = 0; i < listThongKe.size(); i++) {
+        	Object[] x = listThongKe.get(i);
+        	Object[] tempObj = listTraHang.get(x[1]);
+        	if (tempObj == null)
+        		continue;
+        	x[5] = tempObj[0];
+        	x[9] = (double) tempObj[1];
+        	listThongKe.set(i, x);
         }
         return listThongKe;
     }
@@ -114,6 +124,11 @@ public class ThongKe_BUS {
         ArrayList<Map.Entry<Date, double[]>> sortedList = new ArrayList<>(entryList);
 
         return sortedList;
+    }
+
+    public HashMap<String, Object[]> getTongTraHangThongKeXuHuong(Date start, Date end) {
+    	HashMap<String, Object[]> listTraHang = hoaDonTra_DAO.getObjectThongKeXuHuong(start, end);
+        return listTraHang;
     }
 
     public ThongKe_BUS() {
