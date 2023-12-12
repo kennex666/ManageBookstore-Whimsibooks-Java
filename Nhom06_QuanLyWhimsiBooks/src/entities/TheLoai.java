@@ -40,9 +40,14 @@ public class TheLoai {
 		setTenTheLoai(tenTheLoai);
 		setTheLoaiID(theLoaiID);
 	}
-
-	public TheLoai() {
+        public TheLoai() {
 		super();
+
+	}
+
+	public TheLoai(int theLoaiID) {
+		super();
+                setTheLoaiID(theLoaiID);
 	}
 
 	

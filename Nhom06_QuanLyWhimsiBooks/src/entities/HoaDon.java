@@ -229,23 +229,11 @@ public class HoaDon {
 	}
 	
 	public String getTrangThaiHoaDonString() {
-		if (trangThai.equalsIgnoreCase("DA_XU_LY"))
-			return "Đã xử lý";
-		if (trangThai.equalsIgnoreCase("CHO_XU_LY"))
-			return "Chờ xử lý";
-		if (trangThai.equalsIgnoreCase("HUY_BO"))
-			return "Huỷ bỏ";
-		return "Tất cả";
+		return getTrangThaiHoaDonString(trangThai);
 	}
 	
 	public String parseTrangThaiHoaDon() {
-		if (trangThai.equalsIgnoreCase("Đã xử lý"))
-			return "DA_XU_LY";
-		if (trangThai.equalsIgnoreCase("Chờ xử lý"))
-			return "CHO_XU_LY";
-		if (trangThai.equalsIgnoreCase("Huỷ Bỏ"))
-                        return "HUY_BO";
-                return "ALL";
+                return parseTrangThaiHoaDon(trangThai);
 	}
         
         public static String getTrangThaiHoaDonString(String x) {
@@ -255,6 +243,8 @@ public class HoaDon {
 			return "Chờ xử lý";
 		if (x.equalsIgnoreCase("HUY_BO"))
 			return "Huỷ bỏ";
+		if (x.equalsIgnoreCase("TRA_HANG"))
+                        return "Đã trả hàng";
 		return "Tất cả";
 	}
 	
@@ -265,6 +255,8 @@ public class HoaDon {
 			return "CHO_XU_LY";
 		if (x.equalsIgnoreCase("Huỷ Bỏ"))
                         return "HUY_BO";
+		if (x.equalsIgnoreCase("Đã trả hàng"))
+                        return "TRA_HANG";
                 return "ALL";
 	}
 	

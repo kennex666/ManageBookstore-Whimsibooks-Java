@@ -6,7 +6,7 @@ import entities.DanhMuc;
 
 public interface IDanhMuc {
 	public ArrayList<DanhMuc> getAllDanhMuc();
-	public ArrayList<DanhMuc> getDanhMucTheoID(String x);
+	public ArrayList<DanhMuc> getDanhMucTheoID(int x);
 	public boolean addDanhMuc(DanhMuc x);
 	public boolean editDanhMuc (DanhMuc x);
 }

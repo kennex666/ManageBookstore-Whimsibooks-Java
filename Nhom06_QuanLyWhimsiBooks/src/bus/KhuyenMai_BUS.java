@@ -1,16 +1,32 @@
 package bus;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import dao.KhuyenMai_DAO;
+import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
+import entities.NhaCungCap;
 import entities.SanPham;
+import gui.Form_DanhSachVoucher;
 import interfaces.IKhuyenMai;
 
 public class KhuyenMai_BUS implements IKhuyenMai{
@@ -33,6 +49,20 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
+	
+
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiByIDAndName(maKhuyenMai, tenKM);
+	}
+	
+	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
+		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
+		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
+	}
+	
+	
 	
     public ArrayList<SanPham> laySanPhamDuocChon(JTable table) {
     	ArrayList<SanPham> dsSanPhamDuocChon = new ArrayList<SanPham>();
@@ -147,10 +177,241 @@ public class KhuyenMai_BUS implements IKhuyenMai{
         public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai){
             return khuyenMai_DAO.getKhuyenMaiByCodeKMForSeller(maKhuyenMai);
         }
+    
+    @Override
+    public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham) {
+    	// TODO Auto-generated method stub
+    	return khuyenMai_DAO.getKhuyenMaiViaSanPhamAutoApply(maSanPham);
+    }
 	
 	@Override
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
+	}
+	
+	// Xuat file
+	@Override
+	public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getDanhSachKhuyenMaiNangCao(params);
+	}
+	
+	public boolean xuatFile(ArrayList<KhuyenMai> list) {
+	    JFileChooser excelFileChooser = new JFileChooser("D:\\");
+	    excelFileChooser.setDialogTitle("Save Excel File");
+	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
+	    excelFileChooser.setFileFilter(fnef);
+
+	    int excelChooser = excelFileChooser.showSaveDialog(null);
+
+	    if (excelChooser == JFileChooser.APPROVE_OPTION) {
+	        File excelFile = excelFileChooser.getSelectedFile();
+
+	        // Kiểm tra nếu tên file không kết thúc bằng ".xlsx", thêm ".xlsx" vào
+	        if (!excelFile.getName().toLowerCase().endsWith(".xlsx")) {
+	            excelFile = new File(excelFile.getParentFile(), excelFile.getName() + ".xlsx");
+	        }
+
+	        // Kiểm tra xem file đã tồn tại chưa
+	        if (excelFile.exists()) {
+	            int result = JOptionPane.showConfirmDialog(null,
+	                    "File đã tồn tại. Bạn có muốn ghi đè lên file hiện tại không?", "Ghi đè",
+	                    JOptionPane.YES_NO_OPTION);
+	            if (result != JOptionPane.YES_OPTION) {
+	                // Người dùng không muốn ghi đè, trả về false
+	                return false;
+	            }
+	        }
+
+	        try {
+	            FileOutputStream fileOut = new FileOutputStream(excelFile);
+	            XSSFWorkbook workbook = new XSSFWorkbook();
+	            XSSFSheet sheet = workbook.createSheet("Sheet1");
+
+	            int rowNum = 1;
+	            String[] title = {
+	                    "Mã giảm giá", "Ngày tạo", "Ngày kích hoạt", "Ngày hết hạn ", "Hình thức giảm", "Đơn hàng từ" ,"Mức giảm giá"
+	                };
+                Row head = sheet.createRow(0);
+                head.createCell(0).setCellValue(title[0]);
+                head.createCell(1).setCellValue(title[1]);
+                head.createCell(2).setCellValue(title[2]);
+                head.createCell(3).setCellValue(title[3]);
+                head.createCell(4).setCellValue(title[4]);
+                head.createCell(5).setCellValue(title[5]);
+                head.createCell(6).setCellValue(title[6]);
+                
+	            for (KhuyenMai km : list) {
+	                Row row = sheet.createRow(rowNum++);
+	                row.createCell(0).setCellValue(km.getCodeKhuyenMai());
+	                row.createCell(1).setCellValue(utilities.GetToDay.today());
+	                row.createCell(2).setCellValue(km.getNgayKhuyenMai()+"");
+	                row.createCell(3).setCellValue(km.getNgayHetHanKM()+"");
+	                row.createCell(4).setCellValue(km.getLoaiKhuyenMai());
+	                row.createCell(5).setCellValue(km.getDonHangTu());
+	                row.createCell(6).setCellValue(km.getGiaTri());
+	            }
+
+	            workbook.write(fileOut);
+	            fileOut.close();
+	            
+	            // Thông báo thành công
+	            JOptionPane.showMessageDialog(null, "Xuất file thành công", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+
+	            return true;
+	            
+	        } catch (FileNotFoundException e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi: File không tìm thấy", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            e.printStackTrace();
+	        } catch (IOException e) {
+	            JOptionPane.showMessageDialog(null, "Lỗi khi ghi file", "Lỗi", JOptionPane.ERROR_MESSAGE);
+	            e.printStackTrace();
+	        }
+	    }
+	    
+	    // Người dùng đã hủy hoặc có lỗi, trả về false
+	    return false;
+	}
+	
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiByName(name);
+	}
+
+	@Override
+	public boolean deleteKhuyenMai(String codeKhuyenMai) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.deleteKhuyenMai(codeKhuyenMai);
+	}
+
+	//type ,String tenKM, int soLuong, double donGiaTu, String hinhThuc, double mucGiam, Date ngayBatDau, Date ngayKetThuc
+	private String VoucherCode() {
+		String voucherCode;
+		String nameRequired = "Voucher_";
+		Set<String> generatedCodes = new HashSet<>();
+
+		for (int i = 0; i < getAllKhuyenMai().size(); i++) {
+			generatedCodes.add(getAllKhuyenMai().get(i).getCodeKhuyenMai());
+		}
+
+		voucherCode = utilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
+
+		return voucherCode;
+	}
+	
+	public boolean update(Object[] obj, Object[] objProduct) {
+		ArrayList<KhuyenMai> list = getKhuyenMaiByName(obj[9].toString());
+		
+		String typeUpdate = (String) obj[0];	
+		String maKhuyenMai = String.valueOf(obj[1]);
+		String tenKM = String.valueOf(obj[2]);
+		int countNew = Integer.valueOf(obj[3].toString());
+		double donHangTu = Double.valueOf(obj[4].toString());
+		String hinhThuc = String.valueOf(obj[5]);
+		double mucGiam = Double.valueOf(obj[6].toString());
+		Date ngayBatDau = Date.valueOf(obj[7].toString());
+		Date ngayKetThuc = Date.valueOf(obj[8].toString()) ;
+		int Count = list.size();
+		int countOld = getSoLuongChuaSD(new Object[] {tenKM, null});
+		
+		boolean checkConfirm = false;
+		
+		try {
+			// Update Voucher
+			if(typeUpdate.equals("Voucher")) {
+				for(KhuyenMai km : list) {
+					KhuyenMai khuyenMai = new KhuyenMai(km.getCodeKhuyenMai(), tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, km.getSoLuotDaApDung());
+					editKhuyenMai(khuyenMai);
+				}
+				// số lượng không thay đổi
+				if(countNew == countOld) {
+					return true;
+				}
+				// Tăng số lượng
+				if(countNew > countOld) {
+					int SLTang = countNew - countOld;
+					ArrayList<KhuyenMai> khuyenMais = new ArrayList<KhuyenMai>();
+					for (int i = 0; i < SLTang; i++) {
+                		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
+                		khuyenMais.add(khuyenMai);
+                		addKhuyenMai(khuyenMai);
+                	}
+                    Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(khuyenMais);
+                    danhSachVoucher.setVisible(true);
+                    return true;
+				}
+				// Giảm số lượng
+				if(countNew < countOld) {
+					int SLGiam = countOld - countNew;
+					ArrayList<KhuyenMai> listChuaSD = getKhuyenMaiByName(obj[9].toString());
+					for(int i = 0; i < SLGiam; i++) {
+						if(listChuaSD.get(i).getSoLuotDaApDung() == 0)
+							deleteKhuyenMai(listChuaSD.get(i).getCodeKhuyenMai());
+					}
+					return true;
+				}
+			}
+			// Update khuyenMai
+			if(typeUpdate.equals("KhuyenMai")) {
+				KhuyenMai khuyenMai = new KhuyenMai(maKhuyenMai, tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
+				editKhuyenMai(khuyenMai);
+				ArrayList<ChiTietKhuyenMai> listCTTKM = getChiTietKhuyenMaiTheoMa(maKhuyenMai);
+				
+				int countCTKM_Old = listCTTKM.size();
+				int countCTKM_New = objProduct.length;
+				
+				for(int j = 0; j < countCTKM_Old; j++) {
+					xoaSanPhamKhuyenMai(maKhuyenMai);
+				}
+
+				for(int i = 0; i < countCTKM_New; i++) {
+					addSanPhamKhuyenMaiKhiUpdate(maKhuyenMai,Integer.valueOf(objProduct[i].toString()));
+				}
+				return true;
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	@Override
+	public int getSoLuongChuaSD(Object[] params) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getSoLuongChuaSD(params);
+	}
+
+	@Override
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai, int masanPham) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.addSanPhamKhuyenMaiKhiUpdate(makhuyenMai, masanPham);
+	}
+
+	@Override
+	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getChiTietKhuyenMaiTheoMa(maKM);
+	}
+
+	@Override
+	public boolean xoaSanPhamKhuyenMai(String makhuyenMai) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.xoaSanPhamKhuyenMai(makhuyenMai);
+	}
+
+	@Override
+	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getRecentKhuyenMai(limit);
+	}
+
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiTheoTen1(tenSK);
 	}
 
 }

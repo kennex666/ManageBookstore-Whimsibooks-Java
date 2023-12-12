@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultCellEditor;
@@ -27,6 +28,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import utilities.ColorProcessing;
+import utilities.CurrentSession;
 import utilities.ErrorMessage;
 import utilities.Numberic;
 
@@ -365,12 +367,34 @@ public class Form_TraHang extends javax.swing.JFrame {
 
     private void btnThanhToanHoanTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanHoanTatActionPerformed
         // TODO add your handling code here:
-
     	hoaDon_BUS.cancelHoaDon(hoaDon);
+        
+        hoaDonTra.setNgayTraHoaDon(new Date());
+        hoaDon.setNgayLapHoaDon(hoaDonTra.getNgayTraHoaDon());
+        hoaDon.setNhanVien(CurrentSession.getNhanVien());
+        hoaDonTra.setNhanVien(CurrentSession.getNhanVien());
+        hoaDonTra.setKhachHang(hoaDon.getKhachHang());
+
+        boolean result = hoaDonTra_BUS.createHoaDon(hoaDonTra);
+        
+        if (!result){
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn trả.");
+            return;
+        }
+        
+        result = chiTietTraHang_BUS.addNhieuChiTietCuaMotHoaDon(hoaDonTra.getListChiTietHoaDon());
+        if (!result) {
+            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
+            return;
+        }
+        
+        if (hoaDon.getListChiTietHoaDon().size() < 1)
+            return;
+        
     	hoaDon.setHoaDonID(null);
     	
     	hoaDon.setTrangThai("DA_XU_LY");
-        boolean result = hoaDon_BUS.createHoaDon(hoaDon);
+        result = hoaDon_BUS.createHoaDon(hoaDon);
         
         if (!result){
             JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn.");
@@ -383,18 +407,7 @@ public class Form_TraHang extends javax.swing.JFrame {
             return;
         }
         
-        result = hoaDonTra_BUS.createHoaDon(hoaDonTra);
-        
-        if (!result){
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn trả.");
-            return;
-        }
-        
-        result = chiTietTraHang_BUS.addNhieuChiTietCuaMotHoaDon(hoaDonTra.getListChiTietHoaDon());
-        if (!result) {
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
-            return;
-        }
+       
         tabBanHang.thanhToanHoanTat();
         closeFormThanhToan();
     }//GEN-LAST:event_btnThanhToanHoanTatActionPerformed

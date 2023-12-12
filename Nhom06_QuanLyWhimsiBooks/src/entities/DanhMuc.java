@@ -34,6 +34,10 @@ public class DanhMuc {
 	public DanhMuc() {
 		super();
 	}
+        public DanhMuc(int danhMucID) {
+		super();
+                setDanhMucID(danhMucID);
+	}
 	
 	
 	@Override
