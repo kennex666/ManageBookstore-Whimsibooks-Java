@@ -1011,8 +1011,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
          String mucGiam = txtMucGiamGia.getText();
          java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
          java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
+         java.util.Date date1,date2 = new java.util.Date();
+         date1 = ngayBatDauUtil;
+         date2 = ngayKetThucUtil;
          java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
          java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
+         
         try {
             if (checkValue()) {
             	// Add
@@ -1066,8 +1070,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                                  try {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
                                          JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
-                                         Huy();
                                          loadDataKM();
+                                         Huy();
                                      }
                                      else {
                                      	JOptionPane.showMessageDialog(this, "Mã khuyến mã đã tồn tại!");
@@ -1085,8 +1089,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                                  try {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
                                          JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
-                                         Huy();
                                          loadDataKM();
+                                         Huy();
                                      }
                                      else {
                                      	JOptionPane.showMessageDialog(this, "Mã khuyến mã đã tồn tại!");
@@ -1095,8 +1099,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
          							e.printStackTrace();	
          						}
                     		 }
-                    		 txt_CTTKM_NgayBatDau.setDate(ngayBatDau);
-                    		 txt_CTTKM_NgayBatDau.setDate(ngayKetThucUtil);
                     	 }
                     }
                 }
@@ -1129,9 +1131,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             		if(khuyenMai_BUS.update(obj, objProduct)) {
             			JOptionPane.showMessageDialog(null, "Cập nhật thành công!");
             		}
+            		loadDataKM();
             	}
             }
-    		loadDataKM();
     		loadDataCTTKM();
                 tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
         } catch (Exception e) {
@@ -1613,11 +1615,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		for (int i = 0; i < tableKM.getColumnCount(); i++) {
 			tableKM.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
 		}
-//		Calendar currentDate = Calendar.getInstance();
-//		txtNgayBatDau.setDate(currentDate.getTime());
-//		currentDate.add(currentDate.MONTH, 1);
-//		txtNgayKetThuc.setDate(currentDate.getTime());
-//		sorter = new TableRowSorter<>(tableModel);
+		Calendar currentDate = Calendar.getInstance();
+		txtNgayBatDau.setDate(currentDate.getTime());
+		currentDate.add(currentDate.MONTH, 1);
+		txtNgayKetThuc.setDate(currentDate.getTime());
+		sorter = new TableRowSorter<>(tableModel);
 		tableKM.setRowSorter(sorter);
     }
     
