@@ -17,6 +17,7 @@ public interface IKhuyenMai {
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query);
 	public ArrayList<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay);
     public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai);
+    public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham);
     public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM);
     public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params);
     public ArrayList<KhuyenMai> getKhuyenMaiByName(String name);

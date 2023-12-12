@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
+#Enviroments Configs
+/Nhom06_QuanLyWhimsiBooks/src/utilities/EnviromentConfigs.java
+
 ### Eclipse ###
 .idea
 .metadata

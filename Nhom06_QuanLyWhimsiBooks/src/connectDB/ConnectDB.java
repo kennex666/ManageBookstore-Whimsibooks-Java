@@ -3,6 +3,8 @@ package connectDB;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import utilities.EnviromentConfigs;
 import utilities.ErrorMessage;
 
 public class ConnectDB {
@@ -11,8 +13,8 @@ public class ConnectDB {
 
 	public static void connect() {
 		try {
-			String url = "jdbc:sqlserver://localhost:1433;databasename=QuanLyNhaSachWhimsiBooks";
-			conn = DriverManager.getConnection(url, "sa", "sapassword");
+			String url = "jdbc:sqlserver://localhost:1433;databasename=" + EnviromentConfigs.DB_DATABASE;
+			conn = DriverManager.getConnection(url, EnviromentConfigs.DB_USERNAME, EnviromentConfigs.DB_PASSWORD);
 		} catch (SQLException e) {
 		}
 	}

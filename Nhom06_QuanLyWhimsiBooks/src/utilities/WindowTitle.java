@@ -14,7 +14,7 @@ import javax.swing.JFrame;
 
 public class WindowTitle {
 	private static JFrame jf;
-	public static final String VERSION = "1.0.0 (Test)";
+	public static final String VERSION = "1.2.5";
         public static WindowTitle instance = new WindowTitle();
 	
 	public static String getTitleContent(String x) {

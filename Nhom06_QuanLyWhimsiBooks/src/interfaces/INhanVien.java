@@ -30,5 +30,9 @@ public interface INhanVien {
 
 	public NhanVien dangNhapNhanVien(String user, String password);
 
+	public String getNhanVienEmailViaUsername(String username);
+	
+	public boolean resetUserPassword(String username, String newPassword);
+
 	public  boolean chuyenChucVuNhanVienCu(String maNhanVien);
 }

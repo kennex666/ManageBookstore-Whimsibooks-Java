@@ -177,6 +177,12 @@ public class KhuyenMai_BUS implements IKhuyenMai{
         public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai){
             return khuyenMai_DAO.getKhuyenMaiByCodeKMForSeller(maKhuyenMai);
         }
+    
+    @Override
+    public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham) {
+    	// TODO Auto-generated method stub
+    	return khuyenMai_DAO.getKhuyenMaiViaSanPhamAutoApply(maSanPham);
+    }
 	
 	@Override
 	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {

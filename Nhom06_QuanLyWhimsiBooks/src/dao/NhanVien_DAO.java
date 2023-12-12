@@ -22,6 +22,7 @@ public class NhanVien_DAO implements INhanVien {
 	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
 			String gioiTinh, String chucVu) {
 		ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+
 	    String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
 	    
 	    // Tạo một danh sách tham số để lưu giữ các tham số có thể trống
@@ -51,22 +52,22 @@ public class NhanVien_DAO implements INhanVien {
 	            pstmt.setString(i + 1, parameters.get(i));
 	        }
 
-	        ResultSet rs = pstmt.executeQuery();
-	        while (rs.next()) {
-	            // Tạo đối tượng NhanVien từ kết quả tìm kiếm
-	            NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
-	                    rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
-	                    rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
-	                    rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				// Tạo đối tượng NhanVien từ kết quả tìm kiếm
+				NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
+						rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
+						rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
+						rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
 
-	            // Thêm đối tượng NhanVien vào danh sách
-	            listNhanVien.add(nhanVien);
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
+				// Thêm đối tượng NhanVien vào danh sách
+				listNhanVien.add(nhanVien);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-	    return listNhanVien;
+		return listNhanVien;
 	}
 
 	@Override
@@ -211,11 +212,11 @@ public class NhanVien_DAO implements INhanVien {
 	    NhanVien nhanVien = null;
 	    String query = "SELECT * FROM NhanVien WHERE nhanVienID = ?";
 
+
 	    try {
 	        PreparedStatement pstmt = conn.prepareStatement(query);
 	        pstmt.setString(1, x);
 	        ResultSet rs = pstmt.executeQuery();
-
 	        if (rs.next()) {
 	            // Chuyển đổi giới tính thành chữ in hoa để đảm bảo là "Nam" hoặc "Nữ"
 	            String gioiTinh = rs.getString("gioiTinh").toUpperCase();
@@ -258,21 +259,30 @@ public class NhanVien_DAO implements INhanVien {
 		return false; // Trả về false nếu có lỗi hoặc mã nhân viên không tồn tại
 	}
 
+	@Override
 	public int phatSinhMaNhanVien() {
 		try {
-			// Tìm mã nhân viên cuối cùng trong cơ sở dữ liệu
-			String query = "SELECT MAX(CAST(SUBSTRING(NhanVienID, 3, LEN(NhanVienID)) AS INT)) FROM NhanVien";
-			PreparedStatement ps = conn.prepareStatement(query);
+			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM NhanVien");
 			ResultSet rs = ps.executeQuery();
 			rs.next();
-			int lastId = rs.getInt(1);
+			int count = rs.getInt(1);
+			return count;
+	//public int phatSinhMaNhanVien() {
+		//try {
+			// Tìm mã nhân viên cuối cùng trong cơ sở dữ liệu
+			//String query = "SELECT MAX(CAST(SUBSTRING(NhanVienID, 3, LEN(NhanVienID)) AS INT)) FROM NhanVien";
+			//PreparedStatement ps = conn.prepareStatement(query);
+			//ResultSet rs = ps.executeQuery();
+			//rs.next();
+			//int lastId = rs.getInt(1);
 
 			// Phát sinh mã nhân viên mới
-			return lastId + 1;
+			//return lastId + 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 1; // Trả về 1 nếu có lỗi
 		}
+
 	}
 
 	@Override
@@ -320,6 +330,35 @@ public class NhanVien_DAO implements INhanVien {
 			return null;
 		}
 
+	}
+
+	@Override
+	public String getNhanVienEmailViaUsername(String username) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement pstm = conn.prepareStatement("SELECT email FROM NhanVien WHERE UserName = ?");
+			pstm.setString(1, username);
+			ResultSet rs = pstm.executeQuery();
+			if (rs.next()) {
+				return rs.getString("email");
+			}
+			return null;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
+	@Override
+	public boolean resetUserPassword(String username, String newPassword) {
+		// TODO Auto-generated method stub
+		try {
+			PreparedStatement pstm = conn.prepareStatement("UPDATE NhanVien SET password = ? WHERE UserName = ?");
+			pstm.setString(1, newPassword);
+			pstm.setString(2, username);
+			return pstm.executeUpdate() > 0;
+		} catch (Exception e) {
+			return false;
+		}
 	}
 
 }

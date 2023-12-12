@@ -88,6 +88,18 @@ public class NhanVien_BUS implements INhanVien {
 	}
 
 	@Override
+	public String getNhanVienEmailViaUsername(String username) {
+		// TODO Auto-generated method stub
+		return nv_dao.getNhanVienEmailViaUsername(username);
+	}
+
+	@Override
+	public boolean resetUserPassword(String username, String newPassword) {
+		// TODO Auto-generated method stub
+		return nv_dao.resetUserPassword(username, newPassword);
+	}
+  
+  @Override
 	public boolean chuyenChucVuNhanVienCu(String maNhanVien) {
 		// TODO Auto-generated method stub
 		return nv_dao.chuyenChucVuNhanVienCu(maNhanVien);

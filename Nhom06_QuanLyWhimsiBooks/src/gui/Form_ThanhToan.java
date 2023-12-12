@@ -7,7 +7,10 @@ package gui;
 import bus.ChiTietHoaDon_BUS;
 import bus.HoaDon_BUS;
 import entities.HoaDon;
+
 import java.awt.event.KeyEvent;
+import java.util.Date;
+
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -15,6 +18,7 @@ import javax.swing.JRootPane;
 import javax.swing.border.Border;
 import utilities.ColorProcessing;
 import utilities.ErrorMessage;
+import utilities.ExcelFileExportForHoaDon;
 import utilities.Numberic;
 
 /**
@@ -40,12 +44,13 @@ public class Form_ThanhToan extends javax.swing.JFrame {
         
         hoaDon_BUS = new HoaDon_BUS();
         chiTietHoaDon_BUS = new ChiTietHoaDon_BUS();
-        
+       /* Nghiệp vụ cũ 
         x.setTrangThai("CHO_XU_LY");
         
         if (!tabBanHang.updateHoaDon("CHO_XU_LY")){
             JOptionPane.showMessageDialog(null, "Thông tin: Khởi tạo hoá đơn thất bại.");
         }
+        */
         
         y.setEnabled(false);
         //setUndecorated(true); 
@@ -605,11 +610,12 @@ public class Form_ThanhToan extends javax.swing.JFrame {
             return;
         }
         
+        hoaDon.setNgayLapHoaDon( new Date() );
         if (ErrorMessage.showConfirmDialogYesNo(
                 "Thanh toán hoàn tất", 
                 (tienTraLai > 0 ? "Đừng quên trả khách " + Numberic.formatVND(tienTraLai) + " nhé!" : "Đã nhận đủ tiền!") + "\nBạn có muốn in hoá đơn?"
         )){
-            
+        	new ExcelFileExportForHoaDon(hoaDon, tienNhan, tienTraLai);  
         }
 
     	tabBanHang.thanhToanHoanTat();
