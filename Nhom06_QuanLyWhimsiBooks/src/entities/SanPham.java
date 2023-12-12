@@ -259,14 +259,16 @@ public class SanPham {
 		setDanhMuc(danhMuc);
 		setNhaCungCap(nhaCungCap);
 	}
+        
+        
 	public SanPham() {
 		super();
 		long millis = System.currentTimeMillis();
 		this.ngayNhap = new java.sql.Date(millis);
-		this.loaiDoiTra = "";
+		this.loaiDoiTra = "DUOC_DOI_TRA";
 		this.barcode = "";
 		this.imgPath = "";
-		this.tinhTrang = "";
+		this.tinhTrang = "CON_HANG";
 		this.donViDoLuong = "";
 		this.loaiSanPham = "";
 		this.donViDoLuong = "";
@@ -277,7 +279,7 @@ public class SanPham {
 		this.soLuongTon = 0;
 		this.namSanXuat = 0;
 		this.giaNhap = 0;
-		this.soTrang = 0;
+		this.soTrang = 1;
 	}
 
 	

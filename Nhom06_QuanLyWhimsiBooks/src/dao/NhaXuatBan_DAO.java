@@ -75,21 +75,26 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
 
     @Override
     public boolean addNhaXuatBan(NhaXuatBan x) {
-        		// TODO Auto-generated method stub
-		try {
-			String query = "INSERT INTO NhaXuatBan(tenNhaXuatBan) VALUES(?)";
-			
-			PreparedStatement pstm = conn.prepareStatement(query);
-			
-			pstm.setString(1, x.getTenNhaXuatBan());
-			
-			int rs = pstm.executeUpdate();
-			return (rs > 0) ? true : false;
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+         String tenNXB = x.getTenNhaXuatBan();
+
+        String insert = "INSERT INTO NhaXuatBan (TenNhaXuatBan, DiaChi, SoDienThoai, Email, Website, NamThanhLap, "
+                + " LinhVucXuatBan, QuocGia) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement preparedStatement = conn.prepareStatement(insert);
+            preparedStatement.setString(1, x.getTenNhaXuatBan());
+            preparedStatement.setString(2, x.getDiaChi());
+            preparedStatement.setString(3, x.getSoDienThoai());
+            preparedStatement.setString(4, x.getEmail());
+            preparedStatement.setString(5, x.getWebsite());
+            preparedStatement.setInt(6, x.getNamThanhLap());
+            preparedStatement.setString(7, x.getLinhVucXuatBan());
+            preparedStatement.setString(8, x.getQuocGia());
+            preparedStatement.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     @Override

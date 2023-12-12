@@ -14,6 +14,7 @@ public interface ISanPham {
 	public ArrayList<SanPham> getDanhSachSanPham();
 	public ArrayList<SanPham> searchSanPham(String id);
 	public boolean addSanPham(SanPham sp);
+        public boolean editTrangThaiSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);
 	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
 	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);
@@ -31,5 +32,11 @@ public interface ISanPham {
         public String getNameTacGiaByID(int ID);
         public String getNameNhaXuatBanByID(int ID);
         public String getNameDanhMucByID(int ID);
+        public String getNameTheLoaiByID(int ID);
+        public String getNameThuongHieuByID(int ID);
+        public String getNameNhaCungCapByID(String ID);
+        public void SapXepTangTheoGia(ArrayList<SanPham> list);
+        public void SapXepGiamTheoGia(ArrayList<SanPham> list);
+        public void SapXepTangTheoSoLuong(ArrayList<SanPham> list);
 	
 }

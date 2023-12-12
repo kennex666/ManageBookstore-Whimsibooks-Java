@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
@@ -97,12 +99,6 @@ public class SanPham_DAO implements ISanPham{
 			
 			//query = "SELECT * FROM SanPham";
 			
-			TacGia tg = new TacGia();
-			NhaCungCap ncc = new NhaCungCap();
-			TheLoai tl = new TheLoai();
-			NhaXuatBan nxb = new NhaXuatBan();
-			DanhMuc dm = new DanhMuc();
-			ThuongHieu th = new ThuongHieu();
 			
 			ResultSet rs = stm.executeQuery(query);
 			
@@ -134,12 +130,13 @@ public class SanPham_DAO implements ISanPham{
 					int danhmucid = rs.getInt("danhmucid"); 
 					String nhacungcapid = rs.getString("nhacungcapid");
 					
-					tg.setTacGiaID(tacgiaid);
-					tl.setTheLoaiID(theloaiid);
-					nxb.setNhaXuatBanID(nhaxuatbanid);
-					th.setThuongHieuID(thuonghieuid);
-					dm.setDanhMucID(danhmucid);
-					ncc.setNhaCungCapID(nhacungcapid);
+                                        
+                                        TacGia tg = new TacGia(tacgiaid);
+                                        NhaCungCap ncc = new NhaCungCap(nhacungcapid);
+                                        TheLoai tl = new TheLoai(theloaiid);
+                                        NhaXuatBan nxb = new NhaXuatBan(nhaxuatbanid);
+                                        DanhMuc dm = new DanhMuc(danhmucid);
+                                        ThuongHieu th = new ThuongHieu(thuonghieuid);
 					
 					
 //					tg.setTacGiaID(1);
@@ -235,8 +232,10 @@ public class SanPham_DAO implements ISanPham{
 				
 			String sql = "UPDATE SanPham "
 					+ "SET  TenSanPham = ?, NgayNhap  = ?, GiaNhap = ?, Thue = ?, LoaiDoiTra = ?,"
-					+ "Barcode = ?, ImgPath = ?, TinhTrang = ?, SoLuongTon = ?, NamSanXuat = ?, LoaiSanPham = ?,"
-					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, SoTrang = ?, LoaiBia = ? WHERE NhanVienID = ?";
+					+ "Barcode = ?, SoLuongTon = ?, NamSanXuat = ?,"
+					+ "DonViDoLuong = ?, KichThuoc = ?, XuatXu = ?, NgonNgu = ?, "
+                                        + "SoTrang = ?, LoaiBia = ?, TacGiaID = ?, NhaXuatBanID = ?, NhaCungCapID = ?, DanhMucID = ?, ThuongHieuID = ? "
+                                        + " WHERE SanPhamID = ?";
 
 			try {
 				PreparedStatement pstm = conn.prepareStatement(sql);
@@ -246,18 +245,20 @@ public class SanPham_DAO implements ISanPham{
 				pstm.setDouble(4, sp.getThue());
 				pstm.setString(5, sp.getLoaiDoiTra());
 				pstm.setString(6, sp.getBarcode());
-				pstm.setString(7, sp.getImgPath());
-				pstm.setString(8, sp.getTinhTrang());
-				pstm.setInt(9, sp.getSoLuongTon());
-				pstm.setInt(10, sp.getNamSanXuat());
-				pstm.setString(11,  sp.getLoaiSanPham());
-				pstm.setString(12, sp.getDonViDoLuong());
-				pstm.setString(13, sp.getKichThuoc());
-				pstm.setString(14, sp.getXuatXu());
-				pstm.setString(15, sp.getNgonNgu());
-				pstm.setInt(16, sp.getSoTrang());
-				pstm.setString(17, sp.getLoaiBia());
-				pstm.setInt(18, id);
+				pstm.setInt(7, sp.getSoLuongTon());
+				pstm.setInt(8, sp.getNamSanXuat());
+				pstm.setString(9, sp.getDonViDoLuong());
+				pstm.setString(10, sp.getKichThuoc());
+				pstm.setString(11, sp.getXuatXu());
+				pstm.setString(12, sp.getNgonNgu());
+				pstm.setInt(13, sp.getSoTrang());
+				pstm.setString(14, sp.getLoaiBia());
+                                pstm.setInt(15, sp.getTacGia().getTacGiaID());
+                                pstm.setInt(16, sp.getNhaXuatBan().getNhaXuatBanID());
+                                pstm.setString(17, sp.getNhaCungCap().getNhaCungCapID());
+                                pstm.setInt(18, sp.getDanhMuc().getDanhMucID());
+                                pstm.setInt(19, sp.getThuongHieu().getThuongHieuID());
+				pstm.setInt(20, id);
 				return(pstm.executeUpdate()>0)?true:false;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -477,13 +478,13 @@ public class SanPham_DAO implements ISanPham{
     @Override
     public int getIdDanhMucByName(String name) {
        try {
-                String query = "SELECT NhaXuatBanID FROM NhaXuatban WHERE TenNhaXuatBan = ?";
+                String query = "SELECT DanhMucID FROM DanhMuc WHERE TenDanhMuc = ?";
                 PreparedStatement pstm = conn.prepareStatement(query);
 		pstm.setString(1, name);
                 ResultSet rs = pstm.executeQuery();
                 while(rs.next())
                 {
-                    int id = rs.getInt("NhaXuatBanID");
+                    int id = rs.getInt("DanhMucID");
                     return id;
                 }
                 
@@ -546,6 +547,145 @@ public class SanPham_DAO implements ISanPham{
         }
 	return "";
     }
+
+    @Override
+    public String getNameTheLoaiByID(int ID) {
+        try {
+                String query = "SELECT TenTheLoai FROM TheLoai WHERE TheLoaiID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenTheLoai");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameThuongHieuByID(int ID) {
+         try {
+                String query = "SELECT TenThuongHieu FROM ThuongHieu WHERE ThuongHieuID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setInt(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenThuongHieu");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public String getNameNhaCungCapByID(String ID) {
+         try {
+                String query = "SELECT TenNhaCungCap FROM NhaCungCap WHERE NhaCungCapID = ?";
+                PreparedStatement pstm = conn.prepareStatement(query);
+		pstm.setString(1, ID);
+                ResultSet rs = pstm.executeQuery();
+                while(rs.next())
+                {
+                    String name = rs.getString("TenNhaCungCap");
+                    return name;
+                }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	return "";
+    }
+
+    @Override
+    public boolean editTrangThaiSanPham(SanPham sp) {
+        int id = sp.getSanPhamID();
+		try {			
+				
+			String sql = "UPDATE SanPham "
+					+ "SET TinhTrang = ? WHERE SanPhamID = ?";
+
+			try {
+				PreparedStatement pstm = conn.prepareStatement(sql);		
+				pstm.setString(1, sp.getTinhTrang());
+                                pstm.setInt(2, id);
+				return(pstm.executeUpdate()>0)?true:false;
+			} catch (Exception e) {
+				e.printStackTrace();
+//				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("Lỗi");
+		}
+		
+		// TODO Auto-generated method stub
+		return false;
+    }
+
+	@Override
+	public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+		// TODO Auto-generated method stub
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getGiaNhap() > sp2.getGiaNhap()) {
+                    return 1;
+                } else {
+                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
+
+	@Override
+	public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
+                    return 1;
+                } else {
+                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
+
+	@Override
+	public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+		// TODO Auto-generated method stub
+		Collections.sort(list, new Comparator<SanPham>() {
+            @Override
+            public int compare(SanPham sp1, SanPham sp2) {
+                if (sp1.getSoLuongTon() > sp2.getSoLuongTon()) {
+                    return 1;
+                } else {
+                    if (sp1.getSoLuongTon() == sp2.getSoLuongTon()) {
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        });
+		
+	}
 
 
         

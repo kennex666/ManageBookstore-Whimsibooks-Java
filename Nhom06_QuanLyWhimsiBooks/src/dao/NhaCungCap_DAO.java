@@ -124,20 +124,12 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
-		String maNCC = ncc.getNhaCungCapID();
 		String tenNCC = ncc.getTenNhaCungCap();
-		String SDT = ncc.getSoDienThoai();
-		String email = ncc.getEmail();
-		String diaChi = ncc.getDiaChi();
 		
-		String insert = "INSERT INTO NhaCungCap (NhaCungCapID ,TenNhaCungCap, SoDIenThoai, Email, DiaChi) VALUES (?,?,?,?,?)";
+		String insert = "INSERT INTO NhaCungCap (TenNhaCungCap) VALUES (?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(insert);
-			preparedStatement.setString(1, maNCC);
-			preparedStatement.setString(2, tenNCC);
-			preparedStatement.setString(3, SDT);
-			preparedStatement.setString(4, email);
-			preparedStatement.setString(5, diaChi);
+			preparedStatement.setString(1, tenNCC);
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
