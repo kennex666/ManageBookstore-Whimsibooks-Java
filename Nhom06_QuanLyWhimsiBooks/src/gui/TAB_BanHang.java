@@ -887,6 +887,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(1, 0, 0, 0);
     tabbedHoaDon.add(tabBanHang_HoaDon_Center, gridBagConstraints);
 
+    tabBanHang_HoaDon_Right.setMaximumSize(new java.awt.Dimension(225, 432));
     java.awt.GridBagLayout tabBanHang_HoaDon_RightLayout = new java.awt.GridBagLayout();
     tabBanHang_HoaDon_RightLayout.columnWidths = new int[] {0};
     tabBanHang_HoaDon_RightLayout.rowHeights = new int[] {0, 14, 0, 14, 0};
@@ -1061,13 +1062,13 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     gridBagConstraints.insets = new java.awt.Insets(3, 0, 3, 0);
     jPanel15.add(jLabel13, gridBagConstraints);
 
-    lblTrangThaiApDungKM.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
     lblTrangThaiApDungKM.setForeground(new java.awt.Color(255, 0, 51));
     lblTrangThaiApDungKM.setText("*Chỉ áp dụng cho đơn hàng từ X VND");
     gridBagConstraints = new java.awt.GridBagConstraints();
-    gridBagConstraints.gridx = 4;
+    gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 6;
-    gridBagConstraints.gridwidth = 13;
+    gridBagConstraints.gridwidth = 19;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
     jPanel15.add(lblTrangThaiApDungKM, gridBagConstraints);
 
@@ -1375,7 +1376,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE_LEADING;
     jPanel2.add(txt_DSHD_MaNV, gridBagConstraints);
 
-    jLabel17.setText("Mã/Số điện thoại nhân viên bán");
+    jLabel17.setText("Mã nhân viên bán hàng");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 24;
@@ -1417,7 +1418,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.ipady = 8;
     jPanel2.add(btn_DSHD_taiLai, gridBagConstraints);
 
-    jLabel18.setText("Mã/Số điện thoại khách hàng");
+    jLabel18.setText("Mã khách hàng");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 20;

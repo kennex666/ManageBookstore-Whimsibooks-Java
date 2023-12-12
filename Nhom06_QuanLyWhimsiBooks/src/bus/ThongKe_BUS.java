@@ -31,6 +31,14 @@ public class ThongKe_BUS {
     private ChiTietHoaDon_DAO chiTietHoaDon_DAO;
     private HoaDonTra_DAO hoaDonTra_DAO;
     private ChiTietTraHang_DAO chiTietTraHang_DAO;
+    
+    public ArrayList<Object[]> thongKeXuHuongTheoThoiGian(Date timeStart, Date timeEnd){
+        ArrayList<Object[]> listThongKe = hoaDon_DAO.getDanhSachHoaDonThongKeXuHuong(timeStart, timeEnd);
+        if (listThongKe == null){
+            listThongKe = new ArrayList<Object[]>();
+        }
+        return listThongKe;
+    }
 
     public ArrayList<Map.Entry<Date, double[]>> thongKeTheoThoiGian(Date timeStart, Date timeEnd) {
         ArrayList<HoaDon> listHoaDon = hoaDon_DAO.getDanhSachHoaDonTheoThoiGian(timeStart, timeEnd);

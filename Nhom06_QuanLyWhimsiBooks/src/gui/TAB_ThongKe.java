@@ -29,10 +29,12 @@ public class TAB_ThongKe extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new Form_ThongKeDoanhThu();
+        jPanel3 = new Form_ThongKeSanPhamBanChay();
 
         setLayout(new java.awt.BorderLayout());
 
         jTabbedPane1.addTab("Thống kê doanh thu", jPanel2);
+        jTabbedPane1.addTab("Thống kê sản phẩm bán chạy", jPanel3);
 
         add(jTabbedPane1, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -41,6 +43,7 @@ public class TAB_ThongKe extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

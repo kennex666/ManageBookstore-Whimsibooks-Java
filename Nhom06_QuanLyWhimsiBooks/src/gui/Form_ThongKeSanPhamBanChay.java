@@ -17,6 +17,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import javax.swing.table.DefaultTableModel;
 import utilities.ErrorMessage;
 import utilities.Numberic;
 
@@ -24,15 +25,16 @@ import utilities.Numberic;
  *
  * @author duong
  */
-public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
+public class Form_ThongKeSanPhamBanChay extends javax.swing.JPanel {
 
+    private DefaultTableModel modelThongKeXuHuong;
     private ThongKe_BUS thongKe_BUS;
     private String[] quyTRANS = {"", "I", "II", "III", "IV"};
 
     /**
      * Creates new form Form_ThongKeDoanhThu
      */
-    public Form_ThongKeDoanhThu() {
+    public Form_ThongKeSanPhamBanChay() {
         thongKe_BUS = new ThongKe_BUS();
 
         initComponents();
@@ -46,10 +48,6 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
         Date ngayBatDau = new Date();
         ngayBatDau.setDate(ngayKetThuc.getDate() - 7);
-        chart.addLegend("Doanh thu", new Color(245, 189, 135), new Color(245, 189, 135));
-        chart.addLegend("Tiền vốn", new Color(135, 189, 245), new Color(135, 189, 245));
-        chart.addLegend("Lợi nhuận", new Color(189, 135, 245), new Color(189, 135, 245));
-        chart.addLegend("Trả hàng", new Color(139, 229, 222), new Color(139, 229, 222));
 
     }
 
@@ -78,7 +76,10 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         lblDoanhThu = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        chart = new utilities.chartline.CurveLineChart();
+        jPanel1 = new javax.swing.JPanel();
+        lblTitleThongKe = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
@@ -240,7 +241,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Doanh thu");
+        jLabel7.setText("Tổng thu");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
@@ -270,20 +271,73 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipady = 29;
-        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.weightx = 0.1;
         jPanel4.add(jPanel5, gridBagConstraints);
 
         java.awt.GridBagLayout jPanel7Layout = new java.awt.GridBagLayout();
         jPanel7Layout.columnWidths = new int[] {0, 5, 0, 5, 0};
-        jPanel7Layout.rowHeights = new int[] {0};
+        jPanel7Layout.rowHeights = new int[] {0, 9, 0};
         jPanel7.setLayout(jPanel7Layout);
+
+        jPanel1.setLayout(new java.awt.GridBagLayout());
+
+        lblTitleThongKe.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lblTitleThongKe.setText("Sản phẩm bán chạy");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_START;
+        gridBagConstraints.weightx = 0.1;
+        jPanel1.add(lblTitleThongKe, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel7.add(jPanel1, gridBagConstraints);
+
+        jTable1.setModel(modelThongKeXuHuong = new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Barcode", "Tên sản phẩm", "SL tồn", "Đã bán", "Trả hàng", "Tổng thu", "Tổng vốn", "Lợi nhuận"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(0).setPreferredWidth(10);
+            jTable1.getColumnModel().getColumn(2).setResizable(false);
+            jTable1.getColumnModel().getColumn(3).setPreferredWidth(15);
+            jTable1.getColumnModel().getColumn(4).setPreferredWidth(15);
+            jTable1.getColumnModel().getColumn(5).setPreferredWidth(15);
+        }
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
-        jPanel7.add(chart, gridBagConstraints);
+        jPanel7.add(jScrollPane1, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -298,7 +352,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 0.2;
+        gridBagConstraints.weightx = 0.1;
         gridBagConstraints.weighty = 0.1;
         add(jPanel4, gridBagConstraints);
 
@@ -346,7 +400,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         jPanel14.add(jLabel12);
         jPanel14.add(filler4);
 
-        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuần này", "Tháng này", "Năm nay", "Quý", "Thời gian tuỳ chọn" }));
+        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày hôm nay", "Tuần này", "Tháng này", "Năm nay", "Quý", "Thời gian tuỳ chọn" }));
         cboBaoCaoTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboBaoCaoTheoActionPerformed(evt);
@@ -486,11 +540,10 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
-        int loaiBieuDo = 0;
         int pos = cboBaoCaoTheo.getSelectedIndex();
-        Date start = new Date(), end = new Date();
-        if (pos == 4) {
-
+        Date start = new Date();
+        Date end = new Date();
+        if (pos == 5) {
             Date ngayKetThuc = new Date();
             if (txtNgayBatDau.getDate() == null) {
                 ErrorMessage.showMessageWithFocusTextField("Lỗi", "Vui lòng chọn ngày bắt đầu!", null);
@@ -510,61 +563,59 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
                 txtNgayBatDau.requestFocus();
                 return;
             }
-
-        } else {
-            if (pos == 0) {
-                end = new Date();
-                start = new Date(end.getYear(), end.getMonth(), end.getDate() - 7);
-                loaiBieuDo = 1;
-            } else if (pos == 1) {
-                end = new Date();
-                start = new Date(end.getYear(), end.getMonth(), 1);
-                end.setMonth(end.getMonth() + 1);
-                end.setDate(0);
-                loaiBieuDo = 1;
-            } else if (pos == 2) {
-                end = new Date();
-                start = new Date(end.getYear() - 1, 0, 1);
-                loaiBieuDo = 4;
-            } else if (pos == 3) {
-                int quyPos = cboQuy.getSelectedIndex();
-                switch (quyPos) {
-                    case 0:
-                        start = new Date();
-                        start = new Date(start.getYear(), 0, 1);
-                        end = new Date(start.getYear(), 2, 31);
-                        break;
-                    case 1:
-                        start = new Date();
-                        start = new Date(start.getYear(), 3, 1);
-                        end = new Date(start.getYear(), 5, 30);
-                        break;
-                    case 2:
-                        start = new Date();
-                        start = new Date(start.getYear(), 6, 1);
-                        end = new Date(start.getYear(), 8, 30);
-                        break;
-                    case 3:
-                        start = new Date();
-                        start = new Date(start.getYear(), 9, 1);
-                        end = new Date(start.getYear(), 11, 31);
-                        break;
-                    default:
-                        start = new Date();
-                        start = new Date(start.getYear(), 0, 1);
-                        end = new Date(start.getYear(), 2, 31);
-                        break;
-                }
+        } else if (pos == 0) {
+            end = new Date();
+            start = new Date();
+        } else if (pos == 1) {
+            end = new Date();
+            start = new Date(end.getYear(), end.getMonth(), end.getDate() - 7);
+        } else if (pos == 2) {
+            end = new Date();
+            start = new Date(end.getYear(), end.getMonth(), 1);
+            end.setMonth(end.getMonth() + 1);
+            end.setDate(0);
+        } else if (pos == 3) {
+            end = new Date();
+            start = new Date(end.getYear() - 1, 0, 1);
+        } else if (pos == 4) {
+            int quyPos = cboQuy.getSelectedIndex();
+            switch (quyPos) {
+                case 0:
+                    start = new Date();
+                    start = new Date(start.getYear(), 0, 1);
+                    end = new Date(start.getYear(), 2, 31);
+                    break;
+                case 1:
+                    start = new Date();
+                    start = new Date(start.getYear(), 3, 1);
+                    end = new Date(start.getYear(), 5, 30);
+                    break;
+                case 2:
+                    start = new Date();
+                    start = new Date(start.getYear(), 6, 1);
+                    end = new Date(start.getYear(), 8, 30);
+                    break;
+                case 3:
+                    start = new Date();
+                    start = new Date(start.getYear(), 9, 1);
+                    end = new Date(start.getYear(), 11, 31);
+                    break;
+                default:
+                    start = new Date();
+                    start = new Date(start.getYear(), 0, 1);
+                    end = new Date(start.getYear(), 2, 31);
+                    break;
             }
         }
 
-            end.setHours(23);
-            end.setMinutes(59);
-            end.setSeconds(59);
-            start.setHours(0);
-            start.setMinutes(0);
-            start.setSeconds(0);
-        loadThongKe(start, end, "7 ngày gần đây", loaiBieuDo);
+        end.setHours(23);
+        end.setMinutes(59);
+        end.setSeconds(59);
+        start.setHours(0);
+        start.setMinutes(0);
+        start.setSeconds(0);
+        loadThongKe(start, end, "Thống kê sản phẩm bán chạy");
+
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void cboQuyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboQuyActionPerformed
@@ -578,7 +629,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
             return;
         }
 
-        if (pos == 4) {
+        if (pos == 5) {
             txtNgayBatDau.setEnabled(true);
             txtNgayKetThuc.setEnabled(true);
             cboQuy.setEnabled(false);
@@ -591,7 +642,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         } else {
             txtNgayBatDau.setEnabled(false);
             txtNgayKetThuc.setEnabled(false);
-            if (pos == 3) {
+            if (pos == 4) {
                 cboQuy.setEnabled(true);
             } else {
                 cboQuy.setEnabled(false);
@@ -602,286 +653,29 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_cboBaoCaoTheoActionPerformed
 
-    public void loadThongKe(Date start, Date end, String tilte, int loaiBieuDoTemp) {
-        SimpleDateFormat sdfTitle = new SimpleDateFormat("dd/MM/yyyy");
-        int loaiBieuDo = 0;
-        // loaiBieuDo
-
-        // 1 => Ngay
-        // 2 => Thang
-        // 3 => Nam
-        // 4 => Quy
+    public void loadThongKe(Date start, Date end, String tilte) {
         double tongDoanhThu = 0, tongTienVon = 0, tongLoiNhuan = 0, tongTraHang = 0;
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        int soNgay = ((int) (end.getTime() / 86400000)) - ((int) (start.getTime() / 86400000));
-
-        if (soNgay < 1) {
-            soNgay = 1;
+        ArrayList<Object[]> listXuHuong = thongKe_BUS.thongKeXuHuongTheoThoiGian(start, end);
+        while (modelThongKeXuHuong.getRowCount() > 0) {
+            modelThongKeXuHuong.removeRow(0);
         }
-
-        int mocBieuDo = 0;
-
-        chart.clear();
-
-        ArrayList<Map.Entry<Date, double[]>> listThongKe = new ArrayList<Map.Entry<Date, double[]>>();
-        listThongKe = thongKe_BUS.thongKeTheoThoiGian(start, end);
-
-        chart.setTitle("Từ " + sdfTitle.format(start) + " đến " + sdfTitle.format(end) + " (Đơn vị Nghìn đồng)");
-        if (loaiBieuDoTemp != 0) {
-            loaiBieuDo = loaiBieuDoTemp;
-        } else if (soNgay >= 730) {
-            loaiBieuDo = 3;
-        } else if (soNgay > 365) {
-            mocBieuDo = mocBieuDo / 90;
-            loaiBieuDo = 2;
-        } else if (soNgay >= 360) {
-            mocBieuDo = 12;
-            loaiBieuDo = 2;
-        } else if (soNgay >= 180 && soNgay < 185) {
-            mocBieuDo = soNgay / 90;
-            loaiBieuDo = 3;
-        } else if (soNgay > 31) {
-            mocBieuDo = 2;
-            loaiBieuDo = 2;
-        } else {
-            mocBieuDo = soNgay;
-            loaiBieuDo = 1;
+        for (int i = 0; i < listXuHuong.size(); i++) {
+            Object[] temp = listXuHuong.get(i);
+            temp[0] = i + 1;
+            modelThongKeXuHuong.addRow(temp);
+            tongDoanhThu += (double) temp[6];
+            tongLoiNhuan += (double) temp[8];
+            tongTienVon += (double) temp[7];
         }
-
-        Date tempCheckStart = new Date(start.getYear(), start.getMonth(), start.getDate());
-
-        if (loaiBieuDo == 4) {
-            tempCheckStart.setMonth(6);
-            if (end.compareTo(tempCheckStart) <= 0) {
-                loaiBieuDo = 3;
-            }
-        }
-
-        if (loaiBieuDo == 3) {
-            if (start.getYear() == end.getYear()) {
-                loaiBieuDo = 2;
-            }
-        }
-
-        if (loaiBieuDo == 2) {
-            if (start.getYear() == end.getYear()) {
-                if (start.getMonth() == end.getMonth()) {
-                    loaiBieuDo = 1;
-                }
-            }
-        }
-
-        if (loaiBieuDo == 1) {
-            if (start.getDate() == end.getDate()) {
-                end.setDate(1 + end.getDate());
-            }
-        }
-        Date ngayTruocDo = start;
-        double[] thongKeDataTemp = new double[]{0, 0, 0, 0};
-        String quyTemp = "";
-        for (int i = 0; i < listThongKe.size(); i++) {
-            Map.Entry<Date, double[]> entry = listThongKe.get(i);
-
-            double[] object = entry.getValue();
-            tongDoanhThu += object[0];
-            tongTienVon += object[1];
-            tongLoiNhuan += object[2];
-            tongTraHang += object[3];
-
-            object[0] = object[0] / 1000;
-            object[1] = object[1] / 1000;
-            object[2] = object[2] / 1000;
-            object[3] = object[3] / 1000;
-
-            switch (loaiBieuDo) {
-                case 1: {
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd");
-                    if (i == 0) {
-                        Date tempDate = new Date(start.getTime());
-                        if (getDiffDate(ngayTruocDo, entry.getKey()) > 0) {
-                            int temp = getDiffDate(ngayTruocDo, entry.getKey());
-                            for (int k = 0; k < temp; k++) {
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
-                                tempDate.setDate(tempDate.getDate() + 1);
-                            }
-                        }
-                    }
-                    if (getDiffDate(ngayTruocDo, entry.getKey()) > 1) {
-                        int temp = getDiffDate(ngayTruocDo, entry.getKey()) - 1;
-                        for (int k = 0; k < temp; k++) {
-                            ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
-                            chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                        }
-                    }
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(entry.getKey()), new double[]{object[0], object[1], object[2], object[3]}));
-
-                    break;
-                }
-                case 2: {
-                    SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-                    if (i == 0) {
-                        Date tempDate = new Date(start.getTime());
-                        if (getDiffMonth(ngayTruocDo, entry.getKey()) > 0) {
-                            int temp = getDiffMonth(ngayTruocDo, entry.getKey());
-                            for (int k = 0; k < temp; k++) {
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
-                                tempDate.setMonth(tempDate.getMonth() + 1);
-                            }
-                        }
-                    }
-                    if (ngayTruocDo.getMonth() == entry.getKey().getMonth()) {
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    } else {
-                        if (getDiffMonth(ngayTruocDo, entry.getKey()) > 1) {
-                            int temp = getDiffMonth(ngayTruocDo, entry.getKey()) - 1;
-                            for (int k = 0; k < temp; k++) {
-                                ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                            }
-                        }
-                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                        thongKeDataTemp = new double[]{0, 0, 0, 0};
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    }
-                    break;
-                }
-                case 3: {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-                    if (i == 0) {
-                        Date tempDate = new Date(start.getTime());
-                        if (getDiffYear(ngayTruocDo, entry.getKey()) > 0) {
-                            int temp = getDiffYear(ngayTruocDo, entry.getKey());
-                            for (int k = 0; k < temp; k++) {
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(tempDate), new double[]{0, 0, 0, 0}));
-                                tempDate.setYear(tempDate.getYear() + 1);
-                            }
-                        }
-                    }
-                    if (ngayTruocDo.getYear() == entry.getKey().getYear()) {
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    } else {
-                        if (getDiffYear(ngayTruocDo, entry.getKey()) > 1) {
-                            int temp = getDiffYear(ngayTruocDo, entry.getKey()) - 1;
-                            for (int k = 0; k < temp; k++) {
-                                ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
-                                chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                            }
-                        }
-                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                        thongKeDataTemp = new double[]{0, 0, 0, 0};
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    }
-                    break;
-                }
-                case 4: {
-                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-                    int quarter = (entry.getKey().getMonth() / 3) + 1;
-                    String quyHienTai = "Quý " + quyTRANS[quarter] + "/" + sdf.format(entry.getKey());
-                    if (quyTemp.isBlank()) {
-                        quyTemp = quyHienTai;
-                    }
-                    if (quyTemp.equalsIgnoreCase(quyHienTai)) {
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    } else {
-                        chart.addData(new utilities.chartline.ModelChart(quyTemp, thongKeDataTemp));
-                        thongKeDataTemp = new double[]{0, 0, 0, 0};
-                        thongKeDataTemp[0] += object[0];
-                        thongKeDataTemp[1] += object[1];
-                        thongKeDataTemp[2] += object[2];
-                        thongKeDataTemp[3] += object[3];
-                    }
-                    quyTemp = quyHienTai;
-                    break;
-                }
-                default:
-                    break;
-            }
-            ngayTruocDo = entry.getKey();
-        }
-
-        // Show after done
-        switch (loaiBieuDo) {
-            case 1: {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd");
-                if (listThongKe.size() == 0){
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
-                }
-                if (getDiffDate(ngayTruocDo, end) > 0) {
-                    int temp = getDiffDate(ngayTruocDo, end);
-                    for (int k = 0; k < temp; k++) {
-                        ngayTruocDo.setDate(ngayTruocDo.getDate() + 1);
-                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                    }
-                }
-                //chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-
-                break;
-            }
-            case 2: {
-                SimpleDateFormat sdf = new SimpleDateFormat("MM/yyyy");
-                if (listThongKe.size() == 0){
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
-                }else
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                if (getDiffMonth(ngayTruocDo, end) > 0) {
-                    int temp = getDiffMonth(ngayTruocDo, end);
-                    for (int k = 0; k < temp; k++) {
-                        ngayTruocDo.setMonth(ngayTruocDo.getMonth() + 1);
-                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                    }
-                }
-                break;
-            }
-            case 3: {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
-                if (listThongKe.size() == 0){
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(start), new double[]{0, 0, 0, 0}));
-                }else
-                    chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), thongKeDataTemp));
-                if (getDiffYear(ngayTruocDo, end) > 0) {
-                    int temp = getDiffYear(ngayTruocDo, end);
-                    for (int k = 0; k < temp; k++) {
-                        ngayTruocDo.setYear(ngayTruocDo.getYear() + 1);
-                        chart.addData(new utilities.chartline.ModelChart(sdf.format(ngayTruocDo), new double[]{0, 0, 0, 0}));
-                    }
-                }
-                break;
-            }
-            case 4: {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-                int quarter = (start.getMonth() / 3) + 1;
-                if (chart.getModelSize() < 2) {
-                    chart.addData(new utilities.chartline.ModelChart("Từ " + sdf.format(start) + " đến trước " + quyTemp, new double[]{0, 0, 0, 0}));
-                }
-                chart.addData(new utilities.chartline.ModelChart(quyTemp, thongKeDataTemp));
-                break;
-            }
-            default:
-                break;
-        }
-
-        //chart.addData(new utilities.chartline.ModelChart("Default", thongKeDataTemp));
+        
         lblDoanhThu.setText(Numberic.formatD(tongDoanhThu));
         lblLoiNhuan.setText(Numberic.formatD(tongLoiNhuan));
         lblTraHang.setText(Numberic.formatD(tongTraHang));
         lblTienVon.setText(Numberic.formatD(tongTienVon));
-
-        chart.start();
+        
+        lblTitleThongKe.setText("Thống kê sản phẩm bán chạy từ ngày " + sdf.format(start) + " đến ngày " + sdf.format(end));
     }
 
     public int getDiffDate(Date d1, Date d2) {
@@ -916,7 +710,6 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
     public javax.swing.JButton btnXuatExel;
     public javax.swing.JComboBox<String> cboBaoCaoTheo;
     public javax.swing.JComboBox<String> cboQuy;
-    public utilities.chartline.CurveLineChart chart;
     public javax.swing.Box.Filler filler1;
     public javax.swing.Box.Filler filler10;
     public javax.swing.Box.Filler filler11;
@@ -959,6 +752,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel5;
     public javax.swing.JLabel jLabel7;
+    public javax.swing.JPanel jPanel1;
     public javax.swing.JPanel jPanel10;
     public javax.swing.JPanel jPanel11;
     public javax.swing.JPanel jPanel12;
@@ -977,9 +771,12 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
     public javax.swing.JPanel jPanel7;
     public javax.swing.JPanel jPanel8;
     public javax.swing.JPanel jPanel9;
+    public javax.swing.JScrollPane jScrollPane1;
+    public javax.swing.JTable jTable1;
     public javax.swing.JLabel lblDoanhThu;
     public javax.swing.JLabel lblLoiNhuan;
     public javax.swing.JLabel lblTienVon;
+    public javax.swing.JLabel lblTitleThongKe;
     public javax.swing.JLabel lblTraHang;
     public javax.swing.JPanel panelQuy;
     public com.toedter.calendar.JDateChooser txtNgayBatDau;
