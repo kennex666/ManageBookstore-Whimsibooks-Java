@@ -930,8 +930,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		String tenKM = txtTenKM.getText();
 		int soLuongApDung = (int) spSoLuongApDung.getValue();
 		String donHangTu = txtDonHangTu.getText();
-		String hinhThuc = txtHinhThuc.getSelectedItem().toString();
+		String hinhThuc = txtHinhThuc.getSelectedItem().toString().trim();
 		String mucGiam = txtMucGiamGia.getText();
+		
 		java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
 		java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
 		java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
@@ -974,6 +975,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
 		if (!(mucGiam.length() > 0 && Double.valueOf(mucGiam) > 0)) {
 			new utilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm > 0", "Thông báo");
+			return false;
+		}
+		
+		if(hinhThuc.equals("PHAN_TRAM") && !(Double.valueOf(mucGiam) > 0 && Double.valueOf(mucGiam) < 100)) {
+			new utilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm lớn hơn 0% và nhỏ hơn 100%", "Thông báo");
 			return false;
 		}
 
@@ -1053,7 +1059,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                     // Khuyen mai
                     else{
                     	 if (checkTenSuKien(tenKM)) {
-                    		 int yes = JOptionPane.showConfirmDialog(this, "Tên khuyến mãi đã tồn tại, bạn có muốn thêm voucher", "Thông báo", JOptionPane.YES_NO_OPTION);
+                    		 int yes = JOptionPane.showConfirmDialog(this, "Tên khuyến mãi đã tồn tại, bạn có muốn thêm khuyến mãi", "Thông báo", JOptionPane.YES_NO_OPTION);
                     		 if(yes == JOptionPane.YES_OPTION) {
                     			 ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
                                  KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
@@ -1089,6 +1095,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
          							e.printStackTrace();	
          						}
                     		 }
+                    		 txt_CTTKM_NgayBatDau.setDate(ngayBatDau);
+                    		 txt_CTTKM_NgayBatDau.setDate(ngayKetThucUtil);
                     	 }
                     }
                 }
@@ -1605,11 +1613,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		for (int i = 0; i < tableKM.getColumnCount(); i++) {
 			tableKM.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
 		}
-		Calendar currentDate = Calendar.getInstance();
-		txtNgayBatDau.setDate(currentDate.getTime());
-		currentDate.add(currentDate.MONTH, 1);
-		txtNgayKetThuc.setDate(currentDate.getTime());
-		sorter = new TableRowSorter<>(tableModel);
+//		Calendar currentDate = Calendar.getInstance();
+//		txtNgayBatDau.setDate(currentDate.getTime());
+//		currentDate.add(currentDate.MONTH, 1);
+//		txtNgayKetThuc.setDate(currentDate.getTime());
+//		sorter = new TableRowSorter<>(tableModel);
 		tableKM.setRowSorter(sorter);
     }
     

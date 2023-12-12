@@ -72,11 +72,6 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         setMaximumSize(new java.awt.Dimension(1200, 600));
         setMinimumSize(new java.awt.Dimension(1200, 600));
         setPreferredSize(new java.awt.Dimension(1200, 600));
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         ALL.setLayout(new java.awt.BorderLayout());
         ALL.add(jPanel1, java.awt.BorderLayout.PAGE_START);

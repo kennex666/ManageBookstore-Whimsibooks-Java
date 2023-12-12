@@ -176,8 +176,8 @@ VALUES
 -- Sample data for NhaCungCap table
 INSERT INTO NhaCungCap (NhaCungCapID, TenNhaCungCap, SoDIenThoai, Email, DiaChi)
 VALUES
-    ('NCC00001', 'Supplier A', '9876543210', 'supplierA@example.com', '456 Supplier Ave'),
-    ('NCC00002', 'Supplier B', '1234567890', 'supplierB@example.com', '789 Vendor St');
+    ('NCC00001', N'Công Ty Cổ Phần Phát Hành Sách Tp. HCM', '02838225798', 'fahasa-sg@hcm.vnn.vn', N'60-62 Lê Lợi, P. Bến Nghé, Q. 1, Tp. Hồ Chí Minh (TPHCM)'),
+    ('NCC00002', N'Trí Tuệ - Công Ty Cổ Phần Sách & Thiết Bị Giáo Dục Trí Tuệ', '02438515567', 'kinhdoanh@nhasachtritue.com', N'187 Giảng Võ, Q. Đống Đa, Hà Nội');
 
 -- Sample data for ChiTietTraHang, HoaDonTra, KhachHang tables
 -- (You can continue adding more sample data for these tables as needed)
