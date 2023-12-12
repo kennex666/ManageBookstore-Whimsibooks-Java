@@ -12,7 +12,7 @@ public class DanhMuc_BUS implements IDanhMuc{
 	@Override
 	public boolean addDanhMuc(DanhMuc x) {
 		// TODO Auto-generated method stub
-		return false;
+		return danhMuc_DAO.addDanhMuc(x);
 	}
 	@Override
 	public boolean editDanhMuc(DanhMuc x) {
@@ -25,7 +25,7 @@ public class DanhMuc_BUS implements IDanhMuc{
 		return danhMuc_DAO.getAllDanhMuc();
 	}
 	@Override
-	public ArrayList<DanhMuc> getDanhMucTheoID(String x) {
+	public ArrayList<DanhMuc> getDanhMucTheoID(int x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

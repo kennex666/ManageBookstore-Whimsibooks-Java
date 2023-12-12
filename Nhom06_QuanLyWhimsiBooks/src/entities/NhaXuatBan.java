@@ -22,7 +22,11 @@ public class NhaXuatBan {
 		this.setLinhVucXuatBan(linhVucXuatBan);
 		this.setQuocGia(quocGia);
 	}
-	public NhaXuatBan() {
+	public NhaXuatBan(int nhaXuatBanID) {
+		super();
+		this.setNhaXuatBanID(nhaXuatBanID);
+	}
+        public NhaXuatBan() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -65,7 +69,7 @@ public class NhaXuatBan {
 		return soDienThoai;
 	}
 	public void setSoDienThoai(String soDienThoai) {
-//	    // Kiểm tra soDienThoai không rỗng
+	    // Kiểm tra soDienThoai không rỗng
 //	    if (soDienThoai.isEmpty()) {
 //	        throw new IllegalArgumentException("Số điện thoại không được rỗng");
 //	    }
@@ -82,14 +86,14 @@ public class NhaXuatBan {
 	}
 	public void setEmail(String email) {
 	    // Kiểm tra email không rỗng
-	    if (email.isEmpty()) {
-	        throw new IllegalArgumentException("Email không được rỗng");
-	    }
-
-	    // Kiểm tra định dạng
-	    if (!email.matches("^(([A-Za-z0-9]+)(([\\.]?)([A-Za-z0-9]+))+)(@)(([A-Za-z0-9]+\\.)([A-Za-z0-9]+))+$")) {
-	        throw new IllegalArgumentException("Email không hợp lệ");
-	    }
+//	    if (email.isEmpty()) {
+//	        throw new IllegalArgumentException("Email không được rỗng");
+//	    }
+//
+//	    // Kiểm tra định dạng
+//	    if (!email.matches("^(([A-Za-z0-9]+)(([\\.]?)([A-Za-z0-9]+))+)(@)(([A-Za-z0-9]+\\.)([A-Za-z0-9]+))+$")) {
+//	        throw new IllegalArgumentException("Email không hợp lệ");
+//	    }
 
 	    this.email = email;
 	}
@@ -103,10 +107,6 @@ public class NhaXuatBan {
 		return namThanhLap;
 	}
 	public void setNamThanhLap(int namThanhLap) {
-	    // Kiểm tra năm thành lập
-//	    if (namThanhLap.getTime() <= 0) {
-//	        throw new IllegalArgumentException("Năm thành lập không hợp lệ");
-//	    }
 
 	    this.namThanhLap = namThanhLap;
 	}
@@ -116,10 +116,6 @@ public class NhaXuatBan {
 	
 	public void setLinhVucXuatBan(String linhVucXuatBan) {
 	    // Kiểm tra linhVucXuatBan không rỗng
-	    if (linhVucXuatBan.isEmpty()) {
-	        throw new IllegalArgumentException("Lĩnh vực xuất bản không được rỗng");
-	    }
-
 	    this.linhVucXuatBan = linhVucXuatBan;
 	}
 	

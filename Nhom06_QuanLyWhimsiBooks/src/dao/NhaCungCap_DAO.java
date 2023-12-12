@@ -43,7 +43,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+maNCC+"%'";
+			String query = "SELECT * FROM NhaCungCap WHERE NhaCungCapID LIKE '%"+maNCC+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {
@@ -64,7 +64,27 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+sdt+"%'";
+			String query = "SELECT * FROM NhaCungCap WHERE SoDIenThoai = '%"+sdt+"%'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
+					list.add(nhaCungCap);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public ArrayList<NhaCungCap> getNCCByEmail(String email) {
+		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+		try {
+			Statement stm = conn.createStatement();
+			String query = "SELECT * FROM NhaCungCap WHERE Email LIKE '%"+email+"%'";
 			ResultSet rs = stm.executeQuery(query);
 			while(rs.next()) {
 				try {
@@ -104,20 +124,12 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
-		String maNCC = ncc.getNhaCungCapID();
 		String tenNCC = ncc.getTenNhaCungCap();
-		String SDT = ncc.getSoDienThoai();
-		String email = ncc.getEmail();
-		String diaChi = ncc.getDiaChi();
 		
-		String insert = "INSERT INTO NhaCungCap (NhaCungCapID ,TenNhaCungCap, SoDIenThoai, Email, DiaChi) VALUES (?,?,?,?,?)";
+		String insert = "INSERT INTO NhaCungCap (TenNhaCungCap) VALUES (?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(insert);
-			preparedStatement.setString(1, maNCC);
-			preparedStatement.setString(2, tenNCC);
-			preparedStatement.setString(3, SDT);
-			preparedStatement.setString(4, email);
-			preparedStatement.setString(5, diaChi);
+			preparedStatement.setString(1, tenNCC);
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {

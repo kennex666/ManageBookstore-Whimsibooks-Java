@@ -27,6 +27,11 @@ public class ThuongHieu {
 	public ThuongHieu() {
 		super();
 	}
+        
+        public ThuongHieu(int thuongHieuID) {
+		super();
+                setThuongHieuID(thuongHieuID);
+	}
 
 	@Override
 	public int hashCode() {

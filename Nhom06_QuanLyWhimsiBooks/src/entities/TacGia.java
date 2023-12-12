@@ -25,8 +25,6 @@ public class TacGia {
 		return quocTich;
 	}
 	public void setQuocTich(String quocTich) throws Exception{
-		if (!quocTich.matches(RegexPattern.KHONG_TRONG_TIENG_VIET))
-			throw new Exception("Quốc tịch không chứa số và kí tự đặc biệt");
 		this.quocTich = quocTich;
 	}
 	
@@ -37,6 +35,9 @@ public class TacGia {
 		setTenTacGia(tenTacGia);
 	}
 	
+        public TacGia(int tacGiaID) {
+            setTacGiaID(tacGiaID);
+	}
 	
 	
 	@Override
@@ -52,8 +53,10 @@ public class TacGia {
 		if (getClass() != obj.getClass())
 			return false;
 		TacGia other = (TacGia) obj;
-		return tacGiaID == other.tacGiaID;
+	
+                return tacGiaID == other.tacGiaID;
 	}
+
 	public TacGia() {
 		super();
 	}

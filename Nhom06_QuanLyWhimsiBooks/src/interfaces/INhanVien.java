@@ -34,4 +34,5 @@ public interface INhanVien {
 	
 	public boolean resetUserPassword(String username, String newPassword);
 
+	public  boolean chuyenChucVuNhanVienCu(String maNhanVien);
 }

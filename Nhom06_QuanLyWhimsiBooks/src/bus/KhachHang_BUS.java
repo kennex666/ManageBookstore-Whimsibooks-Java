@@ -70,7 +70,7 @@ public class KhachHang_BUS implements IKhachHang {
 		return null;
 	}
 	@Override
-	public String phatSinhMaKhachHang() {
+	public int phatSinhMaKhachHang() {
 		// TODO Auto-generated method stub
 		return kh_dao.phatSinhMaKhachHang();
 	}
@@ -78,5 +78,14 @@ public class KhachHang_BUS implements IKhachHang {
 	public String phatSinhMaSoThue(String loaiKhachHang) {
 		// TODO Auto-generated method stub
 		return kh_dao.phatSinhMaSoThue(loaiKhachHang);
+	}
+	public boolean checkIfKhachHangExists(String maKH) {
+		return kh_dao.checkIfKhachHangExists(maKH);
+	}
+
+	@Override
+	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
+		// TODO Auto-generated method stub
+		return kh_dao.chuyenLoaiKhachHang(maKhachHang, loaiKhachHangMoi);
 	}
 }

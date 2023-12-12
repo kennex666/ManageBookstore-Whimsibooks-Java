@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -40,6 +41,42 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		return list;
 	}
 	
+	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
+			ResultSet rs = stm.executeQuery(query);
+			while(rs.next()) {
+				try {
+					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
+					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
+					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
+					list.add(chiTietKhuyenMai);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public Date getNgayTao(String maKM) {
+		try {
+			Statement stm =  conn.createStatement();
+			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
+			ResultSet rs = stm.executeQuery(query);	
+	        if (rs.next()) {
+	            return rs.getDate("NgayTao");
+	        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {
 		if(danhSachSPKM.size() > 0) {
 			for(int i = 0; i  < danhSachSPKM.size(); i++) {
@@ -67,10 +104,24 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		}
 		return false;
 	}
+	
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {;
+		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
+		try {
+			Calendar calendar = Calendar.getInstance();
+			PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
+			preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
+			preparedStatement1.setInt(2, masanPham);
+			preparedStatement1.setString(3, makhuyenMai);
+			preparedStatement1.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
 	public ChiTietKhuyenMai_DAO() {
 		conn = ConnectDB.getConnection();
 	}
-	
-	
 }

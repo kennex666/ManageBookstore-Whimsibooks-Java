@@ -8,7 +8,9 @@ import bus.SanPham_BUS;
 import connectDB.ConnectDB;
 import entities.SanPham;
 import entities.TacGia;
+import java.awt.Color;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -16,16 +18,16 @@ import javax.swing.JOptionPane;
  *
  * @author ASUS
  */
-public class ChiTietSanPham extends javax.swing.JPanel {
+public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
     SanPham x = new SanPham();
     /**
      * Creates new form ChiTietSanPham
      */
-    public ChiTietSanPham() {
+    public TAB_ChiTietSanPham_Sach() {
         initComponents();
     }
     
-    public ChiTietSanPham(SanPham x) {
+    public TAB_ChiTietSanPham_Sach(SanPham x) {
         this.x = x;
         initComponents();
         ConnectDB.getInstance().connect();
@@ -40,15 +42,21 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         this.jLabel_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
         
-//        if (getClass().getResource(x.getImgPath().toString()) == null){
-//            jLabel_Img.setText("No image");
-//            return;
-//        }
+        if(x.getTinhTrang().equals("NGUNG_KINH_DOANH"))
+        {
+           jButton_NgungBan.setBackground(new Color(204,204,204));
+           jButton_NgungBan.setText("Bán lại");
+        }
+        
+       
 
         ImageIcon imageIcon = new ImageIcon("src/" + x.getImgPath()); // load the image to a imageIcon
-
+        if (imageIcon.getImageLoadStatus() != MediaTracker.COMPLETE && imageIcon.getImageLoadStatus() != MediaTracker.LOADING){
+            jLabel_Img.setText("No image");
+            return;
+        }
         Image image = imageIcon.getImage(); // transform it 
-        Image newimg = image.getScaledInstance(150, 220,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
+        Image newimg = image.getScaledInstance(150, 210,  java.awt.Image.SCALE_SMOOTH); // scale it the smooth way  
         imageIcon = new ImageIcon(newimg); 
         this.jLabel_Img.setIcon(imageIcon);
         
@@ -65,19 +73,18 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        filler16 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0));
         jPanel_Component_SanPham = new javax.swing.JPanel();
         jPanel_Box_Left = new javax.swing.JPanel();
         jLabel_Img = new javax.swing.JLabel();
-        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
+        filler11 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 0), new java.awt.Dimension(0, 0));
         filler12 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 10), new java.awt.Dimension(0, 0));
-        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 20), new java.awt.Dimension(0, 0));
+        filler13 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(5, 7), new java.awt.Dimension(0, 0));
         filler14 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 5), new java.awt.Dimension(0, 0));
         jPanel_Info_SanPham1 = new javax.swing.JPanel();
         jPanel159 = new javax.swing.JPanel();
-        filler8 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         filler10 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel_TenSanPham1 = new javax.swing.JPanel();
-        jLabel132 = new javax.swing.JLabel();
         jLabel_TenSanPham = new javax.swing.JLabel();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel160 = new javax.swing.JPanel();
@@ -96,30 +103,39 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jLabel130 = new javax.swing.JLabel();
         jLabel_SoLuong = new javax.swing.JLabel();
         filler5 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
-        filler6 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         filler7 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 10));
         jPanel164 = new javax.swing.JPanel();
         jButton_Sua = new javax.swing.JButton();
         filler9 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 30), new java.awt.Dimension(10, 10));
         jButton_NgungBan = new javax.swing.JButton();
+        filler18 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(2, 2), new java.awt.Dimension(10, 10));
+        filler19 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(0, 0));
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(412, 235));
+        setMinimumSize(new java.awt.Dimension(410, 235));
+        setName(""); // NOI18N
+        setPreferredSize(new java.awt.Dimension(410, 235));
+        setLayout(new java.awt.BorderLayout());
+        add(filler16, java.awt.BorderLayout.PAGE_START);
 
-        jPanel_Component_SanPham.setBackground(new java.awt.Color(204, 204, 204));
-        jPanel_Component_SanPham.setMinimumSize(new java.awt.Dimension(430, 300));
+        jPanel_Component_SanPham.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jPanel_Component_SanPham.setMaximumSize(new java.awt.Dimension(405, 250));
+        jPanel_Component_SanPham.setMinimumSize(new java.awt.Dimension(405, 250));
+        jPanel_Component_SanPham.setPreferredSize(new java.awt.Dimension(405, 250));
         jPanel_Component_SanPham.setLayout(new javax.swing.BoxLayout(jPanel_Component_SanPham, javax.swing.BoxLayout.LINE_AXIS));
 
-        jPanel_Box_Left.setPreferredSize(new java.awt.Dimension(170, 254));
+        jPanel_Box_Left.setMaximumSize(new java.awt.Dimension(175, 225));
+        jPanel_Box_Left.setMinimumSize(new java.awt.Dimension(175, 225));
+        jPanel_Box_Left.setPreferredSize(new java.awt.Dimension(175, 225));
         jPanel_Box_Left.setLayout(new java.awt.BorderLayout());
 
         jLabel_Img.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel_Img.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel_Img.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jLabel_Img.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel_Img.setPreferredSize(new java.awt.Dimension(150, 300));
+        jLabel_Img.setPreferredSize(new java.awt.Dimension(150, 305));
         jPanel_Box_Left.add(jLabel_Img, java.awt.BorderLayout.CENTER);
-        jLabel_Img.getAccessibleContext().setAccessibleName("");
-
         jPanel_Box_Left.add(filler11, java.awt.BorderLayout.LINE_END);
         jPanel_Box_Left.add(filler12, java.awt.BorderLayout.PAGE_START);
         jPanel_Box_Left.add(filler13, java.awt.BorderLayout.PAGE_END);
@@ -127,21 +143,28 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
         jPanel_Component_SanPham.add(jPanel_Box_Left);
 
-        jPanel_Info_SanPham1.setLayout(new java.awt.BorderLayout());
+        jPanel_Info_SanPham1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jPanel_Info_SanPham1.setMaximumSize(new java.awt.Dimension(230, 214));
+        jPanel_Info_SanPham1.setMinimumSize(new java.awt.Dimension(230, 214));
+        jPanel_Info_SanPham1.setPreferredSize(new java.awt.Dimension(230, 210));
+        jPanel_Info_SanPham1.setLayout(new javax.swing.BoxLayout(jPanel_Info_SanPham1, javax.swing.BoxLayout.LINE_AXIS));
 
+        jPanel159.setMaximumSize(new java.awt.Dimension(230, 205));
+        jPanel159.setMinimumSize(new java.awt.Dimension(230, 205));
+        jPanel159.setPreferredSize(new java.awt.Dimension(230, 205));
         jPanel159.setLayout(new javax.swing.BoxLayout(jPanel159, javax.swing.BoxLayout.Y_AXIS));
-        jPanel159.add(filler8);
         jPanel159.add(filler10);
 
         jPanel_TenSanPham1.setAlignmentX(0.0F);
         jPanel_TenSanPham1.setLayout(new javax.swing.BoxLayout(jPanel_TenSanPham1, javax.swing.BoxLayout.LINE_AXIS));
 
-        jLabel132.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
-        jLabel132.setText("Tên sản phẩm: ");
-        jPanel_TenSanPham1.add(jLabel132);
-
-        jLabel_TenSanPham.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
+        jLabel_TenSanPham.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel_TenSanPham.setText("Field_TenSanPham");
+        jLabel_TenSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel_TenSanPham.setDebugGraphicsOptions(javax.swing.DebugGraphics.NONE_OPTION);
+        jLabel_TenSanPham.setMaximumSize(new java.awt.Dimension(215, 21));
+        jLabel_TenSanPham.setMinimumSize(new java.awt.Dimension(215, 21));
+        jLabel_TenSanPham.setPreferredSize(new java.awt.Dimension(215, 21));
         jPanel_TenSanPham1.add(jLabel_TenSanPham);
 
         jPanel159.add(jPanel_TenSanPham1);
@@ -202,7 +225,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
 
         jPanel159.add(jPanel163);
         jPanel159.add(filler5);
-        jPanel159.add(filler6);
         jPanel159.add(filler7);
 
         jPanel164.setAlignmentX(0.0F);
@@ -214,6 +236,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jButton_Sua.setForeground(new java.awt.Color(255, 255, 255));
         jButton_Sua.setText("Sửa");
         jButton_Sua.setAutoscrolls(true);
+        jButton_Sua.setMaximumSize(new java.awt.Dimension(80, 30));
+        jButton_Sua.setMinimumSize(new java.awt.Dimension(80, 30));
+        jButton_Sua.setPreferredSize(new java.awt.Dimension(72, 30));
         jButton_Sua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -226,6 +251,9 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jButton_NgungBan.setFont(new java.awt.Font("Segoe UI", 0, 15)); // NOI18N
         jButton_NgungBan.setForeground(new java.awt.Color(255, 255, 255));
         jButton_NgungBan.setText("Ngừng bán");
+        jButton_NgungBan.setMaximumSize(new java.awt.Dimension(120, 30));
+        jButton_NgungBan.setMinimumSize(new java.awt.Dimension(120, 30));
+        jButton_NgungBan.setPreferredSize(new java.awt.Dimension(105, 30));
         jButton_NgungBan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNgungKDActionPerformed(evt);
@@ -234,27 +262,14 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         jPanel164.add(jButton_NgungBan);
 
         jPanel159.add(jPanel164);
+        jPanel159.add(filler18);
 
-        jPanel_Info_SanPham1.add(jPanel159, java.awt.BorderLayout.CENTER);
+        jPanel_Info_SanPham1.add(jPanel159);
 
         jPanel_Component_SanPham.add(jPanel_Info_SanPham1);
+        jPanel_Component_SanPham.add(filler19);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel_Component_SanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel_Component_SanPham, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
-        );
+        add(jPanel_Component_SanPham, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
@@ -263,13 +278,41 @@ public class ChiTietSanPham extends javax.swing.JPanel {
         tAB_ThemSanPham.setVisible(true);
         tAB_ThemSanPham.setLocationRelativeTo(null);
         
-        tAB_ThemSanPham.setSanPham(x);
+        tAB_ThemSanPham.setSanPhamSach(x);
+        tAB_ThemSanPham.disVisibleForSua();
         
         
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnNgungKDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNgungKDActionPerformed
         // TODO add your handling code here:
+        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        int result = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn đổi trạng thái bán hàng không?");
+        if(jButton_NgungBan.getText().equals("Ngừng bán"))
+        {
+            if(result == 0)
+            {
+                jButton_NgungBan.setBackground(new Color(204,204,204));
+                jButton_NgungBan.setText("Bán lại");
+            }
+                
+            x.setTinhTrang("NGUNG_KINH_DOANH");
+            sanPham_BUS.editTrangThaiSanPham(x);
+            return;
+        }
+        
+        if(jButton_NgungBan.getText().equals("Bán lại"))
+        {
+            if(result == 0)
+            {
+                jButton_NgungBan.setBackground(new Color(219,79,78));
+                jButton_NgungBan.setText("Ngừng bán");
+            }
+           
+            x.setTinhTrang("CON_HANG");
+            sanPham_BUS.editTrangThaiSanPham(x);
+        }
+       
     }//GEN-LAST:event_btnNgungKDActionPerformed
 
 
@@ -280,13 +323,14 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.Box.Filler filler12;
     private javax.swing.Box.Filler filler13;
     private javax.swing.Box.Filler filler14;
+    private javax.swing.Box.Filler filler16;
+    private javax.swing.Box.Filler filler18;
+    private javax.swing.Box.Filler filler19;
     private javax.swing.Box.Filler filler2;
     private javax.swing.Box.Filler filler3;
     private javax.swing.Box.Filler filler4;
     private javax.swing.Box.Filler filler5;
-    private javax.swing.Box.Filler filler6;
     private javax.swing.Box.Filler filler7;
-    private javax.swing.Box.Filler filler8;
     private javax.swing.Box.Filler filler9;
     private javax.swing.JButton jButton_NgungBan;
     private javax.swing.JButton jButton_Sua;
@@ -294,7 +338,6 @@ public class ChiTietSanPham extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel130;
-    private javax.swing.JLabel jLabel132;
     private javax.swing.JLabel jLabel_DanhMuc;
     private javax.swing.JLabel jLabel_Img;
     private javax.swing.JLabel jLabel_NhaXuatBan;

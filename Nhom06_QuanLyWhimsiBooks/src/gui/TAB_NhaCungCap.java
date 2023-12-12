@@ -487,93 +487,14 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     }//GEN-LAST:event_btnHuyNCCActionPerformed
     
     private void btnXuatFileNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXuatFileNCCActionPerformed
-    	 JFileChooser excelFileChooser = new JFileChooser("D:\\");
-    	    excelFileChooser.setDialogTitle("Save Excel File");
-    	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
-    	    excelFileChooser.setFileFilter(fnef);
-
-    	    int excelChooser = excelFileChooser.showSaveDialog(null);
-
-    	    if (excelChooser == JFileChooser.APPROVE_OPTION) {
-    	        File excelFile = excelFileChooser.getSelectedFile();
-
-    	        // Kiểm tra nếu tên file không kết thúc bằng ".xlsx", thêm ".xlsx" vào
-    	        if (!excelFile.getName().toLowerCase().endsWith(".xlsx")) {
-    	            excelFile = new File(excelFile.getParentFile(), excelFile.getName() + ".xlsx");
-    	        }
-
-    	        try {
-    	            FileOutputStream fileOut = new FileOutputStream(excelFile);
-    	            XSSFWorkbook workbook = new XSSFWorkbook();
-    	            XSSFSheet sheet = workbook.createSheet("Sheet1");
-
-    	            // Code để ghi dữ liệu vào workbook
-    	            // Ví dụ: Ghi dữ liệu từ danh sách NhaCungCap vào các dòng của sheet
-    	            int rowNum = 0;
-    	            for (NhaCungCap ncc : danhSachNCC) {
-    	                Row row = sheet.createRow(rowNum++);
-    	                row.createCell(0).setCellValue(ncc.getTenNhaCungCap());
-    	                row.createCell(1).setCellValue(ncc.getSoDienThoai());
-    	                row.createCell(2).setCellValue(ncc.getEmail());
-    	                row.createCell(3).setCellValue(ncc.getDiaChi());
-    	            }
-
-    	            workbook.write(fileOut);
-    	            fileOut.close();
-    	            JOptionPane.showMessageDialog(null, "Exported Successfully !!.....");
-    	        } catch (FileNotFoundException e) {
-    	            e.printStackTrace();
-    	        } catch (IOException e) {
-    	            e.printStackTrace();
-    	        }
-    	    }
+    	nhaCungCap_BUS.xuatFile(danhSachNCC);
     }//GEN-LAST:event_btnXuatFileNCCActionPerformed
     
     
 
     private void btnNhapNhieuNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhapNhieuNCCActionPerformed
-        File excelFile;
-        FileInputStream excelFIS = null;
-        BufferedInputStream excelBIS = null;
-        
-        String defaultCurrentDirectoryPath = "D:\\";
-        JFileChooser excelFileChooser = new JFileChooser(defaultCurrentDirectoryPath);
-        excelFileChooser.setDialogTitle("Select Excel File");
-        FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
-        excelFileChooser.setFileFilter(fnef);
-        int excelChooser = excelFileChooser.showOpenDialog(null);
-        if (excelChooser == JFileChooser.APPROVE_OPTION) {
-			try {
-				excelFile = excelFileChooser.getSelectedFile();
-		        
-		        excelFIS = new FileInputStream(excelFile);
-				excelBIS = new BufferedInputStream(excelFIS);
-				XSSFWorkbook workbook = new XSSFWorkbook(excelBIS);
-				XSSFSheet datatypeSheet = workbook.getSheetAt(0);
-	
-				
-				Iterator<Row> iterator = datatypeSheet.iterator();
-				Row firstRow = iterator.next();
-				Cell firstCell = firstRow.getCell(0);
-				while (iterator.hasNext()) {
-					Row currentRow = iterator.next();
-					NhaCungCap ncc = new NhaCungCap();
-					ncc.setNhaCungCapID(phatSinhMaNhaCungCap());
-					ncc.setTenNhaCungCap(currentRow.getCell(0).getStringCellValue());
-					ncc.setSoDienThoai(currentRow.getCell(1).getStringCellValue());;
-					ncc.setEmail(currentRow.getCell(2).getStringCellValue());;
-					ncc.setDiaChi(currentRow.getCell(3).getStringCellValue());
-					nhaCungCap_BUS.addNhaCungCap(ncc);
-				}
-				JOptionPane.showMessageDialog(null, "Imported Successfully !!.....");
-				loadData();
-				workbook.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-        }
+    	nhaCungCap_BUS.nhapFile();
+        loadData();
 	}//GEN-LAST:event_btnNhapNhieuNCCActionPerformed
     
 
@@ -659,26 +580,26 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	String soDienThoai = txtSdtNCC.getText();
     	String email = txtEmailNCC.getText();
     	String diaChi = txtDiaChi.getText();
-    	if(!(hoTenNCC.length() > 0 && hoTenNCC.matches(utilities.RegexPattern.HOTEN))) {
+    	if(!(hoTenNCC.length() > 0 &&  hoTenNCC.matches("[a-zA-Z0-9À-Ỹà-ỹĂ-Ếă-ếÂ-Ứâ-ứÊ-Ữê-ữÔ-Ựô-ựƠ-Ỵơ-ỵĐđ.&\\-\\s*]+"))) {
     		new utilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
     		return false;
     	}
-    	if(!(soDienThoai.length() > 0 && soDienThoai.matches(utilities.RegexPattern.SDTVN))) {
+    	if(!(soDienThoai.length() > 0 && soDienThoai.matches("^0\\d{9}(\\d{1})?$"))) {
     		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
     		return false;
     	}
-    	if(!(email.length() > 0 && email.matches(utilities.RegexPattern.EMAIL))) {
+    	if(!(email.length() > 0 && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))) {
     		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
     		return false;
     	}
     		
-    	if(!(diaChi.length() > 0 && diaChi.matches("[a-zA-z0-9' ]+"))) {
+    	if(!(diaChi.length() > 0)) {
     		new utilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(kiemTraSDT(soDienThoai) == true) {
     		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại đã tồn tại", "Thông báo");
-    		return false;
+    		return false;	
     	}
     	if(kiemTraEmail(email) == true) {
     		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email đã tồn tại", "Thông báo");

@@ -117,4 +117,39 @@ public class SanPham_BUS implements ISanPham{
         return sanPham_DAO.getNameDanhMucByID(ID);
     }
 
+    @Override
+    public String getNameTheLoaiByID(int ID) {
+        return sanPham_DAO.getNameTheLoaiByID(ID);
+    }
+
+    @Override
+    public String getNameThuongHieuByID(int ID) {
+        return sanPham_DAO.getNameThuongHieuByID(ID);
+    }
+
+    @Override
+    public String getNameNhaCungCapByID(String ID) {
+        return sanPham_DAO.getNameNhaCungCapByID(ID);
+    }
+
+    @Override
+    public boolean editTrangThaiSanPham(SanPham sp) {
+        return sanPham_DAO.editTrangThaiSanPham(sp);
+    }
+	@Override
+	public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepTangTheoGia(list);
+		
+	}
+	@Override
+	public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepGiamTheoGia(list);
+		
+	}
+	@Override
+	public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+		sanPham_DAO.SapXepTangTheoSoLuong(list);
+		
+	}
+
 }
