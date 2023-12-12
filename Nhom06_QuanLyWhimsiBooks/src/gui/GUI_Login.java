@@ -201,6 +201,9 @@ public class GUI_Login extends JFrame implements ActionListener {
 				txtUsername.requestFocus();
 				return;
 			}
+			if (!ErrorMessage.showConfirmDialogYesNo("Cảnh báo", "Khi xác nhận, mật khẩu của bạn sẽ bị đặt lại ngay lập tức. Bạn có xác nhận tiếp tục?")) {
+				return;
+			}
 			String emailUser = nhanVien_BUS.getNhanVienEmailViaUsername(txtUsername.getText());
 			if (emailUser == null) {
 				ErrorMessage.showMessageWithFocusTextField("Lỗi", "Không tìm thấy email của " + txtUsername.getText()

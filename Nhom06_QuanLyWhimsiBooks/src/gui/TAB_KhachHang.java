@@ -50,6 +50,7 @@ import bus.NhanVien_BUS;
 import connectDB.ConnectDB;
 import entities.KhachHang;
 import entities.NhanVien;
+import utilities.ProcessingEnumDBForQuy;
 import utilities.RegexPattern;
 
 /**
@@ -67,6 +68,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		loadKhachHangTable();
 		showTuBangLenFormKhachHang();
 		txtMa.setEditable(false);
+                btnDangXuatKH.setVisible(false);
 //		txtMaSoThue.setEditable(false);
 	}
 
@@ -179,7 +181,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel10.setText("Loại Khách Hàng :");
 
-        cboLoaiKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CA NHAN", "CONG TY" }));
+        cboLoaiKH.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cá nhân", "Doanh nghiệp" }));
         cboLoaiKH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLoaiKHActionPerformed(evt);
@@ -325,7 +327,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel16.setText("Loại khách hàng");
 
-        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CA NHAN", "CONG TY" }));
+        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cá nhân", "Công ty" }));
         cboLoaiKH1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLoaiKH1ActionPerformed(evt);
@@ -516,7 +518,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
                                     .addComponent(btnDangXuatKH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnThemLayout.createSequentialGroup()
                                 .addComponent(Left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                                 .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(48, 48, 48))
         );
@@ -602,8 +604,8 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 			for (int i = 0; i < resultList.size(); i++) {
 				KhachHang kh = resultList.get(i);
 				model.addRow(new Object[] { i + 1, kh.getKhachHangID(), kh.getHoTen(), kh.getSoDienThoai(),
-						kh.getNgaySinh(), kh.getEmail(), kh.getGioiTinh(), kh.getDiaChi(), kh.getMaSoThue(),
-						kh.getLoaiKhachHang() });
+						kh.getNgaySinh(), kh.getEmail(), ProcessingEnumDBForQuy.enumToGioiTinh(kh.getGioiTinh()), kh.getDiaChi(), kh.getMaSoThue(),
+						ProcessingEnumDBForQuy.convertEnumToKhachHang(kh.getLoaiKhachHang()) });
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Không tìm thấy");
@@ -633,7 +635,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 			KhachHang kh = listKH.get(i);
 			model.addRow(
 					new Object[] { i + 1, kh.getKhachHangID(), kh.getHoTen(), kh.getSoDienThoai(), kh.getNgaySinh(),
-							kh.getEmail(), kh.getGioiTinh(), kh.getDiaChi(), kh.getMaSoThue(), kh.getLoaiKhachHang() });
+							kh.getEmail(), ProcessingEnumDBForQuy.enumToGioiTinh(kh.getGioiTinh()), kh.getDiaChi(), kh.getMaSoThue(), ProcessingEnumDBForQuy.convertEnumToKhachHang(kh.getLoaiKhachHang()) });
 		}
 	}
 
@@ -670,7 +672,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 					}
 
 					txtEmail.setText(tblKhachHang.getValueAt(row, 5).toString());
-					cboGioiTinh.setSelectedItem(tblKhachHang.getValueAt(row, 6).toString());
+					cboGioiTinh.setSelectedIndex(ProcessingEnumDBForQuy.gioiTinhToEnum(tblKhachHang.getValueAt(row, 6).toString()).equalsIgnoreCase("NAM") ? 0 : 1);
 					txtDiaChi.setText(tblKhachHang.getValueAt(row, 7).toString());
 					txtMaSoThue.setText(tblKhachHang.getValueAt(row, 8).toString());
 					cboLoaiKH.setSelectedItem(tblKhachHang.getValueAt(row, 9).toString());
@@ -759,7 +761,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 				String maSoThue = txtMaSoThue.getText();
 
 				KhachHang newKhachHang = new KhachHang(maKH, tenKH, sdtKH, LocalDate.parse(ngaySinh), gioiTinh, email,
-						maSoThue, diaChi, loaiKH);
+						maSoThue, diaChi, ProcessingEnumDBForQuy.convertKhachHangToEnum(loaiKH));
 				KhachHang_BUS khachHangBus = new KhachHang_BUS();
 				if (khachHangBus.addKhachHang(newKhachHang)) {
 					JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
@@ -789,7 +791,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 			String loaiKH = cboLoaiKH.getSelectedItem().toString();
 //			KhachHang exitingKhachHang = khachHangBus.getKhachHangByKhachHangID(maKH);
 			KhachHang khachHang = new KhachHang(maKH, tenKH, sdtKH, ngaySinh1, gioiTinh, email, maSoThue, diaChi,
-					loaiKH);
+					ProcessingEnumDBForQuy.convertKhachHangToEnum(loaiKH));
 			boolean result = khachHangBus.editKhachHang(khachHang);
 			if (result) {
 				JOptionPane.showMessageDialog(this, "Sửa thành công!", "Thông báo", JOptionPane.INFORMATION_MESSAGE);

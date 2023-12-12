@@ -17,4 +17,24 @@ public class ProcessingEnumDBForQuy {
 		return "Người quản lý";
 
 	}
+        
+        public static String convertEnumToKhachHang(String loai){
+            if (loai.equals("CA_NHAN"))
+                return "Cá nhân";
+            return "Doanh nghiệp";
+        }
+        
+        public static String convertKhachHangToEnum(String loai){
+            if (loai.equals("Cá nhân"))
+                return "CA_NHAN";
+            return "DOANH_NGHIEP";
+        }
+        
+        public static String gioiTinhToEnum(String gt){
+            return gt.equalsIgnoreCase("nam") ? "NAM" : "NU";
+        }
+        
+        public static String enumToGioiTinh(String gt){
+            return gt.equalsIgnoreCase("NAM") ? "Nam" : "Nữ";
+        }
 }

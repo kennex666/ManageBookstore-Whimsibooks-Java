@@ -48,7 +48,7 @@
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="Left" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="49" max="32767" attributes="0"/>
+                                  <EmptySpace pref="60" max="32767" attributes="0"/>
                                   <Component id="right" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -282,8 +282,8 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="CA NHAN"/>
-                    <StringItem index="1" value="CONG TY"/>
+                    <StringItem index="0" value="C&#xe1; nh&#xe2;n"/>
+                    <StringItem index="1" value="Doanh nghi&#x1ec7;p"/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -484,8 +484,8 @@
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="2">
-                    <StringItem index="0" value="CA NHAN"/>
-                    <StringItem index="1" value="CONG TY"/>
+                    <StringItem index="0" value="C&#xe1; nh&#xe2;n"/>
+                    <StringItem index="1" value="C&#xf4;ng ty"/>
                   </StringArray>
                 </Property>
               </Properties>
