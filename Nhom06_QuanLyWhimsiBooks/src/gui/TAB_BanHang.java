@@ -95,7 +95,6 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-increase.png")), 15, 15)));
 		tblChiTietHoaDon.getColumn("Xoá").setCellRenderer(new ButtonRender(ImageProcessing
 				.resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-delete-no-transparent.png")), 12, 15)));
-
 		tblChiTietHoaDon.addMouseListener(this);
 
 		// Placeholder text
@@ -1251,7 +1250,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
     jPanel2.add(jLabel4, gridBagConstraints);
 
-    jLabel11.setText("Ngày lập hoá đơn");
+    jLabel11.setText("Ngày lập hóa đơn");
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
     gridBagConstraints.gridy = 4;

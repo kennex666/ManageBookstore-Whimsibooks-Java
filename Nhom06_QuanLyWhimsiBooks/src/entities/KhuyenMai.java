@@ -49,8 +49,20 @@ public class KhuyenMai {
 		this.soLuongKhuyenMai = soLuongKhuyenMai;
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
+	
+	
 
-        public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMai(){
+        public ArrayList<ChiTietKhuyenMai> getListApDung() {
+		return listApDung;
+	}
+
+
+	public void setListApDung(ArrayList<ChiTietKhuyenMai> listApDung) {
+		this.listApDung = listApDung;
+	}
+
+
+		public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMai(){
             return listApDung;
         }
         
