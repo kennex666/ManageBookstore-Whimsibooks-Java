@@ -62,6 +62,8 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
 	
+	
+	
     public ArrayList<SanPham> laySanPhamDuocChon(JTable table) {
     	ArrayList<SanPham> dsSanPhamDuocChon = new ArrayList<SanPham>();
     	int rowCount = table.getRowCount();
@@ -398,6 +400,12 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getRecentKhuyenMai(limit);
+	}
+
+	@Override
+	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
+		// TODO Auto-generated method stub
+		return khuyenMai_DAO.getKhuyenMaiTheoTen1(tenSK);
 	}
 
 }

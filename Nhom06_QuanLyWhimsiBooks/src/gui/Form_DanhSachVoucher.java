@@ -36,7 +36,6 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
         loadVoucher();
         khuyenMai_BUS = new KhuyenMai_BUS();
         this.setLocationRelativeTo(null);
-      	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
     private void loadVoucher() {
@@ -159,17 +158,6 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
     private void tableVoucherMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableVoucherMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tableVoucherMouseClicked
-
-	private void formWindowClosing(java.awt.event.WindowEvent evt) {// GEN-FIRST:event_formWindowClosing
-		int yes = JOptionPane.showConfirmDialog(this, "Bạn nên import voucher, bạn có chắc chắn muốn thoát !",
-				"Thông báo", JOptionPane.YES_NO_OPTION);
-		if (yes == JOptionPane.YES_OPTION) {
-			this.setVisible(false);
-			this.dispose();
-		} else {
-			setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		}
-	}// GEN-LAST:event_formWindowClosing
 
 	private void backActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_backActionPerformed
 		// TODO add your handling code here:

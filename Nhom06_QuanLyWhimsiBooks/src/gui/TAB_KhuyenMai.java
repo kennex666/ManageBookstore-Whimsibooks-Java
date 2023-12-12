@@ -241,6 +241,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             }
         });
         jPanel10.add(txtMaKM);
+        txtMaKM.getAccessibleContext().setAccessibleName("");
+        txtMaKM.getAccessibleContext().setAccessibleDescription("");
 
         jPanel21.setLayout(new javax.swing.BoxLayout(jPanel21, javax.swing.BoxLayout.LINE_AXIS));
         jPanel21.add(filler11);
@@ -942,7 +944,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		if (!radVoucher.isSelected()) {
 			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6,}$"))) {
 				new utilities.ShowMessageError().showError(this, txtMaKM,
-						"Mã khuyến mãi không đúng định dạng (có 6 ký tự ví dụ: Abc_123)", "Thông báo");
+						"Mã khuyến mãi không đúng định dạng (có 6 ký tự trở lên  ví dụ: Abc_123)", "Thông báo");
 				return false;
 			}
 			if (maKM.contains("Voucher_")) {
@@ -967,9 +969,19 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			new utilities.ShowMessageError().showErrorNoTextFile(this, "Số lượng > 0", "Thông báo");
 			return false;
 		}
+		
+		if(!(donHangTu.matches("^\\d+$"))){
+			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng phải là số", "Thông báo");
+			return false;
+		}
 
 		if (!(donHangTu.length() > 0 && Double.valueOf(donHangTu) > 0)) {
 			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng > 0", "Thông báo");
+			return false;
+		}
+		
+		if(!(mucGiam.matches("^\\d+$"))){
+			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Mức giảm phải là số", "Thông báo");
 			return false;
 		}
 
@@ -1057,6 +1069,8 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                             loadDataKM();
                             JOptionPane.showMessageDialog(this, "Thêm voucher/mã khuyễn mãi thành công");
                             Form_DanhSachVoucher danhSachVoucher = new Form_DanhSachVoucher(listVoucher);
+            				danhSachVoucher.setLocationRelativeTo(null);
+            				danhSachVoucher.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                             danhSachVoucher.setVisible(true);
                         }
                     }
