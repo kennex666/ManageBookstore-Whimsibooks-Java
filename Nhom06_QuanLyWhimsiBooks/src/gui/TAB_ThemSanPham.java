@@ -157,13 +157,13 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jButton_Chon = new javax.swing.JButton();
         filler30 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(20, 50), new java.awt.Dimension(10, 10));
         filler46 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 10), new java.awt.Dimension(10, 5), new java.awt.Dimension(10, 10));
-        jPanel44 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jTextField_TenSanPham = new javax.swing.JTextField();
-        jPanel_CBB_TenSanPham = new javax.swing.JPanel();
         jPanel32 = new javax.swing.JPanel();
         jLabel_Barcode = new javax.swing.JLabel();
         jTextField_Barcode = new javax.swing.JTextField();
+        jPanel_CBB_TenSanPham = new javax.swing.JPanel();
+        jPanel44 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
+        jTextField_TenSanPham = new javax.swing.JTextField();
         jPanel_CBB_Barcode = new javax.swing.JPanel();
         jPanel45 = new javax.swing.JPanel();
         jLabel_SoLuongTon = new javax.swing.JLabel();
@@ -385,6 +385,38 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel17.add(jPanel29);
         jPanel17.add(filler46);
 
+        jPanel32.setPreferredSize(new java.awt.Dimension(0, 60));
+        jPanel32.setLayout(new java.awt.BorderLayout());
+
+        jLabel_Barcode.setBackground(new java.awt.Color(255, 255, 255));
+        jLabel_Barcode.setText("Barcode");
+        jLabel_Barcode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jLabel_Barcode.setFocusCycleRoot(true);
+        jLabel_Barcode.setPreferredSize(new java.awt.Dimension(74, 10));
+        jPanel32.add(jLabel_Barcode, java.awt.BorderLayout.CENTER);
+
+        jTextField_Barcode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jTextField_Barcode.setPreferredSize(new java.awt.Dimension(71, 35));
+        jTextField_Barcode.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField_BarcodeFocusLost(evt);
+            }
+        });
+        jTextField_Barcode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField_BarcodeActionPerformed(evt);
+            }
+        });
+        jPanel32.add(jTextField_Barcode, java.awt.BorderLayout.PAGE_END);
+
+        jPanel17.add(jPanel32);
+
+        jPanel_CBB_TenSanPham.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel_CBB_TenSanPham.setMinimumSize(new java.awt.Dimension(100, 25));
+        jPanel_CBB_TenSanPham.setPreferredSize(new java.awt.Dimension(225, 25));
+        jPanel_CBB_TenSanPham.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TenSanPham, javax.swing.BoxLayout.LINE_AXIS));
+        jPanel17.add(jPanel_CBB_TenSanPham);
+
         jPanel44.setPreferredSize(new java.awt.Dimension(0, 60));
         jPanel44.setLayout(new java.awt.BorderLayout());
 
@@ -410,38 +442,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         jPanel44.add(jTextField_TenSanPham, java.awt.BorderLayout.PAGE_END);
 
         jPanel17.add(jPanel44);
-
-        jPanel_CBB_TenSanPham.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel_CBB_TenSanPham.setMinimumSize(new java.awt.Dimension(100, 25));
-        jPanel_CBB_TenSanPham.setPreferredSize(new java.awt.Dimension(225, 25));
-        jPanel_CBB_TenSanPham.setLayout(new javax.swing.BoxLayout(jPanel_CBB_TenSanPham, javax.swing.BoxLayout.LINE_AXIS));
-        jPanel17.add(jPanel_CBB_TenSanPham);
-
-        jPanel32.setPreferredSize(new java.awt.Dimension(0, 60));
-        jPanel32.setLayout(new java.awt.BorderLayout());
-
-        jLabel_Barcode.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel_Barcode.setText("Barcode");
-        jLabel_Barcode.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jLabel_Barcode.setFocusCycleRoot(true);
-        jLabel_Barcode.setPreferredSize(new java.awt.Dimension(74, 10));
-        jPanel32.add(jLabel_Barcode, java.awt.BorderLayout.CENTER);
-
-        jTextField_Barcode.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTextField_Barcode.setPreferredSize(new java.awt.Dimension(71, 35));
-        jTextField_Barcode.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField_BarcodeMouseClicked(evt);
-            }
-        });
-        jTextField_Barcode.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_BarcodeActionPerformed(evt);
-            }
-        });
-        jPanel32.add(jTextField_Barcode, java.awt.BorderLayout.PAGE_END);
-
-        jPanel17.add(jPanel32);
 
         jPanel_CBB_Barcode.setBackground(new java.awt.Color(255, 255, 255));
         jPanel_CBB_Barcode.setMinimumSize(new java.awt.Dimension(100, 25));
@@ -1233,12 +1233,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
         if (decided == 0) {
             SanPham sanPham = getNewSanPham();
-            if(sanPham != null)
-            {
+            if (sanPham != null) {
                 sanPham.setSanPhamID(ID);
                 sanPham_BUS.editSanPham(sanPham);
                 this.setVisible(false);
-            }   
+            }
         }
 
 
@@ -1380,7 +1379,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "Thêm sản phẩm thất bại");
                 }
-              
 
                 this.setVisible(false);
             }
@@ -1494,6 +1492,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.jLabel_Warning.setText("");
         comboBox_NCC.setPopupVisible(true);
+        System.out.println(comboBox_NCC.getItemAt(0));
         comboBox_NCC.setSelectedIndex(-1);
 
 
@@ -1520,11 +1519,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     private void jTextField_BarcodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_BarcodeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField_BarcodeActionPerformed
-
-    private void jTextField_BarcodeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField_BarcodeMouseClicked
-        // TODO add your handling code here:
-        this.jLabel_Warning.setText("");
-    }//GEN-LAST:event_jTextField_BarcodeMouseClicked
 
     private void jTextField_TenSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TenSanPhamActionPerformed
         // TODO add your handling code here:
@@ -1606,13 +1600,31 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboBox_NCCMouseClicked
 
+    private void jTextField_BarcodeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField_BarcodeFocusLost
+        // TODO add your handling code here:
+        if (!jTextField_Barcode.getText().trim().equals("")) {
+            SanPham_BUS sanPham_BUS = new SanPham_BUS();
+            SanPham sp = sanPham_BUS.getChiMotSanPhamTheoMaHoacBarcode(this.jTextField_Barcode.getText());
+            if (sp != null) {
+                if (sp.getLoaiSanPham().equals("SACH")) {
+                    this.setSanPhamSach(sp);
+
+                    this.disVisibleForSua();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Sản phẩm này có barcode đã tồn tại");
+                    this.jTextField_Barcode.setText("");
+                }
+            }
+        }
+    }//GEN-LAST:event_jTextField_BarcodeFocusLost
+
     public SanPham getNewSanPham() {
         String tenSanPham = jTextField_TenSanPham.getText().trim();
         int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText().trim());
         String barcode = jTextField_Barcode.getText().trim();
         double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText().trim());
 
-        double thue = Double.parseDouble(jTextField_Thue.getText().trim());
+        double thue = Double.parseDouble(jTextField_Thue.getText().trim()) * 100;
         int namSanXuat;
         try {
             namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText().trim());
@@ -1842,12 +1854,16 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     public void disVisibleForLuu() {
         this.jButton_Sua.setBackground(new Color(204, 204, 204));
         this.jButton_Sua.setEnabled(false);
+        this.jButton_Luu.setEnabled(true);
+        this.jButton_Luu.setBackground(new Color(15, 145, 239));
 
     }
 
     public void disVisibleForSua() {
         this.jButton_Luu.setBackground(new Color(204, 204, 204));
         this.jButton_Luu.setEnabled(false);
+        this.jButton_Sua.setEnabled(true);
+        this.jButton_Sua.setBackground(new Color(15, 145, 239));
 
     }
 

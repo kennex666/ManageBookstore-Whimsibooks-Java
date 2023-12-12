@@ -41,6 +41,10 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
         this.jLabel_DanhMuc.setText(sanPham_BUS.getNameDanhMucByID(x.getDanhMuc().getDanhMucID()));
         this.jLabel_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
+        if(x.getSoLuongTon() <= 10)
+        {
+            this.jLabel_SoLuong.setForeground(Color.red);
+        }
         
         if(x.getTinhTrang().equals("NGUNG_KINH_DOANH"))
         {
