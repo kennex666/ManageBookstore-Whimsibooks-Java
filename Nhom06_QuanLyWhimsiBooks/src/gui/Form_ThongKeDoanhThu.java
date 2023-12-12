@@ -346,7 +346,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         jPanel14.add(jLabel12);
         jPanel14.add(filler4);
 
-        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tuần này", "Tháng này", "Năm nay", "Quý", "Thời gian tuỳ chọn" }));
+        cboBaoCaoTheo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ngày hôm nay", "Tuần này", "Tháng này", "Năm nay", "Quý", "Thời gian tuỳ chọn" }));
         cboBaoCaoTheo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboBaoCaoTheoActionPerformed(evt);
@@ -489,7 +489,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         int loaiBieuDo = 0;
         int pos = cboBaoCaoTheo.getSelectedIndex();
         Date start = new Date(), end = new Date();
-        if (pos == 4) {
+        if (pos == 5) {
 
             Date ngayKetThuc = new Date();
             if (txtNgayBatDau.getDate() == null) {
@@ -514,19 +514,24 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         } else {
             if (pos == 0) {
                 end = new Date();
+                start = new Date();
+                loaiBieuDo = 1;
+            } else
+            if (pos == 1) {
+                end = new Date();
                 start = new Date(end.getYear(), end.getMonth(), end.getDate() - 7);
                 loaiBieuDo = 1;
-            } else if (pos == 1) {
+            } else if (pos == 2) {
                 end = new Date();
                 start = new Date(end.getYear(), end.getMonth(), 1);
                 end.setMonth(end.getMonth() + 1);
                 end.setDate(0);
                 loaiBieuDo = 1;
-            } else if (pos == 2) {
+            } else if (pos == 3) {
                 end = new Date();
                 start = new Date(end.getYear() - 1, 0, 1);
                 loaiBieuDo = 4;
-            } else if (pos == 3) {
+            } else if (pos == 4) {
                 int quyPos = cboQuy.getSelectedIndex();
                 switch (quyPos) {
                     case 0:
@@ -578,7 +583,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
             return;
         }
 
-        if (pos == 4) {
+        if (pos == 5) {
             txtNgayBatDau.setEnabled(true);
             txtNgayKetThuc.setEnabled(true);
             cboQuy.setEnabled(false);
@@ -591,7 +596,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
         } else {
             txtNgayBatDau.setEnabled(false);
             txtNgayKetThuc.setEnabled(false);
-            if (pos == 3) {
+            if (pos == 4) {
                 cboQuy.setEnabled(true);
             } else {
                 cboQuy.setEnabled(false);
