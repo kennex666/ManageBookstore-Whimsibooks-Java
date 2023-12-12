@@ -486,6 +486,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         // TODO add your handling code here:
+    	chart.clear();
         int loaiBieuDo = 0;
         int pos = cboBaoCaoTheo.getSelectedIndex();
         Date start = new Date(), end = new Date();

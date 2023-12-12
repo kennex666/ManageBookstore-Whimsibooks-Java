@@ -42,7 +42,7 @@ public class AutoGenerateHoaDon {
 		start.setSeconds(0);
 
 		for (int i = 0; i < 346; i++) {
-			int randomHoaDon = random.nextInt(100);
+			int randomHoaDon = random.nextInt(10);
 			for (int k = 0; k < randomHoaDon; k++) {
 				int hours = random.nextInt(23);
 				int minute = random.nextInt(59);
@@ -50,20 +50,25 @@ public class AutoGenerateHoaDon {
 				start.setHours(hours);
 				start.setMinutes(minute);
 				start.setSeconds(second);
-				
+
 				int nhanVienID = random.nextInt(listNhanVien.size() - 1);
 				int khachHangID = random.nextInt(listKhachHang.size() - 1);
-				int soLuongSanPhamMua = random.nextInt(1, 14);
+				int soLuongSanPhamMua = random.nextInt(1, 10);
 				int danhSachIDSanPham[] = createRandomArray(soLuongSanPhamMua, listSanPham.size() - 1);
 				HoaDon hoaDon = new HoaDon();
 				hoaDon.setTrangThai("DA_XU_LY");
+				hoaDon.setHoaDonID(generateHoaDonID(start, k + 1));
+				//System.out.println(generateHoaDonID(start, k + 1));
+
 				hoaDon.setNhanVien(listNhanVien.get(nhanVienID));
 				hoaDon.setKhachHang(listKhachHang.get(khachHangID));
 				hoaDon.setNgayLapHoaDon(start);
 
 				for (int j = 0; j < soLuongSanPhamMua; j++) {
-					hoaDon.addChiTietHoaDon(
-							new ChiTietHoaDon(listSanPham.get(danhSachIDSanPham[j]), random.nextInt(15)));
+					ChiTietHoaDon cthd = new ChiTietHoaDon(listSanPham.get(danhSachIDSanPham[j]), random.nextInt(15));
+					cthd.setHoaDon(hoaDon);
+					hoaDon.addChiTietHoaDon(cthd);
+
 				}
 
 				hoaDon_BUS.createHoaDon(hoaDon);
@@ -72,6 +77,11 @@ public class AutoGenerateHoaDon {
 			start.setDate(start.getDate() + 1);
 		}
 		System.out.println("Generate Success!");
+	}
+
+	public static String generateHoaDonID(Date now, int currentID) {
+		return String.format("HD%02d%02d%02d%03d", now.getDate(), now.getMonth() + 1,
+				((now.getYear() / 10) % 10) * 10 + now.getYear() % 10, currentID);
 	}
 
 	public static int[] createRandomArray(int size, int max) {

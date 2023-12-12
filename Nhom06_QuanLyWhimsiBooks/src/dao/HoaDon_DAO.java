@@ -36,6 +36,9 @@ public class HoaDon_DAO implements IHoaDon {
             pstm.setString(3, (x.getKhachHang() == null) ? "KH0001" : x.getKhachHang().getKhachHangID());
             pstm.setString(4, (x.getNhanVien() == null) ? "NV0001" : x.getNhanVien().getNhanVienID());
             java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
+            //java.sql.Timestamp now = new java.sql.Timestamp(x.getNgayLapHoaDon().getTime());
+
+            
             pstm.setTimestamp(5, now);
             pstm.setDouble(6, x.tinhThanhTien());
             pstm.setString(7, x.getTrangThai());
@@ -247,7 +250,7 @@ public class HoaDon_DAO implements IHoaDon {
         // TODO Auto-generated method stub
         ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
 
-        String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
+        String query = "SELECT TOP 150 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
 
         try {
             QueryBuilder queryBuilder = new QueryBuilder(query);
