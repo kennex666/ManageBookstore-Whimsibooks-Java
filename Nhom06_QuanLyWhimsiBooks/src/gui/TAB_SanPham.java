@@ -1286,6 +1286,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        this.jButton_Import.doClick();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     Box box_SP = new Box(BoxLayout.X_AXIS);
