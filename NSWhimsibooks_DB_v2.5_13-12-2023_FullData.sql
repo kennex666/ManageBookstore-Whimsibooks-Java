@@ -6,6 +6,7 @@
 		Fixed value some Table
 	[2.3] Update HoaDonTra
 	[2.4] Add trigger
+	[2.5] Full data
 */
 CREATE DATABASE QuanLyNhaSachWhimsiBooks
 GO
@@ -211,6 +212,26 @@ AS BEGIN
 	END
 END
 GO
+
+
+--- Trigger kích hoạt khi dùng khuyến mãi
+CREATE TRIGGER trg_ThemHoaDon
+ON HoaDon
+AFTER INSERT
+AS BEGIN	
+	declare @KhuyenMaiID AS nvarchar(255)
+	SET @KhuyenMaiID = (SELECT CodeKhuyenMai FROM inserted)
+	IF 'DA_XU_LY' = (SELECT TrangThai FROM HoaDon WHERE HoaDonID = (SELECT HoaDonID FROM inserted))
+	BEGIN
+		IF (@KhuyenMaiID != 'NO_APPLY')
+			BEGIN
+				UPDATE KhuyenMai SET SoLuotDaApDung += 1
+				WHERE @KhuyenMaiID = CodeKhuyenMai AND SoLuotDaApDung + 1 <= SoLuongKhuyenMai
+		END
+	END
+END
+GO
+
 
 --- Trigger kích hoạt khi sửa chi tiết hoá đơn
 --CREATE TRIGGER trg_SuaChiTietHoaDon
@@ -455,19 +476,19 @@ GO
 INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'APPLY_PRODUCT_3', N'Sự kiện chào đón năm mới', N'PHAN_TRAM', 3, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-02-29T00:00:00.000' AS DateTime), 11200, 100, 0)
 INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'APPLY_PRODUCT_ONE', N'Giảm giá cuối năm 2023', N'PHAN_TRAM', 4, CAST(N'2023-11-01T00:00:00.000' AS DateTime), CAST(N'2023-12-31T00:00:00.000' AS DateTime), 10000, 1, 0)
 INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'APPLY_PRODUCT_TWO', N'Giảm giá đầu năm 2024', N'GIA_TRI', 40000, CAST(N'2024-01-01T00:00:00.000' AS DateTime), CAST(N'2024-02-29T00:00:00.000' AS DateTime), 15000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'KM0001', N'Discount 10%', N'Percentage', 10, CAST(N'2023-11-01T00:00:00.000' AS DateTime), CAST(N'2023-11-30T00:00:00.000' AS DateTime), 1, 100, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'KM0002', N'Black Friday', N'Fixed', 50, CAST(N'2023-11-25T00:00:00.000' AS DateTime), CAST(N'2023-11-27T00:00:00.000' AS DateTime), 1, 200, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'KM0001', N'Discount 10%', N'PHAN_TRAM', 10, CAST(N'2023-11-01T00:00:00.000' AS DateTime), CAST(N'2023-11-30T00:00:00.000' AS DateTime), 1, 100, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'KM0002', N'Black Friday', N'GIA_TRI', 20000, CAST(N'2023-11-25T00:00:00.000' AS DateTime), CAST(N'2023-11-27T00:00:00.000' AS DateTime), 1, 200, 0)
 INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'NO_APPLY', N'Không áp dụng', N'PHAN_TRAM', 0, CAST(N'2023-11-01T00:00:00.000' AS DateTime), CAST(N'2023-11-30T00:00:00.000' AS DateTime), 1, 100, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_aLvkPW', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_dpnzQo', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 35000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_H4evz9', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_JS3I_B', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 35000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_nqqRki', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_NZpB1Z', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 35000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_o71A5b', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_uA9lZa', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 35000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_W59SdW', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
-INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_yKgduo', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 35000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_aLvkPW', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 10, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_dpnzQo', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_H4evz9', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 10, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_JS3I_B', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_nqqRki', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 10, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_NZpB1Z', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_o71A5b', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 10, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_uA9lZa', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_W59SdW', N'Sự kiện tết nguyên đám', N'PHAN_TRAM', 10, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-30T00:00:00.000' AS DateTime), 100000, 1, 0)
+INSERT [dbo].[KhuyenMai] ([CodeKhuyenMai], [TenKhuyenMai], [LoaiGiamGia], [GiaTri], [NgayKhuyenMai], [NgayHetHanKM], [DonHangTu], [SoLuongKhuyenMai], [SoLuotDaApDung]) VALUES (N'Voucher_yKgduo', N'Giảm giá cho đơn trên 20k', N'GIA_TRI', 50000, CAST(N'2023-12-12T00:00:00.000' AS DateTime), CAST(N'2024-01-12T00:00:00.000' AS DateTime), 10000, 1, 0)
 GO
 
 -- CHI TIẾT KM

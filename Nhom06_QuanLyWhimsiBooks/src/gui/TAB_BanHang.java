@@ -9,6 +9,7 @@ import bus.SanPham_BUS;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+
 import javax.swing.BorderFactory;
 
 import javax.swing.ImageIcon;
@@ -1909,7 +1910,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     }//GEN-LAST:event_btnThanhToanActionPerformed
 
     private void btnKhuyenMaiEnterActionPer(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhuyenMaiEnterActionPer
-        // TODO add your handling code here:
+        // TODO add your handling code here:    	
         khuyenMai = khuyenMai_BUS.getKhuyenMaiByCodeKMForSeller(txtKhuyenMai.getText());
         if (khuyenMai == null) {
             khuyenMai = new KhuyenMai("NO_APPLY");
@@ -1917,6 +1918,16 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             ErrorMessage.showMessageWithFocusTextField("Thông tin", "Mã khuyến mãi không tồn tại trên hệ thống", txtKhuyenMai);
             return;
         }
+        if (khuyenMai.getSoLuotDaApDung() >= khuyenMai.getSoLuongKhuyenMai()) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Khuyến mãi này đã sử dụng", txtKhuyenMai);
+            return;
+        }
+        
+        if (khuyenMai.getNgayHetHanKM().getTime() < new Date().getTime()) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Khuyến mãi này đã hết hạn từ " + khuyenMai.getNgayHetHanKM(), txtKhuyenMai);
+            return;
+        }
+        
         preloadInfomation();
         updateThongTinBill();
     }//GEN-LAST:event_btnKhuyenMaiEnterActionPer
@@ -2146,24 +2157,35 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
         }
 
         double giaTriGiam = khuyenMai.getGiaTri();
-        boolean isApply = false;
-        for (ChiTietKhuyenMai x : khuyenMai.getChiTietKhuyenMai()) {
-            for (ChiTietHoaDon y : hoaDon.getListChiTietHoaDon()) {
-                if (x.getSanPham().getSanPhamID() == y.getSanPham().getSanPhamID()) {
-                    isApply = true;
-                    if (khuyenMai.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
-                        tempChietKhau += (y.tinhTongTien() * (giaTriGiam / 100));
-                    } else {
-                        tempChietKhau += giaTriGiam;
-                        break;
-                    }
-                }
-            }
+//        boolean isApply = false;
+//        //for (ChiTietKhuyenMai x : khuyenMai.getChiTietKhuyenMai()) {
+//	        for (ChiTietHoaDon y : hoaDon.getListChiTietHoaDon()) {
+//	           // if (x.getSanPham().getSanPhamID() == y.getSanPham().getSanPhamID()) {
+//	                isApply = true;
+//	                if (khuyenMai.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
+//	                    tempChietKhau += (y.tinhTongTien() * (giaTriGiam / 100));
+//	                } else {
+//	                    tempChietKhau += giaTriGiam;
+//	                    break;
+//	                }
+//	           // }
+//	        }
+//        //}
+        boolean isApply = true;
+        if (khuyenMai.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
+            tempChietKhau += (hoaDon.tinhTongTien() * (giaTriGiam / 100));
+        } else {
+            tempChietKhau += giaTriGiam;
         }
         if (!isApply) {
             showTrangThaiKhuyenMai("*Các sản phẩm không nằm trong danh sách khuyến mãi");
+            KhuyenMai tempKMTemp = new KhuyenMai();
+            tempKMTemp.setCodeKhuyenMai("NO_APPLY");
+            tempKMTemp.setTenKhuyenMai("Không áp dụng");
+            hoaDon.setKhuyenMai(tempKMTemp);
         } else {
             lblTrangThaiApDungKM.setVisible(false);
+            hoaDon.setKhuyenMai(khuyenMai);
         }
 
         hoaDon.setGiaKhuyenMai(tempChietKhau);
@@ -2190,6 +2212,10 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
                 continue;
             }
 
+            if (tempKM.getSoLuotDaApDung() >= tempKM.getSoLuongKhuyenMai()) {
+                return;
+            }
+            
             if (tempKM.getLoaiKhuyenMai().equalsIgnoreCase("PHAN_TRAM")) {
                 tempChietKhau += (x.tinhTongTien() * (tempKM.getGiaTri() / 100));
             } else {
