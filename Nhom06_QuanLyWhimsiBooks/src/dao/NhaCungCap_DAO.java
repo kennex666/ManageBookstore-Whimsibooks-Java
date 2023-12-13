@@ -6,6 +6,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import connectDB.ConnectDB;
 import entities.HangNhap;
 import entities.KhuyenMai;
@@ -124,15 +126,19 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
-		String tenNCC = ncc.getTenNhaCungCap();
 		
-		String insert = "INSERT INTO NhaCungCap (TenNhaCungCap) VALUES (?)";
+		String insert = "INSERT INTO NhaCungCap (NhaCungCapID,TenNhaCungCap,SoDIenThoai,Email,DiaChi) VALUES (?,?,?,?,?)";
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(insert);
-			preparedStatement.setString(1, tenNCC);
+			preparedStatement.setString(1, ncc.getNhaCungCapID());
+			preparedStatement.setString(2, ncc.getTenNhaCungCap());
+			preparedStatement.setString(3, ncc.getSoDienThoai());
+			preparedStatement.setString(4, ncc.getEmail());
+			preparedStatement.setString(5, ncc.getDiaChi());
 			preparedStatement.executeUpdate();
 			return true;
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "Trùng mã nhà cung cấp");
 			e.printStackTrace();
 		}
 		return false;
