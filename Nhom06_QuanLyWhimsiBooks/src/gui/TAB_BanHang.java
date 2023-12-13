@@ -1732,10 +1732,14 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             xemChiTiet_Form.setVisible(true);
         }else
         if (tblHoaDon.getValueAt(row, 5).equals("Đã xử lý")) {
-        	Date temp = new Date((String) tblHoaDon.getValueAt(row, 4));
-        	temp.setDate(temp.getDate() + 3);
-        	if (temp.compareTo(new Date()) > 0) {
-        		ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hoá đơn chỉ được đổi trả trong 7 ngày. Hoá đơn này đã quá hạn đổi trả!", null);
+        	HoaDon tempHDTra = (hoaDon_BUS.getHoaDonByID(new HoaDon((String) tblHoaDon.getValueAt(row, 1))));
+        	if (tempHDTra == null) {
+        		ErrorMessage.showMessageWithFocusTextField("Lỗi", "Unable to get HoaDon - Error SQL", null);
+        		return;
+        	}
+        	Date temp = tempHDTra.getNgayLapHoaDon();
+        	if (getDiffDate(temp, new Date()) > 3) {
+        		ErrorMessage.showMessageWithFocusTextField("Thông tin", "Hoá đơn chỉ được đổi trả trong 3 ngày. Hoá đơn này đã quá hạn đổi trả!", null);
         		return;
         	}
             if (ErrorMessage.showConfirmDialogYesNo("Thông tin", "Bạn đang chuẩn bị vào chế độ trả hàng cho hoá đơn "
@@ -1789,6 +1793,12 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
 
     }//GEN-LAST:event_btn_DSHD_ThanhToanActionPerformed
 
+
+    public int getDiffDate(Date d1, Date d2) {
+        int temp = (int) ((d2.getTime() - d1.getTime()) / 1000 / 60 / 60 / 24);
+        return temp;
+    }
+    
     private void btn_DSHD_xoaRongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_DSHD_xoaRongActionPerformed
         // TODO add your handling code here:
         txt_DSHD_DenNLHD.setCalendar(null);
