@@ -3093,7 +3093,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout"/>
                   <SubComponents>
-                    <Container class="javax.swing.JScrollPane" name="jScrollPane3">
+                    <Container class="javax.swing.JScrollPane" name="jScrollPane4">
                       <AuxValues>
                         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
                       </AuxValues>
@@ -3108,21 +3108,21 @@
                         <Component class="javax.swing.JTable" name="table_DSCTTKM">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="tableModelDSCTTKM = new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;T&#xea;n khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Lo&#x1ea1;i khuy&#x1ebf;n m&#x1ea1;i&quot;, &quot;Gi&#xe1; tr&#x1ecb;&quot;, &quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;, &quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;, &quot;&#x110;&#x1a1;n h&#xe0;ng t&#x1eeb;&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;&#x110;&#xe3; &#xe1;p d&#x1ee5;ng&quot;, &quot;Chi ti&#x1ebf;t&quot;&#xa;    }&#xa;) {&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    Class[] types = new Class [] {&#xa;         java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class&#xa;    };&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;}" type="code"/>
+                              <Connection code="tableModelDSCTTKM = new javax.swing.table.DefaultTableModel(&#xa;    new Object [][] {&#xa;&#xa;    },&#xa;    new String [] {&#xa;        &quot;STT&quot;, &quot;M&#xe3; khuy&#x1ebf;n m&#xe3;i&quot;, &quot;T&#xea;n khuy&#x1ebf;n m&#xe3;i&quot;, &quot;Lo&#x1ea1;i khuy&#x1ebf;n m&#xe3;i&quot;, &quot;Gi&#xe1; tr&#x1ecb;&quot;, &quot;Ng&#xe0;y b&#x1eaf;t &#x111;&#x1ea7;u&quot;, &quot;Ng&#xe0;y k&#x1ebf;t th&#xfa;c&quot;, &quot;&#x110;&#x1a1;n h&#xe0;ng t&#x1eeb;&quot;, &quot;S&#x1ed1; l&#x1b0;&#x1ee3;ng&quot;, &quot;&#x110;&#xe3; &#xe1;p d&#x1ee5;ng&quot;, &quot;Chi ti&#x1ebf;t&quot;&#xa;    }&#xa;) {&#xa;    Class[] types = new Class [] {&#xa;        java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class&#xa;    };&#xa;    boolean[] canEdit = new boolean [] {&#xa;        false, false, false, false, false, false, false, false, false, false, false&#xa;    };&#xa;&#xa;    public Class getColumnClass(int columnIndex) {&#xa;        return types [columnIndex];&#xa;    }&#xa;&#xa;    public boolean isCellEditable(int rowIndex, int columnIndex) {&#xa;        return canEdit [columnIndex];&#xa;    }&#xa;}" type="code"/>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="10" resizable="true">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="80" resizable="true">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
                                   <Renderer/>
@@ -3173,9 +3173,6 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
-                          <Events>
-                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="table_DSCTTKMMouseClicked"/>
-                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
