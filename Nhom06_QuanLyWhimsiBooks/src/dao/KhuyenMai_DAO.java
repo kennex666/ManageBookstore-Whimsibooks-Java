@@ -393,25 +393,33 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	@Override
 	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
-		try {
-			Statement stm = conn.createStatement();
-			String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '" + name + "'";
-			ResultSet rs = stm.executeQuery(query);
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
+	    
+	    try (PreparedStatement pst = conn.prepareStatement(query)) {
+	        pst.setString(1, name);
+	        try (ResultSet rs = pst.executeQuery()) {
+	            while (rs.next()) {
+	                try {
+	                    KhuyenMai khuyenMai = new KhuyenMai(
+	                            rs.getString("CodeKhuyenMai"),
+	                            rs.getString("TenKhuyenMai"),
+	                            rs.getString("LoaiGiamGia"),
+	                            rs.getDouble("GiaTri"),
+	                            rs.getDate("NgayKhuyenMai"),
+	                            rs.getDate("NgayHetHanKM"),
+	                            rs.getDouble("DonHangTu")
+	                    );
+	                    list.add(khuyenMai);
+	                } catch (Exception e) {
+	                    e.printStackTrace();
+	                }
+	            }
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return list;
 	}
 
 	@Override
