@@ -1045,7 +1045,6 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
          date2 = ngayKetThucUtil;
          java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
          java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
-         
         try {
             if (checkValue()) {
             	// Add
@@ -1102,6 +1101,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
                                          JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
                                          loadDataKM();
+                                         txtMaKM.setText("");
                                          Huy();
                                      }
                                      else {
@@ -1121,6 +1121,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
                                          JOptionPane.showMessageDialog(this, "Thêm khuyến mãi thành công");
                                          loadDataKM();
+                                         txtMaKM.setText("");
                                          Huy();
                                      }
                                      else {
