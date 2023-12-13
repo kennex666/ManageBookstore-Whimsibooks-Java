@@ -10,12 +10,16 @@ import java.awt.event.ItemEvent;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Array;
 import java.sql.Date;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 import javax.print.attribute.AttributeSet;
@@ -24,6 +28,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.RowSorter;
 import javax.swing.SortOrder;
 import javax.swing.SpinnerNumberModel;
@@ -309,6 +314,15 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jLabel9.setText("Đơn hàng từ: ");
         jPanel18.add(jLabel9);
+
+        txtDonHangTu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDonHangTuKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDonHangTuKeyTyped(evt);
+            }
+        });
         jPanel18.add(txtDonHangTu);
 
         jPanel8.add(jPanel18);
@@ -337,6 +351,15 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
         jLabel6.setText("Mức giảm giá");
         jPanel7.add(jLabel6);
+
+        txtMucGiamGia.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtMucGiamGiaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMucGiamGiaKeyTyped(evt);
+            }
+        });
         jPanel7.add(txtMucGiamGia);
 
         jLabel8.setText("Thời gian kết thúc giảm giá");
@@ -931,9 +954,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		String maKM = txtMaKM.getText();
 		String tenKM = txtTenKM.getText();
 		int soLuongApDung = (int) spSoLuongApDung.getValue();
-		String donHangTu = txtDonHangTu.getText();
+		String donHangTu = txtDonHangTu.getText().replaceAll(",", "");
 		String hinhThuc = txtHinhThuc.getSelectedItem().toString().trim();
-		String mucGiam = txtMucGiamGia.getText();
+		String mucGiam = txtMucGiamGia.getText().replaceAll(",", "");
 		
 		java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
 		java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
@@ -970,20 +993,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			return false;
 		}
 		
-		if(!(donHangTu.matches("^\\d+$"))){
-			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng phải là số", "Thông báo");
-			return false;
-		}
 
 		if (!(donHangTu.length() > 0 && Double.valueOf(donHangTu) > 0)) {
 			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng > 0", "Thông báo");
 			return false;
 		}
 		
-		if(!(mucGiam.matches("^\\d+$"))){
-			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Mức giảm phải là số", "Thông báo");
-			return false;
-		}
 
 		if (!(mucGiam.length() > 0 && Double.valueOf(mucGiam) > 0)) {
 			new utilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm > 0", "Thông báo");
@@ -1013,14 +1028,15 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		return false;
 	}
 
+	
     // Nhấn Lưu
     private void btnLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLuuActionPerformed
     	 String maKM = txtMaKM.getText();
-         String tenKM = txtTenKM.getText();
+         String tenKM = txtTenKM.getText();     
          int soLuongApDung = (int) spSoLuongApDung.getValue();
-         String donHangTu = txtDonHangTu.getText();
+         String donHangTu = txtDonHangTu.getText().replaceAll(",", "");
          String hinhThuc = txtHinhThuc.getSelectedItem().toString();
-         String mucGiam = txtMucGiamGia.getText();
+         String mucGiam = txtMucGiamGia.getText().replaceAll(",", "");
          java.util.Date ngayBatDauUtil = txtNgayBatDau.getDate();
          java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
          java.util.Date date1,date2 = new java.util.Date();
@@ -1503,9 +1519,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	
             	txtTenKM.setText(tenKM);
             	spSoLuongApDung.setValue(soLuong);
-            	txtDonHangTu.setText(donGiaTu+"");
+            	txtDonHangTu.setText(String.format("%.0f", donGiaTu));
             	txtHinhThuc.setSelectedItem(loaiKM);
-            	txtMucGiamGia.setText(donGiaTu+"");
+            	txtMucGiamGia.setText(String.format("%.0f", giaTri));
             	txtNgayBatDau.setDate(ngayBatDau);
             	txtNgayKetThuc.setDate(ngayKetThuc);
 				comboboxApDung.setEnabled(false);
@@ -1530,9 +1546,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	txtMaKM.setEnabled(false);
             	txtTenKM.setText(tenKM);
             	spSoLuongApDung.setValue(soLuong);
-            	txtDonHangTu.setText(donGiaTu+"");
+            	txtDonHangTu.setText(String.format("%.0f", donGiaTu));
             	txtHinhThuc.setSelectedItem(loaiKM);
-            	txtMucGiamGia.setText(donGiaTu+"");
+            	txtMucGiamGia.setText(String.format("%.0f", giaTri));
             	txtNgayBatDau.setDate(ngayBatDau);
             	txtNgayKetThuc.setDate(ngayKetThuc);
             	
@@ -1587,6 +1603,49 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         // TODO add your handling code here:
     	 txtMaKM.setText(txtMaKM.getText().toUpperCase());
     }//GEN-LAST:event_txtMaKMKeyReleased
+
+    private final DecimalFormat decimalFormat = new DecimalFormat("#,###");;
+    
+	private void txtDonHangTuKeyTyped(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtDonHangTuKeyTyped
+		char c = evt.getKeyChar();
+		if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+			evt.consume();
+		}
+	}
+
+    private void txtDonHangTuKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDonHangTuKeyReleased
+        // TODO add your handling code here:
+    	try {
+            String text = txtDonHangTu.getText().replaceAll(",", ""); // Xóa dấu , hiện tại (nếu có)
+            if (!text.isEmpty()) {
+                double value = Double.parseDouble(text);
+                txtDonHangTu.setText(decimalFormat.format(value));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_txtDonHangTuKeyReleased
+
+    private void txtMucGiamGiaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMucGiamGiaKeyReleased
+        // TODO add your handling code here:
+    	char c = evt.getKeyChar();
+		if (!Character.isDigit(c) && c != KeyEvent.VK_BACK_SPACE) {
+			evt.consume();
+		}
+    }//GEN-LAST:event_txtMucGiamGiaKeyReleased
+
+    private void txtMucGiamGiaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMucGiamGiaKeyTyped
+        // TODO add your handling code here:
+    	try {
+            String text = txtMucGiamGia.getText().replaceAll(",", ""); // Xóa dấu , hiện tại (nếu có)
+            if (!text.isEmpty()) {
+            	double value = Double.parseDouble(text);
+                txtMucGiamGia.setText(decimalFormat.format(value));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_txtMucGiamGiaKeyTyped
 
     private void txtTenKMKeyReleased(java.awt.event.KeyEvent evt) {                                     
         handleKeyReleased();
@@ -1649,16 +1708,39 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 					new Object[] { false, danhSachSp.get(i).getSanPhamID(), danhSachSp.get(i).getTenSanPham() });
 		}
 	}
+	
+	public class ValueComparator implements Comparator<Object> {
+	    private final NumberFormat numberFormat;
+
+	    public ValueComparator() {
+	        this.numberFormat = NumberFormat.getNumberInstance();
+	    }
+
+	    @Override
+	    public int compare(Object o1, Object o2) {
+	        try {
+	            Double value1 = numberFormat.parse(o1.toString()).doubleValue();
+	            Double value2 = numberFormat.parse(o2.toString()).doubleValue();
+	            return Double.compare(value1, value2);
+	        } catch (ParseException e) {
+	            e.printStackTrace();
+	            return 0;
+	        }
+	    }
+	}
+	
     
 	private void loadDataCTTKM() {
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
 		ArrayList<KhuyenMai> dsList = khuyenMai_BUS.getRecentKhuyenMai(200);
+		Locale localeVN = new Locale("vi", "VN");
+		NumberFormat vn = NumberFormat.getInstance(localeVN);
 		int stt = 1;
 		for (KhuyenMai km : dsList) {
 			tableModelDSCTTKM.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(),
-					km.getLoaiKhuyenMai(), km.getGiaTri(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),
+					km.getLoaiKhuyenMai(),km.getGiaTri(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),
 					km.getDonHangTu(), km.getSoLuongKhuyenMai(), km.getSoLuotDaApDung() });
 		}
 		for (int i = 0; i < table_DSCTTKM.getColumnCount(); i++) {
