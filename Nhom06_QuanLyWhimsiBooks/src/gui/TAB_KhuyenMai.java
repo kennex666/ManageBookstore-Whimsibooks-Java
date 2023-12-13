@@ -206,7 +206,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         cbb_CTTKM_DonGia = new javax.swing.JComboBox<>();
         filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
         table_DSCTTKM = new javax.swing.JTable();
 
         setMinimumSize(new java.awt.Dimension(1200, 670));
@@ -856,34 +856,27 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
             },
             new String [] {
-                "STT", "Mã khuyến mại", "Tên khuyến mại", "Loại khuyến mại", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn hàng từ", "Số lượng", "Đã áp dụng", "Chi tiết"
+                "STT", "Mã khuyến mãi", "Tên khuyến mãi", "Loại khuyến mãi", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn hàng từ", "Số lượng", "Đã áp dụng", "Chi tiết"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false, false, false
             };
 
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
-            };
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        table_DSCTTKM.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                table_DSCTTKMMouseClicked(evt);
-            }
-        });
-        jScrollPane3.setViewportView(table_DSCTTKM);
-        if (table_DSCTTKM.getColumnModel().getColumnCount() > 0) {
-            table_DSCTTKM.getColumnModel().getColumn(0).setPreferredWidth(10);
-            table_DSCTTKM.getColumnModel().getColumn(1).setPreferredWidth(80);
-            table_DSCTTKM.getColumnModel().getColumn(2).setPreferredWidth(80);
-        }
+        jScrollPane4.setViewportView(table_DSCTTKM);
 
-        jPanel6.add(jScrollPane3, java.awt.BorderLayout.CENTER);
+        jPanel6.add(jScrollPane4, java.awt.BorderLayout.CENTER);
 
         jPanel4.add(jPanel6, java.awt.BorderLayout.CENTER);
 
@@ -1731,6 +1724,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	
     
 	private void loadDataCTTKM() {
+		//"STT", "Mã khuyến mại", "Tên khuyến mại", "Loại khuyến mại", "Giá trị", "Ngày bắt đầu", "Ngày kết thúc", "Đơn hàng từ", "Số lượng", "Đã áp dụng", "Chi tiết"
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
@@ -1740,7 +1734,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		int stt = 1;
 		for (KhuyenMai km : dsList) {
 			tableModelDSCTTKM.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(),
-					km.getLoaiKhuyenMai(),km.getGiaTri(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),
+					km.getLoaiKhuyenMai(),Double.valueOf(km.getGiaTri()), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),
 					km.getDonHangTu(), km.getSoLuongKhuyenMai(), km.getSoLuotDaApDung() });
 		}
 		for (int i = 0; i < table_DSCTTKM.getColumnCount(); i++) {
@@ -1819,7 +1813,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JLabel lblApDung;
     private javax.swing.JLabel lblMaKhuyenMai;
     private javax.swing.JLabel lblSoLuong;
