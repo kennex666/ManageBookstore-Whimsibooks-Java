@@ -319,9 +319,9 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		
 		try {
 			// Update Voucher
-			if(typeUpdate.equals("Voucher")) {
+			if(typeUpdate.contains("Voucher")) {
 				for(KhuyenMai km : list) {
-					KhuyenMai khuyenMai = new KhuyenMai(km.getCodeKhuyenMai(), tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, km.getSoLuotDaApDung());
+					KhuyenMai khuyenMai = new KhuyenMai(km.getCodeKhuyenMai(), tenKM, hinhThuc, mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, km.getSoLuotDaApDung());
 					editKhuyenMai(khuyenMai);
 				}
 				// số lượng không thay đổi
