@@ -479,8 +479,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         pnl_InSp.add(titleSelectKhuyenMai, java.awt.BorderLayout.PAGE_START);
 
         tableSelectKhuyenMai.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 8, 8, 8));
+        tableSelectKhuyenMai.setMaximumSize(new java.awt.Dimension(2147483647, 200));
         tableSelectKhuyenMai.setPreferredSize(new java.awt.Dimension(870, 200));
         tableSelectKhuyenMai.setLayout(new java.awt.BorderLayout());
+
+        jScrollPane2.setPreferredSize(new java.awt.Dimension(452, 260));
 
         tableChonSP.setModel(tableModelSP = new DefaultTableModel(
             new Object [][] {
@@ -874,6 +877,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        table_DSCTTKM.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                table_DSCTTKMMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(table_DSCTTKM);
 
         jPanel6.add(jScrollPane4, java.awt.BorderLayout.CENTER);
@@ -1215,22 +1223,35 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
     
 	private void btnTimKiemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnTimKiemActionPerformed
 		String txtTimSp = TimMaSanPham.getText();
+        if (txtTimSp.isEmpty() || txtTimSp.isBlank()) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                    "Để thêm sản phẩm vào hoá đơn, hãy thêm mã sản phẩm trước", TimMaSanPham);
+            return;
+        }
+
+        if (txtTimSp.matches("\\D")) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin", "Barcode/Mã sản phẩm nội bộ không hợp lệ!",
+            		TimMaSanPham);
+            return;
+        }
+		SanPham spTuBarCode = sanPham_BUS.getChiMotSanPhamTheoMaHoacBarcode(txtTimSp);
+		if (spTuBarCode == null) {
+			System.err.println("Không tồn tại sản phẩm nào!");
+			return;
+		}
+		
+		boolean ifIsset = false;
 		ArrayList<SanPham> list = sanPham_BUS.laySanPhamChoKM();
 		for (int i = 0; i < tableModelSP.getRowCount(); i++) {
-			int j = 1;
-			if (((int) tableModelSP.getValueAt(i, j) + "").equalsIgnoreCase(txtTimSp)) {
-				tableModelSP.setValueAt(true, i, 0);
-			}
-			else {
-				if(checkMaSP(Integer.valueOf(txtTimSp))) {
-					for(SanPham sp : list) {
-						if(txtTimSp.equalsIgnoreCase(sp.getSanPhamID()+"")) {
-							tableModelSP.addRow(new Object[] {true, sp.getSanPhamID(), sp.getTenSanPham()});
-						}
-					}
-				}
+			int j = 1;			
+			if(spTuBarCode.getSanPhamID() == (int) tableModelSP.getValueAt(i, j)) {
+					tableModelSP.setValueAt(true, i, 0);
+					ifIsset = true;
+					break;
 			}
 		}
+		if (!ifIsset) 				tableModelSP.addRow(new Object[] {true, spTuBarCode.getSanPhamID(), spTuBarCode.getTenSanPham()});
+
 	}// GEN-LAST:event_btnTimKiemActionPerformed
 
 	private void loadDuLieuThuongHieu() {
