@@ -1018,6 +1018,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
     private void jTextField_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TimKiemActionPerformed
         // TODO add your handling code here:
+        jButton_TimKiem.doClick();
     }//GEN-LAST:event_jTextField_TimKiemActionPerformed
 
     private void jButton_ThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSanPhamActionPerformed
