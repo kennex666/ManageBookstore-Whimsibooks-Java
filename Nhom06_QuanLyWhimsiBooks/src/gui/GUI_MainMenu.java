@@ -5,7 +5,10 @@ import enums.Enum_TabMainMenu;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.IOException;
 
 import javax.naming.CompoundName;
 import javax.swing.BorderFactory;
@@ -131,6 +134,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         btnTabKhachHang = new javax.swing.JButton();
         btnTabNhaCungCap = new javax.swing.JButton();
         btnTabDangXuat = new javax.swing.JButton();
+        btnTabGuide = new javax.swing.JButton();
 
         javax.swing.GroupLayout jFrame1Layout = new javax.swing.GroupLayout(jFrame1.getContentPane());
         jFrame1.getContentPane().setLayout(jFrame1Layout);
@@ -218,7 +222,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
         java.awt.GridBagLayout jPanel5Layout = new java.awt.GridBagLayout();
         jPanel5Layout.columnWidths = new int[] {0, 23, 0, 23, 0};
-        jPanel5Layout.rowHeights = new int[] {0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0};
+        jPanel5Layout.rowHeights = new int[] {0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0, 16, 0};
         pannelLeft.setLayout(jPanel5Layout);
 
         btnTabBanHang.setBackground(new java.awt.Color(15, 145, 239));
@@ -420,13 +424,38 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     });
     gridBagConstraints = new java.awt.GridBagConstraints();
     gridBagConstraints.gridx = 2;
-    gridBagConstraints.gridy = 18;
+    gridBagConstraints.gridy = 20;
     gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
     gridBagConstraints.ipadx = 39;
     gridBagConstraints.ipady = 7;
     gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
     gridBagConstraints.weightx = 0.4;
     pannelLeft.add(btnTabDangXuat, gridBagConstraints);
+
+    btnTabGuide.setBackground(Color.white);
+    btnTabGuide.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+    btnTabGuide.setForeground(new java.awt.Color(15, 102, 165));
+    btnTabGuide.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+        getClass().getResource("/img/icon/ico-help-center.png"))  
+    , sizeIconBar, sizeIconBar));
+    btnTabGuide.setText("Hướng dẫn");
+    btnTabGuide.setFocusable(false);
+    btnTabGuide.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+    btnTabGuide.setIconTextGap(25);
+    btnTabGuide.addActionListener(new java.awt.event.ActionListener() {
+        public void actionPerformed(java.awt.event.ActionEvent evt) {
+            btnTabActionPerformed(evt);
+        }
+    });
+    gridBagConstraints = new java.awt.GridBagConstraints();
+    gridBagConstraints.gridx = 2;
+    gridBagConstraints.gridy = 14;
+    gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+    gridBagConstraints.ipadx = 39;
+    gridBagConstraints.ipady = 7;
+    gridBagConstraints.anchor = java.awt.GridBagConstraints.BASELINE;
+    gridBagConstraints.weightx = 0.1;
+    pannelLeft.add(btnTabGuide, gridBagConstraints);
 
     jPannelSplit.setLeftComponent(pannelLeft);
 
@@ -498,6 +527,20 @@ public class GUI_MainMenu extends javax.swing.JFrame {
             }
             return;
         }
+        
+        if (evt.getSource().equals(btnTabGuide)) {
+        	if (Desktop.isDesktopSupported()) {
+        	    try {
+        	        ClassLoader classLoader = getClass().getClassLoader();
+        	        File myFile = new File(classLoader.getResource("static/userManual.pdf").getFile());
+        	        Desktop.getDesktop().open(myFile);
+        	} catch (IOException ex) {
+        	    ErrorMessage.showMessageWithFocusTextField("Lỗi", "Có vẻ không có file hướng dẫn nào trong phần mềm này", null);
+        	}
+        	}
+        }else {
+    	    ErrorMessage.showMessageWithFocusTextField("Lỗi", "Hệ điều hành này không hỗ trợ API Desktop - Không thể mở file!", null);
+        }
     }//GEN-LAST:event_btnTabActionPerformed
 
     private void cboUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboUserActionPerformed
@@ -551,6 +594,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTabBanHang;
     private javax.swing.JButton btnTabDangXuat;
+    private javax.swing.JButton btnTabGuide;
     private javax.swing.JButton btnTabKhachHang;
     private javax.swing.JButton btnTabKhuyenMai;
     private javax.swing.JButton btnTabNhaCungCap;
