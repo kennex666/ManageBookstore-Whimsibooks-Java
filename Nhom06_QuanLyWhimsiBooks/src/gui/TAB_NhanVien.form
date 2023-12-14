@@ -501,11 +501,8 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cboGioiTinh1">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Nam"/>
-                    <StringItem index="1" value="N&#x1eef;"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&quot;, &quot;Nam&quot;, &quot;N&#x1eef;&quot; })" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -519,11 +516,8 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cboChucVu1">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Nh&#xe2;n vi&#xea;n b&#xe1;n h&#xe0;ng"/>
-                    <StringItem index="1" value="Ng&#x1b0;&#x1edd;i qu&#x1ea3;n l&#xfd;"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&quot;, &quot;Nh&#xe2;n vi&#xea;n b&#xe1;n h&#xe0;ng&quot;, &quot;Ng&#x1b0;&#x1edd;i qu&#x1ea3;n l&#xfd;&quot; })" type="code"/>
                 </Property>
               </Properties>
               <AuxValues>

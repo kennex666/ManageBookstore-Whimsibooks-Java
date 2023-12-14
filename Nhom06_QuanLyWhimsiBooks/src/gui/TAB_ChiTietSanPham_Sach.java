@@ -13,6 +13,7 @@ import java.awt.Image;
 import java.awt.MediaTracker;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import utilities.CurrentSession;
 
 /**
  *
@@ -34,6 +35,10 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         
    
+        if (CurrentSession.checkQuyenTruyCap() != CurrentSession.EnumQuyenHan.NHAN_VIEN_QUAN_LY){
+            jButton_NgungBan.setEnabled(false);
+            jButton_Sua.setEnabled(false);
+        }
    
 
         this.jLabel_TenSanPham.setText(x.getTenSanPham());
