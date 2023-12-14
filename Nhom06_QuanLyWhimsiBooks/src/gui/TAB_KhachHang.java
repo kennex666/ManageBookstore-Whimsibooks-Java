@@ -50,6 +50,7 @@ import bus.NhanVien_BUS;
 import connectDB.ConnectDB;
 import entities.KhachHang;
 import entities.NhanVien;
+import utilities.ErrorMessage;
 import utilities.ProcessingEnumDBForQuy;
 import utilities.RegexPattern;
 
@@ -68,7 +69,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		loadKhachHangTable();
 		showTuBangLenFormKhachHang();
 		txtMa.setEditable(false);
-                btnDangXuatKH.setVisible(false);
+               // btnDangXuatKH.setVisible(false);
 //		txtMaSoThue.setEditable(false);
 	}
 
@@ -118,7 +119,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
         tblKhachHang = new javax.swing.JTable();
         btnThemKH = new javax.swing.JButton();
         btnSuaKH = new javax.swing.JButton();
-        btnDangXuatKH = new javax.swing.JButton();
         btnImportKH = new javax.swing.JButton();
         btnExportKH = new javax.swing.JButton();
 
@@ -318,7 +318,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel15.setText("Giới tính");
 
-        cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Nam", "Nữ" }));
+        cboGioiTinh1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Nam", "Nữ" }));
         cboGioiTinh1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboGioiTinh1ActionPerformed(evt);
@@ -327,7 +327,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
         jLabel16.setText("Loại khách hàng");
 
-        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cá nhân", "Công ty" }));
+        cboLoaiKH1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Cá nhân", "Doanh nghiệp" }));
         cboLoaiKH1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboLoaiKH1ActionPerformed(evt);
@@ -463,16 +463,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
             }
         });
 
-        btnDangXuatKH.setBackground(new java.awt.Color(255, 102, 102));
-        btnDangXuatKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnDangXuatKH.setForeground(new java.awt.Color(255, 255, 255));
-        btnDangXuatKH.setText("Quay về");
-        btnDangXuatKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangXuatKHActionPerformed(evt);
-            }
-        });
-
         btnImportKH.setBackground(new java.awt.Color(85, 182, 83));
         btnImportKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnImportKH.setForeground(new java.awt.Color(255, 255, 255));
@@ -513,12 +503,11 @@ public class TAB_KhachHang extends javax.swing.JPanel {
                                 .addGroup(btnThemLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(btnThemKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(btnSuaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnImportKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnExportKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnDangXuatKH, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnImportKH, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                                    .addComponent(btnExportKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, btnThemLayout.createSequentialGroup()
                                 .addComponent(Left, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                                 .addComponent(right, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(48, 48, 48))
         );
@@ -542,9 +531,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
                         .addGap(21, 21, 21)
                         .addComponent(btnImportKH, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(21, 21, 21)
-                        .addComponent(btnExportKH, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(btnDangXuatKH, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnExportKH, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
 
@@ -554,6 +541,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
     private void txtMaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMaActionPerformed
+
 
 	private void customizeTable() {
 		// Lấy đối tượng JTableHeader của bảng tblNhanVien
@@ -642,7 +630,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	public String phatSinhMaKhachHang1() {
 		try {
 			int maxId = khachHangBus.phatSinhMaKhachHang();
-			return "KH" + String.format("%04d", maxId + 1);
+			return "KH" + String.format("%04d", maxId);
 		} catch (Exception e) {
 
 			return "KH" + "0001";
@@ -750,7 +738,12 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 			try {
 				String maKH = phatSinhMaKhachHang1();
 				String tenKH = txtTen.getText();
-				String sdtKH = txtSDT.getText();
+				String sdtKH = txtSDT.getText();                              
+                                KhachHang tempKH = khachHangBus.getKhachHangTuMaVaSDT(sdtKH);
+                                if (tempKH != null){
+                                    ErrorMessage.showMessageWithFocusTextField("Lỗi", "Số điện thoại khách hàng bị trùng với " + tempKH.getKhachHangID() + " thêm thất bại!", txtSDT);
+                                    return;
+                                }
 				java.util.Date chonNgaySinh = dtmNgaySinh.getDate();
 				String ngaySinh = dateFormat.format(chonNgaySinh);
 				String gioiTinh = (String) cboGioiTinh.getSelectedItem();
@@ -1149,7 +1142,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Left;
-    private javax.swing.JButton btnDangXuatKH;
     private javax.swing.JButton btnExportKH;
     private javax.swing.JButton btnHienThiBang;
     private javax.swing.JButton btnImportKH;

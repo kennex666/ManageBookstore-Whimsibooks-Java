@@ -41,14 +41,13 @@
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="btnThemKH" max="32767" attributes="0"/>
                                       <Component id="btnSuaKH" max="32767" attributes="0"/>
-                                      <Component id="btnImportKH" max="32767" attributes="0"/>
+                                      <Component id="btnImportKH" pref="250" max="32767" attributes="0"/>
                                       <Component id="btnExportKH" max="32767" attributes="0"/>
-                                      <Component id="btnDangXuatKH" alignment="0" min="-2" pref="250" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="Left" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace pref="60" max="32767" attributes="0"/>
+                                  <EmptySpace pref="64" max="32767" attributes="0"/>
                                   <Component id="right" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -80,8 +79,6 @@
                           <Component id="btnImportKH" min="-2" pref="50" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                           <Component id="btnExportKH" min="-2" pref="50" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
-                          <Component id="btnDangXuatKH" min="-2" pref="50" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="8" max="32767" attributes="0"/>
@@ -461,11 +458,8 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cboGioiTinh1">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="Nam"/>
-                    <StringItem index="1" value="N&#x1eef;"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&quot;, &quot;Nam&quot;, &quot;N&#x1eef;&quot; })" type="code"/>
                 </Property>
               </Properties>
               <Events>
@@ -482,11 +476,8 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="cboLoaiKH1">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="2">
-                    <StringItem index="0" value="C&#xe1; nh&#xe2;n"/>
-                    <StringItem index="1" value="C&#xf4;ng ty"/>
-                  </StringArray>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;&quot;, &quot;C&#xe1; nh&#xe2;n&quot;, &quot;Doanh nghi&#x1ec7;p&quot; })" type="code"/>
                 </Property>
               </Properties>
               <Events>
@@ -614,23 +605,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuaKHActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnDangXuatKH">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="66" green="66" red="ff" type="rgb"/>
-            </Property>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="ff" green="ff" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Quay v&#x1ec1;"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDangXuatKHActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnImportKH">

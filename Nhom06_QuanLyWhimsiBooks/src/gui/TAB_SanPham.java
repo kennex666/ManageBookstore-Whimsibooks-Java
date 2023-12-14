@@ -47,6 +47,7 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import utilities.CurrentSession;
 import utilities.ImageProcessing;
 
 /**
@@ -67,6 +68,13 @@ public class TAB_SanPham extends javax.swing.JPanel {
         ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         loadSanPham(list_SanPham);
 
+        if (CurrentSession.checkQuyenTruyCap() != CurrentSession.EnumQuyenHan.NHAN_VIEN_QUAN_LY){
+            jButton_Them_SPK.setEnabled(false);
+            jButton_ThemSanPham.setEnabled(false);
+            jButton_Import.setEnabled(false);
+            jButton5.setEnabled(false);
+        }
+   
 //        this.jPanel_CBB_TenSanPham.removeAll();
 //        comboBox = new JComboBox<String>();
 //        this.jPanel_CBB_TenSanPham.add(comboBox);
@@ -1018,6 +1026,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
     private void jTextField_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_TimKiemActionPerformed
         // TODO add your handling code here:
+        jButton_TimKiem.doClick();
     }//GEN-LAST:event_jTextField_TimKiemActionPerformed
 
     private void jButton_ThemSanPhamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ThemSanPhamActionPerformed

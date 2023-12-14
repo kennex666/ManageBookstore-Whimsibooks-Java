@@ -616,10 +616,10 @@ public class SanPham_DAO implements ISanPham {
         Collections.sort(list, new Comparator<SanPham>() {
             @Override
             public int compare(SanPham sp1, SanPham sp2) {
-                if (sp1.getGiaNhap() > sp2.getGiaNhap()) {
+                if (sp1.getGiaBan() > sp2.getGiaBan()) {
                     return 1;
                 } else {
-                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                    if (sp1.getGiaBan() == sp2.getGiaBan()) {
                         return 0;
                     } else {
                         return -1;
@@ -635,10 +635,10 @@ public class SanPham_DAO implements ISanPham {
         Collections.sort(list, new Comparator<SanPham>() {
             @Override
             public int compare(SanPham sp1, SanPham sp2) {
-                if (sp1.getGiaNhap() < sp2.getGiaNhap()) {
+                if (sp1.getGiaBan()< sp2.getGiaBan()) {
                     return 1;
                 } else {
-                    if (sp1.getGiaNhap() == sp2.getGiaNhap()) {
+                    if (sp1.getGiaBan() == sp2.getGiaBan()) {
                         return 0;
                     } else {
                         return -1;

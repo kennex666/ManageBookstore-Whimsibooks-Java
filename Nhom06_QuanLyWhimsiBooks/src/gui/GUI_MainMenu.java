@@ -92,11 +92,11 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_BAN_HANG) {
             btnTabNhanVien.setVisible(false);
             btnTabNhaCungCap.setVisible(false);
-            btnTabKhachHang.setVisible(false);
+            //btnTabKhachHang.setVisible(false);
         } else {
         	btnTabNhanVien.setVisible(true);
             btnTabNhaCungCap.setVisible(true);
-            btnTabKhachHang.setVisible(true);
+           // btnTabKhachHang.setVisible(true);
         }
     }
 
