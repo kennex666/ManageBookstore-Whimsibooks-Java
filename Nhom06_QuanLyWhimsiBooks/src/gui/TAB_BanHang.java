@@ -2041,6 +2041,13 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
                     "Sản phẩm không tồn tại, vui lòng kiểm tra lại barcode", txtMaSanPham);
             return;
         }
+
+        if (x.getTinhTrang().equalsIgnoreCase("NGUNG_KINH_DOANH")) {
+            ErrorMessage.showMessageWithFocusTextField("Thông tin",
+                    "Sản phẩm này đã bị ngừng kinh doanh!", txtMaSanPham);
+            return;
+        }
+        
         if (x.getSoLuongTon() <= 0) {
             ErrorMessage.showMessageWithFocusTextField("Thông tin",
                     "Sản phẩm này đã hết hàng, hãy báo với quản lý và bạn không được bán sản phẩm này!", txtMaSanPham);

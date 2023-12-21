@@ -69,6 +69,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		loadKhachHangTable();
 		showTuBangLenFormKhachHang();
 		txtMa.setEditable(false);
+		txtMa.setText(phatSinhMaKhachHang1());
                // btnDangXuatKH.setVisible(false);
 //		txtMaSoThue.setEditable(false);
 	}
@@ -601,7 +602,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	}
 
 	private void xoaRong() {
-		txtMa.setText("");
+		txtMa.setText(phatSinhMaKhachHang1());
 		txtTen.setText("");
 		txtSDT.setText("");
 		dtmNgaySinh.setDate(null);
@@ -760,6 +761,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 					JOptionPane.showMessageDialog(this, "Thêm khách hàng thành công");
 					loadKhachHangTable();
 					xoaRong();
+					txtMa.setText(phatSinhMaKhachHang1());
 				}
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this, "Lỗi các trường nhập vào...");

@@ -93,6 +93,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
         phimTat();
         txtMa.setEditable(false);
         customizeTable();
+        txtMa.setText(phatSinhMaNhanVien());
 
     }
 
@@ -709,7 +710,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
 
     // chức năng tìm kiếmmm
     private void XoaRong() {
-        txtMa.setText("");
+        txtMa.setText(phatSinhMaNhanVien());
         txtTaiKhoan.setText("");
         txtMatKhau.setText("");
         txtTen.setText("");
@@ -806,6 +807,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
                         JOptionPane.showMessageDialog(this, "Thên nhân viên thành công");
                         loadNhanVienTable();
                         XoaRong();
+                        txtMa.setText(phatSinhMaNhanVien());
                     }
                 }
             } catch (Exception e) {

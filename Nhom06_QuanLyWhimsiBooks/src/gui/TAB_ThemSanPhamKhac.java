@@ -24,6 +24,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -740,7 +742,21 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         chooser.showOpenDialog(null);
         file = chooser.getSelectedFile();
         try {
+        	FileInputStream fis = new FileInputStream(file);
+
             img = ImageIO.read(file);
+            file = new File("src/img/products/" + file.getName());
+            FileOutputStream fos = new FileOutputStream(new File("src/img/products/" + file.getName()));
+            int length;
+            byte[] buffer = new byte[1024];
+ 
+            // copy the file content in bytes
+            while ((length = fis.read(buffer)) > 0) {
+            	fos.write(buffer, 0, length);
+            }
+            
+            fis.close();
+            fos.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -989,7 +1005,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         String barcode = jTextField_Barcode.getText();
         double giaNhap = Double.parseDouble(jTextField_GiaNhap.getText());
 
-        double thue = Double.parseDouble(jTextField_Thue.getText().trim())*100;
+        double thue = Double.parseDouble(jTextField_Thue.getText().trim());
         int namSanXuat;
         try {
             namSanXuat = Integer.parseInt(jTextField1_NamSanXuat.getText());
