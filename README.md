@@ -1,6 +1,6 @@
 # The Bookstore Whimsibooks
 ## About this project
-This project for education.
+This project for education. This branch is discontinued on December 20th, 2023, we are no longer work together (End of the course). 
 
 ## General information
 - Lecturer: Mrs. Trần Thị Anh Thi.
@@ -34,9 +34,9 @@ This project for education.
 ## Contributors
 - Lastest update at 7:43 P.M. 25/12/2023
 
-| No  | Full Name | Title | Student Code | Total commits  | Additions | Deletions | Join time | Disontinued |
+| No  | Full Name | Title | Student Code | Total commits  | Additions | Deletions | Join time | Discontinued |
 | :--: |:--:| :--: | :--: | --:| --: | --: | :--: | :--: |
-| 01. | Dương Thái Bảo | Leader | 21037621  | 73 | 104,173 | 48,778 | 01/08/2023  |  |
-| 02. | Nguyễn Lê Nhật Huy | Reporter | 21128101 | 22 | 21,867 | 7,614 | 01/08/2023 | 20/12/23 |
-| 03. | Nguyễn Thành Luân | Time Keeper | 21123021 | 47 | 14,782 | 4,222 | 01/08/2023 |  |
-| 04. | Chu Công Quý | Recorder | 21099211 | 19 | 13,104 | 6,292 | 01/08/2023 | 20/12/23 |
+| 01. | Dương Thái Bảo | Leader | 21037621  | 73 | 104,173 | 48,778 | 01/08/23  | 20/12/23 |
+| 02. | Nguyễn Lê Nhật Huy | Reporter | 21128101 | 22 | 21,867 | 7,614 | 01/08/23 | 20/12/23 |
+| 03. | Nguyễn Thành Luân | Time Keeper | 21123021 | 47 | 14,782 | 4,222 | 01/08/23 | 20/12/23 |
+| 04. | Chu Công Quý | Recorder | 21099211 | 19 | 13,104 | 6,292 | 01/08/23 | 20/12/23 |
