@@ -240,7 +240,7 @@ public class ExcelFileExportForHoaDon {
 			
 
 			// Row Cảm ơn quý khách
-			++row;
+			row = row + 2;
 			Row rowXCO= currentSheet.createRow(row);
 			CellRangeAddress craXCO = new CellRangeAddress(row, row, 0, 3);
 			

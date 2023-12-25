@@ -41,6 +41,8 @@ import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import utilities.*;
+import utilities.CurrentSession.EnumQuyenHan;
+
 import static utilities.TAB_HoaDon_EditorMode.BAN_HANG;
 import static utilities.TAB_HoaDon_EditorMode.TRA_HANG;
 import static utilities.TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON;
@@ -76,6 +78,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
      */
     public TAB_BanHang() {
         // Hoá đơn mặc định.
+    	
         listHoaDonDangCho = new ArrayList<HoaDon>();
         sanPham_BUS = new SanPham_BUS();
         hoaDon_BUS = new HoaDon_BUS();
@@ -89,11 +92,23 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         /**
          * Test this case
          */
-
         trangThaiEditor = TAB_HoaDon_EditorMode.BAN_HANG;
 
         initComponents();
         setDefaultEntities();
+        
+
+    	if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_QUAN_LY) {
+    		btnThanhToan.setEnabled(false);
+    		btnHangCho.setEnabled(false);
+    		btnKeyPad.setEnabled(false);
+    		btnKhachHangEnter.setEnabled(false);
+    		btnKhuyenMaiEnter.setEnabled(false);
+    		btnThemSanPham.setEnabled(false);
+    		btnCancelHD.setEnabled(false);
+    		btnXoaRongMaSP.setEnabled(false);
+    	}
+
 
         tblChiTietHoaDon.getColumn("-").setCellRenderer(new ButtonRender(ImageProcessing
                 .resizeIcon(new ImageIcon(getClass().getResource("/img/icon/btn-decrease.png")), 15, 15)));
@@ -205,6 +220,9 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
     public void setTrangThaiEditor(TAB_HoaDon_EditorMode tt) {
         trangThaiEditor = tt;
+        txtKhuyenMai.setText("");
+        txtMaKhachHang.setText("");
+        txtMaSanPham.setText("");
         if (TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON == tt) {
             txtKhuyenMai.setEditable(false);
             txtMaKhachHang.setEditable(false);
@@ -315,6 +333,19 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
 
             txtValueTongTien.setVisible(true);
             lblTongTien.setVisible(true);
+            
+
+        	
+        	if (CurrentSession.checkQuyenTruyCap() == EnumQuyenHan.NHAN_VIEN_QUAN_LY) {
+        		btnThanhToan.setEnabled(false);
+        		btnHangCho.setEnabled(false);
+        		btnKeyPad.setEnabled(false);
+        		btnKhachHangEnter.setEnabled(false);
+        		btnKhuyenMaiEnter.setEnabled(false);
+        		btnThemSanPham.setEnabled(false);
+        		btnCancelHD.setEnabled(false);
+        		btnXoaRongMaSP.setEnabled(false);
+        	}
         }
         updateThongTinBill();
     }
@@ -1648,10 +1679,6 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
     private void tabSwitchBanHang(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_tabSwitchBanHang
         // TODO add your handling code here:
     }//GEN-LAST:event_tabSwitchBanHang
-
-    public void autoApplyKhuyenMai() {
-
-    }
 
     private void tblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHoaDonMouseClicked
         // TODO add your handling code here:

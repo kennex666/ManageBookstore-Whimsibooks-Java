@@ -257,6 +257,13 @@ public class GUI_Login extends JFrame implements ActionListener {
 								"\n\nĐể đổi mật khẩu, bạn hãy đăng nhập lại hệ thống. Ở góc bên trái trên cùng có nút \"Chào, <Tên bạn>\", hãy ấn vào và chọn đổi mật khẩu!\n\nWhimsibooks trân trọng cảm ơn!");
 				ErrorMessage.showMessageWithFocusTextField("Đã gửi mật khẩu mới", "Đã gửi mật khẩu mới về email " + emailUser.substring(0, 3) + "********! Hãy kiểm tra email và đăng nhập.", pwdUserType);
 			} catch (Exception mex) {
+				if (EnviromentConfigs.STMP_EMAIL.isBlank() || 
+						EnviromentConfigs.STMP_PASSWORD.isBlank() ||
+						EnviromentConfigs.STMP_USERNAME.isBlank()) {
+						JOptionPane.showMessageDialog(null,
+							"Tính năng này chỉ hoạt động khi config STMP.");
+						return;
+				}
 				mex.printStackTrace();
 				JOptionPane.showMessageDialog(null,
 						"Đã xảy ra lỗi, vui lòng kiểm tra lại thiết lập email hoặc sự cố Internet!");

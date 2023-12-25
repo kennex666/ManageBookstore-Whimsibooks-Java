@@ -388,26 +388,25 @@ public class Form_TraHang extends javax.swing.JFrame {
             return;
         }
         
-        if (hoaDon.getListChiTietHoaDon().size() < 1)
-            return;
-        
-    	hoaDon.setHoaDonID(null);
+        if (hoaDon.getListChiTietHoaDon().size() > 0) {
+        	hoaDon.setHoaDonID(null);
+        	
+        	hoaDon.setTrangThai("DA_XU_LY");
+            result = hoaDon_BUS.createHoaDon(hoaDon);
+            
+            if (!result){
+                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn.");
+                return;
+            }
+            
+            result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+            if (!result) {
+                JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
+                return;
+            }
+        }
     	
-    	hoaDon.setTrangThai("DA_XU_LY");
-        result = hoaDon_BUS.createHoaDon(hoaDon);
         
-        if (!result){
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi khởi tạo hoá đơn.");
-            return;
-        }
-        
-        result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
-        if (!result) {
-            JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
-            return;
-        }
-        
-       
         tabBanHang.thanhToanHoanTat();
         closeFormThanhToan();
     }//GEN-LAST:event_btnThanhToanHoanTatActionPerformed
@@ -418,10 +417,6 @@ public class Form_TraHang extends javax.swing.JFrame {
             closeFormThanhToan();
         }
     }//GEN-LAST:event_btnBackThanhToanActionPerformed
-
-    private void calcTrangThai(String temp){
-
-    }
     
     private void closeFormThanhToan() {
     	if (frameOriginal != null) {
