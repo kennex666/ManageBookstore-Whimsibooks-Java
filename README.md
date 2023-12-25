@@ -1,15 +1,13 @@
 # The Bookstore Whimsibooks
 ## About this project
-This project for education.
+If you want to find our old project for **Java: Application Development**, [check it out here](https://github.com/kennex666/ManageBookstore-Whimsibooks-Java/tree/PhatTrienUngDung_FullSource_Final)
 
 ## General information
 - Lecturer: Mrs. Trần Thị Anh Thi.
 - Students:
-    1. Dương Thái Bảo (Leader) - Student code: 21037621.
-    2. Nguyễn Lê Nhật Huy (Reporter) - Student code: 21128101.
-    3. Nguyễn Thành Luân (Time Keeper) - Student code: 21123021
-    4. Chu Công Quý (Recorder) - Student code: 21099211
-- Team's name: Nhóm 6 - Họ nhà Báo
+    1. Dương Thái Bảo - Student code: 21037621.
+    2. Nguyễn Thành Luân - Student code: 21123021
+- Team's name: **We have not decided yet**
 - Summary purpose about project: For education.
 
 ## The technologies, applications, libraries used whole project
