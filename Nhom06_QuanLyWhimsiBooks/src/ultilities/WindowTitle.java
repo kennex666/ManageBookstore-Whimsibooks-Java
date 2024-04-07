@@ -1,4 +1,4 @@
-package utilities;
+package ultilities;
 
 import javax.swing.JFrame;
 

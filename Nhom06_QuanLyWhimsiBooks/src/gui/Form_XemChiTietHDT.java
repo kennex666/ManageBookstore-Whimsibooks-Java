@@ -10,6 +10,9 @@ import bus.HoaDonTra_BUS;
 import bus.HoaDon_BUS;
 import dao.ChiTietTraHang_DAO;
 import entities.HoaDonTra;
+import ultilities.ColorProcessing;
+import ultilities.ErrorMessage;
+import ultilities.Numberic;
 import entities.HoaDon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,9 +30,6 @@ import javax.swing.JRootPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import utilities.ColorProcessing;
-import utilities.ErrorMessage;
-import utilities.Numberic;
 
 /**
  *

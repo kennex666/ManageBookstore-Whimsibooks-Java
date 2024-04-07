@@ -50,10 +50,10 @@ import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
 import entities.ThuongHieu;
-import utilities.ButtonRender;
-import utilities.ErrorMessage;
-import utilities.ImageProcessing;
-import utilities.Numberic;
+import ultilities.ButtonRender;
+import ultilities.ErrorMessage;
+import ultilities.ImageProcessing;
+import ultilities.Numberic;
 
 /**
  *
@@ -90,7 +90,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         loadDataSP();
     	loadDuLieuThuongHieu();
         currentDate = Calendar.getInstance();
-        tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
+        tableKM.getColumnModel().getColumn(10).setCellRenderer(new ultilities.DetaiCellBtn());
         tableKM.setRowHeight(22);
         rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
         txt_CTTKM_KiemTraVoucher.setVisible(false);
@@ -944,7 +944,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			generatedCodes.add(danhSachKM.get(i).getCodeKhuyenMai());
 		}
 
-		voucherCode = utilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
+		voucherCode = ultilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
 
 		return voucherCode;
 	}
@@ -967,52 +967,52 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
 		if (!radVoucher.isSelected()) {
 			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6,}$"))) {
-				new utilities.ShowMessageError().showError(this, txtMaKM,
+				new ultilities.ShowMessageError().showError(this, txtMaKM,
 						"Mã khuyến mãi không đúng định dạng (có 6 ký tự trở lên  ví dụ: Abc_123)", "Thông báo");
 				return false;
 			}
 			if (maKM.contains("Voucher_")) {
-				new utilities.ShowMessageError().showError(this, txtMaKM,
+				new ultilities.ShowMessageError().showError(this, txtMaKM,
 						"Mã khuyến mãi thuộc về Voucher, vui lòng nhập lại!", "Thông báo");
 				return false;
 			}
 			if (dsChonSP.size() <= 0) {
-				new utilities.ShowMessageError().showErrorNoTextFile(this, "Chưa chọn sản phẩm khuyến mãi",
+				new ultilities.ShowMessageError().showErrorNoTextFile(this, "Chưa chọn sản phẩm khuyến mãi",
 						"Thông báo");
 				return false;
 			}
 		}
 
 		if (!(tenKM.length() > 0 && tenKM.matches("^[a-zA-Z0-9%\\s\\-_À-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯư]+$"))) {
-			new utilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng",
+			new ultilities.ShowMessageError().showError(this, txtTenKM, "Tên khuyến mãi không đúng định dạng",
 					"Thông báo");
 			return false;
 		}
 
 		if (!(soLuongApDung > 0)) {
-			new utilities.ShowMessageError().showErrorNoTextFile(this, "Số lượng > 0", "Thông báo");
+			new ultilities.ShowMessageError().showErrorNoTextFile(this, "Số lượng > 0", "Thông báo");
 			return false;
 		}
 		
 
 		if (!(donHangTu.length() > 0 && Double.valueOf(donHangTu) > 0)) {
-			new utilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng > 0", "Thông báo");
+			new ultilities.ShowMessageError().showError(this, txtDonHangTu, "Đơn hàng > 0", "Thông báo");
 			return false;
 		}
 		
 
 		if (!(mucGiam.length() > 0 && Double.valueOf(mucGiam) > 0)) {
-			new utilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm > 0", "Thông báo");
+			new ultilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm > 0", "Thông báo");
 			return false;
 		}
 		
 		if(hinhThuc.equals("PHAN_TRAM") && !(Double.valueOf(mucGiam) > 0 && Double.valueOf(mucGiam) < 100)) {
-			new utilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm lớn hơn 0% và nhỏ hơn 100%", "Thông báo");
+			new ultilities.ShowMessageError().showError(this, txtMucGiamGia, "Mức giảm lớn hơn 0% và nhỏ hơn 100%", "Thông báo");
 			return false;
 		}
 
 		if (ngayBatDau.after(ngayKetThuc)) {
-			new utilities.ShowMessageError().showErrorNoTextFile(this, "Ngày bắt đầu phải trước ngày kết thúc",
+			new ultilities.ShowMessageError().showErrorNoTextFile(this, "Ngày bắt đầu phải trước ngày kết thúc",
 					"Thông báo");
 			return false;
 		}
@@ -1167,7 +1167,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             	}
             }
     		loadDataCTTKM();
-                tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
+                tableKM.getColumnModel().getColumn(10).setCellRenderer(new ultilities.DetaiCellBtn());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi CSDL khi thêm khuyến mãi");
             e.printStackTrace();
@@ -1201,13 +1201,13 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		} else {
 			loadDataKM();
 		}
-		tableKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
+		tableKM.getColumnModel().getColumn(10).setCellRenderer(new ultilities.DetaiCellBtn());
 		tableKM.setRowHeight(22);
 	}// GEN-LAST:event_btnTimKiemKhuyenMaiActionPerformed
 
 	private boolean kiemTraTimMaSP(String txtTimSp) {
 		if (!(txtTimSp.matches("^\\d+$"))) {
-			utilities.ShowMessageError.showErrorNoTextFile(this, "Mã không hợp lệ", "Thông báo");
+			ultilities.ShowMessageError.showErrorNoTextFile(this, "Mã không hợp lệ", "Thông báo");
 			return false;
 		}
 		return true;
@@ -1427,7 +1427,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		for (int i = 0; i < table_DSCTTKM.getColumnCount(); i++) {
 			table_DSCTTKM.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
 		}
-		table_DSCTTKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
+		table_DSCTTKM.getColumnModel().getColumn(10).setCellRenderer(new ultilities.DetaiCellBtn());
 		table_DSCTTKM.setRowHeight(22);
 		sorterCTTKM = new TableRowSorter<DefaultTableModel>(tableModelDSCTTKM);
 		table_DSCTTKM.setRowSorter(sorterCTTKM);
@@ -1762,7 +1762,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		for (int i = 0; i < table_DSCTTKM.getColumnCount(); i++) {
 			table_DSCTTKM.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
 		}
-		table_DSCTTKM.getColumnModel().getColumn(10).setCellRenderer(new utilities.DetaiCellBtn());
+		table_DSCTTKM.getColumnModel().getColumn(10).setCellRenderer(new ultilities.DetaiCellBtn());
 		table_DSCTTKM.setRowHeight(22);
 		sorterCTTKM = new TableRowSorter<DefaultTableModel>(tableModelDSCTTKM);
 		table_DSCTTKM.setRowSorter(sorterCTTKM);

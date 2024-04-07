@@ -1,4 +1,4 @@
-package utilities;
+package ultilities;
 
 public class ProcessingEnumDBForQuy {
 	public static String convertNhanVienRolesToEnum(String chucVu) {

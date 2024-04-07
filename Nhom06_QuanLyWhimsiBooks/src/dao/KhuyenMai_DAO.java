@@ -17,7 +17,7 @@ import entities.KhuyenMai;
 import entities.NhanVien;
 import entities.SanPham;
 import interfaces.IKhuyenMai;
-import utilities.QueryBuilder;
+import ultilities.QueryBuilder;
 
 public class KhuyenMai_DAO implements IKhuyenMai {
 	private Connection conn;

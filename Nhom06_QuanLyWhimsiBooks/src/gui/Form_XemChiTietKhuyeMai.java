@@ -14,7 +14,7 @@ import bus.KhuyenMai_BUS;
 import entities.ChiTietKhuyenMai;
 import entities.KhuyenMai;
 import entities.SanPham;
-import utilities.GetToDay;
+import ultilities.GetToDay;
 
 import java.awt.Color;
 import java.sql.Date;
@@ -40,7 +40,7 @@ public class Form_XemChiTietKhuyeMai extends javax.swing.JFrame {
 		Date ngayTao = chiTietKhuyenMai_BUS.getNgayTao(maKM);
 		int stt = 1;
 		for(SanPham sp : sanPhams) {
-			tableModel.addRow(new Object[] {stt++,sp.getSanPhamID(), sp.getTenSanPham(), utilities.GetToDay.sdf.format(ngayTao)});
+			tableModel.addRow(new Object[] {stt++,sp.getSanPhamID(), sp.getTenSanPham(), ultilities.GetToDay.sdf.format(ngayTao)});
 		}
 	}
 	

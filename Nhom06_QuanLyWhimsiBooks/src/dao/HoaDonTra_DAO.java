@@ -17,7 +17,7 @@ import entities.KhuyenMai;
 import entities.NhanVien;
 import interfaces.IHoaDon;
 import interfaces.IHoaDonTra;
-import utilities.QueryBuilder;
+import ultilities.QueryBuilder;
 
 public class HoaDonTra_DAO implements IHoaDonTra {
 

@@ -4,7 +4,7 @@
  */
 package loader;
 
-import utilities.WindowTitle;
+import ultilities.WindowTitle;
 
 /**
  *

@@ -40,7 +40,7 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
     
     private void loadVoucher() {
     	for(KhuyenMai km : listVoucher) {
-    		tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(),utilities.GetToDay.today(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri(), (km.getSoLuotDaApDung() == 0) ? "Chưa sử dụng" : "Đã sử dụng"});
+    		tableModelVoucher.addRow(new Object[] {km.getCodeKhuyenMai(),ultilities.GetToDay.today(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(), km.getLoaiKhuyenMai(), km.getDonHangTu(), km.getGiaTri(), (km.getSoLuotDaApDung() == 0) ? "Chưa sử dụng" : "Đã sử dụng"});
     	}
     }
     /**

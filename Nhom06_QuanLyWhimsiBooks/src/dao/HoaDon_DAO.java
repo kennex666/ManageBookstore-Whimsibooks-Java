@@ -14,7 +14,7 @@ import entities.KhachHang;
 import entities.KhuyenMai;
 import entities.NhanVien;
 import interfaces.IHoaDon;
-import utilities.QueryBuilder;
+import ultilities.QueryBuilder;
 
 public class HoaDon_DAO implements IHoaDon {
 

@@ -1,6 +1,11 @@
 package gui;
 
 import enums.Enum_TabMainMenu;
+import ultilities.ColorProcessing;
+import ultilities.CurrentSession;
+import ultilities.ErrorMessage;
+import ultilities.WindowTitle;
+import ultilities.CurrentSession.EnumQuyenHan;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -25,11 +30,6 @@ import javax.swing.border.Border;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 
 import connectDB.ConnectDB;
-import utilities.ColorProcessing;
-import utilities.CurrentSession;
-import utilities.CurrentSession.EnumQuyenHan;
-import utilities.ErrorMessage;
-import utilities.WindowTitle;
 
 /**
  *
@@ -56,7 +56,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
 
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        utilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));
+        ultilities.ImageProcessing.scaleImageFitToLabel(lblLogo, new ImageIcon(this.getClass().getResource("/img/logo/whimsibooks-logo.png")));
         cboUser.setFocusable(false);
         cboUser.enableInputMethods(false);
         cboUser.setPopupVisible(false);
@@ -231,7 +231,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         btnTabBanHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTabBanHang.setForeground(new java.awt.Color(255, 255, 255));
         btnTabBanHang.setIcon(
-            utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-banhang.png"))
+            ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-banhang.png"))
                 , sizeIconBar, sizeIconBar)
         );
         btnTabBanHang.setText("Bán hàng");
@@ -258,7 +258,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         btnTabSanPham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTabSanPham.setForeground(new java.awt.Color(15, 102, 165));
         btnTabSanPham.setIcon(
-            utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-sanpham.png"))
+            ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icon/ico-sanpham.png"))
                 , sizeIconBar, sizeIconBar)
         );
         btnTabSanPham.setText("Sản phẩm");
@@ -285,7 +285,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
         btnTabKhuyenMai.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnTabKhuyenMai.setForeground(new java.awt.Color(15, 102, 165));
         btnTabKhuyenMai.setIcon(
-            utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+            ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
                 getClass().getResource("/img/icon/ico-khuyenmai.png"))
             , sizeIconBar, sizeIconBar)
     );
@@ -311,7 +311,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabThongKe.setBackground(Color.white);
     btnTabThongKe.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabThongKe.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabThongKe.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabThongKe.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-thongke.png"))
     , sizeIconBar, sizeIconBar)
     );
@@ -337,7 +337,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabNhanVien.setBackground(Color.white);
     btnTabNhanVien.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabNhanVien.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabNhanVien.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabNhanVien.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-nhanvien.png"))  
     , sizeIconBar, sizeIconBar));
     btnTabNhanVien.setText("Nhân viên");
@@ -362,7 +362,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabKhachHang.setBackground(Color.white);
     btnTabKhachHang.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabKhachHang.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabKhachHang.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabKhachHang.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-khachhang.png"))  
     , sizeIconBar, sizeIconBar));
     btnTabKhachHang.setText("Khách hàng");
@@ -387,7 +387,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabNhaCungCap.setBackground(Color.white);
     btnTabNhaCungCap.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabNhaCungCap.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabNhaCungCap.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabNhaCungCap.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-nhacungcap.png"))  
     , sizeIconBar, sizeIconBar));
     btnTabNhaCungCap.setText("Nhà cung cấp");
@@ -412,7 +412,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabDangXuat.setBackground(Color.white);
     btnTabDangXuat.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabDangXuat.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabDangXuat.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabDangXuat.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/btn-logout.png"))
     , sizeIconBar, sizeIconBar));
     btnTabDangXuat.setText("Đăng xuất");
@@ -437,7 +437,7 @@ public class GUI_MainMenu extends javax.swing.JFrame {
     btnTabGuide.setBackground(Color.white);
     btnTabGuide.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
     btnTabGuide.setForeground(new java.awt.Color(15, 102, 165));
-    btnTabGuide.setIcon(utilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
+    btnTabGuide.setIcon(ultilities.ImageProcessing.resizeIcon(new javax.swing.ImageIcon(
         getClass().getResource("/img/icon/ico-help-center.png"))  
     , sizeIconBar, sizeIconBar));
     btnTabGuide.setText("Hướng dẫn");

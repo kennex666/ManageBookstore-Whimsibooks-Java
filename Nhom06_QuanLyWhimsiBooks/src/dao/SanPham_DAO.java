@@ -21,9 +21,10 @@ import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
+import ultilities.Numberic;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utilities.Numberic;
 
 public class SanPham_DAO implements ISanPham {
 

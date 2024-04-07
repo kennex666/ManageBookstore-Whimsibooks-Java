@@ -1,6 +1,9 @@
 package gui;
 
 import loader.SplashLoading;
+import ultilities.CurrentSession;
+import ultilities.ErrorMessage;
+
 import java.awt.EventQueue;
 
 import javax.swing.UIManager;
@@ -12,8 +15,6 @@ import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import connectDB.ConnectDB;
 import java.util.Random;
 import javax.swing.JOptionPane;
-import utilities.CurrentSession;
-import utilities.ErrorMessage;
 
 public class MainActivity {
 

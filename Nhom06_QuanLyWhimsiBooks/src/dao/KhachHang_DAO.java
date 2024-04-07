@@ -16,12 +16,12 @@ import entities.KhachHang;
 import entities.NhanVien;
 import gui.TAB_KhachHang;
 import interfaces.IKhachHang;
+import ultilities.ProcessingEnumDBForQuy;
+import ultilities.QueryBuilder;
+import ultilities.QueryBuilder.Enum_DataType;
+
 import java.sql.ResultSet;
 import java.time.LocalDate;
-
-import utilities.ProcessingEnumDBForQuy;
-import utilities.QueryBuilder;
-import utilities.QueryBuilder.Enum_DataType;
 
 public class KhachHang_DAO implements IKhachHang {
 

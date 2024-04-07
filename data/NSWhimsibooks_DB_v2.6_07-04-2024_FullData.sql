@@ -9,15 +9,27 @@
 	[2.5] Full data
 	[2.6] Update 
 */
---use master
---DROP DATABASE Whimsibook
---GO
 
---CREATE DATABASE Whimsibook
---GO 
+/* This script DROP Database for tesing purpose
+	use master
+	DROP DATABASE Whimsibook
+	GO
+*/
 
 
--- RUN FIRST TIME
+/* RUN THIS IF THIS IS THE FIRST TIME
+
+	CREATE DATABASE Whimsibook
+	GO 
+
+*/
+
+/* 
+
+	IMPORT DATA
+
+*/
+
 use Whimsibook
 GO
 

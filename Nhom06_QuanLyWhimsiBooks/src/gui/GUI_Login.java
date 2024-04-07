@@ -3,6 +3,16 @@ package gui;
 import bus.NhanVien_BUS;
 import com.itextpdf.awt.geom.misc.Messages;
 import entities.NhanVien;
+import ultilities.ColorProcessing;
+import ultilities.CurrentSession;
+import ultilities.EmailUtils;
+import ultilities.EnviromentConfigs;
+import ultilities.ErrorMessage;
+import ultilities.ImageProcessing;
+import ultilities.PasswordGenerator;
+import ultilities.WindowTitle;
+import ultilities.CurrentSession.EnumQuyenHan;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -11,10 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.border.EmptyBorder;
-
-import utilities.ColorProcessing;
-import utilities.ImageProcessing;
-import utilities.WindowTitle;
 
 import java.awt.Window.Type;
 import java.awt.image.BufferedImage;
@@ -38,12 +44,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.Properties;
 import javax.swing.SwingConstants;
-import utilities.CurrentSession;
-import utilities.CurrentSession.EnumQuyenHan;
-import utilities.EmailUtils;
-import utilities.EnviromentConfigs;
-import utilities.ErrorMessage;
-import utilities.PasswordGenerator;
 
 /**
  *

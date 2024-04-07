@@ -20,6 +20,8 @@ import entities.SanPham;
 import entities.TacGia;
 import entities.TheLoai;
 import entities.ThuongHieu;
+import ultilities.ImageProcessing;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -37,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import utilities.ImageProcessing;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
