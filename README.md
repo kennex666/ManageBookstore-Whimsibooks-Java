@@ -13,6 +13,7 @@ If you want to find our old project for **Java: Application Development**, [chec
 
 ## Config/Run project
 - Before all:
+- 
     Check config in `JPA Content\persistence.xml`
   
     Check config in `src\ultilities\EnviromentConfigs.java` (If you need the send email functional)
