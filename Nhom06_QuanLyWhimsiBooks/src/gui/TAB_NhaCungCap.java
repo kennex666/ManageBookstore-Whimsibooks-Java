@@ -583,28 +583,28 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	String email = txtEmailNCC.getText();
     	String diaChi = txtDiaChi.getText();
     	if(!(hoTenNCC.length() > 0 &&  hoTenNCC.matches("[a-zA-Z0-9À-Ỹà-ỹĂ-Ếă-ếÂ-Ứâ-ứÊ-Ữê-ữÔ-Ựô-ựƠ-Ỵơ-ỵĐđ.&\\-\\s*]+"))) {
-    		new utilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(!(soDienThoai.length() > 0 && soDienThoai.matches("^0\\d{9}(\\d{1})?$"))) {
-    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(!(email.length() > 0 && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))) {
-    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
     		return false;
     	}
     		
     	if(!(diaChi.length() > 0)) {
-    		new utilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(kiemTraSDT(soDienThoai) == true) {
-    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại đã tồn tại", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại đã tồn tại", "Thông báo");
     		return false;	
     	}
     	if(kiemTraEmail(email) == true) {
-    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email đã tồn tại", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtEmailNCC, "Email đã tồn tại", "Thông báo");
     		return false;
     	}
     	return true;
@@ -632,19 +632,19 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	String diaChi = txtDiaChi.getText();
     	int row = tableNCC.getSelectedRow();
     	if(!(hoTenNCC.length() > 0 &&  hoTenNCC.matches("[a-zA-Z0-9À-Ỹà-ỹĂ-Ếă-ếÂ-Ứâ-ứÊ-Ữê-ữÔ-Ựô-ựƠ-Ỵơ-ỵĐđ.&\\-\\s*]+"))) {
-    		new utilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtTenNCC, "Tên nhà cung cấp không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(!(soDienThoai.length() > 0 && soDienThoai.matches("^0\\d{9}(\\d{1})?$"))) {
-    		new utilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtSdtNCC, "Số điện thoại không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(!(email.length() > 0 && email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"))) {
-    		new utilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtEmailNCC, "Email không đúng định dạng", "Thông báo");
     		return false;
     	}
     	if(!(diaChi.length() > 0)) {
-    		new utilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
+    		new ultilities.ShowMessageError().showError(this, txtDiaChi, "Địa chỉ không đúng định dạng", "Thông báo");
     		return false;
     	}
     	return true;

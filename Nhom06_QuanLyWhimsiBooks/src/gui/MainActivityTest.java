@@ -6,7 +6,7 @@ import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import com.formdev.flatlaf.themes.FlatMacLightLaf;
 import connectDB.ConnectDB;
-import utilities.CurrentSession;
+import ultilities.CurrentSession;
 
 public class MainActivityTest {
 	public static void main(String[] args) {

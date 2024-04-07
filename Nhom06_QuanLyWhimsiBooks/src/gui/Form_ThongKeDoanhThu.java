@@ -5,6 +5,8 @@
 package gui;
 
 import bus.ThongKe_BUS;
+import ultilities.ErrorMessage;
+import ultilities.Numberic;
 import ultilities.chartbar.Chart;
 import ultilities.chartbar.ModelChart;
 import java.awt.Color;
@@ -17,8 +19,6 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import utilities.ErrorMessage;
-import utilities.Numberic;
 
 /**
  *

@@ -244,7 +244,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	            for (KhuyenMai km : list) {
 	                Row row = sheet.createRow(rowNum++);
 	                row.createCell(0).setCellValue(km.getCodeKhuyenMai());
-	                row.createCell(1).setCellValue(utilities.GetToDay.today());
+	                row.createCell(1).setCellValue(ultilities.GetToDay.today());
 	                row.createCell(2).setCellValue(km.getNgayKhuyenMai()+"");
 	                row.createCell(3).setCellValue(km.getNgayHetHanKM()+"");
 	                row.createCell(4).setCellValue(km.getLoaiKhuyenMai());
@@ -295,7 +295,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 			generatedCodes.add(getAllKhuyenMai().get(i).getCodeKhuyenMai());
 		}
 
-		voucherCode = utilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
+		voucherCode = ultilities.RandomVoucherCode.VoucherCode(nameRequired, generatedCodes);
 
 		return voucherCode;
 	}

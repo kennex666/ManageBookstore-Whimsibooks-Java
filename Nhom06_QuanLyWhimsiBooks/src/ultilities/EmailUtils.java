@@ -1,4 +1,4 @@
-package utilities;
+package ultilities;
 /*
  * Refer : http://www.journaldev.com/2532/java-program-to-send-email-using-smtp-gmail-tls-ssl-attachment-image-example
  * */

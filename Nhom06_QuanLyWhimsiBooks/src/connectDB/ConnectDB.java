@@ -11,8 +11,8 @@ import org.hibernate.Session;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import utilities.EnviromentConfigs;
-import utilities.ErrorMessage;
+import ultilities.EnviromentConfigs;
+import ultilities.ErrorMessage;
 
 public class ConnectDB {
 	private static ConnectDB instance = new ConnectDB();

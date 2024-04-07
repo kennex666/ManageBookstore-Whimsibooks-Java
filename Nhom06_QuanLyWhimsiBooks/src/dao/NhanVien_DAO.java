@@ -11,12 +11,12 @@ import connectDB.ConnectDB;
 import entities.NhanVien;
 import gui.TAB_NhanVien;
 import interfaces.INhanVien;
+import ultilities.ProcessingEnumDBForQuy;
+import ultilities.QueryBuilder;
+import ultilities.QueryBuilder.Enum_DataType;
+
 import java.time.LocalDate;
 import java.util.List;
-
-import utilities.ProcessingEnumDBForQuy;
-import utilities.QueryBuilder;
-import utilities.QueryBuilder.Enum_DataType;
 
 public class NhanVien_DAO implements INhanVien {
 

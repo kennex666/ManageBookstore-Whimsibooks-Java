@@ -1,4 +1,4 @@
-package utilities;
+package ultilities;
 
 public class EnviromentConfigs {
 	public static String STMP_EMAIL = "whimsibooks@1boxstudios.com";

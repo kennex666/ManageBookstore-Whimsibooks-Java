@@ -28,6 +28,12 @@ import entities.KhachHang;
 import entities.KhuyenMai;
 import entities.NhanVien;
 import entities.SanPham;
+import ultilities.*;
+import ultilities.CurrentSession.EnumQuyenHan;
+
+import static ultilities.TAB_HoaDon_EditorMode.BAN_HANG;
+import static ultilities.TAB_HoaDon_EditorMode.TRA_HANG;
+import static ultilities.TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -40,12 +46,6 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
-import utilities.*;
-import utilities.CurrentSession.EnumQuyenHan;
-
-import static utilities.TAB_HoaDon_EditorMode.BAN_HANG;
-import static utilities.TAB_HoaDon_EditorMode.TRA_HANG;
-import static utilities.TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON;
 
 /**
  *
@@ -121,8 +121,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tblChiTietHoaDon.addMouseListener(this);
 
         // Placeholder text
-        ((utilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
-        ((utilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
+        ((ultilities.JTextFieldPlaceHolder) txtMaKhachHang).setPlaceholder("Nhập mã KH hoặc SĐT");
+        ((ultilities.JTextFieldPlaceHolder) txtKhuyenMai).setPlaceholder("Nhập mã khuyến mãi");
 
 
         tblModelCTHD.addTableModelListener(new TableModelListener() {
@@ -608,7 +608,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_Right_KhachHang = new javax.swing.JPanel();
         jPanel11 = new javax.swing.JPanel();
         jPanel12 = new javax.swing.JPanel();
-        txtMaKhachHang = new utilities.JTextFieldPlaceHolder();
+        txtMaKhachHang = new ultilities.JTextFieldPlaceHolder();
         btnKhachHangEnter = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         txtDisplayTenKH = new javax.swing.JTextField();
@@ -617,7 +617,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         tabBanHang_HoaDon_Right_GiamGia = new javax.swing.JPanel();
         jPanel15 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
-        txtKhuyenMai = new utilities.JTextFieldPlaceHolder();
+        txtKhuyenMai = new ultilities.JTextFieldPlaceHolder();
         btnKhuyenMaiEnter = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtDisplayChuongTrinhKM = new javax.swing.JTextField();
