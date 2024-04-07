@@ -2,7 +2,12 @@ package entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class NhaCungCap {
+	@Id
 	private String nhaCungCapID;
 	private String tenNhaCungCap;
 	private String soDienThoai;

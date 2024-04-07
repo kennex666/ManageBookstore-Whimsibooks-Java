@@ -2,10 +2,25 @@ package entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Transient;
+
+@Entity
 public class ChiTietHoaDon {
 	private int soLuong;
-    private double donGia; // Dẫn xuất
+	private double donGia; // Dẫn xuất
+    
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sanPhamId")
     private SanPham sanPham;
+    @Id
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "hoaDonId")
 	private HoaDon hoaDon;
 
 	public ChiTietHoaDon(SanPham sanPham, int soLuong) {

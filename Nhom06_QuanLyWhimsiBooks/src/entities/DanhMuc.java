@@ -2,6 +2,11 @@ package entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
 /**
  * 
  * @author: Dương Thái Bảo
@@ -9,7 +14,10 @@ import java.util.Objects;
  *
  */
 
+@Entity
 public class DanhMuc {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int danhMucID;
 	private String tenDanhMuc;
 	public int getDanhMucID() {

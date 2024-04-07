@@ -2,6 +2,9 @@ package entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import utilities.RegexPattern;
 
 /**
@@ -11,7 +14,10 @@ import utilities.RegexPattern;
  *
  */
 
+@Entity
 public class TheLoai {
+	@Id
+	@GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
 	private int theLoaiID;
 	private String tenTheLoai;
 	

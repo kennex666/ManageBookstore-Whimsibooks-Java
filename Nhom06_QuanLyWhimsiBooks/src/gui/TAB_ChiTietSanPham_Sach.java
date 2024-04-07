@@ -31,7 +31,6 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
     public TAB_ChiTietSanPham_Sach(SanPham x) {
         this.x = x;
         initComponents();
-        ConnectDB.getInstance().connect();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         
    

@@ -4,14 +4,36 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.hibernate.annotations.ManyToAny;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class HoaDon {
+	@Id
 	private String hoaDonID;
 	private Date ngayLapHoaDon;
 	private String trangThai; // 3 state: CHO_XU_LY, DA_XU_LY, HUY_BO
+	
+	@OneToMany(fetch= FetchType.LAZY, mappedBy = "hoaDon")
 	private ArrayList<ChiTietHoaDon> listChiTietHoaDon;
 	private double tongTien, thue, giaKhuyenMai;
+	
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "nhanVienId")
 	private NhanVien nhanVien;
+	
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "khachHangId")
 	private KhachHang khachHang;
+	
+	@ManyToOne(fetch= FetchType.LAZY)
+	@JoinColumn(name = "codeKhuyenMai")
 	private KhuyenMai khuyenMai;
 	
 	

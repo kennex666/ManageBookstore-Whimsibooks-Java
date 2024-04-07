@@ -9,14 +9,12 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import connectDB.ConnectDB;
-import entities.HangNhap;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
 import interfaces.INhaCungCap;
 
 public class NhaCungCap_DAO implements INhaCungCap{
 	private Connection conn;
-	private HangNhap_DAO hangNhap_DAO;
 	
 	@Override
 	public ArrayList<NhaCungCap> getAllNhaCungCap() {
@@ -181,6 +179,5 @@ public class NhaCungCap_DAO implements INhaCungCap{
 
 	public NhaCungCap_DAO() {
 		this.conn = ConnectDB.getConnection();
-		this.hangNhap_DAO = new HangNhap_DAO();
 	}
 }

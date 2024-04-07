@@ -4,18 +4,59 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+
+@Entity
+@NamedQueries({
+	@NamedQuery(name = "SanPham.findAll", query = "SELECT sp FROM SanPham sp"),
+	@NamedQuery(name = "SanPham.findById", query = "SELECT sp FROM SanPham sp WHERE sp.sanPhamID = :id"),
+	@NamedQuery(name = "SanPham.findByTenSanPham", query = "SELECT sp FROM SanPham sp WHERE sp.tenSanPham = :tenSanPham"),
+	@NamedQuery(name = "SanPham.findByTacGia", query = "SELECT sp FROM SanPham sp WHERE sp.tacGia = :tacGia"),
+	@NamedQuery(name= "SanPham.updateInfo", query = "UPDATE SanPham sp SET sp.tenSanPham = :tenSanPham, sp.soLuongTon = :soLuongTon, sp.namSanXuat = :namSanXuat, sp.soTrang = :soTrang, sp.ngayNhap = :ngayNhap, sp.giaNhap = :giaNhap, sp.thue = :thue, sp.loaiDoiTra = :loaiDoiTra, sp.barcode = :barcode, sp.imgPath = :imgPath, sp.tinhTrang = :tinhTrang, sp.loaiSanPham = :loaiSanPham, sp.donViDoLuong = :donViDoLuong, sp.kichThuoc = :kichThuoc, sp.xuatXu = :xuatXu, sp.ngonNgu = :ngonNgu, sp.loaiBia = :loaiBia, sp.tacGia = :tacGia, sp.theLoai = :theLoai, sp.nhaXuatBan = :nhaXuatBan, sp.thuongHieu = :thuongHieu, sp.danhMuc = :danhMuc, sp.nhaCungCap = :nhaCungCap WHERE sp.sanPhamID = :sanPhamID")
+})
 public class SanPham {
-	private int sanPhamID, soLuongTon, namSanXuat, soTrang;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private int sanPhamID;
+	private int soLuongTon, namSanXuat, soTrang;
 	private Date ngayNhap;
 	private double giaNhap, thue;
 	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
 					tinhTrang, loaiSanPham, donViDoLuong, 
 					kichThuoc, xuatXu, ngonNgu, loaiBia;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tacGiaID")
 	private TacGia tacGia;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "theLoaiID")
 	private TheLoai theLoai;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="nhaXuatBanID")
 	private NhaXuatBan nhaXuatBan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="thuongHieuID")
 	private ThuongHieu thuongHieu;
+	
+	@ManyToOne
+	@JoinColumn(name="danhMucID")
 	private DanhMuc danhMuc;
+	
+	@ManyToOne
+	@JoinColumn(name="nhaCungCapID")
 	private NhaCungCap nhaCungCap;
 	
 	

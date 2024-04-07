@@ -70,7 +70,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
     public TAB_ThemSanPham() {
         initComponents();
-        ConnectDB.getInstance().connect();
 
         this.txtNgay.setDate(java.util.Calendar.getInstance().getTime());
 
@@ -1228,11 +1227,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             return;
         }
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        try {
-            ConnectDB.getInstance().connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
         if (decided == 0) {
             SanPham sanPham = getNewSanPham();
