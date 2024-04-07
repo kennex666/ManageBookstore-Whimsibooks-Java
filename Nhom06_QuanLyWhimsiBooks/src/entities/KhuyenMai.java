@@ -5,7 +5,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class KhuyenMai {
+	@Id
 	private String codeKhuyenMai;
 	private String tenKhuyenMai;
 	private String loaiKhuyenMai; // PHAM_TRAM && GIA_TRI
@@ -14,17 +21,10 @@ public class KhuyenMai {
 	private Date ngayHetHanKM;
 	private double donHangTu;
 	private int soLuongKhuyenMai, soLuotDaApDung;
-        private ArrayList<ChiTietKhuyenMai> listApDung;
-
-	/**
-	 * @param codeKhuyenMai
-	 * @param tenKhuyenMai
-	 * @param loaiKhuyenMai
-	 * @param giaTri
-	 * @param ngayKhuyenMai
-	 * @param ngayHetHanKM
-	 * @param donHangTu
-	 */
+	
+    @OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY)
+    private ArrayList<ChiTietKhuyenMai> listApDung;
+    
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu) {
 		this.setCodeKhuyenMai(codeKhuyenMai);

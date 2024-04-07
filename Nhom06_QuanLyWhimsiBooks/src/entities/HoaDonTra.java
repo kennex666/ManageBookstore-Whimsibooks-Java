@@ -5,13 +5,29 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+
+@Entity
 public class HoaDonTra {
+	@Id
     private String hoaDonID;
     private Date ngayTraHoaDon;
     private String trangThai;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "khachHangId")
     private KhachHang khachHang;
     private double tongHoan;
+    
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "nhanVienId")
 	private NhanVien nhanVien;
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hoaDon")
     private ArrayList<ChiTietTraHang> listChiTietHoaDon;
 
     public HoaDonTra(String hoaDonID, Date ngayTraHoaDon, String trangThai, KhachHang khachHang, double tongHoan,

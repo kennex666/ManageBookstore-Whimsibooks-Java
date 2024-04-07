@@ -59,7 +59,6 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
     public TAB_ThemSanPhamKhac() {
         initComponents();
-        ConnectDB.getInstance().connect();
 
         this.txtNgay.setDate(java.util.Calendar.getInstance().getTime());
 
@@ -871,11 +870,6 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
             sanPham.setTinhTrang("CON_HANG");
             sanPham.setLoaiSanPham("SAN_PHAM_KHAC");
             SanPham_BUS sanPham_BUS = new SanPham_BUS();
-            try {
-                ConnectDB.getInstance().connect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             System.out.println(sanPham);
             sanPham_BUS.addSanPham(sanPham);
 
@@ -893,11 +887,7 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
                 return;
             }
             SanPham_BUS sanPham_BUS = new SanPham_BUS();
-            try {
-                ConnectDB.getInstance().connect();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
             int decided = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn thay đổi lại sản phẩm này không?");
             if (decided == 0) {
                 SanPham sanPham = getNewSanPham();
@@ -1047,11 +1037,6 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
 
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
 
-        try {
-            ConnectDB.getInstance().connect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
         th.setThuongHieuID(sanPham_BUS.getIdThuongHieuByName(th.getTenThuongHieu()));
 

@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class KhachHang {
+	@Id
 	private String khachHangID;
 	private String hoTen;
 	private String soDienThoai;

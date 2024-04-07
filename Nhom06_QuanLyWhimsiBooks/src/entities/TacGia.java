@@ -2,9 +2,16 @@ package entities;
 
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import utilities.RegexPattern;
 
+@Entity
 public class TacGia {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tacGiaID;
 	private String tenTacGia, quocTich;
 	public int getTacGiaID() {

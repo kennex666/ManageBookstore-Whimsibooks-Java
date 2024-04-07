@@ -4,18 +4,50 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
+@Entity
 public class SanPham {
-	private int sanPhamID, soLuongTon, namSanXuat, soTrang;
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	private int sanPhamID;
+	private int soLuongTon, namSanXuat, soTrang;
 	private Date ngayNhap;
 	private double giaNhap, thue;
 	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
 					tinhTrang, loaiSanPham, donViDoLuong, 
 					kichThuoc, xuatXu, ngonNgu, loaiBia;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "tacGiaID")
 	private TacGia tacGia;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "theLoaiID")
 	private TheLoai theLoai;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="nhaXuatBanID")
 	private NhaXuatBan nhaXuatBan;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="thuongHieuID")
 	private ThuongHieu thuongHieu;
+	
+	@ManyToOne
+	@JoinColumn(name="danhMucID")
 	private DanhMuc danhMuc;
+	
+	@ManyToOne
+	@JoinColumn(name="nhaCungCapID")
 	private NhaCungCap nhaCungCap;
 	
 	

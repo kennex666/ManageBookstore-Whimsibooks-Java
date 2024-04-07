@@ -4,7 +4,12 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class NhanVien {
+	@Id
 	private String nhanVienID;
 	private String userName;
 	private String password;
