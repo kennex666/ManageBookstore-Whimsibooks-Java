@@ -13,7 +13,7 @@ public class ConnectDB {
 
 	public static void connect() {
 		try {
-			String url = "jdbc:sqlserver://localhost:1433;databasename=" + EnviromentConfigs.DB_DATABASE;
+			String url = "jdbc:sqlserver://localhost:1433;databasename=" + EnviromentConfigs.DB_DATABASE +";trustServerCertificate=true";
 			conn = DriverManager.getConnection(url, EnviromentConfigs.DB_USERNAME, EnviromentConfigs.DB_PASSWORD);
 		} catch (SQLException e) {
 		}
