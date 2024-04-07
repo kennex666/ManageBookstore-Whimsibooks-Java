@@ -1,5 +1,5 @@
-﻿/*
-	Database Version 2.4 - Update 12/11/2023
+/*
+	Database Version 2.6 - Update 07/04/2024
 	[2.2]
 		Fix some issue. Fixed Boolean Entity
 		Fixed display Vietnamese
@@ -7,160 +7,18 @@
 	[2.3] Update HoaDonTra
 	[2.4] Add trigger
 	[2.5] Full data
+	[2.6] Update 
 */
-CREATE DATABASE QuanLyNhaSachWhimsiBooks
-GO
-use QuanLyNhaSachWhimsiBooks
-GO
-CREATE TABLE KhuyenMai (
-  CodeKhuyenMai    nvarchar(255) NOT NULL, 
-  TenKhuyenMai     nvarchar(255) NULL, 
-  LoaiGiamGia      nvarchar(255) NULL, 
-  GiaTri           float(10) NOT NULL, 
-  NgayKhuyenMai    datetime NULL, 
-  NgayHetHanKM     datetime NULL, 
-  DonHangTu        float(10) NOT NULL, 
-  SoLuongKhuyenMai int NOT NULL, 
-  SoLuotDaApDung   int NOT NULL, 
-  PRIMARY KEY (CodeKhuyenMai));
-CREATE TABLE NhanVien (
-  NhanVienID  nvarchar(255) NOT NULL, 
-  UserName    nvarchar(255) NULL, 
-  Password    nvarchar(255) NULL, 
-  NgayTaoTK   datetime NULL, 
-  HoTen       nvarchar(255) NULL, 
-  GioiTinh    nvarchar(255) NULL, 
-  SoDIenThoai nvarchar(255) NULL, 
-  ChucVu      nvarchar(255) NULL, 
-  Email       nvarchar(255) NULL, 
-  NgaySInh    datetime NULL, 
-  DiaChi      nvarchar(255) NULL, 
-  PRIMARY KEY (NhanVienID));
-CREATE TABLE NhaCungCap (
-  NhaCungCapID  nvarchar(255) NOT NULL, 
-  TenNhaCungCap nvarchar(255) NULL, 
-  SoDIenThoai   nvarchar(255) NULL, 
-  Email         nvarchar(255) NULL, 
-  DiaChi        nvarchar(255) NULL, 
-  PRIMARY KEY (NhaCungCapID));
-CREATE TABLE ChiTietTraHang (
-  SoLuong     int NOT NULL, 
-  HoaDonID    nvarchar(255) NOT NULL, 
-  SanPhamID   int NOT NULL, 
-  DonGia      float(10) NOT NULL, 
-  LiDoTrahang nvarchar(255) NULL);
-CREATE TABLE HoaDonTra (
-  HoaDonID      nvarchar(255) NOT NULL, 
-  KhachHangID   nvarchar(255) NOT NULL, 
-  NhanVienID   nvarchar(255) NOT NULL, 
-  NgayTraHoaDon datetime NULL, 
-  TongHoan      float(10) NOT NULL, 
-  TrangThai     nvarchar(255) NULL, 
-  PRIMARY KEY (HoaDonID));
-CREATE TABLE KhachHang (
-  KhachHangID   nvarchar(255) NOT NULL, 
-  HoTen         nvarchar(255) NULL, 
-  SoDienThoai   nvarchar(255) NULL, 
-  NgaySInh      datetime NULL, 
-  GioiTinh      nvarchar(255) NULL, 
-  Email         nvarchar(255) NULL, 
-  MaSoThue      nvarchar(255) NULL, 
-  DiaChi        nvarchar(255) NULL, 
-  LoaiKhachHang nvarchar(255) NULL, 
-  PRIMARY KEY (KhachHangID));
-CREATE TABLE HoaDon (
-  HoaDonID      nvarchar(255) NOT NULL, 
-  CodeKhuyenMai nvarchar(255) NOT NULL, 
-  KhachHangID   nvarchar(255) NOT NULL, 
-  NhanVienID    nvarchar(255) NOT NULL, 
-  NgayLapHoaDon datetime NULL, 
-  TongTien      float(10) NOT NULL, 
-  TrangThai     nvarchar(255) NULL, 
-  Thue          float(10) NOT NULL, 
-  GiaKhuyenMai  float(10) NOT NULL, 
-  PRIMARY KEY (HoaDonID));
-CREATE TABLE SanPham (
-  SanPhamID    int IDENTITY NOT NULL, 
-  TacGiaID     int NOT NULL, 
-  TheLoaiID    int NOT NULL, 
-  NhaXuatBanID int NOT NULL, 
-  ThuongHieuID int NOT NULL, 
-  DanhMucID    int NOT NULL, 
-  NhaCungCapID nvarchar(255) NOT NULL, 
-  TenSanPham   nvarchar(255) NULL, 
-  NgayNhap     datetime NULL, 
-  Thue         float(10) NOT NULL, 
-  LoaiDoiTra      nvarchar(255) NULL,
-  Barcode      nvarchar(255) NULL, 
-  ImgPath      nvarchar(255) NULL, 
-  TinhTrang    nvarchar(255) NULL, 
-  SoLuongTon   int NOT NULL, 
-  NamSanXuat   int NOT NULL, 
-  LoaiSanPham  nvarchar(255) NULL, 
-  DonViDoLuong nvarchar(255) NULL, 
-  KichThuoc    nvarchar(255) NULL, 
-  XuatXu       nvarchar(255) NULL, 
-  NgonNgu      nvarchar(255) NULL, 
-  SoTrang      int NOT NULL, 
-  LoaiBia      nvarchar(255) NULL, 
-  GiaNhap      float(10) NOT NULL, 
-  PRIMARY KEY (SanPhamID));
-CREATE TABLE ChiTietHoaDon (
-  SoLuong   int NOT NULL, 
-  HoaDonID  nvarchar(255) NOT NULL, 
-  SanPhamID int NOT NULL, 
-  DonGia    float(10) NOT NULL);
-CREATE TABLE TacGia (
-  TacGiaID  int IDENTITY NOT NULL, 
-  TenTacGia nvarchar(255) NULL, 
-  QuocTich  nvarchar(255) NULL, 
-  PRIMARY KEY (TacGiaID));
-CREATE TABLE TheLoai (
-  TheLoaiID  int IDENTITY NOT NULL, 
-  TenTheLoai nvarchar(255) NULL, 
-  PRIMARY KEY (TheLoaiID));
-CREATE TABLE DanhMuc (
-  DanhMucID  int IDENTITY NOT NULL, 
-  TenDanhMuc nvarchar(255) NULL, 
-  PRIMARY KEY (DanhMucID));
-CREATE TABLE ThuongHieu (
-  ThuongHieuID  int IDENTITY NOT NULL, 
-  TenThuongHieu nvarchar(255) NULL, 
-  PRIMARY KEY (ThuongHieuID));
-CREATE TABLE NhaXuatBan (
-  NhaXuatBanID   int IDENTITY NOT NULL, 
-  TenNhaXuatBan  nvarchar(255) NULL, 
-  DiaChi         nvarchar(255) NULL, 
-  SoDienThoai    nvarchar(255) NULL, 
-  Email          nvarchar(255) NULL, 
-  Website        nvarchar(255) NULL, 
-  NamThanhLap    int NOT NULL, 
-  LinhVucXuatBan nvarchar(255) NULL, 
-  QuocGia        nvarchar(255) NULL, 
-  PRIMARY KEY (NhaXuatBanID));
-CREATE TABLE ChiTietKhuyenMai (
-  NgayTao                datetime NULL, 
-  SanPhamID       int NOT NULL, 
-  CodeKhuyenMai nvarchar(255) NOT NULL);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham819527 FOREIGN KEY (NhaCungCapID) REFERENCES NhaCungCap (NhaCungCapID);
-ALTER TABLE ChiTietHoaDon ADD CONSTRAINT FKChiTietHoa598636 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
-ALTER TABLE ChiTietTraHang ADD CONSTRAINT FKChiTietTra137106 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
-ALTER TABLE ChiTietTraHang ADD CONSTRAINT FKChiTietTra144876 FOREIGN KEY (HoaDonID) REFERENCES HoaDonTra (HoaDonID);
-ALTER TABLE HoaDonTra ADD CONSTRAINT FKHoaDonTra123873 FOREIGN KEY (NhanVienID) REFERENCES NhanVien (NhanVienID);
-ALTER TABLE HoaDonTra ADD CONSTRAINT FKHoaDonTra619314 FOREIGN KEY (KhachHangID) REFERENCES KhachHang (KhachHangID);
-ALTER TABLE ChiTietHoaDon ADD CONSTRAINT FKChiTietHoa204008 FOREIGN KEY (HoaDonID) REFERENCES HoaDon (HoaDonID);
-ALTER TABLE HoaDon ADD CONSTRAINT FKHoaDon185313 FOREIGN KEY (NhanVienID) REFERENCES NhanVien (NhanVienID);
-ALTER TABLE HoaDon ADD CONSTRAINT FKHoaDon506668 FOREIGN KEY (KhachHangID) REFERENCES KhachHang (KhachHangID);
-ALTER TABLE HoaDon ADD CONSTRAINT FKHoaDon155213 FOREIGN KEY (CodeKhuyenMai) REFERENCES KhuyenMai (CodeKhuyenMai);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham289675 FOREIGN KEY (DanhMucID) REFERENCES DanhMuc (DanhMucID);
-ALTER TABLE ChiTietKhuyenMai ADD CONSTRAINT FKChiTietKhu684005 FOREIGN KEY (CodeKhuyenMai) REFERENCES KhuyenMai (CodeKhuyenMai);
-ALTER TABLE ChiTietKhuyenMai ADD CONSTRAINT FKChiTietKhu322684 FOREIGN KEY (SanPhamID) REFERENCES SanPham (SanPhamID);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham192103 FOREIGN KEY (ThuongHieuID) REFERENCES ThuongHieu (ThuongHieuID);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham842816 FOREIGN KEY (NhaXuatBanID) REFERENCES NhaXuatBan (NhaXuatBanID);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham889734 FOREIGN KEY (TheLoaiID) REFERENCES TheLoai (TheLoaiID);
-ALTER TABLE SanPham ADD CONSTRAINT FKSanPham553584 FOREIGN KEY (TacGiaID) REFERENCES TacGia (TacGiaID);
+--use master
+--DROP DATABASE Whimsibook
+--GO
 
--- SCRIPT BY BẢO
+--CREATE DATABASE Whimsibook
+--GO 
+
+
+-- RUN FIRST TIME
+use Whimsibook
 GO
 
 --- Trigger kích hoạt khi cập nhật hoá đơn
