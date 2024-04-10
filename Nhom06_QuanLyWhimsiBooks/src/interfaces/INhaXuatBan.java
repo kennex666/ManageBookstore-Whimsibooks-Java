@@ -5,15 +5,15 @@
 package interfaces;
 
 import entities.NhaXuatBan;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface INhaXuatBan {
-    public ArrayList<NhaXuatBan> getAllNhaXuatBan();
-    public ArrayList<NhaXuatBan> getNhaXuatBanTheoID(String x);
+    public List<NhaXuatBan> getAllNhaXuatBan();
+    public List<NhaXuatBan> getNhaXuatBanTheoID(String x);
     public boolean addNhaXuatBan(NhaXuatBan x);
     public boolean editNhaXuatBan (NhaXuatBan x);
 }

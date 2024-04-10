@@ -1,10 +1,12 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import ultilities.RegexPattern;
 
 /**
@@ -21,8 +23,17 @@ public class TheLoai {
 	private int theLoaiID;
 	private String tenTheLoai;
 	
+	@OneToMany(mappedBy = "theLoai", fetch = jakarta.persistence.FetchType.LAZY)
+	private List<SanPham> sanPhams;
 	
-	
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
+
 	public int getTheLoaiID() {
 		return theLoaiID;
 	}

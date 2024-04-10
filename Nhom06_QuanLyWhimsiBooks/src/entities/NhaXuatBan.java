@@ -19,7 +19,16 @@ public class NhaXuatBan {
 	private int namThanhLap;
 	private String linhVucXuatBan;
 	private String quocGia;
+	
+	@OneToMany(mappedBy = "nhaXuatBan")
+	private List<SanPham> sanPhams;
 
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
 	public NhaXuatBan(int nhaXuatBanID, String tenNhaXuatBan, String diaChi, String soDienThoai, String email,
 			String website, int namThanhLap, String linhVucXuatBan, String quocGia) {
 		this.setNhaXuatBanID(nhaXuatBanID);

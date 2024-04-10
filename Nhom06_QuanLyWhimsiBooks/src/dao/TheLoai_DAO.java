@@ -5,6 +5,7 @@
 package dao;
 
 import connectDB.ConnectDB;
+import java.util.ArrayList;
 import entities.DanhMuc;
 import entities.TheLoai;
 import entities.ThuongHieu;
@@ -15,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -28,8 +29,8 @@ public class TheLoai_DAO implements ITheLoai{
     }
 
     @Override
-    public ArrayList<TheLoai> getAllTheLoai() {
-        ArrayList<TheLoai> list = new ArrayList<TheLoai>();
+    public List<TheLoai> getAllTheLoai() {
+        List<TheLoai> list = new ArrayList<TheLoai>();
 		try {
 			Statement stm = conn.createStatement();
 			
@@ -58,7 +59,7 @@ public class TheLoai_DAO implements ITheLoai{
     }
 
     @Override
-    public ArrayList<TheLoai> getTheLoaiTheoID(int x) {
+    public List<TheLoai> getTheLoaiTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

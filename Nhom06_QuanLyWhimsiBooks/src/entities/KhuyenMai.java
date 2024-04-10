@@ -1,8 +1,8 @@
 package entities;
 
-
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -21,10 +21,21 @@ public class KhuyenMai {
 	private Date ngayHetHanKM;
 	private double donHangTu;
 	private int soLuongKhuyenMai, soLuotDaApDung;
+
+	@OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY)
+	private List<ChiTietKhuyenMai> listApDung;
 	
-    @OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY)
-    private ArrayList<ChiTietKhuyenMai> listApDung;
-    
+	public List<HoaDon> getHoaDons() {
+		return hoaDons;
+	}
+
+	public void setHoaDons(List<HoaDon> hoaDons) {
+		this.hoaDons = hoaDons;
+	}
+
+	@OneToMany(mappedBy = "khuyenMai", fetch = FetchType.LAZY)
+	private List<HoaDon> hoaDons;
+
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu) {
 		this.setCodeKhuyenMai(codeKhuyenMai);
@@ -35,8 +46,7 @@ public class KhuyenMai {
 		this.setNgayHetHanKM(ngayHetHanKM);
 		this.setDonHangTu(donHangTu);
 	}
-	
-	
+
 	public KhuyenMai(String codeKhuyenMai, String tenKhuyenMai, String loaiKhuyenMai, double giaTri, Date ngayKhuyenMai,
 			Date ngayHetHanKM, double donHangTu, int soLuongKhuyenMai, int soLuotDaApDung) {
 		this.codeKhuyenMai = codeKhuyenMai;
@@ -49,155 +59,109 @@ public class KhuyenMai {
 		this.soLuongKhuyenMai = soLuongKhuyenMai;
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
-	
-	
 
-        public ArrayList<ChiTietKhuyenMai> getListApDung() {
+	public List<ChiTietKhuyenMai> getListApDung() {
 		return listApDung;
 	}
 
-
-	public void setListApDung(ArrayList<ChiTietKhuyenMai> listApDung) {
+	public void setListApDung(List<ChiTietKhuyenMai> listApDung) {
 		this.listApDung = listApDung;
 	}
 
+	public List<ChiTietKhuyenMai> getChiTietKhuyenMai() {
+		return listApDung;
+	}
 
-		public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMai(){
-            return listApDung;
-        }
-        
-         public void setChiTietKhuyenMai(ArrayList<ChiTietKhuyenMai> listApDung){
-            this.listApDung = listApDung;
-        }
-
+	public void setChiTietKhuyenMai(List<ChiTietKhuyenMai> listApDung) {
+		this.listApDung = listApDung;
+	}
 
 	public KhuyenMai() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
 	public KhuyenMai(String codeKhuyenMai) {
 		this.codeKhuyenMai = codeKhuyenMai;
 	}
-
-
 
 	public String getCodeKhuyenMai() {
 		return codeKhuyenMai;
 	}
 
-
-
 	public void setCodeKhuyenMai(String codeKhuyenMai) {
 		this.codeKhuyenMai = codeKhuyenMai;
 	}
-
-
 
 	public String getTenKhuyenMai() {
 		return tenKhuyenMai;
 	}
 
-
-
 	public void setTenKhuyenMai(String tenKhuyenMai) {
 		this.tenKhuyenMai = tenKhuyenMai;
 	}
-
-
 
 	public String getLoaiKhuyenMai() {
 		return loaiKhuyenMai;
 	}
 
-
-
 	public void setLoaiKhuyenMai(String loaiKhuyenMai) {
 		this.loaiKhuyenMai = loaiKhuyenMai;
 	}
-
-
 
 	public double getGiaTri() {
 		return giaTri;
 	}
 
-
-
 	public void setGiaTri(double giaTri) {
 		this.giaTri = giaTri;
 	}
-
-
 
 	public Date getNgayKhuyenMai() {
 		return ngayKhuyenMai;
 	}
 
-
-
 	public void setNgayKhuyenMai(Date ngayKhuyenMai) {
 		this.ngayKhuyenMai = ngayKhuyenMai;
 	}
-
-
 
 	public Date getNgayHetHanKM() {
 		return ngayHetHanKM;
 	}
 
-
-
 	public void setNgayHetHanKM(Date ngayHetHanKM) {
 		this.ngayHetHanKM = ngayHetHanKM;
 	}
-
-
 
 	public double getDonHangTu() {
 		return donHangTu;
 	}
 
-
-
 	public void setDonHangTu(double donHangTu) {
 		this.donHangTu = donHangTu;
 	}
-
-
 
 	public int getSoLuongKhuyenMai() {
 		return soLuongKhuyenMai;
 	}
 
-
-
 	public void setSoLuongKhuyenMai(int soLuongKhuyenMai) {
 		this.soLuongKhuyenMai = soLuongKhuyenMai;
 	}
-
-
 
 	public int getSoLuotDaApDung() {
 		return soLuotDaApDung;
 	}
 
-
-
 	public void setSoLuotDaApDung(int soLuotDaApDung) {
 		this.soLuotDaApDung = soLuotDaApDung;
 	}
-
-
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(codeKhuyenMai, donHangTu, giaTri, loaiKhuyenMai, ngayHetHanKM, ngayKhuyenMai,
 				soLuongKhuyenMai, soLuotDaApDung, tenKhuyenMai);
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -217,8 +181,6 @@ public class KhuyenMai {
 				&& soLuotDaApDung == other.soLuotDaApDung && Objects.equals(tenKhuyenMai, other.tenKhuyenMai);
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "KhuyenMai [codeKhuyenMai=" + codeKhuyenMai + ", tenKhuyenMai=" + tenKhuyenMai + ", loaiKhuyenMai="
@@ -226,6 +188,5 @@ public class KhuyenMai {
 				+ ngayHetHanKM + ", donHangTu=" + donHangTu + ", soLuongKhuyenMai=" + soLuongKhuyenMai
 				+ ", soLuotDaApDung=" + soLuotDaApDung + "]";
 	}
-	
 
 }

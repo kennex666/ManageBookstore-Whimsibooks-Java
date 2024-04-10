@@ -1,8 +1,10 @@
 package entities;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
@@ -18,20 +20,26 @@ public class HoaDonTra {
     private String hoaDonID;
     private Date ngayTraHoaDon;
     private String trangThai;
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "khachHangId")
     private KhachHang khachHang;
+    
     private double tongHoan;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "nhanVienId")
 	private NhanVien nhanVien;
     
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "hoaDon")
-    private ArrayList<ChiTietTraHang> listChiTietHoaDon;
+    public void setListChiTietHoaDon(List<ChiTietTraHang> listChiTietHoaDon) {
+		this.listChiTietHoaDon = listChiTietHoaDon;
+	}
+
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hoaDon")
+    private List<ChiTietTraHang> listChiTietHoaDon;
 
     public HoaDonTra(String hoaDonID, Date ngayTraHoaDon, String trangThai, KhachHang khachHang, double tongHoan,
-			NhanVien nhanVien, ArrayList<ChiTietTraHang> listChiTietHoaDon) {
+			NhanVien nhanVien, List<ChiTietTraHang> listChiTietHoaDon) {
 		super();
 		this.hoaDonID = hoaDonID;
 		this.ngayTraHoaDon = ngayTraHoaDon;
@@ -151,16 +159,12 @@ public class HoaDonTra {
             }
 	}
 
-	public ArrayList<ChiTietTraHang> getListChiTietHoaDon() {
+	public List<ChiTietTraHang> getListChiTietHoaDon() {
 		return listChiTietHoaDon;
 	}
 
-	public void setListChiTietHoaDon(ArrayList<ChiTietTraHang> listChiTietHoaDon) {
-		this.listChiTietHoaDon = listChiTietHoaDon;
-	}
-
-	public ArrayList<Object[]> tableChiTietHoaDon() {
-		ArrayList<Object[]> lines = new ArrayList<Object[]>();
+	public List<Object[]> tableChiTietHoaDon() {
+		List<Object[]> lines = new ArrayList<Object[]>();
 		
 		for (int i = 0 ; i < listChiTietHoaDon.size(); i++) {
 			ChiTietTraHang tempCTHD = listChiTietHoaDon.get(i);

@@ -2,6 +2,7 @@ package ultilities;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -16,7 +17,7 @@ public class QueryBuilder {
 		TIMESTAMP,
 		BOOLEAN
 	}
-	private ArrayList<Object[]> params;
+	private List<Object[]> params;
 	
 	
 	public String getQuery() {
@@ -25,10 +26,10 @@ public class QueryBuilder {
 	public void setQuery(String query) {
 		this.query = query;
 	}
-	public ArrayList<Object[]> getParams() {
+	public List<Object[]> getParams() {
 		return params;
 	}
-	public void setParams(ArrayList<Object[]> params) {
+	public void setParams(List<Object[]> params) {
 		this.params = params;
 	}
 	
@@ -41,9 +42,9 @@ public class QueryBuilder {
 	 * <br>EX original query: <b>SELECT * FROM NhaSach WHERE id = ? ORDER BY id DESC</b>
 	 * <br> Write it into: 
 	 * <b>SELECT * FROM NhaSach ? ORDER BY id DESC. </b>
-	 * @param params ArrayList<Object[]>. Object[] needs follow this {datatype, colname, condition, value}
+	 * @param params List<Object[]>. Object[] needs follow this {datatype, colname, condition, value}
 	 */
-	public QueryBuilder(String query, ArrayList<Object[]> params) {
+	public QueryBuilder(String query, List<Object[]> params) {
 		super();
 		this.query = query;
 		if (params != null)

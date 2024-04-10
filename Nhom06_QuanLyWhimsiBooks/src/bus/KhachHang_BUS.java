@@ -1,7 +1,7 @@
 package bus;
 
 import dao.KhachHang_DAO;
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.KhachHang_DAO;
 import dao.NhanVien_DAO;
@@ -12,14 +12,14 @@ import interfaces.IKhachHang;
 public class KhachHang_BUS implements IKhachHang {
 	KhachHang_DAO kh_dao = new KhachHang_DAO();
 	@Override
-	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
+	public List<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) {
 		// TODO Auto-generated method stub
 		return  kh_dao.findKhachHangAdvanced(maKhachHang, tenKhachHang, soDienThoai, gioiTinh, loaiKhachHang);
 	}
 
 	@Override
-	public ArrayList<KhachHang> getAllKhachHang() {
+	public List<KhachHang> getAllKhachHang() {
 		
 		return kh_dao.getAllKhachHang();
 	}
@@ -65,7 +65,7 @@ public class KhachHang_BUS implements IKhachHang {
 	}
 
 	@Override
-	public ArrayList<NhanVien> findKhachHang(String x) {
+	public List<NhanVien> findKhachHang(String x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -2,6 +2,7 @@ package bus;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.ChiTietKhuyenMai_DAO;
 import dao.KhuyenMai_DAO;
@@ -22,7 +23,7 @@ public class ChiTietKhuyenMai_BUS implements IChiTietKhuyenMai{
 		sanPham_BUS = new SanPham_BUS();
 	}
 	@Override
-	public ArrayList<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
+	public List<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
 		// TODO Auto-generated method stub
 		return chiTietKhuyenMai_DAO.getAllChiTietKhuyenMai();
 	}
@@ -32,25 +33,25 @@ public class ChiTietKhuyenMai_BUS implements IChiTietKhuyenMai{
 		return chiTietKhuyenMai_DAO.addSanPhamKhuyenMai(khuyenMai, sanPham);
 	}
 	@Override
-	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {
+	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, List<SanPham> danhSachSPKM) {
 		// TODO Auto-generated method stub
 		return chiTietKhuyenMai_DAO.addSDanhSachSPKM(khuyenMai, danhSachSPKM);
 	}
 	
-	public ArrayList<SanPham> laySanPhamKMTheoMa(String txt) {
-		ArrayList<SanPham> list = new ArrayList<SanPham>();
+	public List<SanPham> laySanPhamKMTheoMa(String txt) {
+		List<SanPham> list = new ArrayList<SanPham>();
 		list = sanPham_BUS.getDanhSachSanPham("Select * from ChiTietKhuyenMai cttkm join SanPham sp on sp.SanPhamID = cttkm.SanPhamID where cttkm.CodeKhuyenMai = '"+txt+"'");
 		return list;
 	}
 	
-	public ArrayList<KhuyenMai> layKhuyenMaiTheoMa(String txt) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> layKhuyenMaiTheoMa(String txt) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		list = khuyenMai_BUS.getKhuyenMaiByID(txt);
 		return list;
 	}
 	
-	public ArrayList<ChiTietKhuyenMai> layCTTKMTheoMa(String txt) {
-		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+	public List<ChiTietKhuyenMai> layCTTKMTheoMa(String txt) {
+		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		list = chiTietKhuyenMai_DAO.getChiTietKhuyenMaiTheoMa(txt);
 		return list;
 	}

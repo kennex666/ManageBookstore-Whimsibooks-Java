@@ -1,11 +1,13 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class ThuongHieu {
@@ -14,6 +16,9 @@ public class ThuongHieu {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int thuongHieuID;
 	private String tenThuongHieu;
+	
+	@OneToMany(mappedBy = "thuongHieu", fetch = jakarta.persistence.FetchType.LAZY)
+	private List<SanPham> sanPhams;
 	
 	public int getThuongHieuID() {
 		return thuongHieuID;
@@ -28,6 +33,12 @@ public class ThuongHieu {
 		this.tenThuongHieu = tenThuongHieu;
 	}
 	
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
 	public ThuongHieu(int thuongHieuID, String tenThuongHieu) throws Exception {
 		super();
 		setTenThuongHieu(tenThuongHieu);

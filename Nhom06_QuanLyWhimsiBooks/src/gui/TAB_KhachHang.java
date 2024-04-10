@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -583,7 +584,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		String loaiKhachHang = (String) cboLoaiKH1.getSelectedItem();
 
 		// Gọi hàm tìm kiếm nâng cao từ lớp BUS
-		ArrayList<KhachHang> resultList = khachHangBus.findKhachHangAdvanced(maKhachHang, tenKhachHang, soDienThoai,
+		List<KhachHang> resultList = khachHangBus.findKhachHangAdvanced(maKhachHang, tenKhachHang, soDienThoai,
 				gioiTinh, loaiKhachHang);
 
 		// Ví dụ hiển thị trên bảng (sử dụng một DefaultTableModel cho bảng jTable1)
@@ -619,7 +620,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
 		model.setRowCount(0);
 		KhachHang_BUS khachHangBus = new KhachHang_BUS();
-		ArrayList<KhachHang> listKH = khachHangBus.getAllKhachHang();
+		List<KhachHang> listKH = khachHangBus.getAllKhachHang();
 		for (int i = 0; i < listKH.size(); i++) {
 			KhachHang kh = listKH.get(i);
 			model.addRow(
@@ -849,7 +850,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 			if (returnVal == JFileChooser.APPROVE_OPTION) {
 				File file = fileChooser.getSelectedFile();
 
-				ArrayList<KhachHang> importedList = readCustomerDataFromExcel(file);
+				List<KhachHang> importedList = readCustomerDataFromExcel(file);
 
 				if (importedList.isEmpty()) {
 					JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
@@ -878,8 +879,8 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 		}
 	}
 
-	public ArrayList<KhachHang> readCustomerDataFromExcel(File file) {
-		ArrayList<KhachHang> customerList = new ArrayList<>();
+	public List<KhachHang> readCustomerDataFromExcel(File file) {
+		List<KhachHang> customerList = new ArrayList<>();
 		int sttColumnIndex = 0;
 		int maKhachHangColumnIndex = -1; // Chỉ số của cột Mã khách hàng
 		KhachHang_BUS khachHangBus = new KhachHang_BUS();
@@ -951,7 +952,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	}
 
 	private void btnExportKHActionPerformed(java.awt.event.ActionEvent evt) {
-		ArrayList<KhachHang> list = khachHangBus.getAllKhachHang();
+		List<KhachHang> list = khachHangBus.getAllKhachHang();
 		try {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setDialogTitle("Chọn nơi lưu trữ file Excel");

@@ -1,9 +1,11 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class NhaCungCap {
@@ -14,6 +16,17 @@ public class NhaCungCap {
 	private String diaChi;
 	private String email;
 	
+	@OneToMany(mappedBy = "nhaCungCap")
+	private List<SanPham> sanPhams;
+	
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
+
 	public NhaCungCap(String nhaCungCapID, String tenNhaCungCap, String soDienThoai, String email, String diaChi) {
 		this.nhaCungCapID = nhaCungCapID;
 		this.tenNhaCungCap = tenNhaCungCap;

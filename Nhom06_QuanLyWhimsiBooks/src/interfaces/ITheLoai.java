@@ -7,15 +7,15 @@ package interfaces;
 import entities.DanhMuc;
 import entities.TheLoai;
 import entities.ThuongHieu;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface ITheLoai {
-    public ArrayList<TheLoai> getAllTheLoai();
-    public ArrayList<TheLoai> getTheLoaiTheoID(int x);
+    public List<TheLoai> getAllTheLoai();
+    public List<TheLoai> getTheLoaiTheoID(int x);
     public boolean addTheLoai(TheLoai x);
     public boolean editTheLoai (TheLoai x);
 }

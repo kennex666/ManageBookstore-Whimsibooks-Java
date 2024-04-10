@@ -7,7 +7,7 @@ package bus;
 import dao.NhaXuatBan_DAO;
 import entities.NhaXuatBan;
 import interfaces.INhaXuatBan;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,12 +17,12 @@ public class NhaXuatBan_BUS implements INhaXuatBan{
     NhaXuatBan_DAO nhaXuatBan_DAO = new NhaXuatBan_DAO();
     
     @Override
-    public ArrayList<NhaXuatBan> getAllNhaXuatBan() {
+    public List<NhaXuatBan> getAllNhaXuatBan() {
         return nhaXuatBan_DAO.getAllNhaXuatBan();
     }
 
     @Override
-    public ArrayList<NhaXuatBan> getNhaXuatBanTheoID(String x) {
+    public List<NhaXuatBan> getNhaXuatBanTheoID(String x) {
         return nhaXuatBan_DAO.getNhaXuatBanTheoID(x);
     }
 

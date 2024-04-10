@@ -19,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultCellEditor;
@@ -81,7 +82,7 @@ public class Form_XemChiTietHDT extends javax.swing.JFrame {
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(comboBox));
         
-        ArrayList<Object[]> cthdtList = z.tableChiTietHoaDon();
+        List<Object[]> cthdtList = z.tableChiTietHoaDon();
         if (cthdtList == null)
             cthdtList = new ArrayList<Object[]>();
         for (Object[] k : cthdtList){

@@ -1,7 +1,7 @@
 package bus;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import dao.NhanVien_DAO;
@@ -17,13 +17,13 @@ public class NhanVien_BUS implements INhanVien {
 	}
 
 	@Override
-	public ArrayList<NhanVien> findEmployee(String x) {
+	public List<NhanVien> findEmployee(String x) {
 		// Tìm kiếm theo mã hoặc theo tên.
 		return nv_dao.findEmployee(x);
 	}
 
 	@Override
-	public ArrayList<NhanVien> getAllEmployees() {
+	public List<NhanVien> getAllEmployees() {
 
 		return nv_dao.getAllEmployees();
 	}
@@ -75,7 +75,7 @@ public class NhanVien_BUS implements INhanVien {
 	}
 
 	@Override
-	public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
+	public List<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
 			String gioiTinh, String chucVu) {
 		// TODO Auto-generated method stub
 		return nv_dao.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai, gioiTinh, chucVu);

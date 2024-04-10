@@ -1,6 +1,6 @@
 package bus;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 import dao.HoaDon_DAO;
@@ -49,19 +49,19 @@ public class HoaDon_BUS implements IHoaDon{
         
         
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDon() {
+	public List<HoaDon> getDanhSachHoaDon() {
 		// TODO Auto-generated method stub
 		return hoaDon_DAO.getDanhSachHoaDon();
 	}
 	
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
+	public List<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
 		// TODO Auto-generated method stub
 		return hoaDon_DAO.getDanhSachHoaDonTheoThoiGian(batDau, ketThuc);
 	}
 	
 	@Override
-	public ArrayList<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
+	public List<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
 		// TODO Auto-generated method stub
 		return hoaDon_DAO.getDanhSachHoaDonNangCao(params);
 	}

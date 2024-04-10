@@ -1,15 +1,15 @@
 package interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import entities.KhachHang;
 import entities.NhanVien;
 
 public interface IKhachHang {
-	public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
+	public List<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang);
 
-	public ArrayList<KhachHang> getAllKhachHang();
+	public List<KhachHang> getAllKhachHang();
 
 	public int totalKhachHang();
 
@@ -23,7 +23,7 @@ public interface IKhachHang {
 
 	public String getLayTenTuMa(String x);
 
-	public ArrayList<NhanVien> findKhachHang(String x);
+	public List<NhanVien> findKhachHang(String x);
 
 	public int phatSinhMaKhachHang();
 

@@ -1,14 +1,16 @@
 package bus;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -38,34 +40,34 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		this.sanPham_BUS = new SanPham_BUS();
 	}
 	
-	public ArrayList<SanPham> laySanPhamTheoMa(String txt) {
-		ArrayList<SanPham> list = new ArrayList<SanPham>();
+	public List<SanPham> laySanPhamTheoMa(String txt) {
+		List<SanPham> list = new ArrayList<SanPham>();
 		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
 	
-	public ArrayList<SanPham> laySanPhamTheoTen(String txt) {
-		ArrayList<SanPham> list = new ArrayList<SanPham>();
+	public List<SanPham> laySanPhamTheoTen(String txt) {
+		List<SanPham> list = new ArrayList<SanPham>();
 		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
 	
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
+	public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiByIDAndName(maKhuyenMai, tenKM);
 	}
 	
-	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
+	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
 		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
 	
 	
 	
-    public ArrayList<SanPham> laySanPhamDuocChon(JTable table) {
-    	ArrayList<SanPham> dsSanPhamDuocChon = new ArrayList<SanPham>();
+    public List<SanPham> laySanPhamDuocChon(JTable table) {
+    	List<SanPham> dsSanPhamDuocChon = new ArrayList<SanPham>();
     	int rowCount = table.getRowCount();
     	if(rowCount != 0) {
     		for(int i = 0; i < rowCount; i++) {
@@ -83,19 +85,19 @@ public class KhuyenMai_BUS implements IKhuyenMai{
     }
 
 	@Override
-	public ArrayList<KhuyenMai> getAllKhuyenMai() {
+	public List<KhuyenMai> getAllKhuyenMai() {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getAllKhuyenMai();
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {
+	public List<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiByID(maKhuyenMai);
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
+	public List<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiFollowDay(startDay, expriedDay);
 	}
@@ -119,8 +121,8 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 
 	
-	public ArrayList<KhuyenMai> TimKiemTheoLoai(String hinhThuc) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		String queryTong = "SELECT * FROM KhuyenMai";
 		String queryPhanTram = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Percentage'";
 		String queryGiaTri = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Fixed'";
@@ -136,8 +138,8 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return list = null;
 	}
 	
-	public ArrayList<KhuyenMai> TimKiemTheoDieuKien(String ma,String loai) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> TimKiemTheoDieuKien(String ma,String loai) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		String queryTong = "SELECT * FROM KhuyenMai";
 		String queryma = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%'";
 		String querymagt = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Fixed'";
@@ -185,18 +187,18 @@ public class KhuyenMai_BUS implements IKhuyenMai{
     }
 	
 	@Override
-	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
+	public List<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
 	
 	// Xuat file
 	@Override
-	public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getDanhSachKhuyenMaiNangCao(params);
 	}
 	
-	public boolean xuatFile(ArrayList<KhuyenMai> list) {
+	public boolean xuatFile(List<KhuyenMai> list) {
 	    JFileChooser excelFileChooser = new JFileChooser("D:\\");
 	    excelFileChooser.setDialogTitle("Save Excel File");
 	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");
@@ -274,7 +276,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 	
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
+	public List<KhuyenMai> getKhuyenMaiByName(String name) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiByName(name);
 	}
@@ -301,7 +303,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 	
 	public boolean update(Object[] obj, Object[] objProduct) {
-		ArrayList<KhuyenMai> list = getKhuyenMaiByName(obj[9].toString());
+		List<KhuyenMai> list = getKhuyenMaiByName(obj[9].toString());
 		
 		String typeUpdate = (String) obj[0];	
 		String maKhuyenMai = String.valueOf(obj[1]);
@@ -331,7 +333,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 				// Tăng số lượng
 				if(countNew > countOld) {
 					int SLTang = countNew - countOld;
-					ArrayList<KhuyenMai> khuyenMais = new ArrayList<KhuyenMai>();
+					List<KhuyenMai> khuyenMais = new ArrayList<KhuyenMai>();
 					for (int i = 0; i < SLTang; i++) {
                 		KhuyenMai khuyenMai = new KhuyenMai(VoucherCode(), tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
                 		khuyenMais.add(khuyenMai);
@@ -344,7 +346,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 				// Giảm số lượng
 				if(countNew < countOld) {
 					int SLGiam = countOld - countNew;
-					ArrayList<KhuyenMai> listChuaSD = getKhuyenMaiByName(obj[9].toString());
+					List<KhuyenMai> listChuaSD = getKhuyenMaiByName(obj[9].toString());
 					for(int i = 0; i < SLGiam; i++) {
 						if(listChuaSD.get(i).getSoLuotDaApDung() == 0)
 							deleteKhuyenMai(listChuaSD.get(i).getCodeKhuyenMai());
@@ -356,7 +358,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 			if(typeUpdate.equals("KhuyenMai")) {
 				KhuyenMai khuyenMai = new KhuyenMai(maKhuyenMai, tenKM, hinhThuc,mucGiam , ngayBatDau, ngayKetThuc, donHangTu, 1, 0);
 				editKhuyenMai(khuyenMai);
-				ArrayList<ChiTietKhuyenMai> listCTTKM = getChiTietKhuyenMaiTheoMa(maKhuyenMai);
+				List<ChiTietKhuyenMai> listCTTKM = getChiTietKhuyenMaiTheoMa(maKhuyenMai);
 				
 				int countCTKM_Old = listCTTKM.size();
 				int countCTKM_New = objProduct.length;
@@ -391,7 +393,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 
 	@Override
-	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getChiTietKhuyenMaiTheoMa(maKM);
 	}
@@ -403,13 +405,13 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
+	public List<KhuyenMai> getRecentKhuyenMai(int limit) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getRecentKhuyenMai(limit);
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
+	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getKhuyenMaiTheoTen1(tenSK);
 	}

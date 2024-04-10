@@ -1,13 +1,14 @@
 package dao;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -31,8 +32,8 @@ public class SanPham_DAO implements ISanPham {
     private Connection conn;
 
     // Lấy danh sách sản phẩm cho khuyến mãi
-    public ArrayList<SanPham> laySanPhamChoKM() {
-        ArrayList<SanPham> list = new ArrayList<SanPham>();
+    public List<SanPham> laySanPhamChoKM() {
+        List<SanPham> list = new ArrayList<SanPham>();
         try {
             Statement stm = conn.createStatement();
             String query = "SELECT * FROM SanPham";
@@ -51,8 +52,8 @@ public class SanPham_DAO implements ISanPham {
         return list;
     }
 
-    public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
-        ArrayList<SanPham> list = new ArrayList<SanPham>();
+    public List<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+        List<SanPham> list = new ArrayList<SanPham>();
         try {
             Statement stm = conn.createStatement();
             String query = "Select * from [dbo].[SanPham] where ThuongHieuID = '" + maThuongHieu + "'";
@@ -71,8 +72,8 @@ public class SanPham_DAO implements ISanPham {
         return list;
     }
 
-    public ArrayList<ThuongHieu> getThuongHieu() {
-        ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+    public List<ThuongHieu> getThuongHieu() {
+        List<ThuongHieu> list = new ArrayList<ThuongHieu>();
         try {
             Statement stm = conn.createStatement();
             String query = "Select * from [dbo].[ThuongHieu]";
@@ -92,8 +93,8 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public ArrayList<SanPham> getDanhSachSanPham(String query) {
-        ArrayList<SanPham> list = new ArrayList<SanPham>();
+    public List<SanPham> getDanhSachSanPham(String query) {
+        List<SanPham> list = new ArrayList<SanPham>();
 
         try {
             Statement stm = conn.createStatement();
@@ -267,8 +268,8 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public ArrayList<SanPham> getDanhSachSanPhamSapHet() {
-        ArrayList<SanPham> list = new ArrayList<SanPham>();
+    public List<SanPham> getDanhSachSanPhamSapHet() {
+        List<SanPham> list = new ArrayList<SanPham>();
 
         //Statement stm = conn.createStatement();
         String query = "SELECT * FROM SanPham WHERE SoLuongTon <= 10";
@@ -285,8 +286,8 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public ArrayList<SanPham> searchSanPham(String sanPhamID) {
-        ArrayList<SanPham> list;
+    public List<SanPham> searchSanPham(String sanPhamID) {
+        List<SanPham> list;
         list = new ArrayList<SanPham>();
 
         //Statement stm = conn.createStatement();
@@ -297,8 +298,8 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public ArrayList<SanPham> getDanhSachSanPham() {
-        ArrayList<SanPham> list = new ArrayList<>();
+    public List<SanPham> getDanhSachSanPham() {
+        List<SanPham> list = new ArrayList<>();
         String query = "SELECT * FROM SANPHAM";
         list = getDanhSachSanPham(query);
         return list;
@@ -612,7 +613,7 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+    public void SapXepTangTheoGia(List<SanPham> list) {
         // TODO Auto-generated method stub
         Collections.sort(list, new Comparator<SanPham>() {
             @Override
@@ -632,7 +633,7 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+    public void SapXepGiamTheoGia(List<SanPham> list) {
         Collections.sort(list, new Comparator<SanPham>() {
             @Override
             public int compare(SanPham sp1, SanPham sp2) {
@@ -651,7 +652,7 @@ public class SanPham_DAO implements ISanPham {
     }
 
     @Override
-    public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+    public void SapXepTangTheoSoLuong(List<SanPham> list) {
         // TODO Auto-generated method stub
         Collections.sort(list, new Comparator<SanPham>() {
             @Override

@@ -1,4 +1,4 @@
-package test;
+package atest;
 
 import connectDB.ConnectDB;
 import entities.SanPham;

@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -17,8 +18,8 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	private Connection conn;
 	
 	@Override
-	public ArrayList<NhaCungCap> getAllNhaCungCap() {
-		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getAllNhaCungCap() {
+		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		
 		try {
 			Statement stm =  conn.createStatement();
@@ -39,8 +40,8 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	}
 
 	@Override
-	public ArrayList<NhaCungCap> getNCCByID(String maNCC) {
-		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getNCCByID(String maNCC) {
+		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "SELECT * FROM NhaCungCap WHERE NhaCungCapID LIKE '%"+maNCC+"%'";
@@ -60,8 +61,8 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	}
 
 	@Override
-	public ArrayList<NhaCungCap> getNCCByPhone(String sdt) {
-		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getNCCByPhone(String sdt) {
+		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "SELECT * FROM NhaCungCap WHERE SoDIenThoai = '%"+sdt+"%'";
@@ -80,8 +81,8 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		return list;
 	}
 	
-	public ArrayList<NhaCungCap> getNCCByEmail(String email) {
-		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getNCCByEmail(String email) {
+		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "SELECT * FROM NhaCungCap WHERE Email LIKE '%"+email+"%'";
@@ -101,8 +102,8 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	}
 	
 	@Override
-	public ArrayList<NhaCungCap> getNCCByName(String name) {
-		ArrayList<NhaCungCap> list = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getNCCByName(String name) {
+		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+name+"%'";

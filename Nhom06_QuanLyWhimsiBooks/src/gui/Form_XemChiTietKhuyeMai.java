@@ -5,6 +5,7 @@
 package gui;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
@@ -25,12 +26,12 @@ import java.sql.Date;
  */
 public class Form_XemChiTietKhuyeMai extends javax.swing.JFrame {
 	private DefaultTableModel tableModel;
-	private ArrayList<ChiTietKhuyenMai> danhSachCT;
+	private List<ChiTietKhuyenMai> danhSachCT;
 	private ChiTietKhuyenMai_BUS chiTietKhuyenMai_BUS;
 	private KhuyenMai_BUS khuyenMai_BUS;
-	private ArrayList<KhuyenMai> khuyenMais;
-	private ArrayList<ChiTietKhuyenMai> chiTietKhuyenMais;
-	private ArrayList<SanPham> sanPhams;
+	private List<KhuyenMai> khuyenMais;
+	private List<ChiTietKhuyenMai> chiTietKhuyenMais;
+	private List<SanPham> sanPhams;
 	private static String maKM;
 	
 	

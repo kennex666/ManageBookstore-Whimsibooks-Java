@@ -5,6 +5,7 @@
 package dao;
 
 import connectDB.ConnectDB;
+import java.util.ArrayList;
 import entities.DanhMuc;
 import entities.TacGia;
 import entities.ThuongHieu;
@@ -15,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,8 +31,8 @@ public class TacGia_DAO implements  ITacGia{
     }
 
     @Override
-    public ArrayList<TacGia> getAllTacGia() {
-       ArrayList<TacGia> list = new ArrayList<TacGia>();
+    public List<TacGia> getAllTacGia() {
+       List<TacGia> list = new ArrayList<TacGia>();
 		try {
 			Statement stm = conn.createStatement();
 			
@@ -60,7 +61,7 @@ public class TacGia_DAO implements  ITacGia{
     }
 
     @Override
-    public ArrayList<TacGia> getTacGiaTheoID(int x) {
+    public List<TacGia> getTacGiaTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

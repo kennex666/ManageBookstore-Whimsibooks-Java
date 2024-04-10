@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -19,8 +20,8 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	private Connection conn;
 
 	@Override
-	public ArrayList<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
-		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+	public List<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
+		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
 			Statement stm =  conn.createStatement();
 			String query = "SELECT * FROM ChiTietKhuyenMai";
@@ -41,8 +42,8 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		return list;
 	}
 	
-	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
-		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
 			Statement stm =  conn.createStatement();
 			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
@@ -77,7 +78,7 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 		return null;
 	}
 	
-	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, ArrayList<SanPham> danhSachSPKM) {
+	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, List<SanPham> danhSachSPKM) {
 		if(danhSachSPKM.size() > 0) {
 			for(int i = 0; i  < danhSachSPKM.size(); i++) {
 				addSanPhamKhuyenMai(khuyenMai, danhSachSPKM.get(i));

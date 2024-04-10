@@ -7,7 +7,7 @@ package bus;
 import dao.TheLoai_DAO;
 import entities.TheLoai;
 import interfaces.ITheLoai;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,12 +19,12 @@ public class TheLoai_BUS implements ITheLoai{
     public TheLoai_BUS() {
     }
     @Override
-    public ArrayList<TheLoai> getAllTheLoai() {
+    public List<TheLoai> getAllTheLoai() {
         return theLoai_DAO.getAllTheLoai();
     }
 
     @Override
-    public ArrayList<TheLoai> getTheLoaiTheoID(int x) {
+    public List<TheLoai> getTheLoaiTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

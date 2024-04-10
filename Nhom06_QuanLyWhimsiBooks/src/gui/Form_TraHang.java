@@ -14,12 +14,16 @@ import ultilities.ColorProcessing;
 import ultilities.CurrentSession;
 import ultilities.ErrorMessage;
 import ultilities.Numberic;
+import entities.ChiTietTraHang;
 import entities.HoaDon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxEditor;
 import javax.swing.DefaultCellEditor;
@@ -86,7 +90,7 @@ public class Form_TraHang extends javax.swing.JFrame {
         jTable1.setColumnSelectionAllowed(true);
         jTable1.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(comboBox));
         
-        ArrayList<Object[]> cthdtList = hoaDonTra.tableChiTietHoaDon();
+        List<Object[]> cthdtList = hoaDonTra.tableChiTietHoaDon();
         if (cthdtList == null)
             cthdtList = new ArrayList<Object[]>();
         for (Object[] k : cthdtList){
@@ -382,7 +386,7 @@ public class Form_TraHang extends javax.swing.JFrame {
             return;
         }
         
-        result = chiTietTraHang_BUS.addNhieuChiTietCuaMotHoaDon(hoaDonTra.getListChiTietHoaDon());
+        result = chiTietTraHang_BUS.addNhieuChiTietCuaMotHoaDon((List<ChiTietTraHang>) hoaDonTra.getListChiTietHoaDon());
         if (!result) {
             JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
             return;
@@ -399,7 +403,7 @@ public class Form_TraHang extends javax.swing.JFrame {
                 return;
             }
             
-            result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon(hoaDon.getListChiTietHoaDon());
+            result = chiTietHoaDon_BUS.addNhieuChiTietCuaMotHoaDon((List) hoaDon.getListChiTietHoaDon());
             if (!result) {
                 JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết hoá đơn.");
                 return;
