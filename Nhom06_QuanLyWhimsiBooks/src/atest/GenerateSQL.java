@@ -1,4 +1,4 @@
-package test;
+package atest;
 
 import org.hibernate.jpa.boot.spi.EntityManagerFactoryBuilder;
 
