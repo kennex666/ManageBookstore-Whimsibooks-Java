@@ -30,6 +30,26 @@
 
 */
 
+/* Kiểm tra dữ liệu
+	
+	SELECT * FROM [dbo].[ChiTietHoaDon]
+	SELECT * FROM  [dbo].[ChiTietKhuyenMai]
+	SELECT * FROM [dbo].[ChiTietTraHang]
+	SELECT * FROM [dbo].[DanhMuc]
+	SELECT * FROM [dbo].[HoaDon]
+	SELECT * FROM [dbo].[HoaDonTra]
+	SELECT * FROM [dbo].[KhachHang]
+	SELECT * FROM [dbo].[KhuyenMai]
+	SELECT * FROM [dbo].[NhaCungCap]
+	SELECT * FROM [dbo].[NhanVien]
+	SELECT * FROM [dbo].[NhaXuatBan]
+	SELECT * FROM [dbo].[SanPham]
+	SELECT * FROM [dbo].[TacGia]
+	SELECT * FROM [dbo].[TheLoai]
+	SELECT * FROM [dbo].[ThuongHieu]
+
+*/
+
 use Whimsibook
 GO
 

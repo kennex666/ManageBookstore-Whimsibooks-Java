@@ -37,6 +37,7 @@ import static ultilities.TAB_HoaDon_EditorMode.XEM_CHI_TIET_HOA_DON;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.AbstractAction;
@@ -68,8 +69,8 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
     private KhuyenMai khuyenMai;
 
     private DefaultTableModel tblModelCTHD, tblHoaDon;
-    private ArrayList<HoaDon> listHoaDon;
-    private ArrayList<HoaDon> listHoaDonDangCho;
+    private List<HoaDon> listHoaDon;
+    private List<HoaDon> listHoaDonDangCho;
     private TAB_HoaDon_EditorMode trangThaiEditor; // Có 2 giá trị: THANH_TOAN và XEM_CHI_TIET
     // Thanh toán là giao diện bán hàng, xem chi tiết là trạng thái chỉ xem
 
@@ -356,7 +357,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
             hoaDon = new HoaDon();
             hoaDon.setNhanVien(CurrentSession.getNhanVien());
         }
-        ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
+        List<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(hoaDon.getHoaDonID());
         if (cthdTemp == null) {
             cthdTemp = new ArrayList<ChiTietHoaDon>();
         }
@@ -390,7 +391,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         updateThongTinBill();
     }
 
-    public void loadTableHoaDon(ArrayList<HoaDon> x) {
+    public void loadTableHoaDon(List<HoaDon> x) {
         while (tblHoaDon.getRowCount() > 0) {
             tblHoaDon.removeRow(0);
         }
@@ -405,7 +406,7 @@ public class TAB_BanHang extends javax.swing.JPanel implements MouseListener {
         }
     }
 
-    public void loadTableChiTietHoaDon(ArrayList<Object[]> x) {
+    public void loadTableChiTietHoaDon(List<Object[]> x) {
         while (tblModelCTHD.getRowCount() > 0) {
             tblModelCTHD.removeRow(0);
         }
@@ -2166,7 +2167,7 @@ btnKeyPad.addActionListener(new java.awt.event.ActionListener() {
             if (tempHD == null) {
                 JOptionPane.showMessageDialog(null, "Lỗi database: Hoá đơn không tìm thấy.");
             }
-            ArrayList<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(tempHD.getHoaDonID());
+            List<ChiTietHoaDon> cthdTemp = chiTietHoaDon_BUS.getAllChiTietCuaMotHoaDon(tempHD.getHoaDonID());
             if (cthdTemp == null) {
                 cthdTemp = new ArrayList<ChiTietHoaDon>();
             }

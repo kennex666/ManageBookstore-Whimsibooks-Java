@@ -1,6 +1,6 @@
 package loader;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 import java.util.Random;
 
@@ -30,9 +30,9 @@ public class AutoGenerateHoaDon {
 
 		// Tạo một số nguyên ngẫu nhiên trong phạm vi từ 1 đến 10
 
-		ArrayList<NhanVien> listNhanVien = nhanVien_DAO.getAllEmployees();
-		ArrayList<KhachHang> listKhachHang = khachHang_DAO.getAllKhachHang();
-		ArrayList<SanPham> listSanPham = sanPham_DAO.getDanhSachSanPham();
+		List<NhanVien> listNhanVien = nhanVien_DAO.getAllEmployees();
+		List<KhachHang> listKhachHang = khachHang_DAO.getAllKhachHang();
+		List<SanPham> listSanPham = sanPham_DAO.getDanhSachSanPham();
 		Date start = new Date();
 
 		start.setDate(1);

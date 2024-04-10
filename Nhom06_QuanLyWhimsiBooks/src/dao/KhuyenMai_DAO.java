@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -23,8 +24,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	private Connection conn;
 
 	@Override
-	public ArrayList<KhuyenMai> getAllKhuyenMai() {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> getAllKhuyenMai() {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "SELECT * FROM KhuyenMai";
@@ -46,8 +47,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		return list;
 	}
 	
-	public ArrayList<KhuyenMai> getRecentKhuyenMai(int limit) {
-	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	public List<KhuyenMai> getRecentKhuyenMai(int limit) {
+	    List<KhuyenMai> list = new ArrayList<>();
 	    try {
 	        String query = "SELECT TOP " + limit + " * FROM KhuyenMai ORDER BY NgayKhuyenMai DESC";
 	        Statement statement = conn.createStatement();
@@ -101,8 +102,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	    return false;
 	}
 	
-	public ArrayList<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
-		ArrayList<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
+	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
+		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
 			Statement stm =  conn.createStatement();
 			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
@@ -124,8 +125,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%" + maKhuyenMai + "%'";
@@ -147,8 +148,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		return list;
 	}
 
-	public ArrayList<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
-	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
+	    List<KhuyenMai> list = new ArrayList<>();
 
 	    String query = "SELECT * FROM KhuyenMai WHERE CodeKhuyenMai LIKE ? OR TenKhuyenMai LIKE ?";
 
@@ -182,8 +183,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	    return list;
 	}
 
-	public ArrayList<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			Statement stm = conn.createStatement();
 			ResultSet rs = stm.executeQuery(query);
@@ -204,8 +205,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		return list;
 	}
 	
-	public ArrayList<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
-	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
+	    List<KhuyenMai> list = new ArrayList<>();
 
 	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
 
@@ -234,8 +235,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	    return list;
 	}
 
-	public ArrayList<KhuyenMai> SapXepKhuyenMaiTheoGiaTri(String maKhuyenMai) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> SapXepKhuyenMaiTheoGiaTri(String maKhuyenMai) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			Statement stm = conn.createStatement();
 			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%" + maKhuyenMai + "%'";
@@ -322,8 +323,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
-		ArrayList<KhuyenMai> list = new ArrayList<KhuyenMai>();
+	public List<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
 			String query = "	String query = \"SELECT * FROM KhuyenMai WHERE NgayKhuyenMai BETWEEN '?' AND '?'";
 			PreparedStatement preparedStatement = conn.prepareStatement(query);
@@ -360,7 +361,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	@Override
 	public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai) {
 		KhuyenMai km = null;
-		ArrayList<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
+		List<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
 		try {
 			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai = ?";
 			PreparedStatement pstm = conn.prepareStatement(query);
@@ -392,8 +393,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getKhuyenMaiByName(String name) {
-	    ArrayList<KhuyenMai> list = new ArrayList<>();
+	public List<KhuyenMai> getKhuyenMaiByName(String name) {
+	    List<KhuyenMai> list = new ArrayList<>();
 	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
 	    
 	    try (PreparedStatement pst = conn.prepareStatement(query)) {
@@ -423,8 +424,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	@Override
-	public ArrayList<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
-		ArrayList<KhuyenMai> list = new ArrayList<>();
+	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+		List<KhuyenMai> list = new ArrayList<>();
 
 		String where = "WHERE ";
 

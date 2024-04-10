@@ -7,7 +7,7 @@ package bus;
 import dao.ThuongHieu_DAO;
 import entities.ThuongHieu;
 import interfaces.IThuongHieu;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -17,12 +17,12 @@ public class ThuongHieu_BUS implements IThuongHieu{
 
     private ThuongHieu_DAO thuongHieu_DAO = new ThuongHieu_DAO();
     @Override
-    public ArrayList<ThuongHieu> getAllThuongHieu() {
+    public List<ThuongHieu> getAllThuongHieu() {
         return thuongHieu_DAO.getAllThuongHieu();
     }
 
     @Override
-    public ArrayList<ThuongHieu> getThuongHieuTheoID(int x) {
+    public List<ThuongHieu> getThuongHieuTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

@@ -5,6 +5,7 @@
 package dao;
 
 import connectDB.ConnectDB;
+import java.util.ArrayList;
 import entities.DanhMuc;
 import entities.ThuongHieu;
 import interfaces.IThuongHieu;
@@ -13,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -24,8 +25,8 @@ public class ThuongHieu_DAO implements IThuongHieu {
     private Connection conn;
 
     @Override
-    public ArrayList<ThuongHieu> getAllThuongHieu() {
-        ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+    public List<ThuongHieu> getAllThuongHieu() {
+        List<ThuongHieu> list = new ArrayList<ThuongHieu>();
         try {
             Statement stm = conn.createStatement();
 
@@ -53,7 +54,7 @@ public class ThuongHieu_DAO implements IThuongHieu {
     }
 
     @Override
-    public ArrayList<ThuongHieu> getThuongHieuTheoID(int x) {
+    public List<ThuongHieu> getThuongHieuTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

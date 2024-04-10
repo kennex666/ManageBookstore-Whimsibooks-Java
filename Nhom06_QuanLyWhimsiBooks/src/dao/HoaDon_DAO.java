@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -93,8 +94,8 @@ public class HoaDon_DAO implements IHoaDon {
     }
 
     @Override
-    public ArrayList<HoaDon> getDanhSachHoaDon() {
-        ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+    public List<HoaDon> getDanhSachHoaDon() {
+        List<HoaDon> listHoaDon = new ArrayList<HoaDon>();
         String query = "SELECT TOP 100 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai  WHERE YEAR(NgayLapHoaDon) = YEAR(GETDATE()) AND MONTH(NgayLapHoaDon) = MONTH(GETDATE()) AND DAY(NgayLapHoaDon) = DAY(GETDATE()) ORDER BY NgayLapHoaDon DESC";
         try {
             Statement stm = conn.createStatement();
@@ -162,9 +163,9 @@ public class HoaDon_DAO implements IHoaDon {
     }
 
     @Override
-    public ArrayList<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
+    public List<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
         // TODO Auto-generated method stub
-        ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+        List<HoaDon> listHoaDon = new ArrayList<HoaDon>();
 
         String query = "SELECT * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ? ORDER BY ngayLapHoaDon ASC";
 
@@ -246,9 +247,9 @@ public class HoaDon_DAO implements IHoaDon {
     }
 
     @Override
-    public ArrayList<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
+    public List<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
         // TODO Auto-generated method stub
-        ArrayList<HoaDon> listHoaDon = new ArrayList<HoaDon>();
+        List<HoaDon> listHoaDon = new ArrayList<HoaDon>();
 
         String query = "SELECT TOP 150 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
 
@@ -437,9 +438,9 @@ public class HoaDon_DAO implements IHoaDon {
         }
     }
 
-    public ArrayList<Object[]> getDanhSachHoaDonThongKeXuHuong(Date batDau, Date ketThuc) {
+    public List<Object[]> getDanhSachHoaDonThongKeXuHuong(Date batDau, Date ketThuc) {
         // TODO Auto-generated method stub
-        ArrayList<Object[]> listHoaDon = new ArrayList<Object[]>();
+        List<Object[]> listHoaDon = new ArrayList<Object[]>();
 
         String query = "SELECT sp.SanPhamID, Barcode, TenSanPham, SoLuongTon, GiaNhap, SUM(cthd.SoLuong * cthd.DonGia) AS TongDoanhThu, SUM(cthd.SoLuong) AS DaBan, SUM(cthd.SoLuong * sp.GiaNhap) AS TongVon FROM SanPham sp JOIN ChiTietHoaDon cthd ON sp.SanPhamID = cthd.SanPhamID JOIN HoaDon hd ON cthd.HoaDonID = hd.HoaDonID ? GROUP BY sp.SanPhamID, sp.Barcode, sp.TenSanPham, sp.SoLuongTon, sp.GiaNhap ORDER BY DaBan DESC";
 

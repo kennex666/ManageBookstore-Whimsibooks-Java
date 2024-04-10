@@ -12,7 +12,7 @@ import ultilities.chartbar.ModelChart;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -657,7 +657,7 @@ public class Form_ThongKeSanPhamBanChay extends javax.swing.JPanel {
         double tongDoanhThu = 0, tongTienVon = 0, tongLoiNhuan = 0, tongTraHang = 0;
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-        ArrayList<Object[]> listXuHuong = thongKe_BUS.thongKeXuHuongTheoThoiGian(start, end);
+        List<Object[]> listXuHuong = thongKe_BUS.thongKeXuHuongTheoThoiGian(start, end);
         while (modelThongKeXuHuong.getRowCount() > 0) {
             modelThongKeXuHuong.removeRow(0);
         }

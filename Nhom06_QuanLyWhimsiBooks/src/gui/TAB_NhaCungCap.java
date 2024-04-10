@@ -14,6 +14,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +49,7 @@ import entities.NhaCungCap;
 public class TAB_NhaCungCap extends javax.swing.JPanel {
 	Component oldCom;
     private DefaultTableModel tableModel;
-    private ArrayList<NhaCungCap> danhSachNCC;
+    private List<NhaCungCap> danhSachNCC;
     private NhaCungCap_BUS nhaCungCap_BUS;
     /**
      * Creates new form TAB_NhaCungCap
@@ -443,7 +444,7 @@ public class TAB_NhaCungCap extends javax.swing.JPanel {
     	String timKiemTheoMa = txtTimKiemIDNCC.getText().trim();
     	String timKiemTheoSDT = txtTimKiemSdtNCC.getText().trim();
     	String timKiemTheoTen = txtTimKiemTenNCC.getText().trim();
-    	ArrayList<NhaCungCap> danhSachNCCTimKiem = new ArrayList<NhaCungCap>();
+    	List<NhaCungCap> danhSachNCCTimKiem = new ArrayList<NhaCungCap>();
     	tableNCC.removeAll();
     	tableModel.setRowCount(0);
     	TBTimKiem.setText("");

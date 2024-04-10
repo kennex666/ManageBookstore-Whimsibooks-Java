@@ -7,7 +7,7 @@ package bus;
 import dao.TacGia_DAO;
 import entities.TacGia;
 import interfaces.ITacGia;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,12 +21,12 @@ public class TacGia_BUS implements ITacGia{
         return super.toString(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     }
     @Override
-    public ArrayList<TacGia> getAllTacGia() {
+    public List<TacGia> getAllTacGia() {
        return tacGia_DAO.getAllTacGia();
     }
 
     @Override
-    public ArrayList<TacGia> getTacGiaTheoID(int x) {
+    public List<TacGia> getTacGiaTheoID(int x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

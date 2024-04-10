@@ -1,6 +1,6 @@
 package bus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.ChiTietHoaDon_DAO;
 import dao.ChiTietTraHang_DAO;
@@ -17,12 +17,12 @@ public class ChiTietTraHang_BUS implements IChiTietTraHang {
 		return chiTietTraHang_DAO.addMotChiTietCuaHoaDon(x);
 	}
 	@Override
-	public boolean addNhieuChiTietCuaMotHoaDon(ArrayList<ChiTietTraHang> x) {
+	public boolean addNhieuChiTietCuaMotHoaDon(List<ChiTietTraHang> x) {
 		// TODO Auto-generated method stub
 		return chiTietTraHang_DAO.addNhieuChiTietCuaMotHoaDon(x);
 	}
 	@Override
-	public ArrayList<ChiTietTraHang> getAllChiTietCuaMotHoaDon(String maHoaDon) {
+	public List<ChiTietTraHang> getAllChiTietCuaMotHoaDon(String maHoaDon) {
 		// TODO Auto-generated method stub
 		return chiTietTraHang_DAO.getAllChiTietCuaMotHoaDon(maHoaDon);
 	}

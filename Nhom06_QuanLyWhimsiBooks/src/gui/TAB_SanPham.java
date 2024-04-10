@@ -31,7 +31,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -66,7 +66,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         initComponents();
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
+        List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         loadSanPham(list_SanPham);
 
         if (CurrentSession.checkQuyenTruyCap() != CurrentSession.EnumQuyenHan.NHAN_VIEN_QUAN_LY){
@@ -98,23 +98,23 @@ public class TAB_SanPham extends javax.swing.JPanel {
     int dem_sach = 0;
     int dem_spk = 0;
 
-    public void loadSanPham(ArrayList<SanPham> list_SanPham) {
+    public void loadSanPham(List<SanPham> list_SanPham) {
         int dem_sach_SoLuong = 0;
         int dem_spk_SoLuong = 0;
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
-        ArrayList<DanhMuc> list_danhMuc = new DanhMuc_BUS().getAllDanhMuc();
+        List<DanhMuc> list_danhMuc = new DanhMuc_BUS().getAllDanhMuc();
         jComboBox_DanhMuc.addItem("Tất cả");
         for (DanhMuc dm : list_danhMuc) {
             this.jComboBox_DanhMuc.addItem(dm.getTenDanhMuc().toString());
         }
         NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
-        ArrayList<NhaXuatBan> list_nhaXuatBan = nhaXuatBan_BUS.getAllNhaXuatBan();
+        List<NhaXuatBan> list_nhaXuatBan = nhaXuatBan_BUS.getAllNhaXuatBan();
         jComboBox_NhaXuatBan.addItem("Tất cả");
         for (NhaXuatBan nhaXuatBan : list_nhaXuatBan) {
             this.jComboBox_NhaXuatBan.addItem(nhaXuatBan.getTenNhaXuatBan().toString());
         }
         ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
-        ArrayList<ThuongHieu> list_ThuongHieu = thuongHieu_BUS.getAllThuongHieu();
+        List<ThuongHieu> list_ThuongHieu = thuongHieu_BUS.getAllThuongHieu();
         jComboBox_ThuongHieu.addItem("Tất cả");
         for (ThuongHieu thuongHieu : list_ThuongHieu) {
             this.jComboBox_ThuongHieu.addItem(thuongHieu.getTenThuongHieu().toString());
@@ -274,7 +274,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         dem_spk = 0;
 
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
-        ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
+        List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         this.jTextField_TimKiem.setText("");
         this.jTextField_TimKiem1.setText("");
 
@@ -996,7 +996,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         this.revalidate();
         this.repaint();
 
-        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
+        List<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
         if (timKiem_SapXep.equals("Giá cao nhất")) {
             sanPham_BUS.SapXepGiamTheoGia(list);
         }
@@ -1117,7 +1117,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         this.revalidate();
         this.repaint();
 
-        ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
+        List<SanPham> list = sanPham_BUS.getDanhSachSanPham(query1);
         if (timKiem_SapXep.equals("Giá cao nhất")) {
             sanPham_BUS.SapXepGiamTheoGia(list);
         }
@@ -1169,8 +1169,8 @@ public class TAB_SanPham extends javax.swing.JPanel {
         int excelChooser = excelFileChooser.showOpenDialog(null);
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
         NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
-        ArrayList<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
-        ArrayList<NhaCungCap> list_NhaCungCap = nhaCungCap_BUS.getAllNhaCungCap();
+        List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
+        List<NhaCungCap> list_NhaCungCap = nhaCungCap_BUS.getAllNhaCungCap();
         if (excelChooser == JFileChooser.APPROVE_OPTION) {
             Set<Object> maSanPhamSet = new HashSet<>();
             try {

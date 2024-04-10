@@ -2,10 +2,12 @@ package entities;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class KhachHang {
@@ -20,6 +22,17 @@ public class KhachHang {
 	private String diaChi;
 	private String loaiKhachHang;
 	
+	@OneToMany(mappedBy = "khachHang", fetch = jakarta.persistence.FetchType.LAZY)
+	private List<HoaDon> hoaDons;
+	
+	public List<HoaDon> getHoaDons() {
+		return hoaDons;
+	}
+
+	public void setHoaDons(List<HoaDon> hoaDons) {
+		this.hoaDons = hoaDons;
+	}
+
 	public KhachHang(String khachHangID) {
 		this.khachHangID = khachHangID;
 	}

@@ -1,12 +1,13 @@
 package bus;
 
 import dao.ChiTietHoaDon_DAO;
+import java.util.ArrayList;
 import dao.ChiTietTraHang_DAO;
 import dao.HoaDonTra_DAO;
 import dao.HoaDon_DAO;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.SanPham_DAO;
 import entities.ChiTietHoaDon;
@@ -32,8 +33,8 @@ public class ThongKe_BUS {
     private HoaDonTra_DAO hoaDonTra_DAO;
     private ChiTietTraHang_DAO chiTietTraHang_DAO;
 
-    public ArrayList<Object[]> thongKeXuHuongTheoThoiGian(Date timeStart, Date timeEnd) {
-        ArrayList<Object[]> listThongKe = hoaDon_DAO.getDanhSachHoaDonThongKeXuHuong(timeStart, timeEnd);
+    public List<Object[]> thongKeXuHuongTheoThoiGian(Date timeStart, Date timeEnd) {
+        List<Object[]> listThongKe = hoaDon_DAO.getDanhSachHoaDonThongKeXuHuong(timeStart, timeEnd);
         if (listThongKe == null) {
             listThongKe = new ArrayList<Object[]>();
         }
@@ -50,8 +51,8 @@ public class ThongKe_BUS {
         return listThongKe;
     }
 
-    public ArrayList<Map.Entry<Date, double[]>> thongKeTheoThoiGian(Date timeStart, Date timeEnd) {
-        ArrayList<HoaDon> listHoaDon = hoaDon_DAO.getDanhSachHoaDonTheoThoiGian(timeStart, timeEnd);
+    public List<Map.Entry<Date, double[]>> thongKeTheoThoiGian(Date timeStart, Date timeEnd) {
+        List<HoaDon> listHoaDon = hoaDon_DAO.getDanhSachHoaDonTheoThoiGian(timeStart, timeEnd);
         HashMap<Date, double[]> listThongKe = new HashMap<Date, double[]>();
 
         if (listHoaDon == null) {
@@ -91,7 +92,7 @@ public class ThongKe_BUS {
             }
         }
 
-        ArrayList<HoaDonTra> listHoaDonTra = hoaDonTra_DAO.getDanhSachHoaDonTheoThoiGian(timeStart, timeEnd);
+        List<HoaDonTra> listHoaDonTra = hoaDonTra_DAO.getDanhSachHoaDonTheoThoiGian(timeStart, timeEnd);
 
         for (HoaDonTra x : listHoaDonTra) {
             if (x == null) {
@@ -120,8 +121,8 @@ public class ThongKe_BUS {
 
         Collections.sort(entryList, Comparator.comparing(Map.Entry::getKey));
 
-        // Tạo một ArrayList mới để lưu trữ dữ liệu đã sắp xếp
-        ArrayList<Map.Entry<Date, double[]>> sortedList = new ArrayList<>(entryList);
+        // Tạo một List mới để lưu trữ dữ liệu đã sắp xếp
+        List<Map.Entry<Date, double[]>> sortedList = new ArrayList<>(entryList);
 
         return sortedList;
     }

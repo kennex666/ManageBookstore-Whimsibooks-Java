@@ -23,6 +23,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -698,7 +699,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
         model.setRowCount(0); // Xóa dữ liệu cũ trong bảng
 
         NhanVien_BUS nhanVienBus = new NhanVien_BUS();
-        ArrayList<NhanVien> list = nhanVienBus.getAllEmployees();
+        List<NhanVien> list = nhanVienBus.getAllEmployees();
 
         for (int i = 0; i < list.size(); i++) {
             NhanVien nv = list.get(i);
@@ -732,7 +733,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
         String chucVu = (String) cboChucVu1.getSelectedItem();
 
         // Gọi hàm tìm kiếm nâng cao từ lớp DAO
-        ArrayList<NhanVien> resultList = nhanvienBus.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai,
+        List<NhanVien> resultList = nhanvienBus.findEmployeeAdvanced(maNhanVien, tenNhanVien, soDienThoai,
                 gioiTinh, chucVu);
 
         // Ví dụ hiển thị trên bảng (sử dụng một DefaultTableModel cho bảng jTable1)
@@ -920,7 +921,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fileChooser.getSelectedFile();
 
-                ArrayList<NhanVien> importedList = readEmployeeDataFromExcel(file);
+                List<NhanVien> importedList = readEmployeeDataFromExcel(file);
 
                 if (importedList.isEmpty()) {
                     JOptionPane.showMessageDialog(this, "File Excel không có dữ liệu hoặc định dạng không đúng.");
@@ -950,8 +951,8 @@ public class TAB_NhanVien extends javax.swing.JPanel {
         }
     }
 
-    public ArrayList<NhanVien> readEmployeeDataFromExcel(File file) {
-        ArrayList<NhanVien> employeeList = new ArrayList<>();
+    public List<NhanVien> readEmployeeDataFromExcel(File file) {
+        List<NhanVien> employeeList = new ArrayList<>();
         int sttColumnIndex = 0; // Chỉ số của cột STT
         int maNhanVienColumnIndex = -1;
         try (FileInputStream fis = new FileInputStream(file); Workbook workbook = new XSSFWorkbook(fis)) {
@@ -1022,7 +1023,7 @@ public class TAB_NhanVien extends javax.swing.JPanel {
     }
 
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnExportActionPerformed
-        ArrayList<NhanVien> list = nhanvienBus.getAllEmployees();
+        List<NhanVien> list = nhanvienBus.getAllEmployees();
         try {
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setDialogTitle("Chọn nơi lưu trữ file Excel");

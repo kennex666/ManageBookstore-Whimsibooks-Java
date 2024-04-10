@@ -1,11 +1,14 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import ultilities.RegexPattern;
 
 @Entity
@@ -14,6 +17,10 @@ public class TacGia {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int tacGiaID;
 	private String tenTacGia, quocTich;
+	
+	@OneToMany(mappedBy = "tacGia", fetch = FetchType.LAZY)
+	private List<SanPham> sanPhams;
+	
 	public int getTacGiaID() {
 		return tacGiaID;
 	}
@@ -22,6 +29,12 @@ public class TacGia {
 	}
 	public String getTenTacGia() {
 		return tenTacGia;
+	}
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
 	}
 	public void setTenTacGia(String tenTacGia) throws Exception{
 		if (tenTacGia.trim().isBlank() || tenTacGia.isEmpty())

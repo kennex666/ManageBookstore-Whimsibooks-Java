@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import entities.DanhMuc;
@@ -39,8 +40,8 @@ public class DanhMuc_DAO implements IDanhMuc{
 		return false;
 	}
 	@Override
-	public ArrayList<DanhMuc> getAllDanhMuc() {
-		ArrayList<DanhMuc> list = new ArrayList<DanhMuc>();
+	public List<DanhMuc> getAllDanhMuc() {
+		List<DanhMuc> list = new ArrayList<DanhMuc>();
 		
 		try {
 			Statement stm = conn.createStatement();
@@ -69,7 +70,7 @@ public class DanhMuc_DAO implements IDanhMuc{
 		return list;
 	}
 	@Override
-	public ArrayList<DanhMuc> getDanhMucTheoID(int x) {
+	public List<DanhMuc> getDanhMucTheoID(int x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

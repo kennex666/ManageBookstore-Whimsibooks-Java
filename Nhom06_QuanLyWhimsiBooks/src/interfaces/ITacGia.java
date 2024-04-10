@@ -7,15 +7,15 @@ package interfaces;
 import entities.DanhMuc;
 import entities.TacGia;
 import entities.ThuongHieu;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface ITacGia {
-    public ArrayList<TacGia> getAllTacGia();
-    public ArrayList<TacGia> getTacGiaTheoID(int x);
+    public List<TacGia> getAllTacGia();
+    public List<TacGia> getTacGiaTheoID(int x);
     public boolean addTacGia(TacGia x);
     public boolean editTacGia (TacGia x);
 }

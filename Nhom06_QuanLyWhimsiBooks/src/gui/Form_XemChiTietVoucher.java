@@ -4,7 +4,7 @@
  */
 package gui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.table.DefaultTableModel;
 
@@ -21,7 +21,7 @@ public class Form_XemChiTietVoucher extends javax.swing.JFrame {
 	
 	
 	private void loadData(String tenSK) {
-		ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiTheoTen1(tenSK);
+		List<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiTheoTen1(tenSK);
 		int count = 0, countDa = 0;
 		KhuyenMai khuyenMai = new KhuyenMai();
 		for(KhuyenMai km : khuyenMais) {

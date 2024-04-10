@@ -6,15 +6,15 @@ package interfaces;
 
 import entities.DanhMuc;
 import entities.ThuongHieu;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author ASUS
  */
 public interface IThuongHieu {
-    public ArrayList<ThuongHieu> getAllThuongHieu();
-    public ArrayList<ThuongHieu> getThuongHieuTheoID(int x);
+    public List<ThuongHieu> getAllThuongHieu();
+    public List<ThuongHieu> getThuongHieuTheoID(int x);
     public boolean addThuongHieu(ThuongHieu x);
     public boolean editThuongHieu (ThuongHieu x);
 }

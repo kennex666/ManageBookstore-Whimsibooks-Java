@@ -2,10 +2,12 @@ package entities;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class NhanVien {
@@ -22,7 +24,28 @@ public class NhanVien {
 	private LocalDate ngaySinh;
 	private String diaChi;
 	
+	@OneToMany(mappedBy = "nhanVien")
+	private List<HoaDon> hoaDons;
 	
+	@OneToMany(mappedBy = "nhanVien")
+	private List<HoaDonTra> hoaDonTras;
+	
+	public List<HoaDon> getHoaDons() {
+		return hoaDons;
+	}
+
+	public void setHoaDons(List<HoaDon> hoaDons) {
+		this.hoaDons = hoaDons;
+	}
+
+	public List<HoaDonTra> getHoaDonTras() {
+		return hoaDonTras;
+	}
+
+	public void setHoaDonTras(List<HoaDonTra> hoaDonTras) {
+		this.hoaDonTras = hoaDonTras;
+	}
+
 	public NhanVien() {
 
 	}

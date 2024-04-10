@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -86,8 +87,8 @@ public class HoaDonTra_DAO implements IHoaDonTra {
     }
 
     @Override
-    public ArrayList<HoaDonTra> getDanhSachHoaDon() {
-        ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
+    public List<HoaDonTra> getDanhSachHoaDon() {
+        List<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
         String query = "SELECT TOP 100 * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID WHERE YEAR(NgayTraHoaDon) = YEAR(GETDATE()) AND MONTH(NgayTraHoaDon) = MONTH(GETDATE()) AND DAY(NgayTraHoaDon) = DAY(GETDATE()) ORDER BY NgayTraHoaDon DESC";
         try {
             Statement stm = conn.createStatement();
@@ -145,9 +146,9 @@ public class HoaDonTra_DAO implements IHoaDonTra {
     }
 
     @Override
-    public ArrayList<HoaDonTra> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
+    public List<HoaDonTra> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
         // TODO Auto-generated method stub
-        ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
+        List<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
 
         String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID ?";
 
@@ -252,9 +253,9 @@ public class HoaDonTra_DAO implements IHoaDonTra {
     }
 
     @Override
-    public ArrayList<HoaDonTra> getDanhSachHoaDonNangCao(Object[] params) {
+    public List<HoaDonTra> getDanhSachHoaDonNangCao(Object[] params) {
         // TODO Auto-generated method stub
-        ArrayList<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
+        List<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
 
         String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID ?";
 

@@ -1,6 +1,6 @@
 package bus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.SanPham_DAO;
 import entities.SanPham;
@@ -12,7 +12,7 @@ public class SanPham_BUS implements ISanPham{
 	private SanPham_DAO sanPham_DAO;
 	
 	@Override
-	public ArrayList<SanPham> laySanPhamChoKM() {
+	public List<SanPham> laySanPhamChoKM() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.laySanPhamChoKM();
 	}
@@ -21,13 +21,13 @@ public class SanPham_BUS implements ISanPham{
 		sanPham_DAO = new SanPham_DAO();
 	}
 	@Override
-	public ArrayList<SanPham> getDanhSachSanPham(String query) {
+	public List<SanPham> getDanhSachSanPham(String query) {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPham(query);
 	}
 
 	@Override
-	public ArrayList<SanPham> searchSanPham(String s) {
+	public List<SanPham> searchSanPham(String s) {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.searchSanPham(s);
 	}
@@ -45,7 +45,7 @@ public class SanPham_BUS implements ISanPham{
 	}
 
 	@Override
-	public ArrayList<SanPham> getDanhSachSanPhamSapHet() {
+	public List<SanPham> getDanhSachSanPhamSapHet() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPhamSapHet();
 	}
@@ -57,17 +57,17 @@ public class SanPham_BUS implements ISanPham{
 	}
 
 	@Override
-	public ArrayList<SanPham> getDanhSachSanPham() {
+	public List<SanPham> getDanhSachSanPham() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getDanhSachSanPham();
 	}
 	@Override
-	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
+	public List<SanPham> getSPTheoThuongHieu(String maThuongHieu) {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getSPTheoThuongHieu(maThuongHieu);
 	}
 	@Override
-	public ArrayList<ThuongHieu> getThuongHieu() {
+	public List<ThuongHieu> getThuongHieu() {
 		// TODO Auto-generated method stub
 		return sanPham_DAO.getThuongHieu();
 	}
@@ -137,17 +137,17 @@ public class SanPham_BUS implements ISanPham{
         return sanPham_DAO.editTrangThaiSanPham(sp);
     }
 	@Override
-	public void SapXepTangTheoGia(ArrayList<SanPham> list) {
+	public void SapXepTangTheoGia(List<SanPham> list) {
 		sanPham_DAO.SapXepTangTheoGia(list);
 		
 	}
 	@Override
-	public void SapXepGiamTheoGia(ArrayList<SanPham> list) {
+	public void SapXepGiamTheoGia(List<SanPham> list) {
 		sanPham_DAO.SapXepGiamTheoGia(list);
 		
 	}
 	@Override
-	public void SapXepTangTheoSoLuong(ArrayList<SanPham> list) {
+	public void SapXepTangTheoSoLuong(List<SanPham> list) {
 		sanPham_DAO.SapXepTangTheoSoLuong(list);
 		
 	}

@@ -14,6 +14,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -63,11 +64,11 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	private DefaultTableModel tableModel;
 	private DefaultTableModel tableModelSP;
 	private KhuyenMai_BUS khuyenMai_BUS;
-	private ArrayList<KhuyenMai> danhSachKM;
+	private List<KhuyenMai> danhSachKM;
 	private SanPham_BUS sanPham_BUS;
-	private ArrayList<SanPham> danhSachSp;
+	private List<SanPham> danhSachSp;
 	private ChiTietKhuyenMai_BUS chiTietKhuyenMai_BUS;
-	private ArrayList<ChiTietKhuyenMai> danhSachCTTKM;
+	private List<ChiTietKhuyenMai> danhSachCTTKM;
 	private Calendar currentDate = Calendar.getInstance();
 	private TableRowSorter<DefaultTableModel> sorter;
 	private TableRowSorter<DefaultTableModel> sorterCTTKM;
@@ -963,7 +964,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		java.util.Date ngayKetThucUtil = txtNgayKetThuc.getDate();
 		java.sql.Date ngayBatDau = new java.sql.Date(ngayBatDauUtil.getTime());
 		java.sql.Date ngayKetThuc = new java.sql.Date(ngayKetThucUtil.getTime());
-		ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+		List<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
 
 		if (!radVoucher.isSelected()) {
 			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z1-9_]){6,}$"))) {
@@ -1052,7 +1053,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
             		// Thêm một khuyến mãi // nhiều voucher
                     if (radVoucher.isSelected()) {
                         boolean check = false;
-                        ArrayList<KhuyenMai> listVoucher = new ArrayList<>();
+                        List<KhuyenMai> listVoucher = new ArrayList<>();
 
                         if (checkTenSuKien(tenKM) && JOptionPane.showConfirmDialog(null, "Sự kiện đã tồn tại, bạn có muốn thêm voucher", "Thông báo", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
                         	for (int i = 0; i < soLuongApDung; i++) {
@@ -1095,7 +1096,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                     	 if (checkTenSuKien(tenKM)) {
                     		 int yes = JOptionPane.showConfirmDialog(this, "Tên khuyến mãi đã tồn tại, bạn có muốn thêm khuyến mãi", "Thông báo", JOptionPane.YES_NO_OPTION);
                     		 if(yes == JOptionPane.YES_OPTION) {
-                    			 ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                    			 List<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
                                  KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
                                  try {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
@@ -1115,7 +1116,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
                     	 else {
                     		 int yesAdd = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm khuyến mãi: "+ maKM, "Thông báo", JOptionPane.YES_NO_OPTION);
                     		 if(yesAdd == JOptionPane.YES_OPTION) {
-                    			 ArrayList<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
+                    			 List<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
                                  KhuyenMai khuyenMai = new KhuyenMai(maKM, tenKM, hinhThuc, Double.valueOf(mucGiam), ngayBatDau, ngayKetThuc, Double.valueOf(donHangTu), soLuongApDung, 0);
                                  try {
                                      if (khuyenMai_BUS.addKhuyenMai(khuyenMai) && chiTietKhuyenMai_BUS.addSDanhSachSPKM(khuyenMai, dsChonSP)) {
@@ -1188,7 +1189,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 			tableKM.removeAll();
 			tableKM.setRowSelectionAllowed(false);
 			tableModel.setRowCount(0);
-			ArrayList<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiByIDAndName(timMa, timMa);
+			List<KhuyenMai> khuyenMais = khuyenMai_BUS.getKhuyenMaiByIDAndName(timMa, timMa);
 			int stt = 1;
 			for (KhuyenMai km : khuyenMais) {
 				tableModel.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(),
@@ -1214,7 +1215,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	}
 	
 	private boolean checkMaSP(int ma) {
-		ArrayList<SanPham> list = sanPham_BUS.laySanPhamChoKM();
+		List<SanPham> list = sanPham_BUS.laySanPhamChoKM();
 		for(SanPham sp : list) {
 			if(sp.getSanPhamID() == ma)
 				return true;
@@ -1242,7 +1243,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		}
 		
 		boolean ifIsset = false;
-		ArrayList<SanPham> list = sanPham_BUS.laySanPhamChoKM();
+		List<SanPham> list = sanPham_BUS.laySanPhamChoKM();
 		for (int i = 0; i < tableModelSP.getRowCount(); i++) {
 			int j = 1;			
 			if(spTuBarCode.getSanPhamID() == (int) tableModelSP.getValueAt(i, j)) {
@@ -1256,7 +1257,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 	}// GEN-LAST:event_btnTimKiemActionPerformed
 
 	private void loadDuLieuThuongHieu() {
-		ArrayList<ThuongHieu> list = new ArrayList<ThuongHieu>();
+		List<ThuongHieu> list = new ArrayList<ThuongHieu>();
 		list = sanPham_BUS.getThuongHieu();
 		for (ThuongHieu thuongHieu : list) {
 			comboboxApDung.addItem(thuongHieu.getThuongHieuID() + ": " + thuongHieu.getTenThuongHieu());
@@ -1414,7 +1415,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		txtTenKM.setText("");
 	}
 
-    private void DataSearch(ArrayList<KhuyenMai> khuyenMais) {
+    private void DataSearch(List<KhuyenMai> khuyenMais) {
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
@@ -1478,14 +1479,14 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		
 		
 
-		ArrayList<KhuyenMai> arrayList = khuyenMai_BUS.getDanhSachKhuyenMaiNangCao(obj);
+		List<KhuyenMai> List = khuyenMai_BUS.getDanhSachKhuyenMaiNangCao(obj);
 
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
 
 		int stt = 1;
-		for (KhuyenMai km : arrayList) {
+		for (KhuyenMai km : List) {
 			tableModelDSCTTKM.addRow(new Object[] { stt++, km.getCodeKhuyenMai(), km.getTenKhuyenMai(),
 					km.getLoaiKhuyenMai(), km.getGiaTri(), km.getNgayKhuyenMai(), km.getNgayHetHanKM(),
 					km.getDonHangTu(), km.getSoLuongKhuyenMai(), km.getSoLuotDaApDung() });
@@ -1680,7 +1681,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 
     
     private boolean checkSelect(int maSP,String maKM) {
-    	ArrayList<ChiTietKhuyenMai> list = chiTietKhuyenMai_BUS.layCTTKMTheoMa(maKM);
+    	List<ChiTietKhuyenMai> list = chiTietKhuyenMai_BUS.layCTTKMTheoMa(maKM);
     	for(int i = 0 ; i < list.size(); i++) {
     		if(maSP == list.get(i).getSanPham().getSanPhamID())
     			return true;
@@ -1750,7 +1751,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		table_DSCTTKM.removeAll();
 		table_DSCTTKM.setRowSelectionAllowed(false);
 		tableModelDSCTTKM.setRowCount(0);
-		ArrayList<KhuyenMai> dsList = khuyenMai_BUS.getRecentKhuyenMai(200);
+		List<KhuyenMai> dsList = khuyenMai_BUS.getRecentKhuyenMai(200);
 		Locale localeVN = new Locale("vi", "VN");
 		NumberFormat vn = NumberFormat.getInstance(localeVN);
 		int stt = 1;

@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import entities.NhanVien;
@@ -22,13 +23,13 @@ public class NhanVien_DAO implements INhanVien {
 
     private Connection conn;
 
-    public ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
+    public List<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai,
             String gioiTinh, String chucVu) {
     	
     	gioiTinh = ProcessingEnumDBForQuy.gioiTinhToEnum(gioiTinh);
 
     	chucVu = ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu);
-        ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+        List<NhanVien> listNhanVien = new ArrayList<>();
 
         String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
 
@@ -78,8 +79,8 @@ public class NhanVien_DAO implements INhanVien {
     }
 
     @Override
-    public ArrayList<NhanVien> getAllEmployees() {
-        ArrayList<NhanVien> listNhanVien = new ArrayList<>();
+    public List<NhanVien> getAllEmployees() {
+        List<NhanVien> listNhanVien = new ArrayList<>();
         try {
             String query = "SELECT * FROM NhanVien";
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -289,7 +290,7 @@ public class NhanVien_DAO implements INhanVien {
     }
 
     @Override
-    public ArrayList<NhanVien> findEmployee(String x) {
+    public List<NhanVien> findEmployee(String x) {
         // TODO Auto-generated method stub
         return null;
     }

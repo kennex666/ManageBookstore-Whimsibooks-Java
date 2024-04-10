@@ -1,12 +1,13 @@
 package bus;
 
 import java.io.BufferedInputStream;
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 
 import javax.swing.JFileChooser;
@@ -27,25 +28,25 @@ public class NhaCungCap_BUS implements INhaCungCap{
 	private NhaCungCap_DAO ncc_DAO;
 
 	@Override
-	public ArrayList<NhaCungCap> getAllNhaCungCap() {
+	public List<NhaCungCap> getAllNhaCungCap() {
 		// TODO Auto-generated method stub
 		return ncc_DAO.getAllNhaCungCap();
 	}
 
 	@Override
-	public ArrayList<NhaCungCap> getNCCByID(String maNCC) {
+	public List<NhaCungCap> getNCCByID(String maNCC) {
 		// TODO Auto-generated method stub
 		return ncc_DAO.getNCCByID(maNCC);
 	}
 
 	@Override
-	public ArrayList<NhaCungCap> getNCCByPhone(String sdt) {
+	public List<NhaCungCap> getNCCByPhone(String sdt) {
 		// TODO Auto-generated method stub
 		return ncc_DAO.getNCCByPhone(sdt);
 	}
 	
 	@Override
-	public ArrayList<NhaCungCap> getNCCByName(String name) {
+	public List<NhaCungCap> getNCCByName(String name) {
 		// TODO Auto-generated method stub
 		return ncc_DAO.getNCCByName(name);
 	}	
@@ -72,7 +73,7 @@ public class NhaCungCap_BUS implements INhaCungCap{
 	
 
 	@Override
-	public ArrayList<NhaCungCap> getNCCByEmail(String email) {
+	public List<NhaCungCap> getNCCByEmail(String email) {
 		// TODO Auto-generated method stub
 		return ncc_DAO.getNCCByEmail(email);
 	}
@@ -83,8 +84,8 @@ public class NhaCungCap_BUS implements INhaCungCap{
 	    return str.toLowerCase().contains(subStr.toLowerCase());
 	}
 
-	public ArrayList<NhaCungCap> getNhaCungCapTheoDieuKien(String ma, String sdt, String ten) {
-		ArrayList<NhaCungCap> danhSachTimKiem = new ArrayList<NhaCungCap>();
+	public List<NhaCungCap> getNhaCungCapTheoDieuKien(String ma, String sdt, String ten) {
+		List<NhaCungCap> danhSachTimKiem = new ArrayList<NhaCungCap>();
 		if(!ma.isEmpty()) {
 			for(NhaCungCap ncc : getAllNhaCungCap()) {
 				if(containsIgnoreCase(ncc.getNhaCungCapID(), ma))
@@ -144,7 +145,7 @@ public class NhaCungCap_BUS implements INhaCungCap{
 	}
     
     private boolean checkNCC(String sdt, String email) {
-    	ArrayList<NhaCungCap> list = getAllNhaCungCap();
+    	List<NhaCungCap> list = getAllNhaCungCap();
     	for(NhaCungCap ncc : list) {
     		if(ncc.getSoDienThoai().equalsIgnoreCase(sdt) || ncc.getEmail().equalsIgnoreCase(email))
     			return false;
@@ -209,7 +210,7 @@ public class NhaCungCap_BUS implements INhaCungCap{
         return true;
 	}
 
-	public void xuatFile(ArrayList<NhaCungCap> list) {
+	public void xuatFile(List<NhaCungCap> list) {
 		JFileChooser excelFileChooser = new JFileChooser("D:\\");
 	    excelFileChooser.setDialogTitle("Save Excel File");
 	    FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xlsx");

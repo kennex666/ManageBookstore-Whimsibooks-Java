@@ -7,7 +7,7 @@ package gui;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 import javax.swing.JFrame;
@@ -22,7 +22,7 @@ import entities.KhuyenMai;
  * @author NguyenThanhLuan
  */
 public class Form_DanhSachVoucher extends javax.swing.JFrame {
-	private ArrayList<KhuyenMai> listVoucher;
+	private List<KhuyenMai> listVoucher;
 	private DefaultTableModel tableModelVoucher;
 	private KhuyenMai_BUS khuyenMai_BUS;
 	private boolean checkImport = false;
@@ -30,7 +30,7 @@ public class Form_DanhSachVoucher extends javax.swing.JFrame {
     /**
      * Creates new form Form_DanhSachVoucher
      */
-    public Form_DanhSachVoucher(ArrayList<KhuyenMai> listVoucher) {
+    public Form_DanhSachVoucher(List<KhuyenMai> listVoucher) {
         this.listVoucher = listVoucher;
         initComponents();
         loadVoucher();

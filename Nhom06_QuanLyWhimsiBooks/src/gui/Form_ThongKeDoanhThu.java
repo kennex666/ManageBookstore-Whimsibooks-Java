@@ -12,6 +12,7 @@ import ultilities.chartbar.ModelChart;
 import java.awt.Color;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -629,7 +630,7 @@ public class Form_ThongKeDoanhThu extends javax.swing.JPanel {
 
         chart.clear();
 
-        ArrayList<Map.Entry<Date, double[]>> listThongKe = new ArrayList<Map.Entry<Date, double[]>>();
+        List<Map.Entry<Date, double[]>> listThongKe = new ArrayList<Map.Entry<Date, double[]>>();
         listThongKe = thongKe_BUS.thongKeTheoThoiGian(start, end);
 
         chart.setTitle("Từ " + sdfTitle.format(start) + " đến " + sdfTitle.format(end) + " (Đơn vị Nghìn đồng)");

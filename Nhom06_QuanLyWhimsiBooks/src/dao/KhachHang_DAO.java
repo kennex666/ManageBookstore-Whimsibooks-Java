@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -27,12 +28,12 @@ public class KhachHang_DAO implements IKhachHang {
 
     private Connection conn;
 
-    public ArrayList<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
+    public List<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
             String gioiTinh, String loaiKhachHang) {
     	gioiTinh = ProcessingEnumDBForQuy.gioiTinhToEnum(gioiTinh);
     	loaiKhachHang = ProcessingEnumDBForQuy.convertKhachHangToEnum(loaiKhachHang);
 
-        ArrayList<KhachHang> listKhachHang = new ArrayList<>();
+        List<KhachHang> listKhachHang = new ArrayList<>();
         String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
 
         List<String> parameters = new ArrayList<>();
@@ -76,8 +77,8 @@ public class KhachHang_DAO implements IKhachHang {
     }
 
     @Override
-    public ArrayList<KhachHang> getAllKhachHang() {
-        ArrayList<KhachHang> listKhachHang = new ArrayList<>();
+    public List<KhachHang> getAllKhachHang() {
+        List<KhachHang> listKhachHang = new ArrayList<>();
         String query = "SELECT * FROM KhachHang";
         try {
             PreparedStatement pstmt = conn.prepareStatement(query);
@@ -250,7 +251,7 @@ public class KhachHang_DAO implements IKhachHang {
 
     }
 
-    public ArrayList<NhanVien> findKhachHang(String x) {
+    public List<NhanVien> findKhachHang(String x) {
         // TODO Auto-generated method stub
         return null;
     }

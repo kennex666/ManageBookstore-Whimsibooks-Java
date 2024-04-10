@@ -37,6 +37,7 @@ import javax.swing.ImageIcon;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.Icon;
@@ -56,8 +57,8 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
     /**
      * Creates new form TAB_ThemSanPham
      */
-    ArrayList<String> th_name;
-    ArrayList<String> ncc_name;
+    List<String> th_name;
+    List<String> ncc_name;
 
     public TAB_ThemSanPhamKhac() {
         initComponents();
@@ -68,13 +69,13 @@ public class TAB_ThemSanPhamKhac extends javax.swing.JFrame {
         ncc_name = new ArrayList<String>();
 
         NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
-        ArrayList<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
+        List<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
         for (NhaCungCap ncc : list_NCC) {
             ncc_name.add(ncc.getTenNhaCungCap());
         }
 
         ThuongHieu_BUS thuongHieu_BUS = new ThuongHieu_BUS();
-        ArrayList<ThuongHieu> list_TH = thuongHieu_BUS.getAllThuongHieu();
+        List<ThuongHieu> list_TH = thuongHieu_BUS.getAllThuongHieu();
         for (ThuongHieu th : list_TH) {
             th_name.add(th.getTenThuongHieu());
         }

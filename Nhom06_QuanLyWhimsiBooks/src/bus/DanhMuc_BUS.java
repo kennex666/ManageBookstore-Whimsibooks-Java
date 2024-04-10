@@ -1,6 +1,6 @@
 package bus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import dao.DanhMuc_DAO;
 import entities.DanhMuc;
@@ -20,12 +20,12 @@ public class DanhMuc_BUS implements IDanhMuc{
 		return false;
 	}
 	@Override
-	public ArrayList<DanhMuc> getAllDanhMuc() {
+	public List<DanhMuc> getAllDanhMuc() {
 		// TODO Auto-generated method stub
 		return danhMuc_DAO.getAllDanhMuc();
 	}
 	@Override
-	public ArrayList<DanhMuc> getDanhMucTheoID(int x) {
+	public List<DanhMuc> getDanhMucTheoID(int x) {
 		// TODO Auto-generated method stub
 		return null;
 	}

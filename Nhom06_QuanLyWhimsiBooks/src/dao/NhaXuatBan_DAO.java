@@ -5,6 +5,7 @@
 package dao;
 
 import connectDB.ConnectDB;
+import java.util.ArrayList;
 import entities.DanhMuc;
 import entities.NhaXuatBan;
 import interfaces.INhaXuatBan;
@@ -13,7 +14,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -29,8 +30,8 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
     
     
     @Override
-    public ArrayList<NhaXuatBan> getAllNhaXuatBan() {
-       ArrayList<NhaXuatBan> list = new ArrayList<NhaXuatBan>();
+    public List<NhaXuatBan> getAllNhaXuatBan() {
+       List<NhaXuatBan> list = new ArrayList<NhaXuatBan>();
 		
 		try {
 			Statement stm = conn.createStatement();
@@ -69,7 +70,7 @@ public class NhaXuatBan_DAO implements INhaXuatBan{
     }
 
     @Override
-    public ArrayList<NhaXuatBan> getNhaXuatBanTheoID(String x) {
+    public List<NhaXuatBan> getNhaXuatBanTheoID(String x) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 

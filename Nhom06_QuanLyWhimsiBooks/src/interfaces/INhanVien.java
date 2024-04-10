@@ -1,14 +1,14 @@
 package interfaces;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import entities.NhanVien;
 
 public interface INhanVien {
-	ArrayList<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
+	List<NhanVien> findEmployeeAdvanced(String maNhanVien, String tenNhanVien, String soDienThoai, String gioiTinh,
 			String chucVu);
 
-	public ArrayList<NhanVien> getAllEmployees();
+	public List<NhanVien> getAllEmployees();
 
 	public int totalNhanVien();
 
@@ -26,7 +26,7 @@ public interface INhanVien {
 
 	public int phatSinhMaNhanVien();
 
-	public ArrayList<NhanVien> findEmployee(String x);
+	public List<NhanVien> findEmployee(String x);
 
 	public NhanVien dangNhapNhanVien(String user, String password);
 

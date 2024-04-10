@@ -42,6 +42,7 @@ import javax.swing.ImageIcon;
 
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -64,11 +65,11 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     /**
      * Creates new form TAB_ThemSanPham
      */
-    ArrayList<String> nxb_name;
-    ArrayList<String> ncc_name;
-    ArrayList<String> dm_name;
-    ArrayList<String> tg_name;
-    ArrayList<String> tl_name;
+    List<String> nxb_name;
+    List<String> ncc_name;
+    List<String> dm_name;
+    List<String> tg_name;
+    List<String> tl_name;
 
     public TAB_ThemSanPham() {
         initComponents();
@@ -82,31 +83,31 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         tl_name = new ArrayList<String>();
 
         NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
-        ArrayList<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
+        List<NhaCungCap> list_NCC = nhaCungCap_BUS.getAllNhaCungCap();
         for (NhaCungCap ncc : list_NCC) {
             ncc_name.add(ncc.getTenNhaCungCap());
         }
 
         NhaXuatBan_BUS nhaXuatBan_BUS = new NhaXuatBan_BUS();
-        ArrayList<NhaXuatBan> list_NXB = nhaXuatBan_BUS.getAllNhaXuatBan();
+        List<NhaXuatBan> list_NXB = nhaXuatBan_BUS.getAllNhaXuatBan();
         for (NhaXuatBan nxb : list_NXB) {
             nxb_name.add(nxb.getTenNhaXuatBan());
         }
 
         DanhMuc_BUS danhMuc_BUS = new DanhMuc_BUS();
-        ArrayList<DanhMuc> list_DM = danhMuc_BUS.getAllDanhMuc();
+        List<DanhMuc> list_DM = danhMuc_BUS.getAllDanhMuc();
         for (DanhMuc dm : list_DM) {
             dm_name.add(dm.getTenDanhMuc());
         }
 
         TacGia_BUS tacGia_BUS = new TacGia_BUS();
-        ArrayList<TacGia> list_TG = tacGia_BUS.getAllTacGia();
+        List<TacGia> list_TG = tacGia_BUS.getAllTacGia();
         for (TacGia tg : list_TG) {
             tg_name.add(tg.getTenTacGia());
         }
 
         TheLoai_BUS theLoai_BUS = new TheLoai_BUS();
-        ArrayList<TheLoai> list_TL = theLoai_BUS.getAllTheLoai();
+        List<TheLoai> list_TL = theLoai_BUS.getAllTheLoai();
         for (TheLoai tl : list_TL) {
             tl_name.add(tl.getTenTheLoai());
         }
@@ -1358,7 +1359,7 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             SanPham sanPham = getNewSanPham();
             if (sanPham != null) {
                 SanPham_BUS sanPham_BUS = new SanPham_BUS();
-                ArrayList<SanPham> list = sanPham_BUS.getDanhSachSanPham();
+                List<SanPham> list = sanPham_BUS.getDanhSachSanPham();
                 for (SanPham sanPham1 : list) {
                     if (sanPham1.getBarcode().equals(sanPham.getBarcode())) {
 

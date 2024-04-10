@@ -1,7 +1,7 @@
 package interfaces;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 import entities.HoaDon;
@@ -9,18 +9,18 @@ import entities.SanPham;
 import entities.ThuongHieu;
 
 public interface ISanPham {
-	public ArrayList<SanPham> laySanPhamChoKM();
-	public ArrayList<SanPham> getDanhSachSanPham(String query);
-	public ArrayList<SanPham> getDanhSachSanPham();
-	public ArrayList<SanPham> searchSanPham(String id);
+	public List<SanPham> laySanPhamChoKM();
+	public List<SanPham> getDanhSachSanPham(String query);
+	public List<SanPham> getDanhSachSanPham();
+	public List<SanPham> searchSanPham(String id);
 	public boolean addSanPham(SanPham sp);
         public boolean editTrangThaiSanPham(SanPham sp);
 	public boolean editSanPham(SanPham sp);
-	public ArrayList<SanPham> getDanhSachSanPhamSapHet();
+	public List<SanPham> getDanhSachSanPhamSapHet();
 	public SanPham getChiMotSanPhamTheoMaHoacBarcode(String x);
 
-	public ArrayList<SanPham> getSPTheoThuongHieu(String maThuongHieu);
-	public ArrayList<ThuongHieu> getThuongHieu();
+	public List<SanPham> getSPTheoThuongHieu(String maThuongHieu);
+	public List<ThuongHieu> getThuongHieu();
 
         public int getIdTacGiaByName(String name);
         public int getIdTheloaiByName(String name);
@@ -35,8 +35,8 @@ public interface ISanPham {
         public String getNameTheLoaiByID(int ID);
         public String getNameThuongHieuByID(int ID);
         public String getNameNhaCungCapByID(String ID);
-        public void SapXepTangTheoGia(ArrayList<SanPham> list);
-        public void SapXepGiamTheoGia(ArrayList<SanPham> list);
-        public void SapXepTangTheoSoLuong(ArrayList<SanPham> list);
+        public void SapXepTangTheoGia(List<SanPham> list);
+        public void SapXepGiamTheoGia(List<SanPham> list);
+        public void SapXepTangTheoSoLuong(List<SanPham> list);
 	
 }

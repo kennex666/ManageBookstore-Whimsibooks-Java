@@ -1,11 +1,13 @@
 package entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  * 
@@ -20,6 +22,16 @@ public class DanhMuc {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int danhMucID;
 	private String tenDanhMuc;
+	
+	@OneToMany(mappedBy = "danhMuc")
+	private List<SanPham> sanPhams;
+	
+	public List<SanPham> getSanPhams() {
+		return sanPhams;
+	}
+	public void setSanPhams(List<SanPham> sanPhams) {
+		this.sanPhams = sanPhams;
+	}
 	public int getDanhMucID() {
 		return danhMucID;
 	}

@@ -2,6 +2,7 @@ package entities;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
@@ -15,6 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
@@ -31,6 +33,29 @@ public class SanPham {
 	private int soLuongTon, namSanXuat, soTrang;
 	private Date ngayNhap;
 	private double giaNhap, thue;
+	public List<ChiTietKhuyenMai> getChiTietKhuyenMais() {
+		return chiTietKhuyenMais;
+	}
+
+	public void setChiTietKhuyenMais(List<ChiTietKhuyenMai> chiTietKhuyenMais) {
+		this.chiTietKhuyenMais = chiTietKhuyenMais;
+	}
+
+	public List<ChiTietTraHang> getChiTietTraHangs() {
+		return chiTietTraHangs;
+	}
+
+	public void setChiTietTraHangs(List<ChiTietTraHang> chiTietTraHangs) {
+		this.chiTietTraHangs = chiTietTraHangs;
+	}
+
+	public List<ChiTietHoaDon> getChiTietHoaDons() {
+		return chiTietHoaDons;
+	}
+
+	public void setChiTietHoaDons(List<ChiTietHoaDon> chiTietHoaDons) {
+		this.chiTietHoaDons = chiTietHoaDons;
+	}
 	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
 					tinhTrang, loaiSanPham, donViDoLuong, 
 					kichThuoc, xuatXu, ngonNgu, loaiBia;
@@ -58,6 +83,16 @@ public class SanPham {
 	@ManyToOne
 	@JoinColumn(name="nhaCungCapID")
 	private NhaCungCap nhaCungCap;
+	
+	
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
+	private List<ChiTietKhuyenMai> chiTietKhuyenMais;
+	
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
+	private List<ChiTietTraHang> chiTietTraHangs;
+	
+	@OneToMany(mappedBy = "sanPham", cascade = CascadeType.ALL)
+	private List<ChiTietHoaDon> chiTietHoaDons;
 	
 	
 	// contructer cho khuyến mãi

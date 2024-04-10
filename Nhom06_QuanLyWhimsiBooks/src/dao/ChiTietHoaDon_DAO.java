@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import connectDB.ConnectDB;
 import entities.ChiTietHoaDon;
@@ -44,7 +45,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		}
 	}
 	@Override
-	public boolean addNhieuChiTietCuaMotHoaDon(ArrayList<ChiTietHoaDon> x) {
+	public boolean addNhieuChiTietCuaMotHoaDon(List<ChiTietHoaDon> x) {
             
             // Xoá chi tiết hoá đơn cũ để cập nhật lại
             if (x.size() < 1)
@@ -71,9 +72,9 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		return true;
 	}
 	@Override
-	public ArrayList<ChiTietHoaDon> getAllChiTietCuaMotHoaDon(String maHoaDon) {
+	public List<ChiTietHoaDon> getAllChiTietCuaMotHoaDon(String maHoaDon) {
 		// TODO Auto-generated method stub
-		ArrayList<ChiTietHoaDon> listCT = new ArrayList<ChiTietHoaDon>();
+		List<ChiTietHoaDon> listCT = new ArrayList<ChiTietHoaDon>();
 
 		try {
 			PreparedStatement pstm = conn.prepareStatement(
