@@ -6,6 +6,8 @@ import java.util.Objects;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import ultilities.RegexPattern;
 
@@ -17,6 +19,10 @@ import ultilities.RegexPattern;
  */
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "TheLoai.findByName", query = "SELECT tl FROM TheLoai tl WHERE tl.tenTheLoai = :name"),
+	@NamedQuery(name = "TheLoai.findByID", query = "SELECT tl FROM TheLoai tl WHERE tl.theLoaiID = :id"),
+})
 public class TheLoai {
 	@Id
 	@GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)

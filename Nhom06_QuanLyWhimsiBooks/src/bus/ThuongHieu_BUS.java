@@ -7,12 +7,16 @@ package bus;
 import dao.ThuongHieu_DAO;
 import entities.ThuongHieu;
 import interfaces.IThuongHieu;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
+
 import java.util.List;
 
 /**
  *
  * @author ASUS
  */
+
 public class ThuongHieu_BUS implements IThuongHieu{
 
     private ThuongHieu_DAO thuongHieu_DAO = new ThuongHieu_DAO();

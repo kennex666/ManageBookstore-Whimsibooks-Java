@@ -17,18 +17,19 @@ import ultilities.ErrorMessage;
 public class ConnectDB {
 	private static ConnectDB instance = new ConnectDB();
 	private static Connection conn = null;
-	private static EntityManager em;
+	private static EntityManager em = null;
 
 	public static void connect() {
 		try {
-			//String url = "jdbc:sqlserver://localhost:1433;databasename=" + EnviromentConfigs.DB_DATABASE +";trustServerCertificate=true";
-			//conn = DriverManager.getConnection(url, EnviromentConfigs.DB_USERNAME, EnviromentConfigs.DB_PASSWORD);
+			String url = "jdbc:sqlserver://localhost:1433;databasename=" + EnviromentConfigs.DB_DATABASE +";trustServerCertificate=true";
+			conn = DriverManager.getConnection(url, EnviromentConfigs.DB_USERNAME, EnviromentConfigs.DB_PASSWORD);
 			
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whimsibook-MSSQL-Production");
 			em = emf.createEntityManager();
 			
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -40,10 +41,10 @@ public class ConnectDB {
 		return em;
 	}
 
+	@Deprecated
 	public static Connection getConnection() {
             if (conn == null) {
-            	JOptionPane.showMessageDialog(null, "Kết nối cơ sở dữ liệu thất bại!!");
-            	System.exit(500);
+            	System.out.println("This function is dprecated, please use getEntityManager() instead");
             }
             return conn;
 	}

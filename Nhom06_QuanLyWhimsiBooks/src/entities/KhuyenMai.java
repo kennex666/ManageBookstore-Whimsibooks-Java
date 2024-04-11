@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -15,6 +16,7 @@ public class KhuyenMai {
 	@Id
 	private String codeKhuyenMai;
 	private String tenKhuyenMai;
+	@Column(name = "LoaiGiamGia")
 	private String loaiKhuyenMai; // PHAM_TRAM && GIA_TRI
 	private double giaTri;
 	private Date ngayKhuyenMai;

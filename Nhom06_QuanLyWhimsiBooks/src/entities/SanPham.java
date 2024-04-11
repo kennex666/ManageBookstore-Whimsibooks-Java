@@ -14,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedNativeQueries;
+import jakarta.persistence.NamedNativeQuery;
 import jakarta.persistence.NamedQueries;
 import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
@@ -22,9 +24,16 @@ import jakarta.persistence.OneToMany;
 @NamedQueries({
 	@NamedQuery(name = "SanPham.findAll", query = "SELECT sp FROM SanPham sp"),
 	@NamedQuery(name = "SanPham.findById", query = "SELECT sp FROM SanPham sp WHERE sp.sanPhamID = :id"),
+	@NamedQuery(name = "SanPham.findByIdAndBarcode", query = "SELECT sp FROM SanPham sp WHERE sp.sanPhamID = :id OR sp.barcode = :barcode"),
 	@NamedQuery(name = "SanPham.findByTenSanPham", query = "SELECT sp FROM SanPham sp WHERE sp.tenSanPham = :tenSanPham"),
 	@NamedQuery(name = "SanPham.findByTacGia", query = "SELECT sp FROM SanPham sp WHERE sp.tacGia = :tacGia"),
-	@NamedQuery(name= "SanPham.updateInfo", query = "UPDATE SanPham sp SET sp.tenSanPham = :tenSanPham, sp.soLuongTon = :soLuongTon, sp.namSanXuat = :namSanXuat, sp.soTrang = :soTrang, sp.ngayNhap = :ngayNhap, sp.giaNhap = :giaNhap, sp.thue = :thue, sp.loaiDoiTra = :loaiDoiTra, sp.barcode = :barcode, sp.imgPath = :imgPath, sp.tinhTrang = :tinhTrang, sp.loaiSanPham = :loaiSanPham, sp.donViDoLuong = :donViDoLuong, sp.kichThuoc = :kichThuoc, sp.xuatXu = :xuatXu, sp.ngonNgu = :ngonNgu, sp.loaiBia = :loaiBia, sp.tacGia = :tacGia, sp.theLoai = :theLoai, sp.nhaXuatBan = :nhaXuatBan, sp.thuongHieu = :thuongHieu, sp.danhMuc = :danhMuc, sp.nhaCungCap = :nhaCungCap WHERE sp.sanPhamID = :sanPhamID")
+	@NamedQuery(name= "SanPham.updateInfo", query = "UPDATE SanPham sp SET sp.tenSanPham = :tenSanPham, sp.soLuongTon = :soLuongTon, sp.namSanXuat = :namSanXuat, sp.soTrang = :soTrang, sp.ngayNhap = :ngayNhap, sp.giaNhap = :giaNhap, sp.thue = :thue, sp.loaiDoiTra = :loaiDoiTra, sp.barcode = :barcode, sp.imgPath = :imgPath, sp.tinhTrang = :tinhTrang, sp.loaiSanPham = :loaiSanPham, sp.donViDoLuong = :donViDoLuong, sp.kichThuoc = :kichThuoc, sp.xuatXu = :xuatXu, sp.ngonNgu = :ngonNgu, sp.loaiBia = :loaiBia, sp.tacGia = :tacGia, sp.theLoai = :theLoai, sp.nhaXuatBan = :nhaXuatBan, sp.thuongHieu = :thuongHieu, sp.danhMuc = :danhMuc, sp.nhaCungCap = :nhaCungCap WHERE sp.sanPhamID = :sanPhamID"),
+	@NamedQuery(name = "SanPham.getSanPhamSapHet", query = "SELECT sp FROM SanPham sp WHERE sp.soLuongTon < 11"),
+	@NamedQuery(
+			name = "SanPham.findByThuongHieuID", 
+	            query = "SELECT sp FROM SanPham sp WHERE sp.thuongHieu.thuongHieuID = :thuongHieuID")
+})
+@NamedNativeQueries({
 })
 public class SanPham {
 	@Id

@@ -15,7 +15,7 @@ import jakarta.persistence.ManyToOne;
 public class ChiTietKhuyenMai {
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "khuyenMaiId")
+	@JoinColumn(name = "CodeKhuyenMai")
 	private KhuyenMai khuyenMai;
 	
 	@Id

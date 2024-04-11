@@ -399,10 +399,7 @@ VALUES
     ('NV0002', 'nhanvien01', '123456', '2023-11-02', N'Nguyễn Lê Nhật Huy', 'NAM', '9876543210', 'NHAN_VIEN_BAN_HANG', 'huynguyen@gmail.com', '1985-05-20', '456 Elm St');
 
 
-
 -- Hoá Đơn
-USE [QuanLyNhaSachWhimsiBooks]
-GO
 INSERT [dbo].[HoaDon] ([HoaDonID], [CodeKhuyenMai], [KhachHangID], [NhanVienID], [NgayLapHoaDon], [TongTien], [TrangThai], [Thue], [GiaKhuyenMai]) VALUES (N'HD010123001', N'NO_APPLY', N'KH0002', N'NV0001', CAST(N'2023-01-01T08:35:05.597' AS DateTime), 2816520, N'DA_XU_LY', 0, 0)
 GO
 INSERT [dbo].[HoaDon] ([HoaDonID], [CodeKhuyenMai], [KhachHangID], [NhanVienID], [NgayLapHoaDon], [TongTien], [TrangThai], [Thue], [GiaKhuyenMai]) VALUES (N'HD010123002', N'NO_APPLY', N'KH0003', N'NV0001', CAST(N'2023-01-01T06:54:11.597' AS DateTime), 3100896, N'DA_XU_LY', 0, 0)
