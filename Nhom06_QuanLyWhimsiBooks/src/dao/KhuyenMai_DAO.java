@@ -18,110 +18,62 @@ import entities.KhuyenMai;
 import entities.NhanVien;
 import entities.SanPham;
 import interfaces.IKhuyenMai;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import ultilities.QueryBuilder;
 
 public class KhuyenMai_DAO implements IKhuyenMai {
 	private Connection conn;
+	private EntityManager em;
 
 	@Override
 	public List<KhuyenMai> getAllKhuyenMai() {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-		try {
-			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM KhuyenMai";
-			ResultSet rs = stm.executeQuery(query);
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-							rs.getInt("SoLuotDaApDung"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+		return em.createNamedQuery("KhuyenMai.getALL", KhuyenMai.class).getResultList();
 	}
 	
 	public List<KhuyenMai> getRecentKhuyenMai(int limit) {
-	    List<KhuyenMai> list = new ArrayList<>();
-	    try {
-	        String query = "SELECT TOP " + limit + " * FROM KhuyenMai ORDER BY NgayKhuyenMai DESC";
-	        Statement statement = conn.createStatement();
-	        ResultSet rs = statement.executeQuery(query);
-	        while (rs.next()) {
-	            try {
-	                KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-	                        rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-	                        rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-	                        rs.getInt("SoLuotDaApDung"));
-	                list.add(khuyenMai);
-	            } catch (Exception e) {
-	                e.printStackTrace();
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return list;
+	   return em.createNamedQuery("KhuyenMai.getRecentKhuyenMai", KhuyenMai.class).setMaxResults(limit).getResultList();
 	}
 	
-	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {;
-	String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
-	try {
-		Calendar calendar = Calendar.getInstance();
-		PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
-		preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
-		preparedStatement1.setInt(2, masanPham);
-		preparedStatement1.setString(3, makhuyenMai);
-		preparedStatement1.executeUpdate();
-		return true;
-	} catch (Exception e) {
-		e.printStackTrace();
-	}
-		return false;
+	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			KhuyenMai km = em.find(KhuyenMai.class, makhuyenMai);
+			SanPham sp = em.find(SanPham.class, masanPham);
+			ChiTietKhuyenMai ctkm = new ChiTietKhuyenMai(km, sp, Date.valueOf(LocalDate.now()));
+			em.persist(ctkm);
+			tx.commit();
+			return true;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+            tx.rollback();
+            return false;
+		}
 	}
 	
 	public boolean xoaSanPhamKhuyenMai(String makhuyenMai) {
-	    String deleteCTTKM = "DELETE FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
-	    try {
-	        PreparedStatement preparedStatement = conn.prepareStatement(deleteCTTKM);
-	        preparedStatement.setString(1, makhuyenMai);
-	        int soDongBiAnhHuong = preparedStatement.executeUpdate();
-
-	        if (soDongBiAnhHuong > 0) {
-	            return true;
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			em.createNamedQuery("KhuyenMai.xoaSanPhamKhuyenMai").setParameter("maKM", makhuyenMai).executeUpdate();
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+			return false;
+		}
 	}
 	
 	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
-		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
-					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
-					list.add(chiTietKhuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return em.createNamedQuery("KhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class).setParameter("maKM", maKM).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 
 	@Override
@@ -568,6 +520,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 
 }

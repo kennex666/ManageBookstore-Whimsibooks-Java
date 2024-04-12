@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +15,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "KhuyenMai.getALL", query = "SELECT km FROM KhuyenMai km"),
+	@NamedQuery(name = "KhuyenMai.getRecentKhuyenMai", query = "SELECT KM FROM KhuyenMai KM ORDER BY ngayKhuyenMai DESC"),
+	@NamedQuery(name = "KhuyenMai.xoaSanPhamKhuyenMai", query = "DELETE FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM"),
+	@NamedQuery(name = "KhuyenMai.getChiTietKhuyenMaiTheoMa", query = "SELECT ctkm FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM")
+})
 public class KhuyenMai {
 	@Id
 	private String codeKhuyenMai;
