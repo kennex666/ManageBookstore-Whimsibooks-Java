@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import entities.DanhMuc;
 import entities.ThuongHieu;
 import interfaces.IThuongHieu;
+import jakarta.persistence.EntityManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -23,29 +25,15 @@ import java.util.List;
 public class ThuongHieu_DAO implements IThuongHieu {
 
     private Connection conn;
+    private EntityManager em;
 
     @Override
     public List<ThuongHieu> getAllThuongHieu() {
         List<ThuongHieu> list = new ArrayList<ThuongHieu>();
         try {
-            Statement stm = conn.createStatement();
+            list = em.createNamedQuery("ThuongHieu.listThuongHieu").getResultList();
 
-            String query = "SELECT * FROM ThuongHieu";
-
-            ResultSet rs = stm.executeQuery(query);
-
-            while (rs.next()) {
-                try {
-                    ThuongHieu thuongHieu = new ThuongHieu(rs.getInt("thuongHieuID"), rs.getString("tenThuongHieu"));
-                    list.add(thuongHieu);
-                } catch (Exception e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    return list;
-                }
-            }
-
-        } catch (SQLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return list;
         }
@@ -60,13 +48,11 @@ public class ThuongHieu_DAO implements IThuongHieu {
 
     @Override
     public boolean addThuongHieu(ThuongHieu x) {
-        String tenTH = x.getTenThuongHieu();
-
-        String insert = "INSERT INTO ThuongHieu (TenThuongHieu) VALUES (?)";
+       
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, tenTH);
-            preparedStatement.executeUpdate();
+        	em.getTransaction().begin();
+            em.persist(x);
+            em.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -80,7 +66,7 @@ public class ThuongHieu_DAO implements IThuongHieu {
     }
 
     public ThuongHieu_DAO() {
-        conn = ConnectDB.getConnection();
+        em = ConnectDB.getEntityManager();
     }
 
 }

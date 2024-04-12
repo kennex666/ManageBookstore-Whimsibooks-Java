@@ -14,6 +14,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
+	@NamedQuery(name ="NhaXuatBan.findAll", query = "SELECT nxb FROM NhaXuatBan nxb"),
 	@NamedQuery(name = "NhaXuatBan.findByName", query = "SELECT nxb FROM NhaXuatBan nxb WHERE nxb.tenNhaXuatBan = :name"),
 	@NamedQuery(name = "NhaXuatBan.findByID", query = "SELECT nxb FROM NhaXuatBan nxb WHERE nxb.nhaXuatBanID = :id"),
 })
