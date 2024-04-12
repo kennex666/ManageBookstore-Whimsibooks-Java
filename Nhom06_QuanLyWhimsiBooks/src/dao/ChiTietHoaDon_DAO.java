@@ -25,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
-	private Connection conn;
 	private EntityManager em;
 	@Override
 	public boolean addMotChiTietCuaHoaDon(ChiTietHoaDon x) {

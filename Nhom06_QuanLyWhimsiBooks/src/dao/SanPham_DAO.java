@@ -30,7 +30,6 @@ import java.util.logging.Logger;
 
 public class SanPham_DAO implements ISanPham {
 	private final int LIMIT_RESULT = 100;
-	private Connection conn;
 	private EntityManager em;
 
 	// Lấy danh sách sản phẩm cho khuyến mãi

@@ -26,12 +26,10 @@ import ultilities.QueryBuilder;
 
 public class HoaDonTra_DAO implements IHoaDonTra {
 
-    private Connection conn;
     private EntityManager em;
     
     public HoaDonTra_DAO() {
         // TODO Auto-generated constructor stub
-        conn = ConnectDB.getConnection();
         em = ConnectDB.getEntityManager();
     }
 
