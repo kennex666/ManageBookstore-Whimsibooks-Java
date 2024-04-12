@@ -88,7 +88,10 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	@Override
 	public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
 		try {
-			return em.createNamedQuery("KhuyenMai.getKhuyenMaiByIDAndName", KhuyenMai.class).setParameter("maKM", maKhuyenMai).setParameter("tenKM", tenKM).getResultList();
+			return em.createNamedQuery("KhuyenMai.getKhuyenMaiByIDAndName", KhuyenMai.class)
+					.setParameter("maKM", maKhuyenMai)
+					.setParameter("tenKM", tenKM)
+					.getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -481,6 +484,26 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
+	}
+	@Override
+	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<SanPham> laySanPhamTheoMa(String txt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<SanPham> laySanPhamTheoTen(String txt) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

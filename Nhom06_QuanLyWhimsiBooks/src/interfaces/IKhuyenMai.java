@@ -28,5 +28,9 @@ public interface IKhuyenMai {
 	public boolean xoaSanPhamKhuyenMai(String makhuyenMai);
 	public List<KhuyenMai> getRecentKhuyenMai(int limit);
 	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK);
+	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK);
+	public List<SanPham> laySanPhamTheoMa(String txt);
+	public List<SanPham> laySanPhamTheoTen(String txt);
+	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai);
 }
 	

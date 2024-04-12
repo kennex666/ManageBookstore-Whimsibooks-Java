@@ -40,12 +40,13 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		this.sanPham_BUS = new SanPham_BUS();
 	}
 	
+	@Override
 	public List<SanPham> laySanPhamTheoMa(String txt) {
 		List<SanPham> list = new ArrayList<SanPham>();
 		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
-	
+	@Override
 	public List<SanPham> laySanPhamTheoTen(String txt) {
 		List<SanPham> list = new ArrayList<SanPham>();
 		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
@@ -59,11 +60,11 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return khuyenMai_DAO.getKhuyenMaiByIDAndName(maKhuyenMai, tenKM);
 	}
 	
+	@Override
 	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
 		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
 		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
 	}
-	
 	
 	
     public List<SanPham> laySanPhamDuocChon(JTable table) {
@@ -138,6 +139,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return list = null;
 	}
 	
+	@Override
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma,String loai) {
 		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		String queryTong = "SELECT * FROM KhuyenMai";
