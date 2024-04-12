@@ -17,6 +17,14 @@ import jakarta.persistence.OneToMany;
 	@NamedQuery(name = "KhachHang.getAllEmployees", query = "from KhachHang"),
 	@NamedQuery(name = "KhachHang.getKhachHangByID", query = "from KhachHang where khachHangID = :id"),
 	@NamedQuery(name = "KhachHang.getKhachHangTuMaVaSDT", query = "from KhachHang where khachHangID = :id or soDienThoai = :sdt"),
+	//SELECT COUNT(*) FROM KhachHang
+	@NamedQuery(name = "KhachHang.phatSinhMaKhachHang", query = "select count(*) from KhachHang"),
+	//SELECT COUNT(*) FROM KhachHang WHERE LoaiKhachHang = ?
+	@NamedQuery(name = "KhachHang.phatSinhMaSoThue", query = "select count(*) from KhachHang where loaiKhachHang = :loaiKhachHang"),
+	//"SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
+	@NamedQuery(name = "KhachHang.checkIfKhachHangExists", query = "select count(*) from KhachHang where khachHangID = :id"),
+	//UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?
+	@NamedQuery(name = "KhachHang.chuyenLoaiKhachHang", query = "update KhachHang set loaiKhachHang = :loaiKhachHang where khachHangID = :id"),
 })
 public class KhachHang {
 	@Id

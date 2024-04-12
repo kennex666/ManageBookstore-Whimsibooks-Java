@@ -168,12 +168,9 @@ public class KhachHang_DAO implements IKhachHang {
 
 	public int phatSinhMaKhachHang() {
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhachHang");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getInt(1) + 1;
+			return em.createNamedQuery("KhachHang.phatSinhMaKhachHang", Integer.class).getSingleResult() + 1;
 		} catch (Exception e) {
-			System.out.println("Lỗi phát sinh mã bên DAO");
+			e.printStackTrace();
 			return 0;
 		}
 	}
@@ -181,12 +178,8 @@ public class KhachHang_DAO implements IKhachHang {
 	public String phatSinhMaSoThue(String loaiKhachHang) {
 		try {
 			// Lấy số lượng khách hàng của loại đã cho
-			String query = "SELECT COUNT(*) FROM KhachHang WHERE LoaiKhachHang = ?";
-			PreparedStatement ps = conn.prepareStatement(query);
-			ps.setString(1, loaiKhachHang);
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			int count = rs.getInt(1);
+			int count = em.createNamedQuery("KhachHang.phatSinhMaSoThue", Integer.class)
+                    .setParameter("loaiKhachHang", loaiKhachHang).getSingleResult();
 
 			// Phát sinh mã số thuế dựa trên loại khách hàng
 			String prefix = (loaiKhachHang.equalsIgnoreCase("Cá nhân")) ? "TKH0" : "TKH1";
@@ -198,40 +191,55 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 
 	public boolean checkIfKhachHangExists(String maKH) {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-		ResultSet resultSet = null;
-
+//		Connection connection = null;
+//		PreparedStatement preparedStatement = null;
+//		ResultSet resultSet = null;
+//
+//		try {
+//
+//			String query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
+//			preparedStatement = conn.prepareStatement(query);
+//			preparedStatement.setString(1, maKH);
+//			resultSet = preparedStatement.executeQuery();
+//
+//			if (resultSet.next()) {
+//				int count = resultSet.getInt(1);
+//				System.out.println(resultSet.getInt(1));
+//				return count > 0;
+//
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//		return false;
 		try {
-
-			String query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
-			preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setString(1, maKH);
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.next()) {
-				int count = resultSet.getInt(1);
-				System.out.println(resultSet.getInt(1));
-				return count > 0;
-
-			}
-
-		} catch (SQLException e) {
+			return em.createNamedQuery("KhachHang.checkIfKhachHangExists", Integer.class).setParameter("id", maKH)
+					.getSingleResult() > 0;
+		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
-		String query = "UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?";
+//		String query = "UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?";
+//		try {
+//			PreparedStatement pstmt = conn.prepareStatement(query);
+//			pstmt.setString(1, loaiKhachHangMoi);
+//			pstmt.setString(2, maKhachHang);
+//
+//			int rowsAffected = pstmt.executeUpdate();
+//			return rowsAffected > 0;
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//			return false;
+//		}
+		EntityTransaction tx = em.getTransaction();
 		try {
-			PreparedStatement pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, loaiKhachHangMoi);
-			pstmt.setString(2, maKhachHang);
-
-			int rowsAffected = pstmt.executeUpdate();
-			return rowsAffected > 0;
-		} catch (SQLException e) {
+			return em.createNamedQuery("KhachHang.chuyenLoaiKhachHang")
+					.setParameter("loaiKhachHang", loaiKhachHangMoi).setParameter("id", maKhachHang).executeUpdate() > 0;
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
