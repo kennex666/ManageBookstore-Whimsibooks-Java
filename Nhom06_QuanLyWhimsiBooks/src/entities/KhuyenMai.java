@@ -19,7 +19,9 @@ import jakarta.persistence.OneToMany;
 	@NamedQuery(name = "KhuyenMai.getALL", query = "SELECT km FROM KhuyenMai km"),
 	@NamedQuery(name = "KhuyenMai.getRecentKhuyenMai", query = "SELECT KM FROM KhuyenMai KM ORDER BY ngayKhuyenMai DESC"),
 	@NamedQuery(name = "KhuyenMai.xoaSanPhamKhuyenMai", query = "DELETE FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM"),
-	@NamedQuery(name = "KhuyenMai.getChiTietKhuyenMaiTheoMa", query = "SELECT ctkm FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM")
+	@NamedQuery(name = "KhuyenMai.getChiTietKhuyenMaiTheoMa", query = "SELECT ctkm FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM"),
+	//"Select * from KhuyenMai WHERE CodeKhuyenMai like '%" + maKhuyenMai + "%'";
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiByID", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai like CONCAT('%', :maKM, '%')")
 })
 public class KhuyenMai {
 	@Id

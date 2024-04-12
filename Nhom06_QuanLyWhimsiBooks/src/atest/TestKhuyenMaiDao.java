@@ -11,5 +11,6 @@ public class TestKhuyenMaiDao {
 //		System.out.println(khuyenMai_DAO.getRecentKhuyenMai(2));
 //		khuyenMai_DAO.xoaSanPhamKhuyenMai("KM0001");
 //		System.out.println(khuyenMai_DAO.getChiTietKhuyenMaiTheoMa("APPLY_PRODUCT_ONE"));
+//		System.out.println(khuyenMai_DAO.getKhuyenMaiByID("Voucher"));
 	}
 }

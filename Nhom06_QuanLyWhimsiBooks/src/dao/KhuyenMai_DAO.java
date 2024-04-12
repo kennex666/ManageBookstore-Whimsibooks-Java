@@ -30,11 +30,11 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	public List<KhuyenMai> getAllKhuyenMai() {
 		return em.createNamedQuery("KhuyenMai.getALL", KhuyenMai.class).getResultList();
 	}
-	
+	@Override
 	public List<KhuyenMai> getRecentKhuyenMai(int limit) {
 	   return em.createNamedQuery("KhuyenMai.getRecentKhuyenMai", KhuyenMai.class).setMaxResults(limit).getResultList();
 	}
-	
+	@Override
 	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {
 		EntityTransaction tx = em.getTransaction();
 		try {
@@ -52,7 +52,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
             return false;
 		}
 	}
-	
+	@Override
 	public boolean xoaSanPhamKhuyenMai(String makhuyenMai) {
 		EntityTransaction tx = em.getTransaction();
 		try {
@@ -66,7 +66,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 			return false;
 		}
 	}
-	
+	@Override
 	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
 		try {
 			return em.createNamedQuery("KhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class).setParameter("maKM", maKM).getResultList();
@@ -78,26 +78,12 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	@Override
 	public List<KhuyenMai> getKhuyenMaiByID(String maKhuyenMai) {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		try {
-			Statement stm = conn.createStatement();
-			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%" + maKhuyenMai + "%'";
-			ResultSet rs = stm.executeQuery(query);
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-							rs.getInt("SoLuotDaApDung"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return em.createNamedQuery("KhuyenMai.getKhuyenMaiByID", KhuyenMai.class).setParameter("maKM", maKhuyenMai).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 
 	public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
