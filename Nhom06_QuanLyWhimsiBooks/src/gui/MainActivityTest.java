@@ -14,7 +14,7 @@ public class MainActivityTest {
 			UIManager.setLookAndFeel(new FlatIntelliJLaf());
 		} catch (UnsupportedLookAndFeelException e) {
 		}
-        ConnectDB.getInstance().connect();
+        ConnectDB.connect();
                 
          CurrentSession.getInstance();
          GUI_MainMenu gui_Main = new GUI_MainMenu();

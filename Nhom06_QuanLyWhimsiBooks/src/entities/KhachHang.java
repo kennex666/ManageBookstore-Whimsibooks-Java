@@ -68,8 +68,7 @@ public class KhachHang {
 	}
 
 	public void setHoTen(String hoTen) throws Exception {
-		if (hoTen.trim() == "" || hoTen.isBlank() || hoTen.isEmpty())
-			throw new Exception("Tên khách hàng là trường bắt buộc!");
+	
 		this.hoTen = hoTen;
 	}
 

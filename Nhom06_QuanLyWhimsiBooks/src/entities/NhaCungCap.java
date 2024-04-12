@@ -5,9 +5,15 @@ import java.util.Objects;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "NhaCungCap.findByName", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.tenNhaCungCap = :name"),
+	@NamedQuery(name = "NhaCungCap.findByID", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.nhaCungCapID = :id"),
+})
 public class NhaCungCap {
 	@Id
 	private String nhaCungCapID;

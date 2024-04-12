@@ -6,5 +6,5 @@ public class EnviromentConfigs {
 	public static String STMP_PASSWORD = "kzajurlogrczcavb";
 	public static String DB_USERNAME = "sa";
 	public static String DB_PASSWORD = "sapassword";
-	public static String DB_DATABASE = "QuanLyNhaSachWhimsiBooks";
+	public static String DB_DATABASE = "WhimsiBook";
 }

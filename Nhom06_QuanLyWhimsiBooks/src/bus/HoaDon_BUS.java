@@ -24,7 +24,7 @@ public class HoaDon_BUS implements IHoaDon{
             if (x.getHoaDonID() != null){
                 if (!x.getHoaDonID().isBlank()){
                     for (ChiTietHoaDon y : x.getListChiTietHoaDon())
-                    y.setHoaDon(x);
+                    	y.setHoaDon(x);
                     return hoaDon_DAO.updateHoaDon(x);
                 }
             }
@@ -32,7 +32,7 @@ public class HoaDon_BUS implements IHoaDon{
             String hdID = generateHoaDonID();
             x.setHoaDonID(hdID);
             for (ChiTietHoaDon y : x.getListChiTietHoaDon())
-		y.setHoaDon(x);
+            	y.setHoaDon(x);
             return hoaDon_DAO.createHoaDon(x);
 	}
 

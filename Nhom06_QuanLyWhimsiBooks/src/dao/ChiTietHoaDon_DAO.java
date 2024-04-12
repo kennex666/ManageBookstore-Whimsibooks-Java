@@ -19,24 +19,27 @@ import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.IChiTietHoaDon;
 import interfaces.IChiTietTraHang;
+import jakarta.persistence.EntityManager;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 	private Connection conn;
+	private EntityManager em;
 	@Override
 	public boolean addMotChiTietCuaHoaDon(ChiTietHoaDon x) {
 		// TODO Auto-generated method stub
-		try {
-			PreparedStatement pstm = conn.prepareStatement(
-				"INSERT INTO ChiTietHoaDon(hoaDonID,sanPhamID,soLuong,donGia)VALUES(?,?,?,?)"
-			);
+        boolean isThisSession = em.getTransaction().isActive();
 
-			pstm.setString(1, x.getHoaDon().getHoaDonID());
-			pstm.setInt(2, x.getSanPham().getSanPhamID());
-			pstm.setInt(3, x.getSoLuong());
-			pstm.setDouble(4, x.getSanPham().getGiaBan());
-			pstm.executeUpdate();
+		try {
+        	if (isThisSession == false)
+        		em.getTransaction().begin();
+				x.setDonGia(x.getSanPham().getGiaBan());
+				em.persist(x);
+				
+            if (isThisSession == false)
+				em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -46,29 +49,31 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 	}
 	@Override
 	public boolean addNhieuChiTietCuaMotHoaDon(List<ChiTietHoaDon> x) {
-            
+            boolean isThisSession = em.getTransaction().isActive();
             // Xoá chi tiết hoá đơn cũ để cập nhật lại
             if (x.size() < 1)
                 return true;
             try {
                 // TODO Auto-generated method stub
-                PreparedStatement pstm = conn.prepareStatement(
-                        "DELETE FROM ChiTietHoaDon WHERE HoaDonID = ?"
-                );
-                
-                pstm.setString(1, x.get(0).getHoaDon().getHoaDonID());
-                
-                pstm.executeUpdate();
-                
+            	if (isThisSession == false)
+            		em.getTransaction().begin();
+				em.createNamedQuery("ChiTietHoaDon.deleteAllByHoaDonID")
+				.setParameter("hoaDonID", x.get(0).getHoaDon().getHoaDonID()) .executeUpdate();
+				for (ChiTietHoaDon y : x) {
+					if (!addMotChiTietCuaHoaDon(y))
+						return false;
+				}
+
+            if (isThisSession == false)
+				em.getTransaction().commit();
             } catch (Exception ex) {
                 ex.printStackTrace();
+                em.getTransaction().rollback();
+                return false;
             }
             
             // Cập nhật chi tiết hoá đơn mới
-		for (ChiTietHoaDon y : x) {
-			if (!addMotChiTietCuaHoaDon(y))
-				return false;
-		}
+	
 		return true;
 	}
 	@Override
@@ -77,64 +82,9 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 		List<ChiTietHoaDon> listCT = new ArrayList<ChiTietHoaDon>();
 
 		try {
-			PreparedStatement pstm = conn.prepareStatement(
-				"SELECT * FROM ChiTietHoaDon cthd JOIN SanPham sp ON cthd.SanPhamID = sp.SanPhamID WHERE HoaDonID = ?"
-			);
 
-			pstm.setString(1, maHoaDon);
-			
-			ResultSet rs = pstm.executeQuery();
-			
-			while (rs.next()) {
-				TacGia tg = new TacGia();
-				NhaCungCap ncc = new NhaCungCap();
-				TheLoai tl = new TheLoai();
-				NhaXuatBan nxb = new NhaXuatBan();
-				DanhMuc dm = new DanhMuc();
-				ThuongHieu th = new ThuongHieu();
-				int sanphamid = rs.getInt("sanphamid");
-				int soLuongTon = rs.getInt("soluongton");
-				int namsx = rs.getInt("namsanxuat"); 
-				int sotrang = rs.getInt("sotrang"); 
-				Date ngaynhap =  rs.getDate("ngaynhap"); 
-				double gianhap = rs.getDouble("gianhap"); 
-				double thue = rs.getDouble("thue"); 
-				String tensanpham = rs.getString("tensanpham"); 
-				String loaidoitra = rs.getString("loaidoitra");
-				String barcode = rs.getString("barcode"); 
-				String img = rs.getString("imgpath"); 
-				String tinhtrang = rs.getString("tinhtrang"); 
-				String loaisanpham = rs.getString("loaisanpham"); 
-				String donvidoluong = rs.getString("donvidoluong"); 
-				String kichthuoc = rs.getString("kichthuoc"); 
-				String xuatxu = rs.getString("xuatxu"); 
-				String ngongu = rs.getString("ngonngu"); 
-				String loaibia = rs.getString("loaibia"); 
-				
-				int tacgiaid = rs.getInt("tacgiaid"); 
-				int theloaiid = rs.getInt("theloaiid"); 
-				int nhaxuatbanid = rs.getInt("nhaxuatbanid"); 
-				int thuonghieuid = rs.getInt("thuonghieuid"); 
-				int danhmucid = rs.getInt("danhmucid"); 
-				String nhacungcapid = rs.getString("nhacungcapid");
-				
-				tg.setTacGiaID(tacgiaid);
-				tl.setTheLoaiID(theloaiid);
-				nxb.setNhaXuatBanID(nhaxuatbanid);
-				th.setThuongHieuID(thuonghieuid);
-				dm.setDanhMucID(danhmucid);
-				ncc.setNhaCungCapID(nhacungcapid);
-				
-				SanPham sanPham = new SanPham(sanphamid, soLuongTon, namsx, 
-						 sotrang, ngaynhap, gianhap, thue, tensanpham, 
-						loaidoitra, barcode, img, tinhtrang, loaisanpham, donvidoluong, 
-						kichthuoc, xuatxu, ngongu, loaibia,
-						tg, tl, nxb, th, dm, ncc);
-				ChiTietHoaDon cthd = new ChiTietHoaDon(sanPham,
-						rs.getInt("soLuong"));
-				cthd.setDonGia(rs.getDouble("donGia"));
-				listCT.add(cthd);
-			}
+			listCT = em.createNamedQuery("ChiTietHoaDon.findAllByHoaDonID", ChiTietHoaDon.class)
+					.setParameter("hoaDonID", maHoaDon).getResultList();
 			
 			return listCT;
 		} catch (Exception e) {
@@ -151,7 +101,7 @@ public class ChiTietHoaDon_DAO implements IChiTietHoaDon {
 	
 	public ChiTietHoaDon_DAO() {
 		// TODO Auto-generated constructor stub
-		conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 
 }

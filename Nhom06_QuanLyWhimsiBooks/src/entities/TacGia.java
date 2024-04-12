@@ -8,10 +8,16 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import ultilities.RegexPattern;
 
 @Entity
+@NamedQueries({ 
+	@NamedQuery(name = "TacGia.findByName", query = "SELECT tg FROM TacGia tg WHERE tg.tenTacGia = :name"),
+	@NamedQuery(name = "TacGia.findByID", query = "SELECT tg FROM TacGia tg WHERE tg.tacGiaID = :id"),
+})
 public class TacGia {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -7,8 +7,16 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "ChiTietTraHang.deleteAllByHoaDonID", 
+            query = "DELETE FROM ChiTietTraHang cthd WHERE cthd.hoaDon.hoaDonID = :hoaDonID"),
+    @NamedQuery(name = "ChiTietTraHang.findAllByHoaDonID",
+            query = "SELECT cthd FROM ChiTietTraHang cthd WHERE cthd.hoaDon.hoaDonID = :hoaDonID")
+})
 public class ChiTietTraHang {
 	private int soLuong;
 	private String liDoTraHang;

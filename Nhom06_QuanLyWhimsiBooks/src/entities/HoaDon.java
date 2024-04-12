@@ -2,6 +2,7 @@ package entities;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Objects;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,9 +14,31 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "HoaDon.findAll", query = "SELECT hd FROM HoaDon hd"
+			+ " WHERE YEAR(hd.ngayLapHoaDon) = YEAR(CURRENT_DATE()) AND "
+			+ "MONTH(hd.ngayLapHoaDon) = MONTH(CURRENT_DATE()) AND "
+			+ "DAY(hd.ngayLapHoaDon) = DAY(CURRENT_DATE()) ORDER BY hd.ngayLapHoaDon DESC"),
+	@NamedQuery(name = "HoaDon.findAllByDate", query = "SELECT hd FROM HoaDon hd WHERE hd.ngayLapHoaDon BETWEEN :batDau AND :ketThuc ORDER BY hd.ngayLapHoaDon DESC"),
+	@NamedQuery(name = "HoaDon.findAllByDateAndIsProccess", query = "SELECT hd FROM HoaDon hd WHERE hd.ngayLapHoaDon BETWEEN :batDau AND :ketThuc AND hd.trangThai = 'DA_XU_LY' ORDER BY hd.ngayLapHoaDon DESC"),
+	@NamedQuery(name = "HoaDon.findById", query = "SELECT hd FROM HoaDon hd WHERE hd.hoaDonID = :hoaDonID"),
+	@NamedQuery(name = "HoaDon.ThongKeDoanhThu", query =  "SELECT sp.id, sp.barcode, sp.tenSanPham, sp.soLuongTon, SUM(cthd.soLuong) AS daBan, "
+	                + "SUM(cthd.soLuong * cthd.donGia) AS tongDoanhThu, "
+	                + "SUM(cthd.soLuong * sp.giaNhap) AS tongVon "
+	                + "FROM SanPham sp "
+	                + "JOIN sp.chiTietHoaDons cthd "
+	                + "JOIN cthd.hoaDon hd "
+	                + "WHERE hd.ngayLapHoaDon BETWEEN :batDau AND :ketThuc AND hd.trangThai = :trangThai "
+	                + "GROUP BY sp.id, sp.barcode, sp.tenSanPham, sp.soLuongTon, sp.giaNhap "
+	                + "ORDER BY daBan DESC", resultClass = Object[].class),
+	@NamedQuery(name = "HoaDon.countToday", query = "SELECT COUNT(hd) FROM HoaDon hd WHERE YEAR(hd.ngayLapHoaDon) = YEAR(CURRENT_DATE) AND "
+	            + "MONTH(hd.ngayLapHoaDon) = MONTH(CURRENT_DATE) AND DAY(hd.ngayLapHoaDon) = DAY(CURRENT_DATE)", resultClass = Long.class)
+})
 public class HoaDon {
 	@Id
 	private String hoaDonID;
@@ -24,6 +47,7 @@ public class HoaDon {
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hoaDon")
 	private List<ChiTietHoaDon> listChiTietHoaDon;
+	
 	private double tongTien, thue, giaKhuyenMai;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -53,6 +77,7 @@ public class HoaDon {
 	public HoaDon(String hoaDonID) {
 		super();
 		this.hoaDonID = hoaDonID;
+		listChiTietHoaDon = new ArrayList<ChiTietHoaDon>();
 	}
 
 	public HoaDon(String hoaDonID, Date ngayLapHoaDon, String trangThai, List<ChiTietHoaDon> listChiTietHoaDon,
@@ -288,6 +313,23 @@ public class HoaDon {
 		Object[] obj = { 0, getHoaDonID(), khachHang.getHoTen(), nhanVien.getHoTen(), dtf.format(ngayLapHoaDon),
 				getTrangThaiHoaDonString(), getTongTien() };
 		return obj;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hoaDonID);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		HoaDon other = (HoaDon) obj;
+		return Objects.equals(hoaDonID, other.hoaDonID);
 	}
 
 	@Override

@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 /**
@@ -16,6 +18,10 @@ import jakarta.persistence.OneToMany;
  *
  */
 
+@NamedQueries({ 
+	@NamedQuery(name = "DanhMuc.findByName", query = "SELECT dm FROM DanhMuc dm WHERE dm.tenDanhMuc = :name"),
+	@NamedQuery(name = "DanhMuc.findByID", query = "SELECT dm FROM DanhMuc dm WHERE dm.danhMucID = :id"),
+})
 @Entity
 public class DanhMuc {
 	@Id
