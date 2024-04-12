@@ -85,40 +85,14 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 			return null;
 		}
 	}
-
+	@Override
 	public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM) {
-	    List<KhuyenMai> list = new ArrayList<>();
-
-	    String query = "SELECT * FROM KhuyenMai WHERE CodeKhuyenMai LIKE ? OR TenKhuyenMai LIKE ?";
-
-	    try (PreparedStatement pst = conn.prepareStatement(query)) {
-	        pst.setString(1, "%" + maKhuyenMai + "%");
-	        pst.setString(2, "%" + tenKM + "%");
-
-	        try (ResultSet rs = pst.executeQuery()) {
-	            while (rs.next()) {
-	                try {
-	                    KhuyenMai khuyenMai = new KhuyenMai(
-	                            rs.getString("CodeKhuyenMai"),
-	                            rs.getString("TenKhuyenMai"),
-	                            rs.getString("LoaiGiamGia"),
-	                            rs.getDouble("GiaTri"),
-	                            rs.getDate("NgayKhuyenMai"),
-	                            rs.getDate("NgayHetHanKM"),
-	                            rs.getDouble("DonHangTu"),
-	                            rs.getInt("SoLuongKhuyenMai"),
-	                            rs.getInt("SoLuotDaApDung")
-	                    );
-	                    list.add(khuyenMai);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return list;
+		try {
+			return em.createNamedQuery("KhuyenMai.getKhuyenMaiByIDAndName", KhuyenMai.class).setParameter("maKM", maKhuyenMai).setParameter("tenKM", tenKM).getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public List<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
