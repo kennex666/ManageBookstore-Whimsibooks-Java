@@ -15,67 +15,32 @@ import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
 import interfaces.IChiTietKhuyenMai;
+import jakarta.persistence.EntityManager;
 
 public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	private Connection conn;
+	private EntityManager em;
 
 	@Override
 	public List<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
-		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
-		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("SanPhamSanPhamID"));
-					SanPham sanPham = new SanPham(rs.getInt("KhuyenMaiCodeKhuyenMai"));
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
-					list.add(chiTietKhuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+		return em.createNamedQuery("ChiTietKhuyenMai.findAll", ChiTietKhuyenMai.class).getResultList();
 	}
 	
 	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
-		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
-					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
-					list.add(chiTietKhuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return em.createNamedQuery("ChiTietKhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class).setParameter("maKM", maKM).getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 	
 	public Date getNgayTao(String maKM) {
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
-			ResultSet rs = stm.executeQuery(query);	
-	        if (rs.next()) {
-	            return rs.getDate("NgayTao");
-	        }
+			return em.createNamedQuery("ChiTietKhuyenMai.getNgayTao", ChiTietKhuyenMai.class).setParameter("maKM", maKM)
+					.getSingleResult().getNgayTao();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, List<SanPham> danhSachSPKM) {
@@ -124,5 +89,6 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 
 	public ChiTietKhuyenMai_DAO() {
 		conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 }
