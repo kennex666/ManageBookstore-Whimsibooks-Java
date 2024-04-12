@@ -14,6 +14,7 @@ import ultilities.ColorProcessing;
 import ultilities.CurrentSession;
 import ultilities.ErrorMessage;
 import ultilities.Numberic;
+import entities.ChiTietHoaDon;
 import entities.ChiTietTraHang;
 import entities.HoaDon;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,8 @@ import javax.swing.JRootPane;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+
+import com.itextpdf.text.io.TempFileCache;
 
 /**
  *
@@ -371,6 +374,8 @@ public class Form_TraHang extends javax.swing.JFrame {
 
     private void btnThanhToanHoanTatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThanhToanHoanTatActionPerformed
         // TODO add your handling code here:
+    	
+    	HoaDon temp = new HoaDon();
     	hoaDon_BUS.cancelHoaDon(hoaDon);
         
         hoaDonTra.setNgayTraHoaDon(new Date());
@@ -391,8 +396,32 @@ public class Form_TraHang extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Đã xảy ra lỗi khi thêm chi tiết trả hàng.");
             return;
         }
+
+
+        // Copy all properties
+        temp.setGiaKhuyenMai(hoaDon.getGiaKhuyenMai());
+        temp.setKhuyenMai(hoaDon.getKhuyenMai());
+        temp.setKhachHang(hoaDon.getKhachHang());
+        temp.setNhanVien(hoaDon.getNhanVien());
+        temp.setTrangThai(hoaDon.getTrangThai());
+        temp.setTongTien(hoaDon.getTongTien());
+        temp.setThue(hoaDon.getThue());
+        
+        List<ChiTietHoaDon> tempNewCTHD = new ArrayList<>();
+		for (ChiTietHoaDon cthd : temp.getListChiTietHoaDon()) {
+			tempNewCTHD.add(new ChiTietHoaDon(cthd.getSanPham(), cthd.getSoLuong(), temp));
+		}
+		
+		temp.setListChiTietHoaDon(tempNewCTHD);
+        
+        //Destruct Obj
+        hoaDon = null;
+        
+        hoaDon = temp;
         
         if (hoaDon.getListChiTietHoaDon().size() > 0) {
+        	
+        	
         	hoaDon.setHoaDonID(null);
         	
         	hoaDon.setTrangThai("DA_XU_LY");

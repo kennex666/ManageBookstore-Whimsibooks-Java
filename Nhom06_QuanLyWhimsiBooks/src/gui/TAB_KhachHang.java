@@ -616,7 +616,6 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 	}
 
 	private void loadKhachHangTable() {
-		ConnectDB.connect();
 		DefaultTableModel model = (DefaultTableModel) tblKhachHang.getModel();
 		model.setRowCount(0);
 		KhachHang_BUS khachHangBus = new KhachHang_BUS();

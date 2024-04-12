@@ -146,6 +146,8 @@ public class QueryBuilder {
 	/**
 	 * Truyền vào <b> conditionAll </b> là một phép toán tử giữa các param như
 	 * <b>AND, OR</b>
+	 * 
+	 * Trả về câu Query gồm giá trị được thay thế vào (Lưu ý: Dễ bị SQL Injection)
 	 */
 	public Object[] generateQueryWithValue(String conditionsAll) {
 		SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
@@ -224,7 +226,6 @@ public class QueryBuilder {
 			else {
 				tempQuery = tempQuery.replace("?", "");
 			}
-			System.err.println(tempQuery);
 			Object[] obj = { numParamsQuery, tempQuery };
 			return obj;
 		} catch (Exception e) {
