@@ -13,5 +13,7 @@ public class TestKhuyenMaiDao {
 //		System.out.println(khuyenMai_DAO.getChiTietKhuyenMaiTheoMa("APPLY_PRODUCT_ONE"));
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiByID("Voucher"));
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiByIDAndName("A", "S"));
+//		System.out.println(khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien("SELECT km FROM KhuyenMai km WHERE km.loaiGiamGia = 'Percentage'"));
+		System.out.println(khuyenMai_DAO.TimKiemTheoLoai("Percentage"));
 	}
 }

@@ -104,25 +104,32 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	public List<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
+//		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
+//		try {
+//			Statement stm = conn.createStatement();
+//			ResultSet rs = stm.executeQuery(query);
+//			while (rs.next()) {
+//				try {
+//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
+//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
+//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
+//							rs.getInt("SoLuotDaApDung"));
+//					list.add(khuyenMai);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
 		try {
-			Statement stm = conn.createStatement();
-			ResultSet rs = stm.executeQuery(query);
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-							rs.getInt("SoLuotDaApDung"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return em.createQuery(query, KhuyenMai.class).getResultList();
 		} catch (Exception e) {
+			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 	
 	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
@@ -494,7 +501,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	
 	@Override
 	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
-		String query = "Select km from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
+		String query = "Select km from KhuyenMai WHERE tenKhuyenMai = '"+tenSK+"'";
 		return TimKiemKhuyenMaiTheoDieuKien(query);
 	}
 	@Override
@@ -511,16 +518,47 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 	@Override
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai) {
-		// TODO Auto-generated method stub
-		return null;
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
+		String queryTong = "FROM KhuyenMai";
+		String queryma = "Select km from KhuyenMai km WHERE codeKhuyenMai like '%"+ma+"%'";
+		String querymagt = "Select km from KhuyenMai km WHERE codeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Fixed'";
+		String querymapt = "Select km from KhuyenMai km WHERE codeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Percentage'";
+		String queryPhanTram = "Select km from KhuyenMai km WHERE km.loaiKhuyenMai = 'Percentage'";
+		String queryGiaTri = "Select km from KhuyenMai km WHERE km.loaiKhuyenMai = 'Fixed'";
+		if(ma.length() > 0) {
+			switch (loai) {
+		    case "Tất cả":
+		        break;
+		    case "Giá trị":
+		        list = TimKiemKhuyenMaiTheoDieuKien(querymagt);
+		        break;
+		    case "Phần trăm":
+		        list = TimKiemKhuyenMaiTheoDieuKien(querymapt);
+		        break;
+			}
+		}
+		else if(ma.length() <= 0) {
+			switch (loai) {
+		    case "Tất cả":
+		    	list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
+		        break;
+		    case "Giá trị":
+		    	list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
+		        break;
+		    case "Phần trăm":
+		    	list = TimKiemKhuyenMaiTheoDieuKien(queryGiaTri);
+		        break;
+			}
+		}
+		return list;
 	}
 	@Override
 	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc) {
 		// TODO Auto-generated method stub
 		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
 		String queryTong = "FROM KhuyenMai";
-		String queryPhanTram = "SELECT km FROM KhuyenMai km WHERE LoaiGiamGia = 'Percentage'";
-		String queryGiaTri = "SELECT km FROM KhuyenMai km WHERE LoaiGiamGia = 'Fixed'";
+		String queryPhanTram = "SELECT km FROM KhuyenMai km WHERE km.loaiKhuyenMai = 'PHAN_TRAM'";
+		String queryGiaTri = "SELECT km FROM KhuyenMai km WHERE km.loaiKhuyenMai = 'GIA_TRI'";
 		if(hinhThuc.equals("ALL")) {
 			return list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
 		}

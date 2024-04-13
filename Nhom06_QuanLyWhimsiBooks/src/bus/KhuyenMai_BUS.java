@@ -123,40 +123,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	
 	@Override
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma,String loai) {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-		String queryTong = "SELECT * FROM KhuyenMai";
-		String queryma = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%'";
-		String querymagt = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Fixed'";
-		String querymapt = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Percentage'";
-		String queryPhanTram = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Percentage'";
-		String queryGiaTri = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Fixed'";
-		if(ma.length() > 0) {
-			switch (loai) {
-		    case "Tất cả":
-		        list = TimKiemKhuyenMaiTheoDieuKien(queryma);
-		        break;
-		    case "Giá trị":
-		        list = TimKiemKhuyenMaiTheoDieuKien(querymagt);
-		        break;
-		    case "Phần trăm":
-		        list = TimKiemKhuyenMaiTheoDieuKien(querymapt);
-		        break;
-			}
-		}
-		else if(ma.length() <= 0) {
-			switch (loai) {
-		    case "Tất cả":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
-		        break;
-		    case "Giá trị":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
-		        break;
-		    case "Phần trăm":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryGiaTri);
-		        break;
-			}
-		}
-		return list;
+		return khuyenMai_DAO.TimKiemTheoDieuKien(ma, loai);
 	}
         
         @Override
