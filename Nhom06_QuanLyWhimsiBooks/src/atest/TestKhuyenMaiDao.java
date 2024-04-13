@@ -1,5 +1,8 @@
 package atest;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 import connectDB.ConnectDB;
 import dao.KhuyenMai_DAO;
 
@@ -16,6 +19,7 @@ public class TestKhuyenMaiDao {
 //		System.out.println(khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien("SELECT km FROM KhuyenMai km WHERE km.loaiGiamGia = 'Percentage'"));
 //		System.out.println(khuyenMai_DAO.TimKiemTheoLoai("Percentage"));
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiTheoTen1("Spring Sale"));
-		System.out.println(khuyenMai_DAO.SapXepKhuyenMaiTheoGiaTri("A"));
+//		System.out.println(khuyenMai_DAO.SapXepKhuyenMaiTheoGiaTri("A"));
+//		System.out.println(khuyenMai_DAO.getKhuyenMaiFollowDay(Date.valueOf(LocalDate.of(2021, 5, 1)), Date.valueOf(LocalDate.of(2025, 5, 3))));
 	}
 }

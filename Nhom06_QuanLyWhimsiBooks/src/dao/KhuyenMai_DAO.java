@@ -274,36 +274,54 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	
 	@Override
 	public boolean deleteKhuyenMai(String codeKhuyenMai) {
-	    String delete = "DELETE FROM KhuyenMai WHERE CodeKhuyenMai = ?";
-	    try {
-	        PreparedStatement preparedStatement = conn.prepareStatement(delete);
-	        preparedStatement.setString(1, codeKhuyenMai);
-	        return (preparedStatement.executeUpdate() > 0);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return false;
+//	    String delete = "DELETE FROM KhuyenMai WHERE CodeKhuyenMai = ?";
+//	    try {
+//	        PreparedStatement preparedStatement = conn.prepareStatement(delete);
+//	        preparedStatement.setString(1, codeKhuyenMai);
+//	        return (preparedStatement.executeUpdate() > 0);
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	    return false;
+		EntityTransaction tx = em.getTransaction();
+		try {
+			tx.begin();
+			KhuyenMai km = em.find(KhuyenMai.class, codeKhuyenMai);
+			em.remove(km);
+			tx.commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			tx.rollback();
+			return false;
+		}
 	}
 
 	@Override
 	public List<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
 		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
+//		try {
+//			String query = "	String query = \"SELECT * FROM KhuyenMai WHERE NgayKhuyenMai BETWEEN '?' AND '?'";
+//			PreparedStatement preparedStatement = conn.prepareStatement(query);
+//			preparedStatement.setDate(1, startDay);
+//			preparedStatement.setDate(2, expriedDay);
+//			ResultSet rs = preparedStatement.executeQuery();
+//			while (rs.next()) {
+//				try {
+//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
+//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
+//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"));
+//					list.add(khuyenMai);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 		try {
-			String query = "	String query = \"SELECT * FROM KhuyenMai WHERE NgayKhuyenMai BETWEEN '?' AND '?'";
-			PreparedStatement preparedStatement = conn.prepareStatement(query);
-			preparedStatement.setDate(1, startDay);
-			preparedStatement.setDate(2, expriedDay);
-			ResultSet rs = preparedStatement.executeQuery();
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return list = em.createNamedQuery("KhuyenMai.getKhuyenMaiFollowDay", KhuyenMai.class)
+					.setParameter("startDay", startDay).setParameter("expriedDay", expriedDay).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -311,12 +329,18 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	public int layMaNCCCuoiCung() {
+//		try {
+//			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhuyenMai");
+//			ResultSet rs = ps.executeQuery();
+//			rs.next();
+//			return rs.getInt(1);
+//		} catch (Exception e) {
+//			return 0;
+//		}
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhuyenMai");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getInt(1);
+			return em.createQuery("SELECT COUNT(km) FROM KhuyenMai km", Long.class).getSingleResult().intValue();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return 0;
 		}
 	}
