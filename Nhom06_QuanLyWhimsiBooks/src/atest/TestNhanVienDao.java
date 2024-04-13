@@ -16,6 +16,7 @@ public class TestNhanVienDao {
 //		 NhanVien nv = new NhanVien("1", "admin", "password", LocalDate.now(), "John Doe", "Male", "123456789", "Manager", "admin@example.com", LocalDate.of(1990, 1, 1), "123 Street, City");
 //		 nvDAO.editNhanVien(nv);
 //		System.out.println(nvDAO.getNhanVienByNhanVienID("1"));
-		System.out.println(nvDAO.dangNhapNhanVien("admin", "password"));
+//		System.out.println(nvDAO.dangNhapNhanVien("admin", "password"));
+//		System.out.println(nvDAO.findEmployeeAdvanced("", "J", "", "", ""));
 	}
 }

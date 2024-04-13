@@ -193,8 +193,13 @@ public class NhanVien {
 		NhanVien other = (NhanVien) obj;
 		return Objects.equals(nhanVienID, other.nhanVienID);
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "NhanVien [nhanVienID=" + nhanVienID + ", userName=" + userName + ", password=" + password
+				+ ", ngayTaoTK=" + ngayTaoTK + ", hoTen=" + hoTen + ", gioiTinh=" + gioiTinh + ", soDienThoai="
+				+ soDienThoai + ", chucVu=" + chucVu + ", email=" + email + ", ngaySinh=" + ngaySinh + ", diaChi="
+				+ diaChi + ", hoaDons=" + hoaDons + ", hoaDonTras=" + hoaDonTras + "]";
+	}
 	
 }

@@ -33,7 +33,7 @@ public class NhanVien_DAO implements INhanVien {
     	chucVu = ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu);
         List<NhanVien> listNhanVien = new ArrayList<>();
 
-        String query = "SELECT * FROM NhanVien WHERE NhanVienID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
+        String query = "SELECT nv FROM NhanVien nv WHERE nhanVienID LIKE :id AND hoTen LIKE :hoTen AND soDienThoai LIKE :sdt AND gioiTinh LIKE :gioiTinh AND chucVu LIKE :chucVu";
 
         // Tạo một danh sách tham số để lưu giữ các tham số có thể trống
         List<String> parameters = new ArrayList<>();
@@ -42,37 +42,45 @@ public class NhanVien_DAO implements INhanVien {
         parameters.add(maNhanVien.isBlank() ? "%" : "%" + maNhanVien + "%");
         parameters.add(tenNhanVien.isBlank() ? "%" : "%" + tenNhanVien + "%");
         parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
+        parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
+        parameters.add(chucVu.isBlank() ? "%" : "%" + chucVu + "%");
 
-        // Xây dựng phần câu truy vấn dựa trên giới tính và chức vụ
-        if (!gioiTinh.isBlank()) {
-            query += " AND GioiTinh = ?";
-            parameters.add(gioiTinh);
-        }
-
-        if (!chucVu.isBlank()) {
-            query += " AND ChucVu = ?";
-            parameters.add(chucVu);
-        }
+//        // Xây dựng phần câu truy vấn dựa trên giới tính và chức vụ
+//        if (!gioiTinh.isBlank()) {
+//            query += " AND gioiTinh = :gioiTinh";
+//            parameters.add(gioiTinh);
+//        }
+//
+//
+//        if (!chucVu.isBlank()) {
+//            query += " AND chucVu = :chucVu";
+//            parameters.add(chucVu);
+//        }
 
         try {
-            PreparedStatement pstmt = conn.prepareStatement(query);
-
-            // Thiết lập các giá trị tham số
-            for (int i = 0; i < parameters.size(); i++) {
-                pstmt.setString(i + 1, parameters.get(i));
-            }
-
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                // Tạo đối tượng NhanVien từ kết quả tìm kiếm
-                NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
-                        rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
-                        rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
-                        rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
-
-                // Thêm đối tượng NhanVien vào danh sách
-                listNhanVien.add(nhanVien);
-            }
+//        	 PreparedStatement pstmt = conn.prepareStatement(query);
+//
+//             // Thiết lập các giá trị tham số
+//             for (int i = 0; i < parameters.size(); i++) {
+//                 pstmt.setString(i + 1, parameters.get(i));
+//             }
+//
+//             ResultSet rs = pstmt.executeQuery();
+//             while (rs.next()) {
+//                 // Tạo đối tượng NhanVien từ kết quả tìm kiếm
+//                 NhanVien nhanVien = new NhanVien(rs.getString("nhanVienID"), rs.getString("userName"),
+//                         rs.getString("password"), rs.getDate("ngayTaoTK").toLocalDate(), rs.getString("hoTen"),
+//                         rs.getString("gioiTinh"), rs.getString("soDienThoai"), rs.getString("chucVu"),
+//                         rs.getString("email"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("diaChi"));
+//
+//                 // Thêm đối tượng NhanVien vào danh sách
+//                 listNhanVien.add(nhanVien);
+        	
+			listNhanVien = em.createQuery(query, NhanVien.class).setParameter("id", parameters.get(0))
+					.setParameter("hoTen", parameters.get(1)).setParameter("sdt", parameters.get(2))
+					.setParameter("gioiTinh", parameters.get(3)).setParameter("chucVu", parameters.get(4))
+					.getResultList();
+			
         } catch (Exception e) {
             e.printStackTrace();
         }
