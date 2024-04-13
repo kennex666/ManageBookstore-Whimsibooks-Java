@@ -32,5 +32,6 @@ public interface IKhuyenMai {
 	public List<SanPham> laySanPhamTheoMa(String txt);
 	public List<SanPham> laySanPhamTheoTen(String txt);
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai);
+	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc);
 }
 	

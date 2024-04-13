@@ -7,6 +7,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.List;
+
+import bus.SanPham_BUS;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +28,8 @@ import ultilities.QueryBuilder;
 public class KhuyenMai_DAO implements IKhuyenMai {
 	private Connection conn;
 	private EntityManager em;
+	
+	private SanPham_BUS sanPham_BUS;
 
 	@Override
 	public List<KhuyenMai> getAllKhuyenMai() {
@@ -484,26 +489,48 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	public KhuyenMai_DAO() {
 		this.conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
+		this.sanPham_BUS = new SanPham_BUS();
 	}
+	
 	@Override
 	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "Select km from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
+		return TimKiemKhuyenMaiTheoDieuKien(query);
 	}
 	@Override
 	public List<SanPham> laySanPhamTheoMa(String txt) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SanPham> list = new ArrayList<SanPham>();
+		list = sanPham_BUS.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
+		return list;
 	}
 	@Override
 	public List<SanPham> laySanPhamTheoTen(String txt) {
-		// TODO Auto-generated method stub
-		return null;
+		List<SanPham> list = new ArrayList<SanPham>();
+		list = sanPham_BUS.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
+		return list;
 	}
 	@Override
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	@Override
+	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc) {
+		// TODO Auto-generated method stub
+		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
+		String queryTong = "FROM KhuyenMai";
+		String queryPhanTram = "SELECT km FROM KhuyenMai km WHERE LoaiGiamGia = 'Percentage'";
+		String queryGiaTri = "SELECT km FROM KhuyenMai km WHERE LoaiGiamGia = 'Fixed'";
+		if(hinhThuc.equals("ALL")) {
+			return list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
+		}
+		if(hinhThuc.equals("Percentage")) {
+			return list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
+		}
+		if(hinhThuc.equals("Fixed")) {
+			return list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
+		}
+		return list = null;
 	}
 
 }
