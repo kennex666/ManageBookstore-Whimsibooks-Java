@@ -5,11 +5,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "NhanVien.getAllEmployees", query = "select nv from NhanVien nv"),
+	@NamedQuery(name = "NhanVien.chuyenChucVuNhanVienCu", query = "update NhanVien set chucVu = :chucVuMoi where chucVu = :chucVuCu")
+})
 public class NhanVien {
 	@Id
 	private String nhanVienID;
