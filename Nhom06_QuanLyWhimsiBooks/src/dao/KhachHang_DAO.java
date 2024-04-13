@@ -37,40 +37,48 @@ public class KhachHang_DAO implements IKhachHang {
 		loaiKhachHang = ProcessingEnumDBForQuy.convertKhachHangToEnum(loaiKhachHang);
 
 		List<KhachHang> listKhachHang = new ArrayList<>();
-		String query = "SELECT * FROM KhachHang WHERE KhachHangID LIKE ? AND hoTen LIKE ? AND SoDienThoai LIKE ?";
+		String query = "SELECT kh FROM KhachHang kh WHERE khachHangID LIKE :khachHangID AND hoTen LIKE :hoTen AND soDienThoai LIKE :soDienThoai AND gioiTinh LIKE :gioiTinh AND loaiKhachHang LIKE :loaiKhachHang";
 
 		List<String> parameters = new ArrayList<>();
 		parameters.add(maKhachHang.isBlank() ? "%" : "%" + maKhachHang + "%");
 		parameters.add(tenKhachHang.isBlank() ? "%" : "%" + tenKhachHang + "%");
 		parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
-		if (!gioiTinh.isBlank()) {
-			query += " AND GioiTinh = ?";
-			parameters.add(gioiTinh);
-		}
-		if (!loaiKhachHang.isBlank()) {
-			query += " AND LoaiKhachHang = ?";
-			parameters.add(loaiKhachHang);
-		}
+		parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
+		parameters.add(loaiKhachHang.isBlank() ? "%" : "%" + loaiKhachHang + "%");
+		
+//		if (!gioiTinh.isBlank()) {
+//			query += " AND GioiTinh = ?";
+//			parameters.add(gioiTinh);
+//		}
+//		if (!loaiKhachHang.isBlank()) {
+//			query += " AND LoaiKhachHang = ?";
+//			parameters.add(loaiKhachHang);
+//		}
 		try {
+//
+//			PreparedStatement pstmt = conn.prepareStatement(query);
+//
+//			for (int i = 0; i < parameters.size(); i++) {
+//				pstmt.setString(i + 1, parameters.get(i));
+//
+//			}
+//
+//			ResultSet rs = pstmt.executeQuery();
+//			while (rs.next()) {
+//				// Tạo đối tượng KhachHang từ kết quả tìm kiếm
+//				KhachHang khachHang = new KhachHang(rs.getString("khachHangID"), rs.getString("hoTen"),
+//						rs.getString("soDienThoai"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("gioiTinh"),
+//						rs.getString("email"), rs.getString("maSoThue"), rs.getString("diaChi"),
+//						rs.getString("loaiKhachHang"));
+//
+//				// Thêm đối tượng KhachHang vào danh sách
+//			}
+			
+			listKhachHang = em.createQuery(query, KhachHang.class)
+					.setParameter("khachHangID", parameters.get(0)).setParameter("hoTen", parameters.get(1))
+					.setParameter("soDienThoai", parameters.get(2)).setParameter("gioiTinh", parameters.get(3))
+					.setParameter("loaiKhachHang", parameters.get(4)).getResultList();
 
-			PreparedStatement pstmt = conn.prepareStatement(query);
-
-			for (int i = 0; i < parameters.size(); i++) {
-				pstmt.setString(i + 1, parameters.get(i));
-
-			}
-
-			ResultSet rs = pstmt.executeQuery();
-			while (rs.next()) {
-				// Tạo đối tượng KhachHang từ kết quả tìm kiếm
-				KhachHang khachHang = new KhachHang(rs.getString("khachHangID"), rs.getString("hoTen"),
-						rs.getString("soDienThoai"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("gioiTinh"),
-						rs.getString("email"), rs.getString("maSoThue"), rs.getString("diaChi"),
-						rs.getString("loaiKhachHang"));
-
-				// Thêm đối tượng KhachHang vào danh sách
-				listKhachHang.add(khachHang);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
