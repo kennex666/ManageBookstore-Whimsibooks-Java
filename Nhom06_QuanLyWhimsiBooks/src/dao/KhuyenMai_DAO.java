@@ -349,65 +349,84 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai) {
 		KhuyenMai km = null;
 		List<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
+//		try {
+//			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai = ?";
+//			PreparedStatement pstm = conn.prepareStatement(query);
+//			pstm.setString(1, maKhuyenMai);
+//			ResultSet rs = pstm.executeQuery();
+//			if (!rs.next()) {
+//				return null;
+//			}
+//			km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"),
+//					rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"),
+//					rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+//
+//			query = "Select * from ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
+//			pstm = conn.prepareStatement(query);
+//			pstm.setString(1, maKhuyenMai);
+//			rs = pstm.executeQuery();
+//			while (rs.next()) {
+//				ChiTietKhuyenMai ctkm = new ChiTietKhuyenMai(new SanPham(rs.getInt("SanPhamID")));
+//				listCT.add(ctkm);
+//			}
+//			km.setChiTietKhuyenMai(listCT);
+//
+//			return km;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//
+//		}
+//		return km;
 		try {
-			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai = ?";
-			PreparedStatement pstm = conn.prepareStatement(query);
-			pstm.setString(1, maKhuyenMai);
-			ResultSet rs = pstm.executeQuery();
-			if (!rs.next()) {
-				return null;
-			}
-			km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"),
-					rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"),
-					rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
-
-			query = "Select * from ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
-			pstm = conn.prepareStatement(query);
-			pstm.setString(1, maKhuyenMai);
-			rs = pstm.executeQuery();
-			while (rs.next()) {
-				ChiTietKhuyenMai ctkm = new ChiTietKhuyenMai(new SanPham(rs.getInt("SanPhamID")));
-				listCT.add(ctkm);
-			}
-			km.setChiTietKhuyenMai(listCT);
-
+			km = em.createQuery("SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai = :maKM", KhuyenMai.class)
+					.setParameter("maKM", maKhuyenMai).getSingleResult();
+			listCT = em.createNamedQuery("KhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class)
+                    .setParameter("maKM", maKhuyenMai).getResultList();
+			km.setListApDung(listCT);
 			return km;
 		} catch (Exception e) {
 			e.printStackTrace();
-
+			return null;
 		}
-		return km;
 	}
 
 	@Override
 	public List<KhuyenMai> getKhuyenMaiByName(String name) {
-	    List<KhuyenMai> list = new ArrayList<>();
-	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
-	    
-	    try (PreparedStatement pst = conn.prepareStatement(query)) {
-	        pst.setString(1, name);
-	        try (ResultSet rs = pst.executeQuery()) {
-	            while (rs.next()) {
-	                try {
-	                    KhuyenMai khuyenMai = new KhuyenMai(
-	                            rs.getString("CodeKhuyenMai"),
-	                            rs.getString("TenKhuyenMai"),
-	                            rs.getString("LoaiGiamGia"),
-	                            rs.getDouble("GiaTri"),
-	                            rs.getDate("NgayKhuyenMai"),
-	                            rs.getDate("NgayHetHanKM"),
-	                            rs.getDouble("DonHangTu")
-	                    );
-	                    list.add(khuyenMai);
-	                } catch (Exception e) {
-	                    e.printStackTrace();
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    return list;
+//	    List<KhuyenMai> list = new ArrayList<>();
+//	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
+//	    
+//	    try (PreparedStatement pst = conn.prepareStatement(query)) {
+//	        pst.setString(1, name);
+//	        try (ResultSet rs = pst.executeQuery()) {
+//	            while (rs.next()) {
+//	                try {
+//	                    KhuyenMai khuyenMai = new KhuyenMai(
+//	                            rs.getString("CodeKhuyenMai"),
+//	                            rs.getString("TenKhuyenMai"),
+//	                            rs.getString("LoaiGiamGia"),
+//	                            rs.getDouble("GiaTri"),
+//	                            rs.getDate("NgayKhuyenMai"),
+//	                            rs.getDate("NgayHetHanKM"),
+//	                            rs.getDouble("DonHangTu")
+//	                    );
+//	                    list.add(khuyenMai);
+//	                } catch (Exception e) {
+//	                    e.printStackTrace();
+//	                }
+//	            }
+//	        }
+//	    } catch (Exception e) {
+//	        e.printStackTrace();
+//	    }
+//	    return list;
+		try {
+			return em.createQuery("SELECT km FROM KhuyenMai km WHERE km.tenKhuyenMai = :tenKM", KhuyenMai.class)
+					.setParameter("tenKM", name).getResultList();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -417,37 +436,37 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		String where = "WHERE ";
 
 		if (params[0] != null) {
-			where = where.concat("NgayKhuyenMai >= ?");
+			where = where.concat("ngayKhuyenMai >= :startDay");
 		}
 		if (params[1] != null) {
 		    if (!where.equals("WHERE ")) {
 		        where = where.concat(" AND ");
 		    }
-		    where = where.concat("NgayKhuyenMai <= ?");
+		    where = where.concat("ngayKhuyenMai <= :endDay");
 		}
 		if (params[2] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
-			where = where.concat("GiaTri >= ?");
+			where = where.concat("giaTri >= :giaTriMin");
 		}
 		if (params[3] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
-			where = where.concat("GiaTri <= ?");
+			where = where.concat("giaTri <= :giaTriMax");
 		}
 		if (params[4] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
-			where = where.concat("CodeKhuyenMai LIKE ?");
+			where = where.concat("codeKhuyenMai LIKE :maKhuyenMai");
 		}
 		if (params[5] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
-			where = where.concat("TenKhuyenMai LIKE ?");
+			where = where.concat("TenKhuyenMai LIKE :tenKhuyenMai");
 		}
 
 		try {
@@ -456,45 +475,49 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 				query = "SELECT * FROM KhuyenMai " + where;
 			else
 				query = "SELECT * FROM KhuyenMai";
-			PreparedStatement stm = conn.prepareStatement(query);
-
-			int paramIndex = 1;
-
-			if (params[0] != null) {
-				stm.setDate(paramIndex++, (java.sql.Date) params[0]);
-			}
-			if (params[1] != null) {
-				stm.setDate(paramIndex++, (java.sql.Date) params[1]);
-			}
-			if (params[2] != null) {
-				stm.setDouble(paramIndex++, (Double) params[2]);
-			}
-			if (params[3] != null) {
-				stm.setDouble(paramIndex++, (Double) params[3]);
-			}
-			if (params[4] != null) {
-				stm.setString(paramIndex++, "%" + params[4] + "%");
-			}
-			if (params[5] != null) {
-				stm.setString(paramIndex, "%" + params[5] + "%");
-			}
-
-			ResultSet rs = stm.executeQuery();
-
-			while (rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-							rs.getInt("SoLuotDaApDung"));
-					list.add(khuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+//			PreparedStatement stm = conn.prepareStatement(query);
+//
+//			int paramIndex = 1;
+//
+//			if (params[0] != null) {
+//				stm.setDate(paramIndex++, (java.sql.Date) params[0]);
+//			}
+//			if (params[1] != null) {
+//				stm.setDate(paramIndex++, (java.sql.Date) params[1]);
+//			}
+//			if (params[2] != null) {
+//				stm.setDouble(paramIndex++, (Double) params[2]);
+//			}
+//			if (params[3] != null) {
+//				stm.setDouble(paramIndex++, (Double) params[3]);
+//			}
+//			if (params[4] != null) {
+//				stm.setString(paramIndex++, "%" + params[4] + "%");
+//			}
+//			if (params[5] != null) {
+//				stm.setString(paramIndex, "%" + params[5] + "%");
+//			}
+//
+//			ResultSet rs = stm.executeQuery();
+//
+//			while (rs.next()) {
+//				try {
+//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
+//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
+//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
+//							rs.getInt("SoLuotDaApDung"));
+//					list.add(khuyenMai);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+			list = em.createNativeQuery(query, KhuyenMai.class).setParameter("startDay", params[0])
+					.setParameter("endDay", params[1]).setParameter("giaTriMin", params[2])
+					.setParameter("giaTriMax", params[3]).setParameter("maKhuyenMai", params[4])
+					.setParameter("tenKhuyenMai", params[5]).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		} 
 		return list;
 	}
 	
@@ -533,24 +556,30 @@ public class KhuyenMai_DAO implements IKhuyenMai {
     @Override
     public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham) {
     	// TODO Auto-generated method stub
-    	KhuyenMai km = null;
-		try {
-			String query = "SELECT TOP 1 * from KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.CodeKhuyenMai = ct.CodeKhuyenMai WHERE SanPhamID = ? AND NgayKhuyenMai <= GETDATE() AND NgayHetHanKM >= GETDATE() AND SoLuongKhuyenMai > 1 AND SoLuotDaApDung < SoLuongKhuyenMai ORDER BY NgayKhuyenMai DESC";
-			
-            PreparedStatement pstm = conn.prepareStatement(query);
-                        pstm.setInt(1, maSanPham);
-			ResultSet rs = pstm.executeQuery();
-			if(!rs.next()) {
-				return null;
-			}
-            km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
-
-	        return km;
+//    	KhuyenMai km = null;
+//		try {
+//			String query = "SELECT TOP 1 * from KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.CodeKhuyenMai = ct.CodeKhuyenMai WHERE SanPhamID = ? AND NgayKhuyenMai <= GETDATE() AND NgayHetHanKM >= GETDATE() AND SoLuongKhuyenMai > 1 AND SoLuotDaApDung < SoLuongKhuyenMai ORDER BY NgayKhuyenMai DESC";
+//			
+//            PreparedStatement pstm = conn.prepareStatement(query);
+//                        pstm.setInt(1, maSanPham);
+//			ResultSet rs = pstm.executeQuery();
+//			if(!rs.next()) {
+//				return null;
+//			}
+//            km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
+//
+//	        return km;
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//                        
+//		}
+//    	return null;
+    	try {
+			return em.createNamedQuery("KhuyenMai.getKhuyenMaiViaSanPhamAutoApply", KhuyenMai.class).setParameter("sanPhamID", maSanPham).getSingleResult();
 		} catch (Exception e) {
 			e.printStackTrace();
-                        
+			return null;
 		}
-    	return null;
     }
 
 	public KhuyenMai_DAO() {

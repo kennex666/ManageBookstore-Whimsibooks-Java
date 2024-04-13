@@ -21,5 +21,7 @@ public class TestKhuyenMaiDao {
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiTheoTen1("Spring Sale"));
 //		System.out.println(khuyenMai_DAO.SapXepKhuyenMaiTheoGiaTri("A"));
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiFollowDay(Date.valueOf(LocalDate.of(2021, 5, 1)), Date.valueOf(LocalDate.of(2025, 5, 3))));
+//		System.out.println(khuyenMai_DAO.getKhuyenMaiViaSanPhamAutoApply(1));
+//		System.out.println(khuyenMai_DAO.getKhuyenMaiByName("Spring Sale"));
 	}
 }
