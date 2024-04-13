@@ -14,6 +14,8 @@ public class TestKhuyenMaiDao {
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiByID("Voucher"));
 //		System.out.println(khuyenMai_DAO.getKhuyenMaiByIDAndName("A", "S"));
 //		System.out.println(khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien("SELECT km FROM KhuyenMai km WHERE km.loaiGiamGia = 'Percentage'"));
-		System.out.println(khuyenMai_DAO.TimKiemTheoLoai("Percentage"));
+//		System.out.println(khuyenMai_DAO.TimKiemTheoLoai("Percentage"));
+//		System.out.println(khuyenMai_DAO.getKhuyenMaiTheoTen1("Spring Sale"));
+		System.out.println(khuyenMai_DAO.SapXepKhuyenMaiTheoGiaTri("A"));
 	}
 }
