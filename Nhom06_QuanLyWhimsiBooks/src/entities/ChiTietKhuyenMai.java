@@ -74,24 +74,8 @@ public class ChiTietKhuyenMai {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(sanPham);
+		return Objects.hash(khuyenMai, ngayTao, sanPham);
 	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChiTietKhuyenMai other = (ChiTietKhuyenMai) obj;
-		return Objects.equals(sanPham, other.sanPham);
-	}
-
-
 
 	public ChiTietKhuyenMai() {
 		super();

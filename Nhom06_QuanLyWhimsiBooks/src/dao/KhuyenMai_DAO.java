@@ -5,13 +5,18 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import bus.SanPham_BUS;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import connectDB.ConnectDB;
 import entities.ChiTietKhuyenMai;
@@ -23,13 +28,21 @@ import entities.SanPham;
 import interfaces.IKhuyenMai;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Query;
+import jakarta.persistence.TypedQuery;
 import ultilities.QueryBuilder;
 
 public class KhuyenMai_DAO implements IKhuyenMai {
 	private Connection conn;
 	private EntityManager em;
-	
 	private SanPham_BUS sanPham_BUS;
+	
+	// convert string to date
+	private Date parsedFormatDate(String date) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date pasredDate = sdf.parse(date);
+		return new Date(pasredDate.getTime());
+	}
 
 	@Override
 	public List<KhuyenMai> getAllKhuyenMai() {
@@ -430,123 +443,175 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	@Override
-	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) throws ParseException {
+		// TODO Auto-generated method stub
 		List<KhuyenMai> list = new ArrayList<>();
-
+		
+		// get number of params
+		int lenghtParams = params.length;
+		
+		Map<String, Object> paramsInQuery = new HashMap<String, Object>(); // store params for query
+		
 		String where = "WHERE ";
+	
+		/*
+		 * 	One way to handle multiple params
+		 *  Name: Nguyen Thanh Luan
+		 */
+		
+		/*
+		for (int i = 0; i < params.length; i++) {
+			Object obj = params[i];
+			switch (i) {
+			// parames 0
+			case 0:
+				if (obj != null) {
+					where = where.concat("ngayKhuyenMai >= :startDay");
+					paramsInQuery.put("startDay", parsedFormatDate(obj.toString()));
+				}
+				break;
+			// parames 1
+			case 1:
+				if (obj != null) {
+					if (!where.equals("WHERE ")) {
+						where = where.concat(" AND ");
+					}
+					where = where.concat("ngayKhuyenMai <= :endDay");
+					paramsInQuery.put("endDay", parsedFormatDate(obj.toString()));
+				}
+				break;
+			// parames 2
+			case 2:
+				if (obj != null) {
+					if (!where.equals("WHERE ")) {
+						where = where.concat(" AND ");
+					}
+					where = where.concat("giaTri >= :giaTriMin");
+					paramsInQuery.put("giaTriMin", obj);
+				}
+				break;
+			// parames 3
+			case 3:
+				if (obj != null) {
+                    if (!where.equals("WHERE ")) {
+                        where = where.concat(" AND ");
+                    }
+                    where = where.concat("giaTri <= :giaTriMax");
+                    paramsInQuery.put("giaTriMax", obj);
+                }
+				break;
+			// parames 4
+			case 4:
+                if (obj != null) {
+                    if (!where.equals("WHERE ")) {
+                        where = where.concat(" AND ");
+                    }
+                    where = where.concat("codeKhuyenMai LIKE :maKhuyenMai");
+                    paramsInQuery.put("maKhuyenMai", "%" + obj + "%");
+                }
+                break;
+            // parames 5
+            case 5:
+                if (obj != null) {
+                    if (!where.equals("WHERE ")) {
+                        where = where.concat(" AND ");
+                    }
+                    where = where.concat("tenKhuyenMai LIKE :tenKhuyenMai");
+                    paramsInQuery.put("tenKhuyenMai", "%" + obj + "%");
+                }
+                break;
+		}
+		*/
 
+		// parames 0
 		if (params[0] != null) {
 			where = where.concat("ngayKhuyenMai >= :startDay");
+			paramsInQuery.put("startDay", parsedFormatDate(params[0].toString()));
 		}
+		// parames 1
 		if (params[1] != null) {
 		    if (!where.equals("WHERE ")) {
 		        where = where.concat(" AND ");
 		    }
 		    where = where.concat("ngayKhuyenMai <= :endDay");
+			paramsInQuery.put("endDay", parsedFormatDate(params[1].toString()));
 		}
+		// parames 2
 		if (params[2] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
 			where = where.concat("giaTri >= :giaTriMin");
+			paramsInQuery.put("giaTriMin", params[2]);
 		}
+		// parames 3
 		if (params[3] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
 			where = where.concat("giaTri <= :giaTriMax");
+			paramsInQuery.put("giaTriMax", params[3]);
 		}
+		// parames 4
 		if (params[4] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
 			where = where.concat("codeKhuyenMai LIKE :maKhuyenMai");
+			paramsInQuery.put("maKhuyenMai", "%" + params[4] + "%");
 		}
+		// parames 5
 		if (params[5] != null) {
 			if (!where.equals("WHERE ")) {
 				where = where.concat(" AND ");
 			}
-			where = where.concat("TenKhuyenMai LIKE :tenKhuyenMai");
+			where = where.concat("tenKhuyenMai LIKE :tenKhuyenMai");
+			paramsInQuery.put("tenKhuyenMai", "%" + params[5] + "%");
 		}
 
+		// remove WHERE if there is no condition
 		try {
 			String query = null;
+			// create query
 			if (!where.equals("WHERE "))
-				query = "SELECT * FROM KhuyenMai " + where;
+				query = "SELECT km FROM KhuyenMai km " + where;
+			// if there is no condition
 			else
-				query = "SELECT * FROM KhuyenMai";
-//			PreparedStatement stm = conn.prepareStatement(query);
-//
-//			int paramIndex = 1;
-//
-//			if (params[0] != null) {
-//				stm.setDate(paramIndex++, (java.sql.Date) params[0]);
-//			}
-//			if (params[1] != null) {
-//				stm.setDate(paramIndex++, (java.sql.Date) params[1]);
-//			}
-//			if (params[2] != null) {
-//				stm.setDouble(paramIndex++, (Double) params[2]);
-//			}
-//			if (params[3] != null) {
-//				stm.setDouble(paramIndex++, (Double) params[3]);
-//			}
-//			if (params[4] != null) {
-//				stm.setString(paramIndex++, "%" + params[4] + "%");
-//			}
-//			if (params[5] != null) {
-//				stm.setString(paramIndex, "%" + params[5] + "%");
-//			}
-//
-//			ResultSet rs = stm.executeQuery();
-//
-//			while (rs.next()) {
-//				try {
-//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-//							rs.getInt("SoLuotDaApDung"));
-//					list.add(khuyenMai);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-			list = em.createNativeQuery(query, KhuyenMai.class).setParameter("startDay", params[0])
-					.setParameter("endDay", params[1]).setParameter("giaTriMin", params[2])
-					.setParameter("giaTriMax", params[3]).setParameter("maKhuyenMai", params[4])
-					.setParameter("tenKhuyenMai", params[5]).getResultList();
+				query = "SELECT km FROM KhuyenMai km";
+			
+			Query queryToAddParmas = em.createQuery(query, KhuyenMai.class);
+			for (Map.Entry<String, Object> entry : paramsInQuery.entrySet()) {
+				queryToAddParmas.setParameter(entry.getKey(), entry.getValue());
+			}
+			list = queryToAddParmas.getResultList();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return list;
-	}
+}
 	
 	public int getSoLuongChuaSD(Object[] params) {
+		Map<String, Object> paramsInQuery = new HashMap<String, Object>(); // store params for query
 	    String addWhere = "";
 
 	    if (params[0] != null) {
-	        addWhere = addWhere.concat(" and TenKhuyenMai = ?");
+	        addWhere = addWhere.concat(" and tenKhuyenMai = :tenKhuyenMai");
+	        paramsInQuery.put("tenKhuyenMai", params[0].toString());
 	    }
 	    if (params[1] != null) {
-	        addWhere = addWhere.concat(" and CodeKhuyenMai = ?");
+	        addWhere = addWhere.concat(" and codeKhuyenMai = :codeKhuyenMai");
+	        paramsInQuery.put("codeKhuyenMai", params[1].toString());
 	    }
 
-	    String query = "SELECT COUNT(*) FROM KhuyenMai WHERE SoLuotDaApDung = 0 " + addWhere;
+	    String query = "SELECT COUNT(*) FROM KhuyenMai WHERE soLuotDaApDung = 0 " + addWhere;
 
 	    try {
-	        PreparedStatement ps = conn.prepareStatement(query);
-
-	        if (params[0] != null) {
-	            ps.setString(1, params[0].toString());
-	        }
-
-	        if (params[1] != null) {
-	            ps.setString(2, params[1].toString());
-	        }
-
-	        ResultSet rs = ps.executeQuery();
-	        rs.next();
-	        return rs.getInt(1);
+			Query queryToGetCount = em.createQuery(query);
+			for (Map.Entry<String, Object> entry : paramsInQuery.entrySet()) {
+				queryToGetCount.setParameter(entry.getKey(), entry.getValue());
+			}
+			return ((Long) queryToGetCount.getSingleResult()).intValue();
 	    } catch (Exception e) {
 	        e.printStackTrace();
 	        return 0;

@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -144,7 +145,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	
 	// Xuat file
 	@Override
-	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) throws ParseException {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getDanhSachKhuyenMaiNangCao(params);
 	}

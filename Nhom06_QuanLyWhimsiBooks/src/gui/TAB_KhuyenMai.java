@@ -720,7 +720,12 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
         btn_CTTKM_TimKiem.setText("Tìm kiếm");
         btn_CTTKM_TimKiem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_CTTKM_TimKiemActionPerformed(evt);
+                try {
+					btn_CTTKM_TimKiemActionPerformed(evt);
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -1434,7 +1439,7 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		table_DSCTTKM.setRowSorter(sorterCTTKM);
 	}
     
-	private void btn_CTTKM_TimKiemActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btn_CTTKM_TimKiemActionPerformed
+	private void btn_CTTKM_TimKiemActionPerformed(java.awt.event.ActionEvent evt) throws ParseException {// GEN-FIRST:event_btn_CTTKM_TimKiemActionPerformed
 		java.util.Date dayStartUtil = txt_CTTKM_NgayBatDau.getDate();
 		java.util.Date dayEndUtil = txt_CTTKM_NgayKetThuc.getDate();
 		java.sql.Date start = null, end = null;
