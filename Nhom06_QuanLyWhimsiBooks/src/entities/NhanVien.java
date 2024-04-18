@@ -5,11 +5,18 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "NhanVien.getAllEmployees", query = "select nv from NhanVien nv"),
+	@NamedQuery(name = "NhanVien.chuyenChucVuNhanVienCu", query = "update NhanVien set chucVu = :chucVuMoi where chucVu = :chucVuCu")
+})
 public class NhanVien {
 	@Id
 	private String nhanVienID;
@@ -186,8 +193,13 @@ public class NhanVien {
 		NhanVien other = (NhanVien) obj;
 		return Objects.equals(nhanVienID, other.nhanVienID);
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "NhanVien [nhanVienID=" + nhanVienID + ", userName=" + userName + ", password=" + password
+				+ ", ngayTaoTK=" + ngayTaoTK + ", hoTen=" + hoTen + ", gioiTinh=" + gioiTinh + ", soDienThoai="
+				+ soDienThoai + ", chucVu=" + chucVu + ", email=" + email + ", ngaySinh=" + ngaySinh + ", diaChi="
+				+ diaChi + ", hoaDons=" + hoaDons + ", hoaDonTras=" + hoaDonTras + "]";
+	}
 	
 }

@@ -20,6 +20,7 @@ import ultilities.RegexPattern;
 
 @Entity
 @NamedQueries({
+	@NamedQuery(name ="TheLoai.findAll", query = "SELECT tl FROM TheLoai tl"),
 	@NamedQuery(name = "TheLoai.findByName", query = "SELECT tl FROM TheLoai tl WHERE tl.tenTheLoai = :name"),
 	@NamedQuery(name = "TheLoai.findByID", query = "SELECT tl FROM TheLoai tl WHERE tl.theLoaiID = :id"),
 })

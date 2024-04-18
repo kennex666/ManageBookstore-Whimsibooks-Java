@@ -15,67 +15,33 @@ import entities.KhuyenMai;
 import entities.NhaCungCap;
 import entities.SanPham;
 import interfaces.IChiTietKhuyenMai;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	private Connection conn;
+	private EntityManager em;
 
 	@Override
 	public List<ChiTietKhuyenMai> getAllChiTietKhuyenMai() {
-		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
-		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("SanPhamSanPhamID"));
-					SanPham sanPham = new SanPham(rs.getInt("KhuyenMaiCodeKhuyenMai"));
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
-					list.add(chiTietKhuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
+		return em.createNamedQuery("ChiTietKhuyenMai.findAll", ChiTietKhuyenMai.class).getResultList();
 	}
 	
 	public List<ChiTietKhuyenMai> getChiTietKhuyenMaiTheoMa(String maKM) {
-		List<ChiTietKhuyenMai> list = new ArrayList<ChiTietKhuyenMai>();
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"));
-					SanPham sanPham = new SanPham(rs.getInt("SanPhamID"));
-					ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham,rs.getDate("NgayTao"));
-					list.add(chiTietKhuyenMai);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			return em.createNamedQuery("ChiTietKhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class).setParameter("maKM", maKM).getResultList();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return list;
 	}
 	
 	public Date getNgayTao(String maKM) {
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'";
-			ResultSet rs = stm.executeQuery(query);	
-	        if (rs.next()) {
-	            return rs.getDate("NgayTao");
-	        }
+			return em.createNamedQuery("ChiTietKhuyenMai.getNgayTao", ChiTietKhuyenMai.class).setParameter("maKM", maKM)
+					.getSingleResult().getNgayTao();
 		} catch (Exception e) {
-			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 	
 	public boolean addSDanhSachSPKM(KhuyenMai khuyenMai, List<SanPham> danhSachSPKM) {
@@ -89,40 +55,35 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	}
 	
 	public boolean addSanPhamKhuyenMai(KhuyenMai khuyenMai, SanPham sanPham) {
-		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
-		int maSP = sanPham.getSanPhamID();
-		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
+		EntityTransaction tr = em.getTransaction();
 		try {
-			Calendar calendar = Calendar.getInstance();
-			PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
-			preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
-			preparedStatement1.setInt(2, maSP);
-			preparedStatement1.setString(3, codeKhuyenMai);
-			preparedStatement1.executeUpdate();
+			tr.begin();
+			ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(khuyenMai, sanPham, new Date(Calendar.getInstance().getTime().getTime()));
+			em.persist(chiTietKhuyenMai);
+			tr.commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 	
 	public boolean addSanPhamKhuyenMaiKhiUpdate(String makhuyenMai,int masanPham) {;
-		String insertCTTKM = "INSERT INTO ChiTietKhuyenMai (NgayTao, SanPhamID, CodeKhuyenMai) VALUES (?,?,?)";
-		try {
-			Calendar calendar = Calendar.getInstance();
-			PreparedStatement preparedStatement1 = conn.prepareStatement(insertCTTKM);
-			preparedStatement1.setDate(1, new java.sql.Date(calendar.getTime().getTime()));
-			preparedStatement1.setInt(2, masanPham);
-			preparedStatement1.setString(3, makhuyenMai);
-			preparedStatement1.executeUpdate();
-			return true;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
+		EntityTransaction tr = em.getTransaction();
+        try {
+            tr.begin();
+            ChiTietKhuyenMai chiTietKhuyenMai = new ChiTietKhuyenMai(em.find(KhuyenMai.class, makhuyenMai), em.find(SanPham.class, masanPham), new Date(Calendar.getInstance().getTime().getTime()));
+            em.persist(chiTietKhuyenMai);
+            tr.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
 	}
 
 	public ChiTietKhuyenMai_DAO() {
 		conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 }

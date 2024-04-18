@@ -1,6 +1,7 @@
 package interfaces;
 
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 
 import entities.ChiTietKhuyenMai;
@@ -19,7 +20,7 @@ public interface IKhuyenMai {
     public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai);
     public KhuyenMai getKhuyenMaiViaSanPhamAutoApply(int maSanPham);
     public List<KhuyenMai> getKhuyenMaiByIDAndName(String maKhuyenMai, String tenKM);
-    public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params);
+    public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) throws ParseException;
     public List<KhuyenMai> getKhuyenMaiByName(String name);
     public boolean deleteKhuyenMai(String codeKhuyenMai);
     public int getSoLuongChuaSD(Object[] params);
@@ -28,5 +29,10 @@ public interface IKhuyenMai {
 	public boolean xoaSanPhamKhuyenMai(String makhuyenMai);
 	public List<KhuyenMai> getRecentKhuyenMai(int limit);
 	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK);
+	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK);
+	public List<SanPham> laySanPhamTheoMa(String txt);
+	public List<SanPham> laySanPhamTheoTen(String txt);
+	public List<KhuyenMai> TimKiemTheoDieuKien(String ma, String loai);
+	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc);
 }
 	

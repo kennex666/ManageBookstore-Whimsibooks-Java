@@ -11,10 +11,20 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 @NamedQueries({
+	@NamedQuery(name = "NhaCungCap.findByPhone", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.soDienThoai like :soDienThoai"),
+	@NamedQuery(name = "NhaCungCap.getNCCCC", query = "SELECT COUNT(ncc) FROM NhaCungCap ncc"),
+	@NamedQuery(name = "NhaCungCap.findByEmail", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.email like :email"),
+	@NamedQuery(name ="NhaCungCap.findAll", query = "SELECT ncc FROM NhaCungCap ncc"),
 	@NamedQuery(name = "NhaCungCap.findByName", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.tenNhaCungCap = :name"),
 	@NamedQuery(name = "NhaCungCap.findByID", query = "SELECT ncc FROM NhaCungCap ncc WHERE ncc.nhaCungCapID = :id"),
 })
 public class NhaCungCap {
+	@Override
+	public String toString() {
+		return "NhaCungCap [nhaCungCapID=" + nhaCungCapID + ", tenNhaCungCap=" + tenNhaCungCap + ", soDienThoai="
+				+ soDienThoai + ", diaChi=" + diaChi + ", email=" + email + ", sanPhams=" + sanPhams + "]";
+	}
+
 	@Id
 	private String nhaCungCapID;
 	private String tenNhaCungCap;

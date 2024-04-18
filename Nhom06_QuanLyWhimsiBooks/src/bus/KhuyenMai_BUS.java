@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Comparator;
 import java.util.HashSet;
@@ -40,16 +41,13 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		this.sanPham_BUS = new SanPham_BUS();
 	}
 	
+	@Override
 	public List<SanPham> laySanPhamTheoMa(String txt) {
-		List<SanPham> list = new ArrayList<SanPham>();
-		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
-		return list;
+		return khuyenMai_DAO.laySanPhamTheoMa(txt);
 	}
-	
+	@Override
 	public List<SanPham> laySanPhamTheoTen(String txt) {
-		List<SanPham> list = new ArrayList<SanPham>();
-		list = sanPham_BUS.getDanhSachSanPham("SELECT * FROM SanPham WHERE SanPhamID LIKE '%"+txt+"%'");
-		return list;
+		return khuyenMai_DAO.laySanPhamTheoTen(txt);
 	}
 	
 
@@ -59,11 +57,10 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return khuyenMai_DAO.getKhuyenMaiByIDAndName(maKhuyenMai, tenKM);
 	}
 	
+	@Override
 	public List<KhuyenMai> getKhuyenMaiTheoTen(String tenSK) {
-		String query = "Select * from KhuyenMai WHERE TenKhuyenMai = '"+tenSK+"'";
-		return khuyenMai_DAO.TimKiemKhuyenMaiTheoDieuKien(query);
+		return khuyenMai_DAO.getKhuyenMaiTheoTen(tenSK);
 	}
-	
 	
 	
     public List<SanPham> laySanPhamDuocChon(JTable table) {
@@ -120,59 +117,14 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 		return khuyenMai_DAO.layMaNCCCuoiCung();
 	}
 
-	
+	@Override
 	public List<KhuyenMai> TimKiemTheoLoai(String hinhThuc) {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-		String queryTong = "SELECT * FROM KhuyenMai";
-		String queryPhanTram = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Percentage'";
-		String queryGiaTri = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Fixed'";
-		if(hinhThuc.equals("ALL")) {
-			return list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
-		}
-		if(hinhThuc.equals("Percentage")) {
-			return list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
-		}
-		if(hinhThuc.equals("Fixed")) {
-			return list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
-		}
-		return list = null;
+		return khuyenMai_DAO.TimKiemTheoLoai(hinhThuc);
 	}
 	
+	@Override
 	public List<KhuyenMai> TimKiemTheoDieuKien(String ma,String loai) {
-		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-		String queryTong = "SELECT * FROM KhuyenMai";
-		String queryma = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%'";
-		String querymagt = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Fixed'";
-		String querymapt = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%"+ma+"%' and LoaiGiamGia = 'Percentage'";
-		String queryPhanTram = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Percentage'";
-		String queryGiaTri = "SELECT * FROM KhuyenMai WHERE LoaiGiamGia = 'Fixed'";
-		if(ma.length() > 0) {
-			switch (loai) {
-		    case "Tất cả":
-		        list = TimKiemKhuyenMaiTheoDieuKien(queryma);
-		        break;
-		    case "Giá trị":
-		        list = TimKiemKhuyenMaiTheoDieuKien(querymagt);
-		        break;
-		    case "Phần trăm":
-		        list = TimKiemKhuyenMaiTheoDieuKien(querymapt);
-		        break;
-			}
-		}
-		else if(ma.length() <= 0) {
-			switch (loai) {
-		    case "Tất cả":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryTong);
-		        break;
-		    case "Giá trị":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryPhanTram);
-		        break;
-		    case "Phần trăm":
-		    	list = TimKiemKhuyenMaiTheoDieuKien(queryGiaTri);
-		        break;
-			}
-		}
-		return list;
+		return khuyenMai_DAO.TimKiemTheoDieuKien(ma, loai);
 	}
         
         @Override
@@ -193,7 +145,7 @@ public class KhuyenMai_BUS implements IKhuyenMai{
 	
 	// Xuat file
 	@Override
-	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) {
+	public List<KhuyenMai> getDanhSachKhuyenMaiNangCao(Object[] params) throws ParseException {
 		// TODO Auto-generated method stub
 		return khuyenMai_DAO.getDanhSachKhuyenMaiNangCao(params);
 	}

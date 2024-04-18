@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +15,19 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "KhuyenMai.getALL", query = "SELECT km FROM KhuyenMai km"),
+	@NamedQuery(name = "KhuyenMai.getRecentKhuyenMai", query = "SELECT KM FROM KhuyenMai KM ORDER BY ngayKhuyenMai DESC"),
+	@NamedQuery(name = "KhuyenMai.xoaSanPhamKhuyenMai", query = "DELETE FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM"),
+	@NamedQuery(name = "KhuyenMai.getChiTietKhuyenMaiTheoMa", query = "SELECT ctkm FROM ChiTietKhuyenMai ctkm WHERE ctkm.khuyenMai.codeKhuyenMai = :maKM"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiByID", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai like CONCAT('%', :maKM, '%')"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiByIDAndName", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai like CONCAT('%', :maKM, '%') OR km.tenKhuyenMai like CONCAT('%', :tenKM, '%')"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiTheoTen", query = "SELECT km FROM KhuyenMai km WHERE km.tenKhuyenMai = :tenKM"),
+	@NamedQuery(name = "KhuyenMai.SapXepKhuyenMaiTheoGiaTri", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai like CONCAT('%', :maKM, '%') ORDER BY km.giaTri"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiFollowDay", query = "SELECT km FROM KhuyenMai km WHERE km.ngayKhuyenMai BETWEEN :startDay AND :expriedDay"),
+	//SELECT TOP 1 * from KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.CodeKhuyenMai = ct.CodeKhuyenMai WHERE SanPhamID = ? AND NgayKhuyenMai <= GETDATE() AND NgayHetHanKM >= GETDATE() AND SoLuongKhuyenMai > 1 AND SoLuotDaApDung < SoLuongKhuyenMai ORDER BY NgayKhuyenMai DESC
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiViaSanPhamAutoApply", query = "SELECT km FROM KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.codeKhuyenMai = ct.khuyenMai.codeKhuyenMai WHERE ct.sanPham.sanPhamID = :sanPhamID AND km.ngayKhuyenMai <= CURRENT_DATE AND km.ngayHetHanKM >= CURRENT_DATE AND km.soLuongKhuyenMai > 1 AND km.soLuotDaApDung < km.soLuongKhuyenMai ORDER BY km.ngayKhuyenMai DESC")
+})
 public class KhuyenMai {
 	@Id
 	private String codeKhuyenMai;
