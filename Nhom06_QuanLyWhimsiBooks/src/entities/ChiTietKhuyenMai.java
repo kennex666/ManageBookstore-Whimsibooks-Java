@@ -4,6 +4,9 @@ import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
 
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -12,6 +15,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
+@NamedQueries({
+	@NamedQuery(name = "ChiTietKhuyenMai.findAll", query = "SELECT c FROM ChiTietKhuyenMai c"),
+	//SELECT * FROM ChiTietKhuyenMai WHERE CodeKhuyenMai = '"+maKM+"'"
+	@NamedQuery(name = "ChiTietKhuyenMai.getChiTietKhuyenMaiTheoMa", query = "SELECT c FROM ChiTietKhuyenMai c WHERE c.khuyenMai.codeKhuyenMai = :maKM"),
+	@NamedQuery(name = "ChiTietKhuyenMai.getNgayTao", query = "SELECT c FROM ChiTietKhuyenMai c WHERE c.khuyenMai.codeKhuyenMai = :maKM")
+})
 public class ChiTietKhuyenMai {
 	@Id
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -65,24 +74,12 @@ public class ChiTietKhuyenMai {
 	
 	@Override
 	public int hashCode() {
-		return Objects.hash(sanPham);
+		return Objects.hash(khuyenMai, ngayTao, sanPham);
 	}
 
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ChiTietKhuyenMai other = (ChiTietKhuyenMai) obj;
-		return Objects.equals(sanPham, other.sanPham);
+	public ChiTietKhuyenMai() {
+		super();
 	}
-
-
 
 	@Override
 	public String toString() {
