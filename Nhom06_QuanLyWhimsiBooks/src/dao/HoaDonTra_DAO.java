@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 
 import connectDB.ConnectDB;
+import entities.ChiTietHoaDon;
+import entities.ChiTietTraHang;
 import entities.HoaDon;
 import entities.HoaDonTra;
 import entities.KhachHang;
@@ -18,125 +20,116 @@ import entities.KhuyenMai;
 import entities.NhanVien;
 import interfaces.IHoaDon;
 import interfaces.IHoaDonTra;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import ultilities.QueryBuilder;
 
 public class HoaDonTra_DAO implements IHoaDonTra {
 
-    private Connection conn;
-
+    private EntityManager em;
+    
     public HoaDonTra_DAO() {
         // TODO Auto-generated constructor stub
-        conn = ConnectDB.getConnection();
+        em = ConnectDB.getEntityManager();
     }
 
     @Override
     public boolean createHoaDon(HoaDonTra x) {
         // TODO Auto-generated method stub
-        String query = "INSERT INTO HoaDonTra(HoaDonID, KhachHangID, NhanVienID, NgayTraHoaDon, TongHoan, TrangThai) VALUES(?, ? ,? ,?, ?, ?)";
+    	boolean isThisSession = em.getTransaction().isActive();
+		if (x.getKhachHang() == null) {
+			x.setKhachHang(new KhachHang("KH0001"));
+		}
+
+		if (x.getNhanVien() == null) {
+			x.setNhanVien(new NhanVien("NV0001"));
+		}
+		
+		x.setTongHoan(x.tinhTongHoan());
+		x.setNgayTraHoaDon(new Date());
+
+	
         try {
-            PreparedStatement pstm = conn.prepareStatement(query);
-            pstm.setString(1, x.getHoaDonID());
-            pstm.setString(2, (x.getKhachHang() == null) ? "KH0001" : x.getKhachHang().getKhachHangID());
-            pstm.setString(3, (x.getNhanVien() == null) ? "NV0001" : x.getNhanVien().getNhanVienID());
-            java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
-            pstm.setTimestamp(4, now);
-            pstm.setDouble(5, x.tinhTongHoan());
-            pstm.setString(6, x.getTrangThai());
-            return (pstm.executeUpdate() > 0);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
-        }
-    }
+			if (isThisSession == false)
+				em.getTransaction().begin();
+			em.persist(x);
+			if (isThisSession == false)
+				em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+        
+	}
 
     @Override
     public boolean updateHoaDon(HoaDonTra x) {
-        String query = "UPDATE HoaDonTra SET KhachHangID = ?, NhanVienID = ?, NgayTraHoaDon = ?, TongHoan = ?, TrangThai = ? WHERE HoaDonID = ?";
-        try {
-            PreparedStatement pstm = conn.prepareStatement(query);
-            pstm.setString(1, (x.getKhachHang() == null) ? "KH0001" : x.getKhachHang().getKhachHangID());
-            pstm.setString(2, (x.getNhanVien() == null) ? "NV0001" : x.getNhanVien().getNhanVienID());
-            java.sql.Timestamp now = new java.sql.Timestamp(new Date().getTime());
-            pstm.setTimestamp(3, now);
-            pstm.setDouble(4, x.tinhTongHoan());
-            pstm.setString(5, x.getTrangThai());
-            pstm.setString(6, x.getHoaDonID());
-            return (pstm.executeUpdate() > 0);
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
-        }
+    	boolean isThisSession = em.getTransaction().isActive();
+		try {
+			if (x.getKhachHang() == null) {
+				x.setKhachHang(new KhachHang("KH0001"));
+			}
+
+			if (x.getNhanVien() == null) {
+				x.setNhanVien(new NhanVien("NV0001"));
+			}
+
+
+			x.setNgayTraHoaDon(new Date());
+
+			x.setTongHoan(x.tinhTongHoan());
+
+			if (isThisSession == false)
+				em.getTransaction().begin();
+
+			List<ChiTietTraHang> tempList = x.getListChiTietHoaDon();
+			x.setListChiTietHoaDon(null);
+			em.merge(x);
+			if (isThisSession == false)
+				em.getTransaction().commit();
+
+			x.setListChiTietHoaDon(tempList);
+
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
     }
 
     @Override
     public boolean cancelHoaDon(HoaDonTra x) {
-        String query = "UPDATE HoaDonTra SET TrangThai = ? WHERE HoaDonID = ?";
-        try {
-            PreparedStatement pstm = conn.prepareStatement(query);
-            pstm.setString(1, "HUY_BO");
-            pstm.setString(2, x.getHoaDonID());
-            pstm.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
-        }
+      
+        boolean isThisSession = em.getTransaction().isActive();
+		try {
+			x.setTrangThai("HUY_BO");
+			if (isThisSession == false)
+				em.getTransaction().begin();
+
+			List<ChiTietTraHang> tempList = x.getListChiTietHoaDon();
+			x.setListChiTietHoaDon(null);
+			em.merge(x);
+			if (isThisSession == false)
+				em.getTransaction().commit();
+
+			x.setListChiTietHoaDon(tempList);
+			return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return false;
+		}
+		
     }
 
     @Override
     public List<HoaDonTra> getDanhSachHoaDon() {
         List<HoaDonTra> listHoaDon = new ArrayList<HoaDonTra>();
-        String query = "SELECT TOP 100 * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID WHERE YEAR(NgayTraHoaDon) = YEAR(GETDATE()) AND MONTH(NgayTraHoaDon) = MONTH(GETDATE()) AND DAY(NgayTraHoaDon) = DAY(GETDATE()) ORDER BY NgayTraHoaDon DESC";
         try {
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery(query);
-
-            while (rs.next()) {
-                HoaDonTra hd = new HoaDonTra();
-
-                String hoaDonID = rs.getString("HoaDonID");
-                String khachHangID = rs.getString("KhachHangID");
-                String nhanVienID = rs.getString("NhanVienID");
-                Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
-                double tongTien = rs.getDouble("tongHoan");
-                String trangThai = rs.getString("TrangThai");
-
-                hd.setHoaDonID(hoaDonID);
-                hd.setNgayTraHoaDon(NgayTraHoaDon);
-                hd.setTongHoan(tongTien);
-                hd.setTrangThai(trangThai);
-                hd.setTongHoan(tongTien);
-
-                String hoTenNhanVien = rs.getString("HoTen");
-                String chucVu = rs.getString("chucvu");
-
-                NhanVien nv = new NhanVien(nhanVienID);
-                nv.setHoTen(hoTenNhanVien);
-                nv.setChucVu(chucVu);
-                hd.setNhanVien(nv);
-
-                String hoTenKH = rs.getString(22);
-                String maSoThue = rs.getString("MaSoThue");
-                String diaChi = rs.getString("diaChi");
-                String loaiKH = rs.getString("LoaiKhachHang");
-                String sdtKH = rs.getString("SoDienThoai");
-                String emailKH = rs.getString("Email");
-
-                KhachHang kh = new KhachHang(khachHangID);
-                kh.setHoTen(hoTenKH);
-                kh.setMaSoThue(maSoThue);
-                kh.setDiaChi(diaChi);
-                kh.setLoaiKhachHang(loaiKH);
-                kh.setSoDienThoai(sdtKH);
-                kh.setEmail(emailKH);
-                hd.setKhachHang(kh);
-
-                listHoaDon.add(hd);
-
-            }
+            listHoaDon = em.createNamedQuery("HoaDonTra.findAll").getResultList();
             return listHoaDon;
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -166,51 +159,10 @@ public class HoaDonTra_DAO implements IHoaDonTra {
                     "<=",
                     ketThuc
             );
-            ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
-
-            while (rs.next()) {
-                HoaDonTra hd = new HoaDonTra();
-
-                String hoaDonID = rs.getString("HoaDonID");
-                String khachHangID = rs.getString("KhachHangID");
-                String nhanVienID = rs.getString("NhanVienID");
-                Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
-                double tongTien = rs.getDouble("tongHoan");
-                String trangThai = rs.getString("TrangThai");
-
-                hd.setHoaDonID(hoaDonID);
-                hd.setNgayTraHoaDon(NgayTraHoaDon);
-                hd.setTongHoan(tongTien);
-                hd.setTrangThai(trangThai);
-                hd.setTongHoan(tongTien);
-
-                String hoTenNhanVien = rs.getString("HoTen");
-                String chucVu = rs.getString("chucvu");
-
-                NhanVien nv = new NhanVien(nhanVienID);
-                nv.setHoTen(hoTenNhanVien);
-                nv.setChucVu(chucVu);
-                hd.setNhanVien(nv);
-
-                String hoTenKH = rs.getString(22);
-                String maSoThue = rs.getString("MaSoThue");
-                String diaChi = rs.getString("diaChi");
-                String loaiKH = rs.getString("LoaiKhachHang");
-                String sdtKH = rs.getString("SoDienThoai");
-                String emailKH = rs.getString("Email");
-
-                KhachHang kh = new KhachHang(khachHangID);
-                kh.setHoTen(hoTenKH);
-                kh.setMaSoThue(maSoThue);
-                kh.setDiaChi(diaChi);
-                kh.setLoaiKhachHang(loaiKH);
-                kh.setSoDienThoai(sdtKH);
-                kh.setEmail(emailKH);
-                hd.setKhachHang(kh);
-
-                listHoaDon.add(hd);
-
-            }
+            String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[1];
+            
+            listHoaDon = em.createNativeQuery(nativeQuery, HoaDonTra.class).getResultList();
+            
             return listHoaDon;
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -239,12 +191,17 @@ public class HoaDonTra_DAO implements IHoaDonTra {
                     "<=",
                     ketThuc
             );
-            ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
+            
+            String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[1];
 
-            while (rs.next()) {
-                Object[] tempObj = {rs.getInt("SoLuongTraHang"),(double) rs.getDouble("TongGiaTriTra")};
-                listHoaDon.put(rs.getString("barcode"),tempObj);
-            }
+	        TypedQuery<Object[]> tq = em.createNamedQuery(nativeQuery, Object[].class);
+	        
+	        tq.getResultList().forEach(obj -> {
+				Object[] tempObj = { (long) obj[1], (double) obj[2] };
+				listHoaDon.put((String) obj[0], tempObj);
+			});
+            
+    
             return listHoaDon;
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -315,50 +272,10 @@ public class HoaDonTra_DAO implements IHoaDonTra {
                     params[7]
             );
 
-            ResultSet rs = queryBuilder.setParamsForPrepairedStament(conn, "AND").executeQuery();
-            while (rs.next()) {
-                HoaDonTra hd = new HoaDonTra();
-
-                String hoaDonID = rs.getString("HoaDonID");
-                String khachHangID = rs.getString("KhachHangID");
-                String nhanVienID = rs.getString("NhanVienID");
-                Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
-                double tongTien = rs.getDouble("tongHoan");
-                String trangThai = rs.getString("TrangThai");
-
-                hd.setHoaDonID(hoaDonID);
-                hd.setNgayTraHoaDon(NgayTraHoaDon);
-                hd.setTongHoan(tongTien);
-                hd.setTrangThai(trangThai);
-                hd.setTongHoan(tongTien);
-
-                String hoTenNhanVien = rs.getString("HoTen");
-                String chucVu = rs.getString("chucvu");
-
-                NhanVien nv = new NhanVien(nhanVienID);
-                nv.setHoTen(hoTenNhanVien);
-                nv.setChucVu(chucVu);
-                hd.setNhanVien(nv);
-
-                String hoTenKH = rs.getString(19);
-                String maSoThue = rs.getString("MaSoThue");
-                String diaChi = rs.getString("diaChi");
-                String loaiKH = rs.getString("LoaiKhachHang");
-                String sdtKH = rs.getString("SoDienThoai");
-                String emailKH = rs.getString("Email");
-
-                KhachHang kh = new KhachHang(khachHangID);
-                kh.setHoTen(hoTenKH);
-                kh.setMaSoThue(maSoThue);
-                kh.setDiaChi(diaChi);
-                kh.setLoaiKhachHang(loaiKH);
-                kh.setSoDienThoai(sdtKH);
-                kh.setEmail(emailKH);
-                hd.setKhachHang(kh);
-
-                listHoaDon.add(hd);
-
-            }
+            String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[0];
+        
+            listHoaDon = em.createNamedQuery(nativeQuery, HoaDonTra.class).getResultList();
+            
             return listHoaDon;
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -369,52 +286,8 @@ public class HoaDonTra_DAO implements IHoaDonTra {
 
     @Override
     public HoaDonTra getHoaDonByID(HoaDonTra hd) {
-        String query = "SELECT * FROM HoaDonTra hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID WHERE HoaDonID = ?";
         try {
-            PreparedStatement pstm = conn.prepareStatement(query);
-            pstm.setString(1, hd.getHoaDonID());
-            ResultSet rs = pstm.executeQuery();
-
-            if (!rs.next()) {
-                return null;
-            }
-
-            String hoaDonID = rs.getString("HoaDonID");
-            String khachHangID = rs.getString("KhachHangID");
-            String nhanVienID = rs.getString("NhanVienID");
-            Date NgayTraHoaDon = rs.getTimestamp("NgayTraHoaDon");
-            double tongTien = rs.getDouble("TongHoan");
-            String trangThai = rs.getString("TrangThai");
-
-            hd.setHoaDonID(hoaDonID);
-            hd.setNgayTraHoaDon(NgayTraHoaDon);
-            hd.setTongHoan(tongTien);
-            hd.setTrangThai(trangThai);
-            hd.setTongHoan(tongTien);
-
-            String hoTenNhanVien = rs.getString("HoTen");
-            String chucVu = rs.getString("chucvu");
-
-            NhanVien nv = new NhanVien(nhanVienID);
-            nv.setHoTen(hoTenNhanVien);
-            nv.setChucVu(chucVu);
-            hd.setNhanVien(nv);
-
-            String hoTenKH = rs.getString(22);
-            String maSoThue = rs.getString("MaSoThue");
-            String diaChi = rs.getString("diaChi");
-            String loaiKH = rs.getString("LoaiKhachHang");
-            String sdtKH = rs.getString("SoDienThoai");
-            String emailKH = rs.getString("Email");
-
-            KhachHang kh = new KhachHang(khachHangID);
-            kh.setHoTen(hoTenKH);
-            kh.setMaSoThue(maSoThue);
-            kh.setDiaChi(diaChi);
-            kh.setLoaiKhachHang(loaiKH);
-            kh.setSoDienThoai(sdtKH);
-            kh.setEmail(emailKH);
-            hd.setKhachHang(kh);
+            hd = (HoaDonTra) em.createNamedQuery("HoaDonTra.findByID").setParameter("hoaDonID", hd.getHoaDonID()).getSingleResult();
 
             return hd;
         } catch (Exception e) {
@@ -428,10 +301,7 @@ public class HoaDonTra_DAO implements IHoaDonTra {
     public int getSoHoaDonTrongNgay() {
         // TODO Auto-generated method stub
         try {
-            Statement stm = conn.createStatement();
-            ResultSet rs = stm.executeQuery("SELECT COUNT(*) AS [SoLuong] FROM HoaDonTra WHERE YEAR(NgayTraHoaDon) = YEAR(GETDATE()) AND MONTH(NgayTraHoaDon) = MONTH(GETDATE()) AND DAY(NgayTraHoaDon) = DAY(GETDATE())");
-            rs.next();
-            return rs.getInt("SoLuong");
+            return (int) em.createNamedQuery("HoaDonTra.countToday").getSingleResult();
         } catch (Exception e) {
             // TODO: handle exception
             return 0;

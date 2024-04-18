@@ -12,9 +12,17 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQueries;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 
 @Entity
+@NamedQueries({
+	@NamedQuery( name = "HoaDonTra.findAll", query = "SELECT hdt FROM HoaDonTra hdt" ),
+	@NamedQuery( name = "HoaDonTra.findByID", query = "SELECT hdt FROM HoaDonTra hdt WHERE hdt.hoaDonID = :hoaDonID" ),
+	@NamedQuery(name = "HoaDonTra.countToday", query = "SELECT COUNT(hd) FROM HoaDonTra hd WHERE YEAR(hd.ngayTraHoaDon) = YEAR(CURRENT_DATE) AND "
+            + "MONTH(hd.ngayTraHoaDon) = MONTH(CURRENT_DATE) AND DAY(hd.ngayTraHoaDon) = DAY(CURRENT_DATE)", resultClass = Long.class)
+})
 public class HoaDonTra {
 	@Id
     private String hoaDonID;

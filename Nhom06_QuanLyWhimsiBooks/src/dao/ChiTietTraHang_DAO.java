@@ -26,7 +26,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ChiTietTraHang_DAO implements IChiTietTraHang {
-	private Connection conn;
 	private EntityManager em;
 
 	@Override

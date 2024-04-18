@@ -2,6 +2,8 @@ package ultilities;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
@@ -144,9 +146,11 @@ public class QueryBuilder {
 	/**
 	 * Truyền vào <b> conditionAll </b> là một phép toán tử giữa các param như
 	 * <b>AND, OR</b>
+	 * 
+	 * Trả về câu Query gồm giá trị được thay thế vào (Lưu ý: Dễ bị SQL Injection)
 	 */
 	public Object[] generateQueryWithValue(String conditionsAll) {
-
+		SimpleDateFormat dtf = new SimpleDateFormat("yyyy-MM-dd");
 		String tempQuery = getQuery();
 		String paramsQuery = "WHERE";
 		int numParamsQuery = 0;
@@ -164,9 +168,10 @@ public class QueryBuilder {
 				}
 				case DATE -> {
 					if (x[3] != null) {
-						paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " '" + x[3] + "'")
-								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " '" + x[3] + "'");
-					}
+						Date date = (Date) x[3];
+						paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " '" + dtf.format(date) + "'")
+								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " '" + dtf.format(date) + "'");
+					}		
 				}
 				case DOUBLE -> {
 					if (x[3] != null) {
@@ -184,15 +189,31 @@ public class QueryBuilder {
 								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " " + x[3]);
 					}				}
 				case STRING -> {
+					
 					if (x[3] != null) {
-						paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " '" + x[3] + "'")
+						if (tempCondition.contains("%")) {
+							
+							tempStr = (String) x[2];
+							if (tempStr.length() < 1)
+								continue;
+							paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " LIKE ")
+									: " " + conditionsAll + " " + ((String) x[1] + " LIKE ");
+
+							paramsQuery += (tempStr.charAt(0) == '?') ? "CONCAT('" + x[3]  +"'" : "CONCAT('" + tempStr.charAt(0) + "'";
+							for (int j = 1; j < tempCondition.length(); j++) {
+								paramsQuery += (tempStr.charAt(j) == '?') ? ",'" + x[3]  +"'" : ",'" + tempStr.charAt(j) + "'";
+							}
+							paramsQuery += ")";
+						}else
+							paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " '" + x[3] + "'")
 								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " '" + x[3] + "'");
 					}
 				}
 				case TIMESTAMP -> {
 					if (x[3] != null) {
-						paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " " + x[3])
-								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " " + x[3]);
+						Date date = (Date) x[3];
+						paramsQuery += (numParamsQuery++ < 1) ? " " + ((String) x[1] + " " + (String) x[2] + " '" +  dtf.format(date) + "'")
+								: " " + conditionsAll + " " + ((String) x[1] + " " + (String) x[2] + " '" +  dtf.format(date) + "'");
 					}				}
 				default -> {
 					return null;
@@ -208,6 +229,7 @@ public class QueryBuilder {
 			Object[] obj = { numParamsQuery, tempQuery };
 			return obj;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return null;
 		}
 	}

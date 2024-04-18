@@ -24,8 +24,11 @@ import jakarta.persistence.OneToMany;
 			+ " WHERE YEAR(hd.ngayLapHoaDon) = YEAR(CURRENT_DATE()) AND "
 			+ "MONTH(hd.ngayLapHoaDon) = MONTH(CURRENT_DATE()) AND "
 			+ "DAY(hd.ngayLapHoaDon) = DAY(CURRENT_DATE()) ORDER BY hd.ngayLapHoaDon DESC"),
+	
 	@NamedQuery(name = "HoaDon.findAllByDate", query = "SELECT hd FROM HoaDon hd WHERE hd.ngayLapHoaDon BETWEEN :batDau AND :ketThuc ORDER BY hd.ngayLapHoaDon DESC"),
+	
 	@NamedQuery(name = "HoaDon.findAllByDateAndIsProccess", query = "SELECT hd FROM HoaDon hd WHERE hd.ngayLapHoaDon BETWEEN :batDau AND :ketThuc AND hd.trangThai = 'DA_XU_LY' ORDER BY hd.ngayLapHoaDon DESC"),
+	
 	@NamedQuery(name = "HoaDon.findById", query = "SELECT hd FROM HoaDon hd WHERE hd.hoaDonID = :hoaDonID"),
 	@NamedQuery(name = "HoaDon.ThongKeDoanhThu", query =  "SELECT sp.id, sp.barcode, sp.tenSanPham, sp.soLuongTon, SUM(cthd.soLuong) AS daBan, "
 	                + "SUM(cthd.soLuong * cthd.donGia) AS tongDoanhThu, "
@@ -37,7 +40,9 @@ import jakarta.persistence.OneToMany;
 	                + "GROUP BY sp.id, sp.barcode, sp.tenSanPham, sp.soLuongTon, sp.giaNhap "
 	                + "ORDER BY daBan DESC", resultClass = Object[].class),
 	@NamedQuery(name = "HoaDon.countToday", query = "SELECT COUNT(hd) FROM HoaDon hd WHERE YEAR(hd.ngayLapHoaDon) = YEAR(CURRENT_DATE) AND "
-	            + "MONTH(hd.ngayLapHoaDon) = MONTH(CURRENT_DATE) AND DAY(hd.ngayLapHoaDon) = DAY(CURRENT_DATE)", resultClass = Long.class)
+	            + "MONTH(hd.ngayLapHoaDon) = MONTH(CURRENT_DATE) AND DAY(hd.ngayLapHoaDon) = DAY(CURRENT_DATE)", resultClass = Long.class),
+	
+	@NamedQuery(name = "HoaDon.traHoaDon", query = "UPDATE HoaDon hd SET hd.trangThai = 'TRA_HANG' WHERE hd.hoaDonID = :hoaDonID"),
 })
 public class HoaDon {
 	@Id

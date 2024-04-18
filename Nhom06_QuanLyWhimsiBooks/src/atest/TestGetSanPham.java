@@ -25,6 +25,9 @@ public class TestGetSanPham {
 			ConnectDB.connect();
 //			SanPham_BUS spBUS = new SanPham_BUS();
 			HoaDon_BUS hdBUS = new HoaDon_BUS();
+			HoaDonTra_BUS hdtBUS = new HoaDonTra_BUS();
+			
+			
 //			ChiTietHoaDon_BUS cthdBUS = new ChiTietHoaDon_BUS();
 			
 //			HoaDon  hd =  hdBUS.getHoaDonByID(new HoaDon("HD110424004"));
@@ -50,17 +53,13 @@ public class TestGetSanPham {
 			Date batDau = java.sql.Date.valueOf(startDate);
 			Date ketThuc = java.sql.Date.valueOf(endDate);
 
-			HoaDon_DAO hoaDon_DAO = new HoaDon_DAO();
-//			// Gọi phương thức để lấy danh sách hóa đơn trong khoảng thời gian đã cho
-//			hoaDon_DAO.getDanhSachHoaDonThongKeXuHuong(batDau, ketThuc).forEach(hd -> {
-//			    // In ra chức vụ của nhân viên trong mỗi hóa đơn
-//				// Object[10]
-//			    System.out.println(hd[0] + " " + hd[1] + " " + hd[2] + " " + hd[3] + " " + hd[4] + " " + hd[5] + " " + hd[6] + " " + hd[7] + " " + hd[8] + " " + hd[9]);
-//			});
+			HoaDonTra_BUS hdtBus = new HoaDonTra_BUS();
+			
+		
+			
+			System.out.println(hdtBUS.getSoHoaDonTrongNgay());
 			
 			
-			
-		//	System.out.println(hoaDon_DAO.getDanhSachHoaDonNangCao()));
 
 		
 		} catch (Exception e) {

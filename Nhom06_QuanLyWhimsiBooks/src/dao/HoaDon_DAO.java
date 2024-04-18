@@ -22,12 +22,10 @@ import ultilities.QueryBuilder;
 
 public class HoaDon_DAO implements IHoaDon {
 	private final int LIMIT_RESULT = 100;
-	private Connection conn;
 	private EntityManager em;
 
 	public HoaDon_DAO() {
 		// TODO Auto-generated constructor stub
-		conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
 	}
 
@@ -108,17 +106,23 @@ public class HoaDon_DAO implements IHoaDon {
 	public boolean cancelHoaDon(HoaDon x) {
 		boolean isThisSession = em.getTransaction().isActive();
 		try {
-			x.setTrangThai("TRA_HANG");
+			HoaDon oriHoaDon = em.createNamedQuery("HoaDon.findById", HoaDon.class)
+					.setParameter("hoaDonID", x.getHoaDonID()).getSingleResult();
+			
+			oriHoaDon.setTrangThai("TRA_HANG");
 			if (isThisSession == false)
 				em.getTransaction().begin();
-
-			List<ChiTietHoaDon> tempList = x.getListChiTietHoaDon();
-			x.setListChiTietHoaDon(null);
-			em.merge(x);
+			
+			
+//			List<ChiTietHoaDon> tempListCTHD = x.getListChiTietHoaDon();
+//			oriHoaDon.setListChiTietHoaDon(null);
+			
+			em.merge(oriHoaDon);
+			
 			if (isThisSession == false)
 				em.getTransaction().commit();
+//			oriHoaDon.setListChiTietHoaDon(tempListCTHD);
 
-			x.setListChiTietHoaDon(tempList);
 			return true;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -143,12 +147,16 @@ public class HoaDon_DAO implements IHoaDon {
 	@Override
 	public List<HoaDon> getDanhSachHoaDonTheoThoiGian(Date batDau, Date ketThuc) {
 	    List<HoaDon> listHoaDon = new ArrayList<>();
-
+	    
+		
 	    try {
-	        TypedQuery<HoaDon> query = em.createNamedQuery("HoaDon.findAllByDate", HoaDon.class)
-	                .setParameter("batDau", batDau)
-	                .setParameter("ketThuc", ketThuc);
-	        listHoaDon = query.getResultList();
+	    	String query = "SELECT hd.* FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
+			QueryBuilder queryBuilder = new QueryBuilder(query);
+	        queryBuilder.addParameter(QueryBuilder.Enum_DataType.DATE, "NgayLapHoaDon", ">", batDau);
+	        queryBuilder.addParameter(QueryBuilder.Enum_DataType.DATE, "NgayLapHoaDon", "<=", ketThuc);
+	        String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[1];
+	        
+	        listHoaDon = em.createNativeQuery(nativeQuery, HoaDon.class).getResultList();
 	    } catch (Exception e) {
 	        // Xử lý exception hoặc ném ra một exception mới tùy theo nhu cầu của bạn
 	        e.printStackTrace(); // Hoặc log lỗi
@@ -157,74 +165,37 @@ public class HoaDon_DAO implements IHoaDon {
 	    return listHoaDon;
 	}
 
-//	@Override
-//	public List<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
-//		// TODO Auto-generated method stub
-//		List<HoaDon> listHoaDon = new ArrayList<HoaDon>();
-//
-//		String query = "SELECT TOP 150 * FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
-//
-//		try {
-//			QueryBuilder queryBuilder = new QueryBuilder(query);
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.TIMESTAMP, "NgayLapHoaDon", ">", params[0]);
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.TIMESTAMP, "NgayLapHoaDon", "<=", params[1]);
-//
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "TrangThai", "=", params[2]);
-//
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DOUBLE, "TongTien", ">=", params[3]);
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DOUBLE, "TongTien", "<=", params[4]);
-//
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "HoaDonID", "%?%", params[5]);
-//
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "hd.KhachHangID", "%?%", params[6]);
-//
-//			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "hd.NhanVienID", "%?%", params[7]);
-//
-//			String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[1];
-//			listHoaDon = em.createNativeQuery(nativeQuery, HoaDon.class).getResultList();
-//			return listHoaDon;
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return listHoaDon;
-//		}
-//	}
-
 	@Override
 	public List<HoaDon> getDanhSachHoaDonNangCao(Object[] params) {
-	    List<HoaDon> listHoaDon = new ArrayList<>();
+		// TODO Auto-generated method stub
+		List<HoaDon> listHoaDon = new ArrayList<HoaDon>();
 
-	    String jpqlQuery = "SELECT hd FROM HoaDon hd "
-	            + "JOIN hd.nhanVien nv "
-	            + "JOIN hd.khachHang kh "
-	            + "JOIN hd.khuyenMai km "
-	            + "WHERE hd.ngayLapHoaDon > :startDate "
-	            + "AND hd.ngayLapHoaDon <= :endDate "
-	            + "AND hd.trangThai = :trangThai "
-	            + "AND hd.tongTien >= :minTongTien "
-	            + "AND hd.tongTien <= :maxTongTien "
-	            + "AND hd.hoaDonID LIKE :hoaDonID "
-	            + "AND hd.khachHang.khachHangID LIKE :khachHangID "
-	            + "AND hd.nhanVien.nhanVienID LIKE :nhanVienID "
-	            + "ORDER BY hd.ngayLapHoaDon ASC";
+		String query = "SELECT TOP 150 hd.* FROM HoaDon hd JOIN NhanVien nv ON hd.NhanVienID = nv.NhanVienID JOIN KhachHang kh ON hd.KhachHangID = kh.KhachHangID JOIN KhuyenMai km ON km.CodeKhuyenMai = hd.CodeKhuyenMai ?  ORDER BY ngayLapHoaDon ASC";
 
-	    try {
-	        TypedQuery<HoaDon> query = em.createQuery(jpqlQuery, HoaDon.class);
-	        query.setParameter("startDate", (Date) params[0]);
-	        query.setParameter("endDate", (Date) params[1]);
-	        query.setParameter("trangThai", (String) params[2]);
-	        query.setParameter("minTongTien", (Double) params[3]);
-	        query.setParameter("maxTongTien", (Double) params[4]);
-	        query.setParameter("hoaDonID", "%" + params[5] + "%");
-	        query.setParameter("khachHangID", "%" + params[6] + "%");
-	        query.setParameter("nhanVienID", "%" + params[7] + "%");
+		try {
+			QueryBuilder queryBuilder = new QueryBuilder(query);
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DATE, "NgayLapHoaDon", ">", params[0]);
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DATE, "NgayLapHoaDon", "<=", params[1]);
 
-	        listHoaDon = query.getResultList();
-	        return listHoaDon;
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return listHoaDon;
-	    }
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "TrangThai", "=", params[2]);
+
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DOUBLE, "TongTien", ">=", params[3]);
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.DOUBLE, "TongTien", "<=", params[4]);
+
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "HoaDonID", "%?%", params[5]);
+
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "hd.KhachHangID", "%?%", params[6]);
+
+			queryBuilder.addParameter(QueryBuilder.Enum_DataType.STRING, "hd.NhanVienID", "%?%", params[7]);
+
+			String nativeQuery = (String) queryBuilder.generateQueryWithValue("AND")[1];
+			listHoaDon = em.createNativeQuery(nativeQuery, HoaDon.class).getResultList();
+			return listHoaDon;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return listHoaDon;
+		}
 	}
 
 	
