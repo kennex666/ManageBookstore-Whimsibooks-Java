@@ -26,8 +26,6 @@ public class ConnectDB {
 			
 			EntityManagerFactory emf = Persistence.createEntityManagerFactory("Whimsibook-MSSQL-Production");
 			em = emf.createEntityManager();
-			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -48,7 +46,8 @@ public class ConnectDB {
             }
             return conn;
 	}
-
+	
+	@Deprecated
 	public static void closeConnection() {
 		try {
 			conn.close();
