@@ -15,6 +15,7 @@ import ultilities.RegexPattern;
 
 @Entity
 @NamedQueries({ 
+	@NamedQuery(name ="TacGia.findAll", query = "SELECT tg FROM TacGia tg"),
 	@NamedQuery(name = "TacGia.findByName", query = "SELECT tg FROM TacGia tg WHERE tg.tenTacGia = :name"),
 	@NamedQuery(name = "TacGia.findByID", query = "SELECT tg FROM TacGia tg WHERE tg.tacGiaID = :id"),
 })

@@ -19,6 +19,7 @@ import jakarta.persistence.OneToMany;
  */
 
 @NamedQueries({ 
+	@NamedQuery(name ="DanhMuc.findAll", query = "SELECT dm FROM DanhMuc dm"),
 	@NamedQuery(name = "DanhMuc.findByName", query = "SELECT dm FROM DanhMuc dm WHERE dm.tenDanhMuc = :name"),
 	@NamedQuery(name = "DanhMuc.findByID", query = "SELECT dm FROM DanhMuc dm WHERE dm.danhMucID = :id"),
 })

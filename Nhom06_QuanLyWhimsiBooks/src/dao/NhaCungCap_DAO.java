@@ -13,26 +13,18 @@ import connectDB.ConnectDB;
 import entities.KhuyenMai;
 import entities.NhaCungCap;
 import interfaces.INhaCungCap;
+import jakarta.persistence.EntityManager;
 
 public class NhaCungCap_DAO implements INhaCungCap{
 	private Connection conn;
+	private EntityManager em;
 	
 	@Override
 	public List<NhaCungCap> getAllNhaCungCap() {
 		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		
 		try {
-			Statement stm =  conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
-					list.add(nhaCungCap);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			list = em.createNamedQuery("NhaCungCap.findAll").getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -43,17 +35,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	public List<NhaCungCap> getNCCByID(String maNCC) {
 		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
-			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE NhaCungCapID LIKE '%"+maNCC+"%'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
-					list.add(nhaCungCap);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			list = em.createNamedQuery("NhaCungCap.findByID").setParameter("id", maNCC).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -64,17 +46,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	public List<NhaCungCap> getNCCByPhone(String sdt) {
 		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
-			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE SoDIenThoai = '%"+sdt+"%'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
-					list.add(nhaCungCap);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			list = em.createNamedQuery("NhaCungCap.findByPhone").setParameter("soDienThoai", "%"+sdt+"%").getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,17 +56,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	public List<NhaCungCap> getNCCByEmail(String email) {
 		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
-			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE Email LIKE '%"+email+"%'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
-					list.add(nhaCungCap);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			list = em.createNamedQuery("NhaCungCap.findByEmail").setParameter("email" , "%" + email + "%").getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -105,17 +67,7 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	public List<NhaCungCap> getNCCByName(String name) {
 		List<NhaCungCap> list = new ArrayList<NhaCungCap>();
 		try {
-			Statement stm = conn.createStatement();
-			String query = "SELECT * FROM NhaCungCap WHERE TenNhaCungCap LIKE '%"+name+"%'";
-			ResultSet rs = stm.executeQuery(query);
-			while(rs.next()) {
-				try {
-					NhaCungCap nhaCungCap = new NhaCungCap(rs.getString("NhaCungCapID"), rs.getString("TenNhaCungCap"), rs.getString("SoDienThoai"), rs.getString("Email"), rs.getString("DiaChi"));
-					list.add(nhaCungCap);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
+			list = em.createNamedQuery("NhaCungCap.findByName").setParameter("name", name).getResultList();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,15 +78,10 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	@Override
 	public boolean addNhaCungCap(NhaCungCap ncc) {
 		
-		String insert = "INSERT INTO NhaCungCap (NhaCungCapID,TenNhaCungCap,SoDIenThoai,Email,DiaChi) VALUES (?,?,?,?,?)";
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(insert);
-			preparedStatement.setString(1, ncc.getNhaCungCapID());
-			preparedStatement.setString(2, ncc.getTenNhaCungCap());
-			preparedStatement.setString(3, ncc.getSoDienThoai());
-			preparedStatement.setString(4, ncc.getEmail());
-			preparedStatement.setString(5, ncc.getDiaChi());
-			preparedStatement.executeUpdate();
+			em.getTransaction().begin();
+			em.persist(ncc);
+			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null, "Trùng mã nhà cung cấp");
@@ -151,15 +98,10 @@ public class NhaCungCap_DAO implements INhaCungCap{
 //		String email = ncc.getEmail();
 //		String diaChi = ncc.getDiaChi();
 //		
-		String update = "UPDATE NhaCungCap SET TenNhaCungCap = ?, SoDIenThoai = ?, Email = ?, DiaChi = ? Where NhaCungCapID =  ?";
 		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(update);
-			preparedStatement.setString(1, ncc.getTenNhaCungCap());
-			preparedStatement.setString(2, ncc.getSoDienThoai());
-			preparedStatement.setString(3, ncc.getEmail());
-			preparedStatement.setString(4, ncc.getDiaChi());
-			preparedStatement.setString(5, ncc.getNhaCungCapID());
-			preparedStatement.executeUpdate();
+			em.getTransaction().begin();
+			em.merge(ncc);
+			em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -169,16 +111,13 @@ public class NhaCungCap_DAO implements INhaCungCap{
 	
 	public int layMaNCCCuoiCung() {
 		try {
-			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM NhaCungCap");
-			ResultSet rs = ps.executeQuery();
-			rs.next();
-			return rs.getInt(1);
+			return (int) em.createNamedQuery("NhaCungCap.getNCCCC").getSingleResult();
 		} catch (Exception e) {
 			return 0;
 		}
 	}
 
 	public NhaCungCap_DAO() {
-		this.conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 }

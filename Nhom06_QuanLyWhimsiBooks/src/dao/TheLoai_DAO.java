@@ -11,6 +11,8 @@ import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ITheLoai;
 import interfaces.IThuongHieu;
+import jakarta.persistence.EntityManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,33 +26,19 @@ import java.util.List;
  */
 public class TheLoai_DAO implements ITheLoai{
     private Connection conn;
+    private EntityManager em;
     public TheLoai_DAO() {
-        conn = ConnectDB.getConnection();
+        em = ConnectDB.getEntityManager();
     }
 
     @Override
     public List<TheLoai> getAllTheLoai() {
         List<TheLoai> list = new ArrayList<TheLoai>();
 		try {
-			Statement stm = conn.createStatement();
-			
-			String query = "SELECT * FROM TheLoai";
-			
-			ResultSet rs = stm.executeQuery(query);
-			
-			while (rs.next()) {
-				try {
-					TheLoai theLoai = new TheLoai(rs.getInt("theLoaiID"), rs.getString("tenTheLoai"));
-					list.add(theLoai);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return list;
-				}
-			}
+			list = em.createNamedQuery("TheLoai.findAll").getResultList();
 			
 			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return list;
 		}
@@ -65,13 +53,10 @@ public class TheLoai_DAO implements ITheLoai{
 
     @Override
     public boolean addTheLoai(TheLoai x) {
-        String tenTL = x.getTenTheLoai();
-
-        String insert = "INSERT INTO TheLoai (TenTheLoai) VALUES (?)";
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, tenTL);
-            preparedStatement.executeUpdate();
+        	em.getTransaction().begin();
+            em.persist(x);
+            em.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();

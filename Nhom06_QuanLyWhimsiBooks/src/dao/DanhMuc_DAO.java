@@ -11,25 +11,23 @@ import java.util.List;
 import connectDB.ConnectDB;
 import entities.DanhMuc;
 import interfaces.IDanhMuc;
+import jakarta.persistence.EntityManager;
 
 public class DanhMuc_DAO implements IDanhMuc{
 
 	private Connection conn;
+	private EntityManager em;
 	
 	@Override
 	public boolean addDanhMuc(DanhMuc x) {
 		// TODO Auto-generated method stub
 		try {
-			String query = "INSERT INTO DanhMuc(tenDanhMuc) VALUES(?)";
+			em.getTransaction().begin();
+			em.persist(x);
+			em.getTransaction().commit();
+			return true;
 			
-			PreparedStatement pstm = conn.prepareStatement(query);
-			
-			pstm.setString(1, x.getTenDanhMuc());
-			
-			int rs = pstm.executeUpdate();
-			return (rs > 0) ? true : false;
-			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -44,25 +42,9 @@ public class DanhMuc_DAO implements IDanhMuc{
 		List<DanhMuc> list = new ArrayList<DanhMuc>();
 		
 		try {
-			Statement stm = conn.createStatement();
-			
-			String query = "SELECT * FROM DanhMuc";
-			
-			ResultSet rs = stm.executeQuery(query);
-			
-			while (rs.next()) {
-				try {
-					DanhMuc danhMuc = new DanhMuc(rs.getInt("danhmucid"), rs.getString("tendanhmuc"));
-					list.add(danhMuc);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return list;
-				}
-			}
-			
-			
-		} catch (SQLException e) {
+			list = em.createNamedQuery("DanhMuc.findAll",DanhMuc.class).getResultList();
+	
+		} catch (Exception e) {
 			e.printStackTrace();
 			return list;
 		}
@@ -71,12 +53,19 @@ public class DanhMuc_DAO implements IDanhMuc{
 	}
 	@Override
 	public List<DanhMuc> getDanhMucTheoID(int x) {
-		// TODO Auto-generated method stub
-		return null;
+		List<DanhMuc> list = new ArrayList<DanhMuc>();
+		try {
+			list = em.createNamedQuery("DanhMuc.findByID",DanhMuc.class).setParameter("danhMucID", x).getResultList();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return list;
+		}
+		return list;
 	}
 	public DanhMuc_DAO() {
 		// TODO Auto-generated constructor stub
-		conn = ConnectDB.getConnection();
+		em = ConnectDB.getEntityManager();
 	}
 	
 }

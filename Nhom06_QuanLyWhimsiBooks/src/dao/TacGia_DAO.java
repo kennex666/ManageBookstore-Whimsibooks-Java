@@ -11,6 +11,8 @@ import entities.TacGia;
 import entities.ThuongHieu;
 import interfaces.ITacGia;
 import interfaces.IThuongHieu;
+import jakarta.persistence.EntityManager;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,34 +27,20 @@ import java.util.List;
 public class TacGia_DAO implements  ITacGia{
 
     private Connection conn;
+    private EntityManager em;
    
     public TacGia_DAO() {
-        conn = ConnectDB.getConnection();
+        em = ConnectDB.getEntityManager();
     }
 
     @Override
     public List<TacGia> getAllTacGia() {
        List<TacGia> list = new ArrayList<TacGia>();
 		try {
-			Statement stm = conn.createStatement();
 			
-			String query = "SELECT * FROM TacGia";
+			list = em.createNamedQuery("TacGia.findAll").getResultList();
 			
-			ResultSet rs = stm.executeQuery(query);
-			
-			while (rs.next()) {
-				try {
-					TacGia tacGia = new TacGia(rs.getInt("tacGiaID"), rs.getString("tenTacGia"), rs.getString("quocTich"));
-					list.add(tacGia);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-					return list;
-				}
-			}
-			
-			
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return list;
 		}
@@ -67,13 +55,10 @@ public class TacGia_DAO implements  ITacGia{
 
     @Override
     public boolean addTacGia(TacGia x) {
-        String tenTG = x.getTenTacGia();
-
-        String insert = "INSERT INTO TacGia (TenTacGia) VALUES (?)";
         try {
-            PreparedStatement preparedStatement = conn.prepareStatement(insert);
-            preparedStatement.setString(1, tenTG);
-            preparedStatement.executeUpdate();
+        	em.getTransaction().begin();
+            em.persist(x);
+            em.getTransaction().commit();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
