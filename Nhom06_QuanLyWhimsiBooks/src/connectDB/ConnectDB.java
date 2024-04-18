@@ -36,6 +36,8 @@ public class ConnectDB {
 	}
 	
 	public static EntityManager getEntityManager() {
+		if (em.getTransaction().isActive())
+			em.getTransaction().commit();
 		return em;
 	}
 

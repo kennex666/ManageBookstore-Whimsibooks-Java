@@ -16,7 +16,6 @@ import interfaces.INhaCungCap;
 import jakarta.persistence.EntityManager;
 
 public class NhaCungCap_DAO implements INhaCungCap{
-	private Connection conn;
 	private EntityManager em;
 	
 	@Override
@@ -109,9 +108,9 @@ public class NhaCungCap_DAO implements INhaCungCap{
 		return false;
 	}
 	
-	public int layMaNCCCuoiCung() {
+	public long layMaNCCCuoiCung() {
 		try {
-			return (int) em.createNamedQuery("NhaCungCap.getNCCCC").getSingleResult();
+			return (long) em.createNamedQuery("NhaCungCap.getNCCCC").getSingleResult();
 		} catch (Exception e) {
 			return 0;
 		}

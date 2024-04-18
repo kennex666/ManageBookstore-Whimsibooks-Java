@@ -76,24 +76,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
             jButton5.setEnabled(false);
         }
    
-//        this.jPanel_CBB_TenSanPham.removeAll();
-//        comboBox = new JComboBox<String>();
-//        this.jPanel_CBB_TenSanPham.add(comboBox);
-//        this.jTextField_TenSanPham.addCaretListener(new TextFieldCaretListener());
-//        
-//        comboBox.removeAll();
-//        
-//        comboBox.addActionListener(new ActionListener() {
-//        public void actionPerformed(ActionEvent arg0) {
-//        try {
-//            jTextField_TenSanPham.setText(comboBox.getSelectedItem().toString());
-//            comboBox.removeAllItems();
-//            comboBox.hidePopup();
-//            jPanel_CBB_TenSanPham.removeAll();
-//            } catch (Exception e) {
-//            }
-//        }
-//        });
     }
     int dem_sach = 0;
     int dem_spk = 0;

@@ -26,7 +26,6 @@ import java.util.List;
  */
 public class TacGia_DAO implements  ITacGia{
 
-    private Connection conn;
     private EntityManager em;
    
     public TacGia_DAO() {

@@ -24,7 +24,6 @@ import java.util.List;
  */
 public class ThuongHieu_DAO implements IThuongHieu {
 
-    private Connection conn;
     private EntityManager em;
 
     @Override

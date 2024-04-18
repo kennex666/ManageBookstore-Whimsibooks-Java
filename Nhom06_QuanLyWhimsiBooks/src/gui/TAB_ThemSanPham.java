@@ -1688,13 +1688,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         String date = dcn.format(txtNgay.getDate());
         Date DATE = Date.valueOf(date);
 
-        String partialPath;
-        try {
-            String filePath = this.file.getPath();
-            partialPath = filePath.substring(filePath.indexOf("img\\products"));
-        } catch (Exception e) {
-            partialPath = "";
-        }
 
         NhaCungCap ncc = new NhaCungCap();
         TheLoai tl = new TheLoai();
@@ -1789,6 +1782,15 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 //            	tinhTrang = "NGUNG_KINH_DOANH";
 //            }
 //            sanPham.setTinhTrang(tinhTrang);
+            
+
+            String partialPath;
+            try {
+                String filePath = this.file.getPath();
+                partialPath = filePath.substring(filePath.indexOf("img\\products"));
+                sanPham.setImgPath(partialPath);
+            } catch (Exception e) {
+            }
             sanPham.setThue(thue);
             sanPham.setNamSanXuat(namSanXuat);
             sanPham.setDonViDoLuong(donViDoLuong);
@@ -1799,7 +1801,6 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
             sanPham.setLoaiBia(loaiBia);
             sanPham.setLoaiDoiTra(loaiDoiTra.equalsIgnoreCase("Được đổi trả") ? "DUOC_DOI_TRA" : "KHONG_DOI_TRA");
             sanPham.setNgayNhap(DATE);
-            sanPham.setImgPath(partialPath);
 
             sanPham.setTacGia(tg);
             sanPham.setTheLoai(tl);

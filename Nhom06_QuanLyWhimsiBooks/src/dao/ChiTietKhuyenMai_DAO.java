@@ -19,7 +19,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
 
 public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
-	private Connection conn;
 	private EntityManager em;
 
 	@Override
@@ -83,7 +82,6 @@ public class ChiTietKhuyenMai_DAO implements IChiTietKhuyenMai{
 	}
 
 	public ChiTietKhuyenMai_DAO() {
-		conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
 	}
 }

@@ -630,7 +630,7 @@ public class TAB_KhachHang extends javax.swing.JPanel {
 
 	public String phatSinhMaKhachHang1() {
 		try {
-			int maxId = khachHangBus.phatSinhMaKhachHang();
+			long maxId = khachHangBus.phatSinhMaKhachHang();
 			return "KH" + String.format("%04d", maxId);
 		} catch (Exception e) {
 

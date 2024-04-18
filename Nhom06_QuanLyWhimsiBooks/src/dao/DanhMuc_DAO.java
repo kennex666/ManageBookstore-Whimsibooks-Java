@@ -15,7 +15,6 @@ import jakarta.persistence.EntityManager;
 
 public class DanhMuc_DAO implements IDanhMuc{
 
-	private Connection conn;
 	private EntityManager em;
 	
 	@Override

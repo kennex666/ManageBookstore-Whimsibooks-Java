@@ -25,7 +25,6 @@ import java.util.List;
  * @author ASUS
  */
 public class TheLoai_DAO implements ITheLoai{
-    private Connection conn;
     private EntityManager em;
     public TheLoai_DAO() {
         em = ConnectDB.getEntityManager();

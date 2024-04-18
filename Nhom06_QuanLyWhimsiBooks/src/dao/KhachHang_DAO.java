@@ -28,7 +28,6 @@ import java.time.LocalDate;
 
 public class KhachHang_DAO implements IKhachHang {
 
-	private Connection conn;
 	private EntityManager em;
 
 	public List<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
@@ -46,33 +45,8 @@ public class KhachHang_DAO implements IKhachHang {
 		parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
 		parameters.add(loaiKhachHang.isBlank() ? "%" : "%" + loaiKhachHang + "%");
 		
-//		if (!gioiTinh.isBlank()) {
-//			query += " AND GioiTinh = ?";
-//			parameters.add(gioiTinh);
-//		}
-//		if (!loaiKhachHang.isBlank()) {
-//			query += " AND LoaiKhachHang = ?";
-//			parameters.add(loaiKhachHang);
-//		}
+
 		try {
-//
-//			PreparedStatement pstmt = conn.prepareStatement(query);
-//
-//			for (int i = 0; i < parameters.size(); i++) {
-//				pstmt.setString(i + 1, parameters.get(i));
-//
-//			}
-//
-//			ResultSet rs = pstmt.executeQuery();
-//			while (rs.next()) {
-//				// Tạo đối tượng KhachHang từ kết quả tìm kiếm
-//				KhachHang khachHang = new KhachHang(rs.getString("khachHangID"), rs.getString("hoTen"),
-//						rs.getString("soDienThoai"), rs.getDate("ngaySinh").toLocalDate(), rs.getString("gioiTinh"),
-//						rs.getString("email"), rs.getString("maSoThue"), rs.getString("diaChi"),
-//						rs.getString("loaiKhachHang"));
-//
-//				// Thêm đối tượng KhachHang vào danh sách
-//			}
 			
 			listKhachHang = em.createQuery(query, KhachHang.class)
 					.setParameter("khachHangID", parameters.get(0)).setParameter("hoTen", parameters.get(1))
@@ -97,7 +71,7 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 
 	@Override
-	public int totalKhachHang() {
+	public long totalKhachHang() {
 		return 0;
 	}
 
@@ -174,9 +148,9 @@ public class KhachHang_DAO implements IKhachHang {
 		return null;
 	}
 
-	public int phatSinhMaKhachHang() {
+	public long phatSinhMaKhachHang() {
 		try {
-			return em.createNamedQuery("KhachHang.phatSinhMaKhachHang", Integer.class).getSingleResult() + 1;
+			return em.createNamedQuery("KhachHang.phatSinhMaKhachHang", Long.class).getSingleResult() + 1;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -199,28 +173,6 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 
 	public boolean checkIfKhachHangExists(String maKH) {
-//		Connection connection = null;
-//		PreparedStatement preparedStatement = null;
-//		ResultSet resultSet = null;
-//
-//		try {
-//
-//			String query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = ?";
-//			preparedStatement = conn.prepareStatement(query);
-//			preparedStatement.setString(1, maKH);
-//			resultSet = preparedStatement.executeQuery();
-//
-//			if (resultSet.next()) {
-//				int count = resultSet.getInt(1);
-//				System.out.println(resultSet.getInt(1));
-//				return count > 0;
-//
-//			}
-//
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return false;
 		try {
 			return em.createNamedQuery("KhachHang.checkIfKhachHangExists", Integer.class).setParameter("id", maKH)
 					.getSingleResult() > 0;
@@ -231,18 +183,6 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 
 	public boolean chuyenLoaiKhachHang(String maKhachHang, String loaiKhachHangMoi) {
-//		String query = "UPDATE KhachHang SET LoaiKhachHang = ? WHERE KhachHangID = ?";
-//		try {
-//			PreparedStatement pstmt = conn.prepareStatement(query);
-//			pstmt.setString(1, loaiKhachHangMoi);
-//			pstmt.setString(2, maKhachHang);
-//
-//			int rowsAffected = pstmt.executeUpdate();
-//			return rowsAffected > 0;
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return false;
-//		}
 		EntityTransaction tx = em.getTransaction();
 		try {
 			return em.createNamedQuery("KhachHang.chuyenLoaiKhachHang")
@@ -254,7 +194,6 @@ public class KhachHang_DAO implements IKhachHang {
 	}
 
 	public KhachHang_DAO() {
-		this.conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
 	}
 

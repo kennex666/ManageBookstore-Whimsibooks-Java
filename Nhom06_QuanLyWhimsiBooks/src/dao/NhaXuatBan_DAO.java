@@ -23,7 +23,6 @@ import java.util.List;
  * @author ASUS
  */
 public class NhaXuatBan_DAO implements INhaXuatBan{
-    private Connection conn;
     private EntityManager em;
 
     public NhaXuatBan_DAO() {

@@ -12,5 +12,6 @@ public interface INhaCungCap {
 	public List<NhaCungCap> getNCCByName(String name);
 	public boolean addNhaCungCap(NhaCungCap ncc);
 	public boolean editNhaCungCap(NhaCungCap ncc);
+	public long layMaNCCCuoiCung();
 	
 }

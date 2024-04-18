@@ -11,7 +11,7 @@ public interface IKhachHang {
 
 	public List<KhachHang> getAllKhachHang();
 
-	public int totalKhachHang();
+	public long totalKhachHang();
 
 	public boolean addKhachHang(KhachHang kh);
 
@@ -25,7 +25,7 @@ public interface IKhachHang {
 
 	public List<NhanVien> findKhachHang(String x);
 
-	public int phatSinhMaKhachHang();
+	public long phatSinhMaKhachHang();
 
 	String phatSinhMaSoThue(String loaiKhachHang);
 

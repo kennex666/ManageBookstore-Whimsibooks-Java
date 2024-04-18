@@ -25,7 +25,7 @@ public class KhachHang_BUS implements IKhachHang {
 	}
 
 	@Override
-	public int totalKhachHang() {
+	public long totalKhachHang() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
@@ -70,7 +70,7 @@ public class KhachHang_BUS implements IKhachHang {
 		return null;
 	}
 	@Override
-	public int phatSinhMaKhachHang() {
+	public long phatSinhMaKhachHang() {
 		// TODO Auto-generated method stub
 		return kh_dao.phatSinhMaKhachHang();
 	}

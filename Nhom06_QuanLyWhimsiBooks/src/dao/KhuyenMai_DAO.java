@@ -33,9 +33,8 @@ import jakarta.persistence.TypedQuery;
 import ultilities.QueryBuilder;
 
 public class KhuyenMai_DAO implements IKhuyenMai {
-	private Connection conn;
 	private EntityManager em;
-	private SanPham_BUS sanPham_BUS;
+	private SanPham_DAO sanPham_DAO;
 	
 	// convert string to date
 	private Date parsedFormatDate(String date) throws ParseException {
@@ -117,25 +116,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	public List<KhuyenMai> TimKiemKhuyenMaiTheoDieuKien(String query) {
-//		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-//		try {
-//			Statement stm = conn.createStatement();
-//			ResultSet rs = stm.executeQuery(query);
-//			while (rs.next()) {
-//				try {
-//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-//							rs.getInt("SoLuotDaApDung"));
-//					list.add(khuyenMai);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return list;
 		try {
 			return em.createQuery(query, KhuyenMai.class).getResultList();
 		} catch (Exception e) {
@@ -146,33 +126,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 	
 	public List<KhuyenMai> getKhuyenMaiTheoTen1(String tenSK) {
-//	    List<KhuyenMai> list = new ArrayList<>();
-//
-//	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
-//
-//	    try (PreparedStatement pst = conn.prepareStatement(query)) {
-//	        pst.setString(1, tenSK);
-//
-//	        try (ResultSet rs = pst.executeQuery()) {
-//	            while (rs.next()) {
-//	                try {
-//	                    KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-//	                            rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-//	                            rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"),
-//	                            rs.getInt("SoLuotDaApDung"));
-//	                    list.add(khuyenMai);
-//	                } catch (Exception e) {
-//	                    e.printStackTrace();
-//	                }
-//	            }
-//	        } catch (Exception e) {
-//	            e.printStackTrace();
-//	        }
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//
-//	    return list;
 		try {
 			return em.createNamedQuery("KhuyenMai.getKhuyenMaiTheoTen", KhuyenMai.class).setParameter("tenKM", tenSK)
 					.getResultList();
@@ -183,25 +136,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	public List<KhuyenMai> SapXepKhuyenMaiTheoGiaTri(String maKhuyenMai) {
-//		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-//		try {
-//			Statement stm = conn.createStatement();
-//			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai like '%" + maKhuyenMai + "%'";
-//			ResultSet rs = stm.executeQuery(query);
-//			while (rs.next()) {
-//				try {
-//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"));
-//					list.add(khuyenMai);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return list;
 		try {
 			return em.createNamedQuery("KhuyenMai.SapXepKhuyenMaiTheoGiaTri", KhuyenMai.class).setParameter("maKM", maKhuyenMai)
 					.getResultList();
@@ -213,35 +147,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	@Override
 	public boolean addKhuyenMai(KhuyenMai khuyenMai) {
-//		String codeKhuyenMai = khuyenMai.getCodeKhuyenMai();
-//		String tenKhuyenMai = khuyenMai.getTenKhuyenMai();
-//		String loaiKhuyenMai = khuyenMai.getLoaiKhuyenMai();
-//		double giaTri = khuyenMai.getGiaTri();
-//		Date ngayKhuyenMai = khuyenMai.getNgayKhuyenMai();
-//		Date ngayHetHanKM = khuyenMai.getNgayHetHanKM();
-//		double donHangTu = khuyenMai.getDonHangTu();
-//		int soLuongKhuyenMai = khuyenMai.getSoLuongKhuyenMai();
-//		int soLuotDaApDung = khuyenMai.getSoLuotDaApDung();
-//
-//		String insertKM = "INSERT INTO KhuyenMai (CodeKhuyenMai, TenKhuyenMai, LoaiGiamGia, GiaTri,NgayKhuyenMai, NgayHetHanKM, DonHangTu, SoLuongKhuyenMai,SoLuotDaApDung) VALUES (?,?,?,?,?,?,?,?,?)";
-//
-//		try {
-//			PreparedStatement preparedStatement = conn.prepareStatement(insertKM);
-//			preparedStatement.setString(1, codeKhuyenMai);
-//			preparedStatement.setString(2, tenKhuyenMai);
-//			preparedStatement.setString(3, loaiKhuyenMai);
-//			preparedStatement.setDouble(4, giaTri);
-//			preparedStatement.setDate(5, ngayKhuyenMai);
-//			preparedStatement.setDate(6, ngayHetHanKM);
-//			preparedStatement.setDouble(7, donHangTu);
-//			preparedStatement.setInt(8, soLuongKhuyenMai);
-//			preparedStatement.setInt(9, soLuotDaApDung);
-//			preparedStatement.executeUpdate();
-//			return true;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
@@ -257,21 +162,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	@Override
 	public boolean editKhuyenMai(KhuyenMai khuyenMai) {
-//		String update = "UPDATE KhuyenMai SET TenKhuyenMai = ?, LoaiGiamGia = ?, GiaTri = ?, NgayKhuyenMai = ?, NgayHetHanKM = ?, DonHangTu = ? Where CodeKhuyenMai =  ?";
-//		try {
-//			PreparedStatement preparedStatement = conn.prepareStatement(update);
-//			preparedStatement.setString(1, khuyenMai.getTenKhuyenMai());
-//			preparedStatement.setString(2, khuyenMai.getLoaiKhuyenMai());
-//			preparedStatement.setDouble(3, khuyenMai.getGiaTri());
-//			preparedStatement.setDate(4, khuyenMai.getNgayKhuyenMai());
-//			preparedStatement.setDate(5, khuyenMai.getNgayHetHanKM());
-//			preparedStatement.setDouble(6, khuyenMai.getDonHangTu());
-//			preparedStatement.setString(7, khuyenMai.getCodeKhuyenMai());
-//			return (preparedStatement.executeUpdate() > 0) ? true : false;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
@@ -287,15 +177,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	
 	@Override
 	public boolean deleteKhuyenMai(String codeKhuyenMai) {
-//	    String delete = "DELETE FROM KhuyenMai WHERE CodeKhuyenMai = ?";
-//	    try {
-//	        PreparedStatement preparedStatement = conn.prepareStatement(delete);
-//	        preparedStatement.setString(1, codeKhuyenMai);
-//	        return (preparedStatement.executeUpdate() > 0);
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	    return false;
 		EntityTransaction tx = em.getTransaction();
 		try {
 			tx.begin();
@@ -313,25 +194,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	@Override
 	public List<KhuyenMai> getKhuyenMaiFollowDay(Date startDay, Date expriedDay) {
 		List<KhuyenMai> list = new ArrayList<KhuyenMai>();
-//		try {
-//			String query = "	String query = \"SELECT * FROM KhuyenMai WHERE NgayKhuyenMai BETWEEN '?' AND '?'";
-//			PreparedStatement preparedStatement = conn.prepareStatement(query);
-//			preparedStatement.setDate(1, startDay);
-//			preparedStatement.setDate(2, expriedDay);
-//			ResultSet rs = preparedStatement.executeQuery();
-//			while (rs.next()) {
-//				try {
-//					KhuyenMai khuyenMai = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"),
-//							rs.getString("LoaiGiamGia"), rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"),
-//							rs.getDate("NgayHetHanKM"), rs.getDouble("DonHangTu"));
-//					list.add(khuyenMai);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
 		try {
 			return list = em.createNamedQuery("KhuyenMai.getKhuyenMaiFollowDay", KhuyenMai.class)
 					.setParameter("startDay", startDay).setParameter("expriedDay", expriedDay).getResultList();
@@ -342,14 +204,7 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	}
 
 	public int layMaNCCCuoiCung() {
-//		try {
-//			PreparedStatement ps = conn.prepareStatement("SELECT COUNT(*) FROM KhuyenMai");
-//			ResultSet rs = ps.executeQuery();
-//			rs.next();
-//			return rs.getInt(1);
-//		} catch (Exception e) {
-//			return 0;
-//		}
+
 		try {
 			return em.createQuery("SELECT COUNT(km) FROM KhuyenMai km", Long.class).getSingleResult().intValue();
 		} catch (Exception e) {
@@ -362,34 +217,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	public KhuyenMai getKhuyenMaiByCodeKMForSeller(String maKhuyenMai) {
 		KhuyenMai km = null;
 		List<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
-//		try {
-//			String query = "Select * from KhuyenMai WHERE CodeKhuyenMai = ?";
-//			PreparedStatement pstm = conn.prepareStatement(query);
-//			pstm.setString(1, maKhuyenMai);
-//			ResultSet rs = pstm.executeQuery();
-//			if (!rs.next()) {
-//				return null;
-//			}
-//			km = new KhuyenMai(rs.getString("CodeKhuyenMai"), rs.getString("TenKhuyenMai"), rs.getString("LoaiGiamGia"),
-//					rs.getDouble("GiaTri"), rs.getDate("NgayKhuyenMai"), rs.getDate("NgayHetHanKM"),
-//					rs.getDouble("DonHangTu"), rs.getInt("SoLuongKhuyenMai"), rs.getInt("SoLuotDaApDung"));
-//
-//			query = "Select * from ChiTietKhuyenMai WHERE CodeKhuyenMai = ?";
-//			pstm = conn.prepareStatement(query);
-//			pstm.setString(1, maKhuyenMai);
-//			rs = pstm.executeQuery();
-//			while (rs.next()) {
-//				ChiTietKhuyenMai ctkm = new ChiTietKhuyenMai(new SanPham(rs.getInt("SanPhamID")));
-//				listCT.add(ctkm);
-//			}
-//			km.setChiTietKhuyenMai(listCT);
-//
-//			return km;
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//
-//		}
-//		return km;
 		try {
 			km = em.createQuery("SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai = :maKM", KhuyenMai.class)
 					.setParameter("maKM", maKhuyenMai).getSingleResult();
@@ -405,33 +232,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 
 	@Override
 	public List<KhuyenMai> getKhuyenMaiByName(String name) {
-//	    List<KhuyenMai> list = new ArrayList<>();
-//	    String query = "SELECT * FROM KhuyenMai WHERE TenKhuyenMai = ?";
-//	    
-//	    try (PreparedStatement pst = conn.prepareStatement(query)) {
-//	        pst.setString(1, name);
-//	        try (ResultSet rs = pst.executeQuery()) {
-//	            while (rs.next()) {
-//	                try {
-//	                    KhuyenMai khuyenMai = new KhuyenMai(
-//	                            rs.getString("CodeKhuyenMai"),
-//	                            rs.getString("TenKhuyenMai"),
-//	                            rs.getString("LoaiGiamGia"),
-//	                            rs.getDouble("GiaTri"),
-//	                            rs.getDate("NgayKhuyenMai"),
-//	                            rs.getDate("NgayHetHanKM"),
-//	                            rs.getDouble("DonHangTu")
-//	                    );
-//	                    list.add(khuyenMai);
-//	                } catch (Exception e) {
-//	                    e.printStackTrace();
-//	                }
-//	            }
-//	        }
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	    }
-//	    return list;
 		try {
 			return em.createQuery("SELECT km FROM KhuyenMai km WHERE km.tenKhuyenMai = :tenKM", KhuyenMai.class)
 					.setParameter("tenKM", name).getResultList();
@@ -453,75 +253,6 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 		Map<String, Object> paramsInQuery = new HashMap<String, Object>(); // store params for query
 		
 		String where = "WHERE ";
-	
-		/*
-		 * 	One way to handle multiple params
-		 *  Name: Nguyen Thanh Luan
-		 */
-		
-		/*
-		for (int i = 0; i < params.length; i++) {
-			Object obj = params[i];
-			switch (i) {
-			// parames 0
-			case 0:
-				if (obj != null) {
-					where = where.concat("ngayKhuyenMai >= :startDay");
-					paramsInQuery.put("startDay", parsedFormatDate(obj.toString()));
-				}
-				break;
-			// parames 1
-			case 1:
-				if (obj != null) {
-					if (!where.equals("WHERE ")) {
-						where = where.concat(" AND ");
-					}
-					where = where.concat("ngayKhuyenMai <= :endDay");
-					paramsInQuery.put("endDay", parsedFormatDate(obj.toString()));
-				}
-				break;
-			// parames 2
-			case 2:
-				if (obj != null) {
-					if (!where.equals("WHERE ")) {
-						where = where.concat(" AND ");
-					}
-					where = where.concat("giaTri >= :giaTriMin");
-					paramsInQuery.put("giaTriMin", obj);
-				}
-				break;
-			// parames 3
-			case 3:
-				if (obj != null) {
-                    if (!where.equals("WHERE ")) {
-                        where = where.concat(" AND ");
-                    }
-                    where = where.concat("giaTri <= :giaTriMax");
-                    paramsInQuery.put("giaTriMax", obj);
-                }
-				break;
-			// parames 4
-			case 4:
-                if (obj != null) {
-                    if (!where.equals("WHERE ")) {
-                        where = where.concat(" AND ");
-                    }
-                    where = where.concat("codeKhuyenMai LIKE :maKhuyenMai");
-                    paramsInQuery.put("maKhuyenMai", "%" + obj + "%");
-                }
-                break;
-            // parames 5
-            case 5:
-                if (obj != null) {
-                    if (!where.equals("WHERE ")) {
-                        where = where.concat(" AND ");
-                    }
-                    where = where.concat("tenKhuyenMai LIKE :tenKhuyenMai");
-                    paramsInQuery.put("tenKhuyenMai", "%" + obj + "%");
-                }
-                break;
-		}
-		*/
 
 		// parames 0
 		if (params[0] != null) {
@@ -648,9 +379,8 @@ public class KhuyenMai_DAO implements IKhuyenMai {
     }
 
 	public KhuyenMai_DAO() {
-		this.conn = ConnectDB.getConnection();
 		em = ConnectDB.getEntityManager();
-		this.sanPham_BUS = new SanPham_BUS();
+		this.sanPham_DAO = new SanPham_DAO();
 	}
 	
 	@Override
@@ -661,13 +391,13 @@ public class KhuyenMai_DAO implements IKhuyenMai {
 	@Override
 	public List<SanPham> laySanPhamTheoMa(String txt) {
 		List<SanPham> list = new ArrayList<SanPham>();
-		list = sanPham_BUS.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
+		list = sanPham_DAO.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
 	@Override
 	public List<SanPham> laySanPhamTheoTen(String txt) {
 		List<SanPham> list = new ArrayList<SanPham>();
-		list = sanPham_BUS.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
+		list = sanPham_DAO.getDanhSachSanPham("SELECT sp FROM SanPham sp WHERE SanPhamID LIKE '%"+txt+"%'");
 		return list;
 	}
 	@Override
