@@ -1,8 +1,6 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=eclipse
 
-#Enviroments Configs
-/Nhom06_QuanLyWhimsiBooks/src/utilities/EnviromentConfigs.java
 
 ### Eclipse ###
 .idea
@@ -72,8 +70,6 @@ local.properties
 .sts4-cache/
 
 # End of https://www.toptal.com/developers/gitignore/api/eclipse
-/Nhom06_QuanLyWhimsiBooks/nbproject/private/
-/Nhom06_QuanLyWhimsiBooks/build/
 # Created by https://www.toptal.com/developers/gitignore/api/netbeans
 # Edit at https://www.toptal.com/developers/gitignore?templates=netbeans
 
@@ -94,4 +90,14 @@ build.xml
 
 
 # Our enviroment
-Nhom06_QuanLyWhimsiBooks/src/gui/*Test.java
+/Nhom06_QuanLyWhimsiBooks_Client/src/gui/*Test.java
+/Nhom06_QuanLyWhimsiBooks_Client/nbproject/private/
+/Nhom06_QuanLyWhimsiBooks_Client/build/
+#Enviroments Configs
+
+# Our enviroment
+/Nhom06_QuanLyWhimsiBooks_Server/src/gui/*Test.java
+/Nhom06_QuanLyWhimsiBooks_Server/nbproject/private/
+/Nhom06_QuanLyWhimsiBooks_Server/build/
+#Enviroments Configs
+/Nhom06_QuanLyWhimsiBooks_Server/src/utilities/EnviromentConfigs.java

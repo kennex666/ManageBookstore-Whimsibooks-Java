@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-17">
+		<attributes>
+			<attribute name="module" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry including="**/*.java" kind="src" output="target/classes" path="src">
+		<attributes>
+			<attribute name="optional" value="true"/>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="src/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="src/lib/gui325.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/commons-codec-1.10.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/curvesapi-1.04.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-ooxml-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-ooxml-schemas-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/poi-3.17.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/itextpdf-5.5.13.3.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/Spire.Xls12.jar"/>
+	<classpathentry kind="lib" path="src/lib/TimingFramework-0.55.jar"/>
+	<classpathentry kind="lib" path="src/lib/miglayout-4.0.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/activation.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/mail.jar"/>
+	<classpathentry kind="lib" path="src/lib/excelLib/jakarta.activation-api-2.1.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="output" path="target/classes"/>
+</classpath>
