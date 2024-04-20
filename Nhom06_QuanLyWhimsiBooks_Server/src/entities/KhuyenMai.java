@@ -27,7 +27,10 @@ import jakarta.persistence.OneToMany;
 	@NamedQuery(name = "KhuyenMai.SapXepKhuyenMaiTheoGiaTri", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai like CONCAT('%', :maKM, '%') ORDER BY km.giaTri"),
 	@NamedQuery(name = "KhuyenMai.getKhuyenMaiFollowDay", query = "SELECT km FROM KhuyenMai km WHERE km.ngayKhuyenMai BETWEEN :startDay AND :expriedDay"),
 	//SELECT TOP 1 * from KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.CodeKhuyenMai = ct.CodeKhuyenMai WHERE SanPhamID = ? AND NgayKhuyenMai <= GETDATE() AND NgayHetHanKM >= GETDATE() AND SoLuongKhuyenMai > 1 AND SoLuotDaApDung < SoLuongKhuyenMai ORDER BY NgayKhuyenMai DESC
-	@NamedQuery(name = "KhuyenMai.getKhuyenMaiViaSanPhamAutoApply", query = "SELECT km FROM KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.codeKhuyenMai = ct.khuyenMai.codeKhuyenMai WHERE ct.sanPham.sanPhamID = :sanPhamID AND km.ngayKhuyenMai <= CURRENT_DATE AND km.ngayHetHanKM >= CURRENT_DATE AND km.soLuongKhuyenMai > 1 AND km.soLuotDaApDung < km.soLuongKhuyenMai ORDER BY km.ngayKhuyenMai DESC")
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiViaSanPhamAutoApply", query = "SELECT km FROM KhuyenMai km JOIN ChiTietKhuyenMai ct ON km.codeKhuyenMai = ct.khuyenMai.codeKhuyenMai WHERE ct.sanPham.sanPhamID = :sanPhamID AND km.ngayKhuyenMai <= CURRENT_DATE AND km.ngayHetHanKM >= CURRENT_DATE AND km.soLuongKhuyenMai > 1 AND km.soLuotDaApDung < km.soLuongKhuyenMai ORDER BY km.ngayKhuyenMai DESC"),
+	@NamedQuery(name = "KhuyenMai.layMaNCCCuoiCung", query = "SELECT COUNT(km) FROM KhuyenMai km"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiByCodeKMForSeller", query = "SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai = :maKM"),
+	@NamedQuery(name = "KhuyenMai.getKhuyenMaiByName", query = "SELECT km FROM KhuyenMai km WHERE km.tenKhuyenMai = :tenKM"),
 })
 public class KhuyenMai implements Serializable{
 	
