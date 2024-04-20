@@ -34,18 +34,10 @@ public class NhanVien_DAO extends UnicastRemoteObject implements INhanVien{
         List<NhanVien> listNhanVien = new ArrayList<>();
 
         String query = "SELECT nv FROM NhanVien nv WHERE nhanVienID LIKE :id AND hoTen LIKE :hoTen AND soDienThoai LIKE :sdt ";
-
-        // Tạo một danh sách tham số để lưu giữ các tham số có thể trống
         List<String> parameters = new ArrayList<>();
-
-        // Thêm các giá trị vào danh sách tham số
         parameters.add(maNhanVien.isBlank() ? "%" : "%" + maNhanVien + "%");
         parameters.add(tenNhanVien.isBlank() ? "%" : "%" + tenNhanVien + "%");
         parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
-        
-        // GioiTinh: bug Nu - Male
-        
-//        parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
         if(gioiTinh.isBlank())
         	query += "AND gioiTinh like '%' ";
         else {
@@ -54,8 +46,6 @@ public class NhanVien_DAO extends UnicastRemoteObject implements INhanVien{
 			else
 				query += "AND gioiTinh not like 'NAM' ";
         }
-        //Chuc vu: 
-//        parameters.add(chucVu.isBlank() ? "%" : "%" + chucVu + "%");
         if(chucVu.isBlank())
         	query += "AND chucVu like '%' ";
         else {
