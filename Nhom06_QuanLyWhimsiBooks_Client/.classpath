@@ -23,6 +23,7 @@
 	<classpathentry kind="lib" path="src/lib/excelLib/activation.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/mail.jar"/>
 	<classpathentry kind="lib" path="src/lib/excelLib/jakarta.activation-api-2.1.2.jar"/>
+	<classpathentry kind="lib" path="src/lib/impl_client.jar"/>
 	<classpathentry kind="con" path="org.eclipse.m2e.MAVEN2_CLASSPATH_CONTAINER">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -34,7 +35,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry combineaccessrules="false" kind="src" path="/Nhom06_QuanLyWhimsiBooks_Server"/>
 	<classpathentry kind="src" path="target/generated-sources/annotations">
 		<attributes>
 			<attribute name="ignore_optional_problems" value="true"/>
