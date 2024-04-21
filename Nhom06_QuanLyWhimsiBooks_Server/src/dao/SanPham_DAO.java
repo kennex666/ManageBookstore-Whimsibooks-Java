@@ -25,6 +25,7 @@ import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import ultilities.Numberic;
 
 import java.util.logging.Level;
