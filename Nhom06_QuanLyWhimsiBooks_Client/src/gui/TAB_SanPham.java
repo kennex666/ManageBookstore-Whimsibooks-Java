@@ -55,7 +55,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author duong
  */
 public class TAB_SanPham extends javax.swing.JPanel {
-
+	private SanPham_BUS sanPham_BUS;
 
 
     /**
@@ -64,7 +64,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
     public TAB_SanPham() {
 
         initComponents();
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        sanPham_BUS = new SanPham_BUS();
         List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         loadSanPham(list_SanPham);
 
@@ -253,8 +253,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         jComboBox_ThuongHieu.removeAllItems();
         dem_sach = 0;
         dem_spk = 0;
-
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
         List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         this.jTextField_TimKiem.setText("");
         this.jTextField_TimKiem1.setText("");
@@ -935,7 +933,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         String timKiem_NhaXuatBan = this.jComboBox_NhaXuatBan.getSelectedItem().toString();
         String timKiem_TrangThai = this.jComboBox_TrangThai.getSelectedItem().toString();
 
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
         int tacGiaID = sanPham_BUS.getIdTacGiaByName(timKiem_Ten.toString());
         int theLoaiID = sanPham_BUS.getIdTheloaiByName(timKiem_Ten.toString());
         int danhMucID = sanPham_BUS.getIdDanhMucByName(timKiem_DanhMuc.toString());
@@ -1072,7 +1069,6 @@ public class TAB_SanPham extends javax.swing.JPanel {
         String timKiem_ThuongHieu = this.jComboBox_ThuongHieu.getSelectedItem().toString();
         String timKiem_TrangThai = this.jComboBox_TrangThai_SPK.getSelectedItem().toString();
 
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
         int thuongHieuID = sanPham_BUS.getIdThuongHieuByName(timKiem_ThuongHieu.toString());
 
         String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
@@ -1148,7 +1144,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         FileNameExtensionFilter fnef = new FileNameExtensionFilter("EXCEL FILES", "xls", "xlsx", "xlsm");
         excelFileChooser.setFileFilter(fnef);
         int excelChooser = excelFileChooser.showOpenDialog(null);
-        SanPham_BUS sanPham_BUS = new SanPham_BUS();
+        sanPham_BUS = new SanPham_BUS();
         NhaCungCap_BUS nhaCungCap_BUS = new NhaCungCap_BUS();
         List<SanPham> list_SanPham = sanPham_BUS.getDanhSachSanPham();
         List<NhaCungCap> list_NhaCungCap = nhaCungCap_BUS.getAllNhaCungCap();
