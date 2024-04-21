@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -31,8 +32,10 @@ public class HoaDonTra implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(columnDefinition = "NVARCHAR(255)")
     private String hoaDonID;
     private Date ngayTraHoaDon;
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String trangThai;
     
     @ManyToOne(fetch = FetchType.LAZY)

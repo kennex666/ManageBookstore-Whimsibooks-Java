@@ -972,9 +972,9 @@ public class TAB_KhuyenMai extends javax.swing.JPanel {
 		List<SanPham> dsChonSP = khuyenMai_BUS.laySanPhamDuocChon(tableChonSP);
 
 		if (!radVoucher.isSelected()) {
-			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z0-9_\\-]){6,}$"))) {
+			if (!(maKM.length() > 0 && maKM.matches("^([A-Za-z0-9_\\-]){1,}$"))) {
 				new ultilities.ShowMessageError().showError(this, txtMaKM,
-						"Mã khuyến mãi không đúng định dạng (có 6 ký tự trở lên  ví dụ: Abc_123)", "Thông báo");
+						"Mã khuyến mãi không đúng định dạng bao gồm: chữ cái, số, gạch ngang", "Thông báo");
 				return false;
 			}
 			if (maKM.contains("Voucher_")) {

@@ -26,21 +26,22 @@ public class MainActivity {
 
 	public static void main(String[] args) {
 
-		/**
-		 * Connecting DataBase
-		 */
-		try {
-			UIManager.setLookAndFeel(new FlatMacLightLaf());
-			SplashLoading sl = new SplashLoading();
-			sl.setLocationRelativeTo(null);
-			sl.setVisible(true);
-			for (int i = 0; i < 10; i++) {
-				Thread.sleep(random(10, 50));
-				sl.processBarUpdate(i);
-			}
-			sl.processBarUpdate(10, "Khởi tạo tiến trình hoàn tất");
-			Thread.sleep(250);
-			sl.processBarUpdate(10, "Cập nhật tiến trình");
+        /**
+         * Connecting DataBase
+         */
+    	
+        try {
+            UIManager.setLookAndFeel(new FlatMacLightLaf());
+            SplashLoading sl = new SplashLoading();
+            sl.setLocationRelativeTo(null);
+            sl.setVisible(true);
+            for (int i = 0; i < 10; i++) {
+                Thread.sleep(random(10, 50));
+                sl.processBarUpdate(i);
+            }
+            sl.processBarUpdate(10, "Khởi tạo tiến trình hoàn tất");
+            Thread.sleep(250);
+            sl.processBarUpdate(10, "Cập nhật tiến trình");
 
 			Thread.sleep(500);
 			for (int i = 10; i < 23; i++) {

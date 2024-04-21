@@ -1294,8 +1294,8 @@ public class TAB_NhanVien extends javax.swing.JPanel {
             return false;
 
         }
-        if (!txtTaiKhoan.getText().matches("^[a-zA-Z0-9]{3,}$")) {
-            errorMessage1 += "Tài khoản: phải gồm các ký tự a-z, A-Z, 0-9 tối thiểu 3 ký tự\n";
+        if (!txtTaiKhoan.getText().matches("^[a-zA-Z0-9]{1,}$")) {
+            errorMessage1 += "Tài khoản: phải gồm các ký tự a-z, A-Z, 0-9 tối thiểu 1 ký tự\n";
             JOptionPane.showMessageDialog(this, errorMessage1);
             return false;
 
@@ -1305,30 +1305,15 @@ public class TAB_NhanVien extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, errorMessage);
             return false;
         }
-        if (!(txtMatKhau.getText().length() >= 6)) {
-            errorMessage1 += "Mật khẩu:phải tổng số ký tự >= 6.\n";
-            JOptionPane.showMessageDialog(this, errorMessage1);
-            return false;
-        }
         if (txtSDT.getText().isEmpty()) {
             errorMessage += "Số điện thoại không được trống.\n";
             JOptionPane.showMessageDialog(this, errorMessage);
-            return false;
-        }
-        if (!txtSDT.getText().matches(RegexPattern.SDTVN)) {
-            errorMessage1 += "Số điện thoại: phải Có định dạng là 0XXXXXXXXX . \n";
-            JOptionPane.showMessageDialog(this, errorMessage1);
             return false;
         }
 
         if (txtEmail.getText().isEmpty()) {
             errorMessage += "Email không được trống.\n";
             JOptionPane.showMessageDialog(this, errorMessage);
-            return false;
-        }
-        if (!txtEmail.getText().matches(RegexPattern.EMAIL)) {
-            errorMessage1 += "địa chỉ email, có dạng XXXXX@YYYYY.ZZZ\n";
-            JOptionPane.showMessageDialog(this, errorMessage1);
             return false;
         }
 
