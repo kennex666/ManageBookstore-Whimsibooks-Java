@@ -64,7 +64,7 @@ public class SplashLoading extends javax.swing.JFrame {
         jLabel2.setText("Version: 1.0.0");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jLabel3.setText("(C) 2023 by Panther's Team");
+        jLabel3.setText("(C) 2023 by 3Panthers's Team");
 
         jProgressBar1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 

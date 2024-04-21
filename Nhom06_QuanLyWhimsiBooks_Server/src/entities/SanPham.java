@@ -71,9 +71,31 @@ public class SanPham implements Serializable{
 	public void setChiTietHoaDons(List<ChiTietHoaDon> chiTietHoaDons) {
 		this.chiTietHoaDons = chiTietHoaDons;
 	}
-	private String tenSanPham, loaiDoiTra, barcode, imgPath, 
-					tinhTrang, loaiSanPham, donViDoLuong, 
-					kichThuoc, xuatXu, ngonNgu, loaiBia;
+	
+	@Column(columnDefinition = "nvarchar(255)")
+	private String tenSanPham;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String loaiDoiTra;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String barcode;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String imgPath;
+	
+	@Column(columnDefinition = "nvarchar(255)")
+	private String tinhTrang; 
+	@Column(columnDefinition = "nvarchar(255)")
+	private String loaiSanPham; 
+	@Column(columnDefinition = "nvarchar(255)")
+	private String donViDoLuong; 
+	@Column(columnDefinition = "nvarchar(255)")
+	private String kichThuoc;
+	
+	@Column(columnDefinition = "nvarchar(255)")
+	private String xuatXu;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String ngonNgu;
+	@Column(columnDefinition = "nvarchar(255)")
+	private String loaiBia;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "tacGiaID")

@@ -136,7 +136,7 @@ public class GUI_Login extends JFrame implements ActionListener {
 		btnResetPassword.setBackground(ColorProcessing.rgbColor(15, 145, 239));
 		getContentPane().add(btnResetPassword);
 
-		JLabel lblDesignedBy = new JLabel("Panther's team project (Nhóm 7 - Application Development) ");
+		JLabel lblDesignedBy = new JLabel("3Panthers's team project (Nhóm 7 - Application Development) ");
 		lblDesignedBy.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDesignedBy.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblDesignedBy.setBounds(542, 480, 369, 45);
