@@ -1633,6 +1633,9 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField_BarcodeFocusLost
 
     public SanPham getNewSanPham() {
+    	
+    	int temp = -1;
+    	String tempStr = "";
         String tenSanPham = jTextField_TenSanPham.getText().trim();
         int soLuongTon = Integer.parseInt(jTextField_SoLuongTon.getText().trim());
         String barcode = jTextField_Barcode.getText().trim();
@@ -1716,24 +1719,26 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
 
         SanPham_BUS sanPham_BUS = new SanPham_BUS();
 
-        ncc.setNhaCungCapID(sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap()));
-        if (ncc.getNhaCungCapID().equals("")) {
+        tempStr = sanPham_BUS.getIdNhaCungCapByName(ncc.getTenNhaCungCap());
+        if (tempStr.equals("")) {
             JOptionPane.showMessageDialog(null, "Nhà cung cấp này vốn chưa có sẳn!");
             return null;
-        }
+        }else 
+        	ncc.setNhaCungCapID(tempStr);
 
-        tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
-        if (tl.getTheLoaiID() == -1) {
+        temp = sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai());
+        if (temp == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên thể loại này vốn chưa có sẳn. Tạo mới?");
             if (check == 0) {
                 TheLoai_BUS theLoai_BUS = new TheLoai_BUS();
                 theLoai_BUS.addTheLoai(tl);
                 tl.setTheLoaiID(sanPham_BUS.getIdTheloaiByName(tl.getTenTheLoai()));
-            }
-        }
-
-        nxb.setNhaXuatBanID(sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan()));
-        if (nxb.getNhaXuatBanID() == -1) {
+             }
+        }else 
+            tl.setTheLoaiID(temp);
+        
+        temp = sanPham_BUS.getIdNhaXuatBanByName(nxb.getTenNhaXuatBan());
+        if (temp == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên nhà xuất bản này vốn chưa có sẳn. Hãy tạo trước?");
             if (check == 0) {
 
@@ -1745,27 +1750,30 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
                 return null;
             }
         }
-
-        dm.setDanhMucID(sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc()));
-        if (dm.getDanhMucID() == -1) {
+		else
+			nxb.setNhaXuatBanID(temp);
+        temp = sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc());
+        if (temp == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên danh mục này vốn chưa có sẳn. Tạo mới?");
             if (check == 0) {
                 DanhMuc_BUS DanhMuc_BUS = new DanhMuc_BUS();
                 DanhMuc_BUS.addDanhMuc(dm);
                 dm.setDanhMucID(sanPham_BUS.getIdDanhMucByName(dm.getTenDanhMuc()));
             }
-        }
+        }else
+        	  dm.setDanhMucID(temp);
 
-        tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
-        if (tg.getTacGiaID() == -1) {
+ 
+        temp = sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia());
+        if (temp == -1) {
             int check = JOptionPane.showConfirmDialog(null, "Tên tác giả này vốn chưa có sẳn. Tạo mới?");
             if (check == 0) {
                 TacGia_BUS tacGia_BUS = new TacGia_BUS();
                 tacGia_BUS.addTacGia(tg);
                 tg.setTacGiaID(sanPham_BUS.getIdTacGiaByName(tg.getTenTacGia()));
             }
-        }
-        th.setThuongHieuID(1);
+        }else  
+        	tg.setTacGiaID(temp);
 
         SanPham sanPham = new SanPham();
         try {
