@@ -74,7 +74,7 @@ public class MainActivity {
 
 			} else {
 				for (int i = 23; i < 40; i++) {
-					Thread.sleep(random(10, 50));
+					Thread.sleep(random(10, 30));
 					sl.processBarUpdate(i);
 				}
 				Thread.sleep(250);
@@ -83,7 +83,7 @@ public class MainActivity {
 				sl.processBarUpdate(40, "Đang cập nhật cơ sở dữ liệu");
 
 				for (int i = 40; i < 46; i++) {
-					Thread.sleep(random(10, 50));
+					Thread.sleep(random(10, 20));
 					sl.processBarUpdate(i);
 				}
 
@@ -91,7 +91,7 @@ public class MainActivity {
 				sl.processBarUpdate(46, "Thiết lập phiên hoạt động");
 				Thread.sleep(300);
 				for (int i = 46; i < 77; i++) {
-					Thread.sleep(random(10, 50));
+					Thread.sleep(random(10, 20));
 					sl.processBarUpdate(i);
 				}
 
@@ -103,7 +103,7 @@ public class MainActivity {
 
 				GUI_Login frame = new GUI_Login();
 				for (int i = 76; i < 100; i++) {
-					Thread.sleep(random(10, 50));
+					Thread.sleep(random(10, 20));
 					sl.processBarUpdate(i);
 				}
 

@@ -668,7 +668,7 @@ public class Form_ThongKeSanPhamBanChay extends javax.swing.JPanel {
             tongDoanhThu += (double) temp[6];
             tongLoiNhuan += (double) temp[8];
             tongTienVon += (double) temp[7];
-            tongTraHang += (double) temp[9];
+            tongTraHang += (float) temp[9];
         }
         
         lblDoanhThu.setText(Numberic.formatD(tongDoanhThu));
