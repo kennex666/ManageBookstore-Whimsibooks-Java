@@ -84,8 +84,13 @@ public class SanPham_DAO extends UnicastRemoteObject implements ISanPham {
 
 	@Override
 	public boolean addSanPham(SanPham sp) throws RemoteException {
+		boolean isThisSession = em.getTransaction().isActive(); 
 		try {
+			if (isThisSession == false)
+				em.getTransaction().begin();
 			em.persist(sp);
+			if (isThisSession == false)
+				em.getTransaction().commit();
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception

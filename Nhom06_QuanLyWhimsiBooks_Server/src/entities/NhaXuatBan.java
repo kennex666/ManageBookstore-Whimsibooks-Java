@@ -169,10 +169,10 @@ public class NhaXuatBan implements Serializable{
 	public void setQuocGia(String quocGia) {
 		this.quocGia = quocGia;
 	}
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(diaChi, email, linhVucXuatBan, namThanhLap, nhaXuatBanID, quocGia, soDienThoai, tenNhaXuatBan,
-				website);
+		return Objects.hash(nhaXuatBanID);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -183,11 +183,7 @@ public class NhaXuatBan implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		NhaXuatBan other = (NhaXuatBan) obj;
-		return Objects.equals(diaChi, other.diaChi) && Objects.equals(email, other.email)
-				&& Objects.equals(linhVucXuatBan, other.linhVucXuatBan)
-				&& Objects.equals(namThanhLap, other.namThanhLap) && Objects.equals(nhaXuatBanID, other.nhaXuatBanID)
-				&& Objects.equals(quocGia, other.quocGia) && Objects.equals(soDienThoai, other.soDienThoai)
-				&& Objects.equals(tenNhaXuatBan, other.tenNhaXuatBan) && Objects.equals(website, other.website);
+		return nhaXuatBanID == other.nhaXuatBanID;
 	}
 	@Override
 	public String toString() {

@@ -26,48 +26,52 @@ import java.util.List;
  */
 public class ThuongHieu_DAO extends UnicastRemoteObject implements IThuongHieu {
 
-    private EntityManager em;
+	private EntityManager em;
 
-    @Override
-    public List<ThuongHieu> getAllThuongHieu() throws RemoteException{
-        List<ThuongHieu> list = new ArrayList<ThuongHieu>();
-        try {
-            list = em.createNamedQuery("ThuongHieu.listThuongHieu").getResultList();
+	@Override
+	public List<ThuongHieu> getAllThuongHieu() throws RemoteException {
+		List<ThuongHieu> list = new ArrayList<ThuongHieu>();
+		try {
+			list = em.createNamedQuery("ThuongHieu.listThuongHieu").getResultList();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-            return list;
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+			return list;
+		}
 
-        return list;
-    }
+		return list;
+	}
 
-    @Override
-    public List<ThuongHieu> getThuongHieuTheoID(int x) throws RemoteException{
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	@Override
+	public List<ThuongHieu> getThuongHieuTheoID(int x) throws RemoteException {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from
+																		// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	}
 
-    @Override
-    public boolean addThuongHieu(ThuongHieu x) throws RemoteException{
-       
-        try {
-        	em.getTransaction().begin();
-            em.persist(x);
-            em.getTransaction().commit();
-            return true;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
+	@Override
+	public boolean addThuongHieu(ThuongHieu x) throws RemoteException {
+		boolean isThisSession = em.getTransaction().isActive();
+		try {
+			if (isThisSession == false)
+				em.getTransaction().begin();
+			em.persist(x);
+			if (isThisSession == false)
+				em.getTransaction().commit();
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
-    @Override
-    public boolean editThuongHieu(ThuongHieu x) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+	@Override
+	public boolean editThuongHieu(ThuongHieu x) throws RemoteException {
+		throw new UnsupportedOperationException("Not supported yet."); // Generated from
+																		// nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+	}
 
-    public ThuongHieu_DAO() throws RemoteException {
-        em = ConnectDB.getEntityManager();
-    }
+	public ThuongHieu_DAO() throws RemoteException {
+		em = ConnectDB.getEntityManager();
+	}
 
 }

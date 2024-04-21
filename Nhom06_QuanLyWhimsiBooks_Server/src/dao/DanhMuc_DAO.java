@@ -15,48 +15,54 @@ import entities.DanhMuc;
 import interfaces.IDanhMuc;
 import jakarta.persistence.EntityManager;
 
-public class DanhMuc_DAO extends UnicastRemoteObject implements IDanhMuc{
+public class DanhMuc_DAO extends UnicastRemoteObject implements IDanhMuc {
 
 	private EntityManager em;
-	
+
 	@Override
-	public boolean addDanhMuc(DanhMuc x) throws RemoteException{
+	public boolean addDanhMuc(DanhMuc x) throws RemoteException {
 		// TODO Auto-generated method stub
+		boolean isThisSession = em.getTransaction().isActive();
 		try {
-			em.getTransaction().begin();
+			if (isThisSession == false)
+				em.getTransaction().begin();
 			em.persist(x);
-			em.getTransaction().commit();
+			if (isThisSession == false)
+				em.getTransaction().commit();
 			return true;
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
+
 	@Override
-	public boolean editDanhMuc(DanhMuc x) throws RemoteException{
+	public boolean editDanhMuc(DanhMuc x) throws RemoteException {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 	@Override
-	public List<DanhMuc> getAllDanhMuc() throws RemoteException{
+	public List<DanhMuc> getAllDanhMuc() throws RemoteException {
 		List<DanhMuc> list = new ArrayList<DanhMuc>();
-		
+
 		try {
-			list = em.createNamedQuery("DanhMuc.findAll",DanhMuc.class).getResultList();
-	
+			list = em.createNamedQuery("DanhMuc.findAll", DanhMuc.class).getResultList();
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			return list;
 		}
-		
+
 		return list;
 	}
+
 	@Override
-	public List<DanhMuc> getDanhMucTheoID(int x) throws RemoteException{
+	public List<DanhMuc> getDanhMucTheoID(int x) throws RemoteException {
 		List<DanhMuc> list = new ArrayList<DanhMuc>();
 		try {
-			list = em.createNamedQuery("DanhMuc.findByID",DanhMuc.class).setParameter("danhMucID", x).getResultList();
+			list = em.createNamedQuery("DanhMuc.findByID", DanhMuc.class).setParameter("danhMucID", x).getResultList();
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -64,9 +70,10 @@ public class DanhMuc_DAO extends UnicastRemoteObject implements IDanhMuc{
 		}
 		return list;
 	}
-	public DanhMuc_DAO() throws RemoteException{
+
+	public DanhMuc_DAO() throws RemoteException {
 		// TODO Auto-generated constructor stub
 		em = ConnectDB.getEntityManager();
 	}
-	
+
 }

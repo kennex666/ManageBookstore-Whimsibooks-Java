@@ -55,27 +55,22 @@ public class MainActivity {
 			Thread.sleep(250);
 
 			Context ctx = new InitialContext();
-			Object test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
+			Object test = null;
+			try {
+				test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
+			} catch (Exception e) {
+				// TODO: handle exception
+				test = null;
+			}
 
 			if (test == null) {
 				Thread.sleep(300);
 				sl.processBarUpdate(40, "Kết nối CSDL thất bại");
-				if (!ErrorMessage.showConfirmDialogYesNo("Lỗi", "Kết nối CSDL lỗi, bạn có muôn tiếp tục?")) {
-					System.exit(500);
-				}
-				for (int i = 40; i < 80; i++) {
-					sl.processBarUpdate(i);
-				}
 
-				sl.processBarUpdate(80, "Tiến hành vào giao diện, bỏ qua kết nối csdl");
-				GUI_MainMenu guiMain = new GUI_MainMenu();
-				for (int i = 80; i < 101; i++) {
-					Thread.sleep(random(10, 50));
-					sl.processBarUpdate(i);
-				}
-
-				sl.dispose();
-				guiMain.setVisible(true);
+				JOptionPane.showMessageDialog(null, "Kết nối CSDL lỗi, vui lòng kiểm tra lại kết nối mạng!", "Lỗi kết nối cơ sở dữ liệu",
+						JOptionPane.ERROR_MESSAGE);
+				
+				System.exit(500);
 
 			} else {
 				for (int i = 23; i < 40; i++) {
