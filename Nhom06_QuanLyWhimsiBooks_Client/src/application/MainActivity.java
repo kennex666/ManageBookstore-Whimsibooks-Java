@@ -56,12 +56,27 @@ public class MainActivity {
 
 			Context ctx = new InitialContext();
 			Object test = null;
-			try {
-				test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
-			} catch (Exception e) {
-				// TODO: handle exception
-				test = null;
-			}
+			
+			boolean isChangeURL = false;
+			do {
+				try {
+					test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
+				} catch (Exception e) {
+					// TODO: handle exception
+					// Show input dialog
+					if (JOptionPane.showConfirmDialog(null, "Không thể tìm thấy máy chủ " + EnviromentConfigs.URL_RMI + ", bạn có muốn đổi máy chủ?",
+							"Lỗi kết nối cơ sở dữ liệu", JOptionPane.ERROR_MESSAGE) == JOptionPane.YES_OPTION) {
+						String temp = JOptionPane.showInputDialog(null, "Nhập địa chỉ máy chủ mới (bao gồm port): ",
+								"Thay đổi máy chủ", JOptionPane.INFORMATION_MESSAGE);
+						if (temp != null && !temp.isEmpty() && !temp.isBlank())
+								EnviromentConfigs.URL_RMI = temp;
+						isChangeURL = true;
+					}else {
+						test = null;
+						isChangeURL = false;
+					}
+				}
+			} while (test == null && isChangeURL);
 
 			if (test == null) {
 				Thread.sleep(300);
@@ -115,6 +130,10 @@ public class MainActivity {
 				frame.setVisible(true);
 			}
 		} catch (Exception e) {
+			// get print stack trace from e
+			e.printStackTrace();
+			
+			JOptionPane.showMessageDialog(null, e, "Lỗi hệ thống", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
