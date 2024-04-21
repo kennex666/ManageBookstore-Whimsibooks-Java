@@ -33,26 +33,33 @@ public class NhanVien_DAO extends UnicastRemoteObject implements INhanVien{
     	chucVu = ProcessingEnumDBForQuy.convertNhanVienRolesToEnum(chucVu);
         List<NhanVien> listNhanVien = new ArrayList<>();
 
-        String query = "SELECT nv FROM NhanVien nv WHERE nhanVienID LIKE :id AND hoTen LIKE :hoTen AND soDienThoai LIKE :sdt AND gioiTinh LIKE :gioiTinh AND chucVu LIKE :chucVu";
-
-        // Tạo một danh sách tham số để lưu giữ các tham số có thể trống
+        String query = "SELECT nv FROM NhanVien nv WHERE nhanVienID LIKE :id AND hoTen LIKE :hoTen AND soDienThoai LIKE :sdt ";
         List<String> parameters = new ArrayList<>();
-
-        // Thêm các giá trị vào danh sách tham số
         parameters.add(maNhanVien.isBlank() ? "%" : "%" + maNhanVien + "%");
         parameters.add(tenNhanVien.isBlank() ? "%" : "%" + tenNhanVien + "%");
         parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
-        parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
-        parameters.add(chucVu.isBlank() ? "%" : "%" + chucVu + "%");
-
+        if(gioiTinh.isBlank())
+        	query += "AND gioiTinh like '%' ";
+        else {
+			if (gioiTinh.equalsIgnoreCase("NAM"))
+				query += "AND gioiTinh like 'NAM' ";
+			else
+				query += "AND gioiTinh not like 'NAM' ";
+        }
+        if(chucVu.isBlank())
+        	query += "AND chucVu like '%' ";
+        else {
+			if (chucVu.equals("NHAN_VIEN_BAN_HANG"))
+				query += "AND chucVu like 'NHAN_VIEN_BAN_HANG' ";
+			else
+				query += "AND chucVu not like 'NHAN_VIEN_BAN_HANG' ";
+        }
 
         try {
         	
 			listNhanVien = em.createQuery(query, NhanVien.class).setParameter("id", parameters.get(0))
-					.setParameter("hoTen", parameters.get(1)).setParameter("sdt", parameters.get(2))
-					.setParameter("gioiTinh", parameters.get(3)).setParameter("chucVu", parameters.get(4))
-					.getResultList();
-			
+					.setParameter("hoTen", parameters.get(1)).setParameter("sdt", parameters.get(2)).getResultList();
+	
         } catch (Exception e) {
             e.printStackTrace();
         }

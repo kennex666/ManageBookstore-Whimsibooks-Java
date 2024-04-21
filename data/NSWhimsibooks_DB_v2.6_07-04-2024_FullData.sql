@@ -24,6 +24,9 @@
 
 */
 
+	CREATE DATABASE Whimsibook
+	GO 
+
 /* 
 
 	IMPORT DATA

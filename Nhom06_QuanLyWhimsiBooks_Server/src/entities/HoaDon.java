@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.hibernate.annotations.ManyToAny;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -52,8 +53,10 @@ public class HoaDon implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(columnDefinition = "NVARCHAR(255)")
 	private String hoaDonID;
 	private Date ngayLapHoaDon;
+	@Column(columnDefinition = "NVARCHAR(255)")
 	private String trangThai; // 3 state: CHO_XU_LY, DA_XU_LY, HUY_BO
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "hoaDon")

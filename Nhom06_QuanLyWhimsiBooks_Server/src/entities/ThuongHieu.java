@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +29,7 @@ public class ThuongHieu implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int thuongHieuID;
+	@Column(name = "tenThuongHieu", columnDefinition = "NVARCHAR(255)")
 	private String tenThuongHieu;
 	
 	@OneToMany(mappedBy = "thuongHieu", fetch = jakarta.persistence.FetchType.LAZY)

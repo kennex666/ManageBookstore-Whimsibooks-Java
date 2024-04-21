@@ -33,26 +33,46 @@ public class KhachHang_DAO extends UnicastRemoteObject implements IKhachHang {
 
 	public List<KhachHang> findKhachHangAdvanced(String maKhachHang, String tenKhachHang, String soDienThoai,
 			String gioiTinh, String loaiKhachHang) throws RemoteException{
+		
 		gioiTinh = ProcessingEnumDBForQuy.gioiTinhToEnum(gioiTinh);
 		loaiKhachHang = ProcessingEnumDBForQuy.convertKhachHangToEnum(loaiKhachHang);
 
 		List<KhachHang> listKhachHang = new ArrayList<>();
-		String query = "SELECT kh FROM KhachHang kh WHERE khachHangID LIKE :khachHangID AND hoTen LIKE :hoTen AND soDienThoai LIKE :soDienThoai AND gioiTinh LIKE :gioiTinh AND loaiKhachHang LIKE :loaiKhachHang";
+		
+		String query = "SELECT kh FROM KhachHang kh WHERE "
+				+ "khachHangID LIKE :khachHangID "
+				+ "AND hoTen LIKE :hoTen "
+				+ "AND soDienThoai LIKE :soDienThoai ";
 
 		List<String> parameters = new ArrayList<>();
+		
 		parameters.add(maKhachHang.isBlank() ? "%" : "%" + maKhachHang + "%");
 		parameters.add(tenKhachHang.isBlank() ? "%" : "%" + tenKhachHang + "%");
 		parameters.add(soDienThoai.isBlank() ? "%" : "%" + soDienThoai + "%");
-		parameters.add(gioiTinh.isBlank() ? "%" : "%" + gioiTinh + "%");
-		parameters.add(loaiKhachHang.isBlank() ? "%" : "%" + loaiKhachHang + "%");
 		
+		if (gioiTinh.isBlank())
+			query += "AND gioiTinh like '%' ";
+		else {
+			if (gioiTinh.equalsIgnoreCase("NAM"))
+				query += "AND gioiTinh like 'NAM' ";
+			else
+				query += "AND gioiTinh not like 'NAM' ";
+		}
+		if (loaiKhachHang.isBlank())
+			query += "AND loaiKhachHang like '%' ";
+		else {
+			if (loaiKhachHang.equals("CA_NHAN"))
+				query += "AND loaiKhachHang like 'CA_NHAN' ";
+			else
+				query += "AND loaiKhachHang not like 'CA_NHAN' ";
+		}
 
 		try {
 			
 			listKhachHang = em.createQuery(query, KhachHang.class)
 					.setParameter("khachHangID", parameters.get(0)).setParameter("hoTen", parameters.get(1))
-					.setParameter("soDienThoai", parameters.get(2)).setParameter("gioiTinh", parameters.get(3))
-					.setParameter("loaiKhachHang", parameters.get(4)).getResultList();
+					.setParameter("soDienThoai", parameters.get(2)).getResultList();
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();

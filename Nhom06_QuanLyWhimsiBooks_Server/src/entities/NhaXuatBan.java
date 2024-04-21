@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,9 +29,20 @@ public class NhaXuatBan implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int nhaXuatBanID;
-	private String tenNhaXuatBan, diaChi, soDienThoai, email, website;
+	@Column(name = "tenNhaXuatBan", columnDefinition = "NVARCHAR(255)")
+	private String tenNhaXuatBan;
+	@Column(name = "diaChi", columnDefinition = "NVARCHAR(255)")
+	private String diaChi;
+	@Column(name = "soDienThoai", columnDefinition = "NVARCHAR(255)")
+	private String soDienThoai;
+	@Column(name = "email", columnDefinition = "NVARCHAR(255)")
+	private String email;
+	@Column(name = "website", columnDefinition = "NVARCHAR(255)")
+	private String website;
 	private int namThanhLap;
+	@Column(name = "linhVucXuatBan", columnDefinition = "NVARCHAR(255)")
 	private String linhVucXuatBan;
+	@Column(name = "quocGia", columnDefinition = "NVARCHAR(255)")
 	private String quocGia;
 	
 	@OneToMany(mappedBy = "nhaXuatBan")

@@ -29,6 +29,7 @@ public class MainActivity {
         /**
          * Connecting DataBase
          */
+    	
         try {
             UIManager.setLookAndFeel(new FlatMacLightLaf());
             SplashLoading sl = new SplashLoading();
