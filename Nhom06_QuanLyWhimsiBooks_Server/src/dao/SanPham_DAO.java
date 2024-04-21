@@ -25,6 +25,7 @@ import entities.TheLoai;
 import entities.ThuongHieu;
 import interfaces.ISanPham;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 import ultilities.Numberic;
 
 import java.util.logging.Level;
@@ -84,8 +85,11 @@ public class SanPham_DAO extends UnicastRemoteObject implements ISanPham {
 
 	@Override
 	public boolean addSanPham(SanPham sp) throws RemoteException {
+		EntityTransaction tx = em.getTransaction();
 		try {
+			tx.begin();
 			em.persist(sp);
+			tx.commit();
 			return true;
 		} catch (Exception e) {
 			// TODO: handle exception
