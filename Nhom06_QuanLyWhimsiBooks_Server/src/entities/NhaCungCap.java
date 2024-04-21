@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.NamedQueries;
@@ -32,10 +33,15 @@ public class NhaCungCap implements Serializable{
 	}
 
 	@Id
+	@Column(name = "nhaCungCapID", columnDefinition = "NVARCHAR(255)")
 	private String nhaCungCapID;
+	@Column(name = "tenNhaCungCap", columnDefinition = "NVARCHAR(255)")
 	private String tenNhaCungCap;
+	@Column(name = "soDienThoai", columnDefinition = "NVARCHAR(255)")
 	private String soDienThoai;
+	@Column(name = "diaChi", columnDefinition = "NVARCHAR(255)")
 	private String diaChi;
+	@Column(name = "email", columnDefinition = "NVARCHAR(255)")
 	private String email;
 	
 	@OneToMany(mappedBy = "nhaCungCap")

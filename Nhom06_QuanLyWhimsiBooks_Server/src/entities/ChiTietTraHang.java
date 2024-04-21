@@ -3,6 +3,7 @@ package entities;
 import java.io.Serializable;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -24,6 +25,7 @@ public class ChiTietTraHang implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	private int soLuong;
+	@Column(columnDefinition = "nvarchar(255)")
 	private String liDoTraHang;
 	private double donGia;
 	@Id

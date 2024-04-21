@@ -39,9 +39,11 @@ public class KhuyenMai implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "codeKhuyenMai", columnDefinition = "VARCHAR(255)")
 	private String codeKhuyenMai;
+	@Column(name = "tenKhuyenMai", columnDefinition = "NVARCHAR(255)")
 	private String tenKhuyenMai;
-	@Column(name = "LoaiGiamGia")
+	@Column(name = "LoaiGiamGia", columnDefinition = "NVARCHAR(255)")
 	private String loaiKhuyenMai; // PHAM_TRAM && GIA_TRI
 	private double giaTri;
 	private Date ngayKhuyenMai;
