@@ -1534,6 +1534,8 @@ public class TAB_ThemSanPham extends javax.swing.JFrame {
         chooser = new JFileChooser();
         chooser.showOpenDialog(null);
         file = chooser.getSelectedFile();
+        if (file == null)
+        	return;
         try {
         	FileInputStream fis = new FileInputStream(file);
 

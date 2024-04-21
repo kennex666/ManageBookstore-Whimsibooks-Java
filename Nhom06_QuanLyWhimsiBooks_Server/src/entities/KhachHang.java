@@ -9,6 +9,7 @@ import java.util.Objects;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -30,14 +31,22 @@ public class KhachHang implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "khachHangID", columnDefinition = "VARCHAR(255)")
 	private String khachHangID;
+	@Column(name = "hoTen", columnDefinition = "NVARCHAR(255)")
 	private String hoTen;
+	@Column(name = "soDienThoai", columnDefinition = "NVARCHAR(255)")
 	private String soDienThoai;
 	private LocalDate ngaySinh;
+	@Column(name = "gioiTinh", columnDefinition = "NVARCHAR(255)")
 	private String gioiTinh;
+	@Column(name = "email", columnDefinition = "NVARCHAR(255)")
 	private String email;
+	@Column(name = "maSoThue", columnDefinition = "NVARCHAR(255)")
 	private String maSoThue;
+	@Column(name = "diaChi", columnDefinition = "NVARCHAR(255)")
 	private String diaChi;
+	@Column(name = "loaiKhachHang", columnDefinition = "NVARCHAR(255)")
 	private String loaiKhachHang;
 	
 	@OneToMany(mappedBy = "khachHang", fetch = jakarta.persistence.FetchType.LAZY)

@@ -24,11 +24,12 @@ import javax.swing.JOptionPane;
 
 public class MainActivity {
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
         /**
          * Connecting DataBase
          */
+    	
         try {
             UIManager.setLookAndFeel(new FlatMacLightLaf());
             SplashLoading sl = new SplashLoading();
@@ -42,94 +43,94 @@ public class MainActivity {
             Thread.sleep(250);
             sl.processBarUpdate(10, "Cập nhật tiến trình");
 
-            Thread.sleep(500);
-            for (int i = 10; i < 23; i++) {
-                Thread.sleep(random(10, 50));
-                sl.processBarUpdate(i);
-            }
-            
-            sl.processBarUpdate(23, "Đã chạy tiến trình");
-            Thread.sleep(250);
-            sl.processBarUpdate(23, "Đang kết nối đến cơ sở dữ liệu");
-            Thread.sleep(250);
-            
-            Context ctx = new InitialContext();
-            Object test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
-            
-            if (test == null) {
-                Thread.sleep(300);
-                sl.processBarUpdate(40, "Kết nối CSDL thất bại");
-                if (!ErrorMessage.showConfirmDialogYesNo("Lỗi", "Kết nối CSDL lỗi, bạn có muôn tiếp tục?")) {
-                    System.exit(500);
-                }
-                for (int i = 40; i < 80; i++) {
-                    sl.processBarUpdate(i);
-                }
+			Thread.sleep(500);
+			for (int i = 10; i < 23; i++) {
+				Thread.sleep(random(10, 50));
+				sl.processBarUpdate(i);
+			}
 
-                sl.processBarUpdate(80, "Tiến hành vào giao diện, bỏ qua kết nối csdl");
-                GUI_MainMenu guiMain = new GUI_MainMenu();
-                for (int i = 80; i < 101; i++) {
-                    Thread.sleep(random(10, 50));
-                    sl.processBarUpdate(i);
-                }
+			sl.processBarUpdate(23, "Đã chạy tiến trình");
+			Thread.sleep(250);
+			sl.processBarUpdate(23, "Đang kết nối đến cơ sở dữ liệu");
+			Thread.sleep(250);
 
-                sl.dispose();
-                guiMain.setVisible(true);
+			Context ctx = new InitialContext();
+			Object test = ctx.lookup("rmi://" + EnviromentConfigs.URL_RMI + "/chiTietHoaDon");
 
-            } else {
-                for (int i = 23; i < 40; i++) {
-                    Thread.sleep(random(10, 50));
-                    sl.processBarUpdate(i);
-                }
-                Thread.sleep(250);
-                sl.processBarUpdate(40, "Kết nối cơ sở dữ liệu thành công");
-                Thread.sleep(300);
-                sl.processBarUpdate(40, "Đang cập nhật cơ sở dữ liệu");
-                
-                for (int i = 40; i < 46; i++) {
-                    Thread.sleep(random(10, 50));
-                    sl.processBarUpdate(i);
-                }
-                
-                Thread.sleep(250);
-                sl.processBarUpdate(46, "Thiết lập phiên hoạt động");
-                Thread.sleep(300);
-                for (int i = 46; i < 77; i++) {
-                    Thread.sleep(random(10, 50));
-                    sl.processBarUpdate(i);
-                }
-                
-                CurrentSession.getInstance();
-                Thread.sleep(250);
-                sl.processBarUpdate(76, "Đã thiết lập phiên hoạt động");
-                Thread.sleep(300);
-                sl.processBarUpdate(76, "Đang khởi tạo giao diện đăng nhập");
-                
-                GUI_Login frame = new GUI_Login();
-                for (int i = 76; i < 100; i++) {
-                    Thread.sleep(random(10, 50));
-                    sl.processBarUpdate(i);
-                }
-                
-                Thread.sleep(500);
-                sl.processBarUpdate(100, "Khởi động hoàn tất");
-                Thread.sleep(500);
+			if (test == null) {
+				Thread.sleep(300);
+				sl.processBarUpdate(40, "Kết nối CSDL thất bại");
+				if (!ErrorMessage.showConfirmDialogYesNo("Lỗi", "Kết nối CSDL lỗi, bạn có muôn tiếp tục?")) {
+					System.exit(500);
+				}
+				for (int i = 40; i < 80; i++) {
+					sl.processBarUpdate(i);
+				}
 
-                sl.dispose();
-                frame.setVisible(true);
-            }
-        } catch (Exception e) {
-        }
-    }
+				sl.processBarUpdate(80, "Tiến hành vào giao diện, bỏ qua kết nối csdl");
+				GUI_MainMenu guiMain = new GUI_MainMenu();
+				for (int i = 80; i < 101; i++) {
+					Thread.sleep(random(10, 50));
+					sl.processBarUpdate(i);
+				}
 
-    public static int random(int min, int max) {
+				sl.dispose();
+				guiMain.setVisible(true);
 
-        // Create an instance of Random
-        Random random = new Random();
+			} else {
+				for (int i = 23; i < 40; i++) {
+					Thread.sleep(random(10, 50));
+					sl.processBarUpdate(i);
+				}
+				Thread.sleep(250);
+				sl.processBarUpdate(40, "Kết nối cơ sở dữ liệu thành công");
+				Thread.sleep(300);
+				sl.processBarUpdate(40, "Đang cập nhật cơ sở dữ liệu");
 
-        // Generate a random number within the specified range
-        return random.nextInt((max - min) + 1) + min;
+				for (int i = 40; i < 46; i++) {
+					Thread.sleep(random(10, 50));
+					sl.processBarUpdate(i);
+				}
 
-        // Print the random number
-    }
+				Thread.sleep(250);
+				sl.processBarUpdate(46, "Thiết lập phiên hoạt động");
+				Thread.sleep(300);
+				for (int i = 46; i < 77; i++) {
+					Thread.sleep(random(10, 50));
+					sl.processBarUpdate(i);
+				}
+
+				CurrentSession.getInstance();
+				Thread.sleep(250);
+				sl.processBarUpdate(76, "Đã thiết lập phiên hoạt động");
+				Thread.sleep(300);
+				sl.processBarUpdate(76, "Đang khởi tạo giao diện đăng nhập");
+
+				GUI_Login frame = new GUI_Login();
+				for (int i = 76; i < 100; i++) {
+					Thread.sleep(random(10, 50));
+					sl.processBarUpdate(i);
+				}
+
+				Thread.sleep(500);
+				sl.processBarUpdate(100, "Khởi động hoàn tất");
+				Thread.sleep(500);
+
+				sl.dispose();
+				frame.setVisible(true);
+			}
+		} catch (Exception e) {
+		}
+	}
+
+	public static int random(int min, int max) {
+
+		// Create an instance of Random
+		Random random = new Random();
+
+		// Generate a random number within the specified range
+		return random.nextInt((max - min) + 1) + min;
+
+		// Print the random number
+	}
 }

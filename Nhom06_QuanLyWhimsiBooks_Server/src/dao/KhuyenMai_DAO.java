@@ -208,7 +208,7 @@ public class KhuyenMai_DAO extends UnicastRemoteObject implements IKhuyenMai {
 	public long layMaNCCCuoiCung() throws RemoteException{
 
 		try {
-			return em.createQuery("SELECT COUNT(km) FROM KhuyenMai km", Long.class).getSingleResult().intValue();
+			return em.createNamedQuery("KhuyenMai.layMaNCCCuoiCung", Long.class).getSingleResult().intValue();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return 0;
@@ -220,7 +220,7 @@ public class KhuyenMai_DAO extends UnicastRemoteObject implements IKhuyenMai {
 		KhuyenMai km = null;
 		List<ChiTietKhuyenMai> listCT = new ArrayList<ChiTietKhuyenMai>();
 		try {
-			km = em.createQuery("SELECT km FROM KhuyenMai km WHERE km.codeKhuyenMai = :maKM", KhuyenMai.class)
+			km = em.createNamedQuery("KhuyenMai.getKhuyenMaiByCodeKMForSeller", KhuyenMai.class)
 					.setParameter("maKM", maKhuyenMai).getSingleResult();
 			listCT = em.createNamedQuery("KhuyenMai.getChiTietKhuyenMaiTheoMa", ChiTietKhuyenMai.class)
                     .setParameter("maKM", maKhuyenMai).getResultList();
@@ -235,7 +235,7 @@ public class KhuyenMai_DAO extends UnicastRemoteObject implements IKhuyenMai {
 	@Override
 	public List<KhuyenMai> getKhuyenMaiByName(String name) throws RemoteException{
 		try {
-			return em.createQuery("SELECT km FROM KhuyenMai km WHERE km.tenKhuyenMai = :tenKM", KhuyenMai.class)
+			return em.createNamedQuery("KhuyenMai.getKhuyenMaiByName", KhuyenMai.class)
 					.setParameter("tenKM", name).getResultList();
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -9,6 +9,7 @@ import java.util.Objects;
 import org.hibernate.annotations.NamedQueries;
 import org.hibernate.annotations.NamedQuery;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -25,16 +26,25 @@ public class NhanVien implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
+	@Column(name = "nhanVienID", columnDefinition = "NVARCHAR(255)")
 	private String nhanVienID;
+	@Column(name = "userName", columnDefinition = "NVARCHAR(255)")
 	private String userName;
+	@Column(name = "password", columnDefinition = "NVARCHAR(255)")
 	private String password;
 	private LocalDate ngayTaoTK;
+	@Column(name = "hoTen", columnDefinition = "NVARCHAR(255)")
 	private String hoTen;
+	@Column(name = "gioiTinh", columnDefinition = "NVARCHAR(255)")
 	private String gioiTinh;
+	@Column(name = "soDienThoai", columnDefinition = "NVARCHAR(255)")
 	private String soDienThoai;
+	@Column(name = "chucVu", columnDefinition = "NVARCHAR(255)")
 	private String chucVu;
+	@Column(name = "email", columnDefinition = "NVARCHAR(255)")
 	private String email;
 	private LocalDate ngaySinh;
+	@Column(name = "diaChi", columnDefinition = "NVARCHAR(255)")
 	private String diaChi;
 	
 	@OneToMany(mappedBy = "nhanVien")
