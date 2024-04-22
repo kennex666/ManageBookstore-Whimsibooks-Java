@@ -42,7 +42,10 @@ public class TAB_ChiTietSanPham_SanPhamKhac extends javax.swing.JPanel {
    
 
         this.jLabel_TenSanPham.setText(x.getTenSanPham());
+        this.jLabel_TenSanPham.setToolTipText(x.getBarcode());
         this.jLabel_ThuongHieu.setText(sanPham_BUS.getNameThuongHieuByID(x.getThuongHieu().getThuongHieuID()));
+
+        this.jLabel_ThuongHieu.setToolTipText(x.getNhaXuatBan().getNhaXuatBanID() + "");
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
         if(x.getSoLuongTon() <= 10)
         {

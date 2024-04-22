@@ -938,7 +938,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
         int danhMucID = sanPham_BUS.getIdDanhMucByName(timKiem_DanhMuc.toString());
         int nhaXuatBanID = sanPham_BUS.getIdNhaXuatBanByName(timKiem_NhaXuatBan.toString());
 
-        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
+        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%' OR Barcode = '" + timKiem_Ten +"'";
         if (tacGiaID != -1) {
             query1 += " OR TacGiaID = " + tacGiaID;
         }
@@ -1071,7 +1071,7 @@ public class TAB_SanPham extends javax.swing.JPanel {
 
         int thuongHieuID = sanPham_BUS.getIdThuongHieuByName(timKiem_ThuongHieu.toString());
 
-        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%'";
+        String query1 = "SELECT * FROM SanPham WHERE TenSanPham LIKE " + "N'%" + timKiem_Ten + "%' OR Barcode = '" + timKiem_Ten + "'" ;
 
         if (thuongHieuID != -1) {
             query1 += " AND ThuongHieuID = " + thuongHieuID;

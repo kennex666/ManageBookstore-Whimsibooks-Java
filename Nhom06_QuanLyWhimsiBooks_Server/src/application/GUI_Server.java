@@ -7,6 +7,7 @@ import java.rmi.registry.LocateRegistry;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -157,6 +158,7 @@ public class GUI_Server {
 				} catch (Exception ex) {
 					btnStart.setEnabled(true);
 					isRunning = false;
+					close(ctx);
 					lblStatus.setText("Server is not running");
 
 					ex.printStackTrace();
@@ -178,24 +180,7 @@ public class GUI_Server {
 				if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn đóng server?", "Server",
 						JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION)
 					try {
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietHoaDon");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietKhuyenMai");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietTraHang");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/danhMuc");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/hoaDon");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/hoaDonTra");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/khachHang");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/khuyenMai");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhaCungCap");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhanVien");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhaXuatBan");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/sanPham");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/tacGia");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/theLoai");
-						ctx.unbind("rmi://" + HOST + ":" + PORT + "/thuongHieu");
-						ctx.close();
-						ctx = null;
-						isRunning = false;
+						close(ctx);
 						JOptionPane.showMessageDialog(null, "Server đã dừng", "Server",
 								JOptionPane.INFORMATION_MESSAGE);
 						
@@ -222,6 +207,34 @@ public class GUI_Server {
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();
 		}
-
+		
+	}
+	private static void close(Context ctx) {
+		try {
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietHoaDon");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietKhuyenMai");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/chiTietTraHang");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/danhMuc");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/hoaDon");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/hoaDonTra");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/khachHang");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/khuyenMai");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhaCungCap");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhanVien");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/nhaXuatBan");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/sanPham");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/tacGia");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/theLoai");
+			ctx.unbind("rmi://" + HOST + ":" + PORT + "/thuongHieu");
+			ctx.close();
+			ctx = null;
+			isRunning = false;
+			
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Đóng server thất bại!");
+			e.printStackTrace();
+		}
+	
 	}
 }

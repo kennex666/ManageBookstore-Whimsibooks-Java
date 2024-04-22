@@ -41,10 +41,15 @@ public class TAB_ChiTietSanPham_Sach extends javax.swing.JPanel {
    
 
         this.jLabel_TenSanPham.setText(x.getTenSanPham());
+        this.jLabel_TenSanPham.setToolTipText(x.getBarcode());
         this.jLabel_TacGia.setText(sanPham_BUS.getNameTacGiaByID(x.getTacGia().getTacGiaID()));
+        this.jLabel_TacGia.setToolTipText(x.getTacGia().getTacGiaID() + "");
         this.jLabel_DanhMuc.setText(sanPham_BUS.getNameDanhMucByID(x.getDanhMuc().getDanhMucID()));
+        this.jLabel_DanhMuc.setToolTipText(x.getDanhMuc().getDanhMucID() + "");
         this.jLabel_NhaXuatBan.setText(sanPham_BUS.getNameNhaXuatBanByID(x.getNhaXuatBan().getNhaXuatBanID()));
+        this.jLabel_NhaXuatBan.setToolTipText(x.getNhaXuatBan().getNhaXuatBanID() + "");
         this.jLabel_SoLuong.setText(x.getSoLuongTon() + "");
+        this.jLabel_Img.setToolTipText(x.getImgPath());
         if(x.getSoLuongTon() <= 10)
         {
             this.jLabel_SoLuong.setForeground(Color.red);
