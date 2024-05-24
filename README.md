@@ -39,12 +39,12 @@ Done! Your project is ready to run!
 9. Git
 
 ## Contributors
-- Lastest update at 7:49 P.M. 07/04/2024
+- Lastest update at 6:59 P.M. 24/05/2024
 
 | No  | Full Name | Title | Student Code | Total commits  | Additions | Deletions | Join time | Disontinued |
 | :--: |:--:| :--: | :--: | --:| --: | --: | :--: | :--: |
-| 01. | Dương Thái Bảo | Leader | 21037621  | 73 | 104,173 | 48,778 | 01/08/23  | - |
+| 01. | Dương Thái Bảo | Leader | 21037621  | 103 | 194,859 | 138,881 | 01/08/2023  | 24/05/24 |
 | 02. | Nguyễn Lê Nhật Huy | - | 21128101 | 22 | 21,867 | 7,614 | 01/08/23 | 20/12/23 |
-| 03. | Nguyễn Thành Luân | Contributor | 21123021 | 47 | 14,782 | 4,222 | 01/08/23 | - |
+| 03. | Nguyễn Thành Luân | Contributor | 21123021 | 68 | 16,337 | 5,494 | 01/08/23 | 24/05/24 |
 | 04. | Chu Công Quý | - | 21099211 | 19 | 13,104 | 6,292 | 01/08/23 | 20/12/23 |
-| 05. | Lê Nguyễn Duy Khang | Contributor | 21063601 | 0 | 0 | 0 | 20/12/23 | - |
+| 05. | Lê Nguyễn Duy Khang | Contributor | 21063601 | 2 | 148 | 242 | 20/12/23 | 24/05/24 |
